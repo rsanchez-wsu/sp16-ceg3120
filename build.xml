@@ -53,10 +53,10 @@
       depends="resolve"
       description="Initialize the build environment">
 
-    <taskdef name="checkstyle"
+  <taskdef name="checkstyle"
       classname="com.puppycrawl.tools.checkstyle.ant.CheckstyleAntTask"
       classpathref="tools.lib.path"/>
-    <taskdef name="findbugs"
+  <taskdef name="findbugs"
       classname="edu.umd.cs.findbugs.anttask.FindBugsTask"
       classpathref="tools.lib.path"/>
 
