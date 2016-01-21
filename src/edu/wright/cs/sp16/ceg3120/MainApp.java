@@ -21,8 +21,12 @@
 
 package edu.wright.cs.sp16.ceg3120;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  * The application's main class.
@@ -31,22 +35,48 @@ public class MainApp {
 	/**
 	 * The main method that displays the main application window.
 	 * 
+	 * 
+	 */
+	private void closeWindow() {
+		final JFrame frame = new JFrame("Hello World");
+		JLabel label = new JLabel("Hello World");
+		frame.getContentPane().add(label);
+		frame.addWindowListener(new WindowAdapter(){
+			public void windowClosing(WindowEvent ee) {
+				
+				int close = JOptionPane.showConfirmDialog(frame, 
+						"Exit the application?", 
+						"Exit", 
+						JOptionPane.YES_NO_OPTION);
+				
+				if (close == JOptionPane.YES_OPTION) {
+					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				} else if (close == JOptionPane.NO_OPTION) {
+					frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+				}
+			}
+		});
+		frame.setSize(300, 300);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+	}
+	
+	/**
+	 * The main method that displays the main application window.
+	 * 
 	 * @param args The command-line arguments
 	 */
+	
 	public static void main(String[] args) {
 		// Schedule a job for the event-dispatching thread:
 		// creating and showing this application's GUI.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				JFrame frame = new JFrame("Hello World");
-				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				
+				
+				new MainApp().closeWindow();
 
-				JLabel label = new JLabel("Hello World");
-				frame.getContentPane().add(label);
-
-				frame.pack();
-				frame.setVisible(true);
 			}
 		});
 	}
