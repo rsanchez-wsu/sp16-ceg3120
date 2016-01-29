@@ -23,14 +23,30 @@ package edu.wright.cs.sp16.ceg3120;
 
 //Import necessary connection libraries
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DBConnect {
-	
+/**
+ * 
+ * 
+ * 
+ * @author rhys
+ * DbConnect is a class to run basic connection to mysql test database.
+ * 
+ * 
+ * 
+ */
+
+public class DbConnect {
+	/**
+	 * main method contains the code to connect to the test database.
+	 * 
+	 * 
+	 * @param args default arguments
+	 */
 	public static void main(String[] args) {
 		// Create needed variables
 		String dbAddress = "";
@@ -65,15 +81,16 @@ public class DBConnect {
 		try {
 			Connection conn = null;
 			conn = DriverManager
-					.getConnection("jdbc:mysql:" + dbAddress + "user=" + dbUsername + "&password=" + dbPassword);
+					.getConnection("jdbc:mysql:" + dbAddress + "user=" 
+			+ dbUsername + "&password=" + dbPassword);
 			
 			System.out.println("If you see this you connected!");
 			
 			System.out.print(conn.getSchema());
 			
-		} catch (SQLException SQLex) {
+		} catch (SQLException SqlEx) {
 			System.out.println("If you see this, you failed to connect!");
-			System.out.println(SQLex.getMessage());
+			System.out.println(SqlEx.getMessage());
 		}
 
 	}
