@@ -11,5 +11,7 @@
 <account_type></account_type>
 <!-- Not sure if we need this -->
 <department></department>
+<!--this is a flexible option we will definitely need this if we will use a employee database, 
+for customer databases we can change the department field to either gender or age for data mining purposes-->
 </user>
 <!-- What else does an xml file need to contain in order to run? -->
