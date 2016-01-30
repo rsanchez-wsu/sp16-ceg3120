@@ -21,8 +21,6 @@
 
 package edu.wright.cs.sp16.ceg3120;
 
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
-
 //Import necessary connection libraries
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -72,7 +70,8 @@ public class DbConnect {
 
 		try {
 
-			MysqlDataSource dataSource = new MysqlDataSource();
+			com.mysql.jdbc.jdbc2.optional.MysqlDataSource dataSource = 
+					new com.mysql.jdbc.jdbc2.optional.MysqlDataSource();
 
 			dataSource.setUser(dbUsername);
 			dataSource.setPassword(dbPassword);
