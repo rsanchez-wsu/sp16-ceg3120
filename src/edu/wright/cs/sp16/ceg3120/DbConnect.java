@@ -21,37 +21,37 @@
 
 package edu.wright.cs.sp16.ceg3120;
 
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+
 //Import necessary connection libraries
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 /**
- * 
- * 
- * 
- * @author rhys
- * DbConnect is a class to run basic connection to mysql test database.
- * 
- * 
- * 
+ * @author rhys DbConnect is a class to run basic connection to mysql test
+ *         database.
  */
 
 public class DbConnect {
+
 	/**
 	 * main method contains the code to connect to the test database.
 	 * 
 	 * 
-	 * @param args default arguments
+	 * @param args
+	 *            default arguments
 	 */
 	public static void main(String[] args) {
 		// Create needed variables
 		String dbAddress = "";
 		String dbUsername = "";
 		String dbPassword = "";
+		String dbName = "";
 		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 		// Prompt user for input
 		try {
@@ -62,36 +62,45 @@ public class DbConnect {
 			dbUsername = input.readLine();
 			System.out.print("\nPlease enter the password for your username: ");
 			dbPassword = input.readLine();
+			System.out.print("\nPlease enter the database name: ");
+			dbName = input.readLine();
 			// Test output to make sure variables are correct
 			// System.out.println(db_address + db_username + db_password);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		// Create new connection instance
-		// This code was found on the Developer MySQL site
-
 		try {
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 
-		
-		try {
-			Connection conn = null;
-			conn = DriverManager
-					.getConnection("jdbc:mysql:" + dbAddress + "user=" 
-			+ dbUsername + "&password=" + dbPassword);
-			
+			MysqlDataSource dataSource = new MysqlDataSource();
+
+			dataSource.setUser(dbUsername);
+			dataSource.setPassword(dbPassword);
+			dataSource.setServerName(dbAddress);
+			dataSource.setDatabaseName(dbName);
+
+			Connection conn = dataSource.getConnection();
+
+			java.sql.Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM inventory");
+
 			System.out.println("If you see this you connected!");
-			
-			System.out.print(conn.getSchema());
-			
+
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int columnsNumber = rsmd.getColumnCount();
+			while (rs.next()) {
+				for (int i = 1; i <= columnsNumber; i++) {
+					if (i > 1) {
+						System.out.print(",  ");
+						String columnValue = rs.getString(i);
+						System.out.print(columnValue + " " + rsmd.getColumnName(i));
+					}
+				}
+				System.out.println("");
+			}
 		} catch (SQLException SqlEx) {
 			System.out.println("If you see this, you failed to connect!");
 			System.out.println(SqlEx.getMessage());
 		}
-
 	}
 }
