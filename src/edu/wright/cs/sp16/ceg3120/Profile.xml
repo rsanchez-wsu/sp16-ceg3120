@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Here is the initial structure for the user based off of the user profile page of the wiki -->
+<user> 
+<!-- I'm thinking this is to log into the program -->
+<username> </username>
+<password></password>
+<!-- Names should be separate so that the page can display their first name as introduction: "Welcome, David" -->
+<first_name></first_name>
+<last_name></last_name>
+<!-- Admin, SuperUser, User, Guest -->
+<account_type></account_type>
+<!-- Not sure if we need this -->
+<department></department>
+</user>
+<!-- What else does an xml file need to contain in order to run? -->
