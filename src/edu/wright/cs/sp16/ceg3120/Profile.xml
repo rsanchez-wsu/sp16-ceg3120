@@ -28,10 +28,7 @@
 	<appSettings>
 		<!-- Show message of the day: true, false -->
 		<showMotd></showMotd>
-		<!-- Saved searches -->
-		<searches>
-			<search></search>
-		</searches>
+		<!-- Search history is its own file -->
 	</appSettings>
 
 </config>
