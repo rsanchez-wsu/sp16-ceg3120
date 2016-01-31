@@ -9,13 +9,13 @@
 			<username></username>
 			<!-- Attribute plain-text to allow manual editing of password and save 
 				to allow and remember not to save -->
-			<password plain-text="false" save="true"></password>
+			<password plainText="false" save="true"></password>
 			<!-- Names should be separate so that the page can display their first 
 				name as introduction: "Welcome, David" -->
-			<first_name></first_name>
+			<firstName></firstName>
 			<last_name></last_name>
 			<!-- Admin, SuperUser, User, Guest -->
-			<account_type></account_type>
+			<accountType></accountType>
 			<!-- Not sure if we need this -->
 			<department></department>
 			<!--this is a flexible option we will definitely need this if we will 
@@ -23,16 +23,16 @@
 				field to either gender or age for data mining purposes -->
 		</user>
 	</profiles>
-	
+
 	<!-- Global app settings -->
-	<app-settings>
+	<appSettings>
 		<!-- Show message of the day: true, false -->
-		<show-motd></show-motd>
+		<showMotd></showMotd>
 		<!-- Saved searches -->
 		<searches>
 			<search></search>
 		</searches>
-	</app-settings>
+	</appSettings>
 
 </config>
 <!-- What else does an xml file need to contain in order to run? -->
