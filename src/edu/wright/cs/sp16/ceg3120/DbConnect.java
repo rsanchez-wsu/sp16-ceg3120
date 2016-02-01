@@ -43,7 +43,7 @@ public class DbConnect {
 	 * @throws SQLException  Checkstyle satisfaction
 	 */
 	public static void main(String[] args) throws SQLException {
-		Scanner input = new Scanner(System.in, "UTF_8");
+		Scanner input = new Scanner(System.in, "UTF-8");
 		System.out.println("Welcome to the database connector!");
 		System.out.print("Please enter the address of the database you wish to connect to: ");
 		final String dbAddress = input.nextLine();
