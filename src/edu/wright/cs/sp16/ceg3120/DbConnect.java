@@ -40,7 +40,8 @@ public class DbConnect {
 	 * 
 	 * @param args
 	 *            default arguments
-	 * @throws SQLException  Checkstyle satisfaction
+	 * @throws SQLException
+	 *             Checkstyle satisfaction
 	 */
 	public static void main(String[] args) throws SQLException {
 		Scanner input = new Scanner(System.in, "UTF-8");
@@ -56,49 +57,54 @@ public class DbConnect {
 		// Test output to make sure variables are correct
 		// System.out.println(db_address + db_username + db_password);
 
-		com.mysql.jdbc.jdbc2.optional.MysqlDataSource dataSource = 
+		com.mysql.jdbc.jdbc2.optional.MysqlDataSource dataSource =
 				new com.mysql.jdbc.jdbc2.optional.MysqlDataSource();
 		dataSource.setUser(dbUsername);
 		dataSource.setPassword(dbPassword);
 		dataSource.setServerName(dbAddress);
 		dataSource.setDatabaseName(dbName);
 		Connection conn = dataSource.getConnection();
-		java.sql.Statement stmt = conn.createStatement();
 		try {
+			java.sql.Statement stmt = conn.createStatement();
+			try {
 
-			ResultSet rs = stmt.executeQuery("SELECT * FROM inventory");
+				ResultSet rs = stmt.executeQuery("SELECT * FROM inventory");
 
-			System.out.println("If you see this you connected!");
+				System.out.println("If you see this you connected!");
 
-			ResultSetMetaData rsmd = rs.getMetaData();
-			int columnsNumber = rsmd.getColumnCount();
-			while (rs.next()) {
-				for (int i = 1; i <= columnsNumber; i++) {
-					if (i > 1) {
-						System.out.print(",  ");
-						String columnValue = rs.getString(i);
-						System.out.print(columnValue + " " + rsmd.getColumnName(i));
+				ResultSetMetaData rsmd = rs.getMetaData();
+				int columnsNumber = rsmd.getColumnCount();
+				while (rs.next()) {
+					for (int i = 1; i <= columnsNumber; i++) {
+						if (i > 1) {
+							System.out.print(",  ");
+							String columnValue = rs.getString(i);
+							System.out.print(columnValue + " " + rsmd.getColumnName(i));
+						}
 					}
+					System.out.println("");
 				}
-				System.out.println("");
+
+				rs.close();
+				stmt.close();
+				conn.close();
+
+			} catch (SQLException SqlEx) {
+				stmt.close();
+				conn.close();
+				System.out.println("If you see this, you failed to connect!");
+				System.out.println(SqlEx.getMessage());
+
+			} finally {
+				stmt.close();
+				conn.close();
 			}
-
-			rs.close();
 			stmt.close();
 			conn.close();
 
-		} catch (SQLException SqlEx) {
-			stmt.close();
-			conn.close();
-			System.out.println("If you see this, you failed to connect!");
-			System.out.println(SqlEx.getMessage());
-			
 		} finally {
-			stmt.close();
 			conn.close();
 		}
-		stmt.close();
-		conn.close();
-		
+
 	}
 }
