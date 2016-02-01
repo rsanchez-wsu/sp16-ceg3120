@@ -21,14 +21,11 @@
 
 package edu.wright.cs.sp16.ceg3120;
 
-//Import necessary connection libraries
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 /**
  * @author rhys DbConnect is a class to run basic connection to mysql test
@@ -43,44 +40,32 @@ public class DbConnect {
 	 * 
 	 * @param args
 	 *            default arguments
+	 * @throws SQLException  Checkstyle satisfaction
 	 */
-	public static void main(String[] args) {
-		// Create needed variables
-		String dbAddress = "";
-		String dbUsername = "";
-		String dbPassword = "";
-		String dbName = "";
-		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-		// Prompt user for input
-		try {
-			System.out.println("Welcome to the database connector!");
-			System.out.print("Please enter the address of the database you wish to connect to: ");
-			dbAddress = input.readLine();
-			System.out.print("\nPlease enter the username you wish to use: ");
-			dbUsername = input.readLine();
-			System.out.print("\nPlease enter the password for your username: ");
-			dbPassword = input.readLine();
-			System.out.print("\nPlease enter the database name: ");
-			dbName = input.readLine();
-			// Test output to make sure variables are correct
-			// System.out.println(db_address + db_username + db_password);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public static void main(String[] args) throws SQLException {
+		Scanner input = new Scanner(System.in, "UTF_8");
+		System.out.println("Welcome to the database connector!");
+		System.out.print("Please enter the address of the database you wish to connect to: ");
+		final String dbAddress = input.nextLine();
+		System.out.print("\nPlease enter the username you wish to use: ");
+		String dbUsername = input.nextLine();
+		System.out.print("\nPlease enter the password for your username: ");
+		String dbPassword = input.nextLine();
+		System.out.print("\nPlease enter the database name: ");
+		String dbName = input.nextLine();
+		// Test output to make sure variables are correct
+		// System.out.println(db_address + db_username + db_password);
 
+		com.mysql.jdbc.jdbc2.optional.MysqlDataSource dataSource = 
+				new com.mysql.jdbc.jdbc2.optional.MysqlDataSource();
+		dataSource.setUser(dbUsername);
+		dataSource.setPassword(dbPassword);
+		dataSource.setServerName(dbAddress);
+		dataSource.setDatabaseName(dbName);
+		Connection conn = dataSource.getConnection();
+		java.sql.Statement stmt = conn.createStatement();
 		try {
 
-			com.mysql.jdbc.jdbc2.optional.MysqlDataSource dataSource = 
-					new com.mysql.jdbc.jdbc2.optional.MysqlDataSource();
-
-			dataSource.setUser(dbUsername);
-			dataSource.setPassword(dbPassword);
-			dataSource.setServerName(dbAddress);
-			dataSource.setDatabaseName(dbName);
-
-			Connection conn = dataSource.getConnection();
-
-			java.sql.Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM inventory");
 
 			System.out.println("If you see this you connected!");
@@ -97,9 +82,23 @@ public class DbConnect {
 				}
 				System.out.println("");
 			}
+
+			rs.close();
+			stmt.close();
+			conn.close();
+
 		} catch (SQLException SqlEx) {
+			stmt.close();
+			conn.close();
 			System.out.println("If you see this, you failed to connect!");
 			System.out.println(SqlEx.getMessage());
+			
+		} finally {
+			stmt.close();
+			conn.close();
 		}
+		stmt.close();
+		conn.close();
+		
 	}
 }
