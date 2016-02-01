@@ -30,6 +30,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Arrays;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -88,7 +89,7 @@ public class CreateWindow extends JFrame {
 	private JPanel bigPanel = new JPanel();
 
 	// ActionListener for clear button
-	private ActionListener clearListener = new ClearListener();
+	private static ActionListener clearListener = new ClearListener();
 	private static ActionListener saveListener = new SaveListener();
 	// private ActionListener exitListener = new ExitListener();
 
@@ -268,7 +269,7 @@ public class CreateWindow extends JFrame {
 					byte[] salt = pes.generateSalt();
 					encPass = pes.getEncryptedPassword(pass, salt);
 					System.out.println("Pass: " + pass);
-					System.out.println("Encrypted Pass: " + encPass);
+					System.out.println("Encrypted Pass: " + Arrays.toString(encPass));
 				} catch (NoSuchAlgorithmException e) {
 					System.err.println("Caught NoSuchAlgorithmException: " + e.getMessage());
 				} catch (InvalidKeySpecException e) {
@@ -276,11 +277,9 @@ public class CreateWindow extends JFrame {
 				}
 
 				// Save salt and encrypted password to file
-			    }
-			// Not saving password
-			else {
-					
-			}
+			} //else {
+				
+			//}
 			JOptionPane.showMessageDialog(null, "This button is not yet implemented. " 
 					+ "This can be milestone 2.");
 		}
