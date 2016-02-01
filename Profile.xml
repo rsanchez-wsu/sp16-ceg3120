@@ -13,7 +13,7 @@
 			<!-- Names should be separate so that the page can display their first 
 				name as introduction: "Welcome, David" -->
 			<firstName></firstName>
-			<last_name></last_name>
+			<lastName></lastName>
 			<!-- Admin, SuperUser, User, Guest -->
 			<accountType></accountType>
 			<!-- Not sure if we need this -->
