@@ -28,10 +28,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.util.Arrays;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -253,9 +260,85 @@ public class CreateWindow extends JFrame {
 	private static class SaveListener implements ActionListener {
 		
 		/**
+		 * Write User's name, Database URL, Username, encrypted password and salt to a file. 
+		 */
+
+		public void writeEncrypt(byte[] encPass, byte[] salt) {
+			try {
+				FileOutputStream output = new FileOutputStream("UserData/" + username.getText());
+				try {
+					output.write(name.getText().getBytes());
+					output.write(System.getProperty("line.separator").getBytes());
+					output.write(databaseUrl.getText().getBytes());
+					output.write(System.getProperty("line.separator").getBytes());
+					output.write(username.getText().getBytes());
+					output.write(System.getProperty("line.separator").getBytes());
+					output.write(encPass);
+					output.write(System.getProperty("line.separator").getBytes());
+					output.write(salt);
+					
+					
+				} finally {
+					output.close();
+				}
+			} catch (FileNotFoundException ex) { 
+				//"File not found.";
+			} catch (IOException ex) {
+				//log(ex);
+			} 
+		}
+		
+		/**
+		 * Read User's name, Database URL, Username, encrypted password and salt from a file. 
+		 */
+		public void readEncrypt(String userName) {
+			try {
+			//final PasswordEncryptionService pes = new PasswordEncryptionService(); //testing
+				File file = new File("UserData/" + userName);
+				
+				InputStream inputSteam = new FileInputStream(file);
+				byte[] readName = new byte[(int)name.getText().getBytes().length ];
+				byte[] readDatabase = new byte[(int) databaseUrl.getText().getBytes().length];
+				byte[] readUser = new byte[(int) username.getText().getBytes().length];
+				byte[] pass = new byte[(int) 20];
+				byte[] line = new byte[(int) 2];
+				byte[] salt = new byte[(int) 8];
+				final ArrayList<byte[]> userInfoLst = new ArrayList<byte[]>();
+				inputSteam.read(readName);
+				inputSteam.read(line);	
+				inputSteam.read(readDatabase);
+				inputSteam.read(line);
+				inputSteam.read(readUser);
+				inputSteam.read(line);
+				inputSteam.read(pass);
+				inputSteam.read(line);
+				inputSteam.read(salt);
+					
+				userInfoLst.add(readName);
+				userInfoLst.add(readDatabase);
+				userInfoLst.add(readUser);
+				userInfoLst.add(pass);
+				userInfoLst.add(salt);
+				inputSteam.close();
+				//System.out.println(pes.authenticate(password.getText(), 
+				//userInfoLst.get(3) , userInfoLst.get(4)));
+				//System.out.println((new String(userInfoLst.get(0)))); //testing
+				//System.out.println(((new String(userInfoLst.get(1))))); //testing
+				//System.out.println(((new String(userInfoLst.get(2))))); //testing
+				//System.out.println(Arrays.toString(userInfoLst.get(3))); //testing
+				//System.out.println(Arrays.toString(userInfoLst.get(4))); //testing
+			} catch (IOException ex) {
+			//exception
+			}
+				
+		}
+		
+		/**
 		 * Listen for save button click.
 		 */
+		
 		public void actionPerformed(ActionEvent ae) {
+			
 			/**
 			 * Saving password: make sure to encrypt.
 			 */
@@ -270,13 +353,19 @@ public class CreateWindow extends JFrame {
 					encPass = pes.getEncryptedPassword(pass, salt);
 					System.out.println("Pass: " + pass);
 					System.out.println("Encrypted Pass: " + Arrays.toString(encPass));
+					System.out.println("Encrypted Pass: " + Arrays.toString(salt));
+					
+					// Save salt and encrypted password to file
+					writeEncrypt(encPass, salt);
+					readEncrypt(username.getText()); //testing
 				} catch (NoSuchAlgorithmException e) {
 					System.err.println("Caught NoSuchAlgorithmException: " + e.getMessage());
 				} catch (InvalidKeySpecException e) {
 					System.err.println("Caught InvalidKeySpecException: " + e.getMessage());
 				}
+				
 
-				// Save salt and encrypted password to file
+				
 			} //else {
 				
 			//}
