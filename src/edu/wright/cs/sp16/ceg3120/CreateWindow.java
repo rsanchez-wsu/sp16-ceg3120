@@ -297,12 +297,12 @@ public class CreateWindow extends JFrame {
 				File file = new File("UserData/" + userName);
 				
 				InputStream inputSteam = new FileInputStream(file);
-				byte[] readName = new byte[(int)name.getText().getBytes().length ];
-				byte[] readDatabase = new byte[(int) databaseUrl.getText().getBytes().length];
-				byte[] readUser = new byte[(int) username.getText().getBytes().length];
-				byte[] pass = new byte[(int) 20];
-				byte[] line = new byte[(int) 2];
-				byte[] salt = new byte[(int) 8];
+				byte[] readName = new byte[name.getText().getBytes().length ];
+				byte[] readDatabase = new byte[databaseUrl.getText().getBytes().length];
+				byte[] readUser = new byte[username.getText().getBytes().length];
+				byte[] pass = new byte[20];
+				byte[] line = new byte[2];
+				byte[] salt = new byte[8];
 				final ArrayList<byte[]> userInfoLst = new ArrayList<byte[]>();
 				inputSteam.read(readName);
 				inputSteam.read(line);	
