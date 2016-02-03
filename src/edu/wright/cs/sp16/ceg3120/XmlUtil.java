@@ -21,13 +21,15 @@
 
 package edu.wright.cs.sp16.ceg3120;
 
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 import java.util.AbstractList;
 import java.util.Collections;
 import java.util.List;
 import java.util.RandomAccess;
 
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+
 
 /**
  * Utilities for xml parsing.
@@ -49,7 +51,7 @@ public final class XmlUtil {
 	 * @return NodeList as List
 	 */
 	public static List<Node> asList(NodeList nl) {
-		return nl.getLength() == 0 ? Collections.<Node> emptyList() : new NodeListWrapper(nl);
+		return nl.getLength() == 0 ? Collections.<Node>emptyList() : new NodeListWrapper(nl);
 	}
 
 	/**

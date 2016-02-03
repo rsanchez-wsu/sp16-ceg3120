@@ -23,6 +23,12 @@ package edu.wright.cs.sp16.ceg3120;
 
 import static edu.wright.cs.sp16.ceg3120.XmlUtil.asList;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -30,11 +36,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
+
 
 /**
  * Reads settings.xml. Contains template code to be expanded.
