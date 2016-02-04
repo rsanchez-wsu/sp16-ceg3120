@@ -265,16 +265,22 @@ public class CreateWindow extends JFrame {
 
 		public void writeEncrypt(byte[] encPass, byte[] salt) {
 			try {
+				if (new File("UserData").isFile() == false) {
+					File dir = new File("UserData");
+					if (dir.mkdir() == false) {
+						System.out.print("");
+					}
+				}
 				FileOutputStream output = new FileOutputStream("UserData/" + username.getText());
 				try {
-					output.write(name.getText().getBytes());
-					output.write(System.getProperty("line.separator").getBytes());
-					output.write(databaseUrl.getText().getBytes());
-					output.write(System.getProperty("line.separator").getBytes());
-					output.write(username.getText().getBytes());
-					output.write(System.getProperty("line.separator").getBytes());
+					output.write(name.getText().getBytes("ISO-8859-1"));
+					output.write(System.getProperty("line.separator").getBytes("ISO-8859-1"));
+					output.write(databaseUrl.getText().getBytes("ISO-8859-1"));
+					output.write(System.getProperty("line.separator").getBytes("ISO-8859-1"));
+					output.write(username.getText().getBytes("ISO-8859-1"));
+					output.write(System.getProperty("line.separator").getBytes("ISO-8859-1"));
 					output.write(encPass);
-					output.write(System.getProperty("line.separator").getBytes());
+					output.write(System.getProperty("line.separator").getBytes("ISO-8859-1"));
 					output.write(salt);
 					
 					
@@ -292,44 +298,69 @@ public class CreateWindow extends JFrame {
 		 * Read User's name, Database URL, Username, encrypted password and salt from a file. 
 		 */
 		public void readEncrypt(String userName) {
+	
 			try {
-			//final PasswordEncryptionService pes = new PasswordEncryptionService(); //testing
 				File file = new File("UserData/" + userName);
-				
+			
 				InputStream inputSteam = new FileInputStream(file);
-				byte[] readName = new byte[name.getText().getBytes().length ];
-				byte[] readDatabase = new byte[databaseUrl.getText().getBytes().length];
-				byte[] readUser = new byte[username.getText().getBytes().length];
-				byte[] pass = new byte[20];
-				byte[] line = new byte[2];
-				byte[] salt = new byte[8];
-				final ArrayList<byte[]> userInfoLst = new ArrayList<byte[]>();
-				inputSteam.read(readName);
-				inputSteam.read(line);	
-				inputSteam.read(readDatabase);
-				inputSteam.read(line);
-				inputSteam.read(readUser);
-				inputSteam.read(line);
-				inputSteam.read(pass);
-				inputSteam.read(line);
-				inputSteam.read(salt);
+				try {
+					try {
+				//final PasswordEncryptionService pes = new PasswordEncryptionService(); //testing
 					
-				userInfoLst.add(readName);
-				userInfoLst.add(readDatabase);
-				userInfoLst.add(readUser);
-				userInfoLst.add(pass);
-				userInfoLst.add(salt);
-				inputSteam.close();
+						byte[] readName = new byte[name.getText().getBytes("ISO-8859-1").length ];
+						byte[] readDatabase = 
+							new byte[databaseUrl.getText().getBytes("ISO-8859-1").length];
+						int endOfFile = 0;
+						final ArrayList<byte[]> userInfoLst = new ArrayList<byte[]>();
+						endOfFile = inputSteam.read(readName);
+						byte[] line = new byte[2];
+						endOfFile = inputSteam.read(line);	
+						endOfFile = inputSteam.read(readDatabase);
+						endOfFile = inputSteam.read(line);
+						byte[] readUser = 
+								new byte[username.getText().getBytes("ISO-8859-1").length];
+						endOfFile = inputSteam.read(readUser);
+						endOfFile = inputSteam.read(line);
+						byte[] pass = new byte[20];
+						endOfFile = inputSteam.read(pass);
+						endOfFile = inputSteam.read(line);
+						byte[] salt = new byte[8];
+						endOfFile = inputSteam.read(salt);
+					
+						userInfoLst.add(readName);
+						userInfoLst.add(readDatabase);
+						userInfoLst.add(readUser);
+						userInfoLst.add(pass);
+						userInfoLst.add(salt);
+						userInfoLst.add(line);
+						userInfoLst.remove(5);
+						if (endOfFile == -1) {
+							inputSteam.close();
+						} else {
+							System.out.print("");
+							inputSteam.close();	
+						}
 				//System.out.println(pes.authenticate(password.getText(), 
 				//userInfoLst.get(3) , userInfoLst.get(4)));
-				//System.out.println((new String(userInfoLst.get(0)))); //testing
+						System.out.println((new String(userInfoLst.get(0), 
+								"ISO-8859-1"))); //testing
 				//System.out.println(((new String(userInfoLst.get(1))))); //testing
 				//System.out.println(((new String(userInfoLst.get(2))))); //testing
 				//System.out.println(Arrays.toString(userInfoLst.get(3))); //testing
 				//System.out.println(Arrays.toString(userInfoLst.get(4))); //testing
-			} catch (IOException ex) {
+					} finally {
+					//finally
+						inputSteam.close();
+					} 
+				} catch (IOException ex) {
+				
 			//exception
+				}
+			} catch (FileNotFoundException ex) {
+				//exception
 			}
+
+
 				
 		}
 		
@@ -365,6 +396,8 @@ public class CreateWindow extends JFrame {
 				}
 				
 
+				
+				
 				
 			} //else {
 				
