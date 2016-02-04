@@ -48,6 +48,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+
 /**
  * The Create_GUI class.
  */
@@ -56,10 +57,10 @@ public class CreateWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	// title label
-	private JLabel title = new JLabel("Create Window");
+	private JLabel title = new JLabel("Create Database");
 
 	// input labels
-	private JLabel inputLabel1 = new JLabel("Name: ");
+	private JLabel inputLabel1 = new JLabel("Database Name: ");
 	private JLabel inputLabel2 = new JLabel("Database URL: ");
 	private JLabel inputLabel3 = new JLabel("Username: ");
 	private JLabel inputLabel4 = new JLabel("Password: ");
@@ -70,6 +71,7 @@ public class CreateWindow extends JFrame {
 	// new buttons
 	private JButton save = new JButton("Save");
 	private JButton clear = new JButton("Clear");
+	private JButton connect = new JButton("Connect");
 	// private JButton exit = new JButton("Exit");
 
 	// input fields for the labels
@@ -93,6 +95,7 @@ public class CreateWindow extends JFrame {
 	private JPanel inputPanel4 = new JPanel();
 	private JPanel inputPanel5 = new JPanel();
 	private JPanel inputPanel6 = new JPanel();
+	private JPanel connectPanel = new JPanel();
 	private JPanel bigPanel = new JPanel();
 
 	// ActionListener for clear button
@@ -104,7 +107,7 @@ public class CreateWindow extends JFrame {
 	 * Constructor.
 	 */
 	public CreateWindow() {
-		super("Create");
+		super("Create Window");
 
 		// Title Panel and its position
 		createTitlePanel(title);
@@ -225,13 +228,16 @@ public class CreateWindow extends JFrame {
 	 * Adding buttons and setting grid for the buttons.
 	 */
 	private void createControlPanel() {
-		controlPanel.setLayout(new GridLayout(1, 2));
+		controlPanel.setLayout(new GridLayout(2, 2));
+		connectPanel.setLayout(new GridLayout(1, 2));
+		connectPanel.add(connect);
 		buttonPanel.setLayout(new GridLayout(1, 2));
 		buttonPanel.add(save);
 		buttonPanel.add(clear);
 		clear.addActionListener(clearListener);
 		save.addActionListener(saveListener);
 		// exit.addActionListener(exitListener);
+		controlPanel.add(connectPanel);
 		controlPanel.add(buttonPanel);
 	}
 
@@ -282,8 +288,7 @@ public class CreateWindow extends JFrame {
 					output.write(encPass);
 					output.write(System.getProperty("line.separator").getBytes("ISO-8859-1"));
 					output.write(salt);
-					
-					
+
 				} finally {
 					output.close();
 				}
@@ -305,7 +310,8 @@ public class CreateWindow extends JFrame {
 				InputStream inputSteam = new FileInputStream(file);
 				try {
 					try {
-				//final PasswordEncryptionService pes = new PasswordEncryptionService(); //testing
+						//final PasswordEncryptionService pes =
+						//		new PasswordEncryptionService(); //testing
 					
 						byte[] readName = new byte[name.getText().getBytes("ISO-8859-1").length ];
 						byte[] readDatabase = 
@@ -340,28 +346,24 @@ public class CreateWindow extends JFrame {
 							System.out.print("");
 							inputSteam.close();	
 						}
-				//System.out.println(pes.authenticate(password.getText(), 
-				//userInfoLst.get(3) , userInfoLst.get(4)));
+						//System.out.println(pes.authenticate(password.getText(), 
+						//userInfoLst.get(3) , userInfoLst.get(4)));
 						System.out.println((new String(userInfoLst.get(0), 
-								"ISO-8859-1"))); //testing
-				//System.out.println(((new String(userInfoLst.get(1))))); //testing
-				//System.out.println(((new String(userInfoLst.get(2))))); //testing
-				//System.out.println(Arrays.toString(userInfoLst.get(3))); //testing
-				//System.out.println(Arrays.toString(userInfoLst.get(4))); //testing
+								"ISO-8859-1")));
+						//System.out.println(((new String(userInfoLst.get(1))))); //testing
+						//System.out.println(((new String(userInfoLst.get(2))))); //testing
+						//System.out.println(Arrays.toString(userInfoLst.get(3))); //testing
+						//System.out.println(Arrays.toString(userInfoLst.get(4))); //testing
 					} finally {
-					//finally
 						inputSteam.close();
 					} 
 				} catch (IOException ex) {
 				
-			//exception
+					//exception
 				}
 			} catch (FileNotFoundException ex) {
 				//exception
-			}
-
-
-				
+			}		
 		}
 		
 		/**
@@ -394,11 +396,7 @@ public class CreateWindow extends JFrame {
 				} catch (InvalidKeySpecException e) {
 					System.err.println("Caught InvalidKeySpecException: " + e.getMessage());
 				}
-				
-
-				
-				
-				
+	
 			} //else {
 				
 			//}
