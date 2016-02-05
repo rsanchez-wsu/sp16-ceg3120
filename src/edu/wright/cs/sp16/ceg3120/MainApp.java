@@ -21,50 +21,72 @@
 
 package edu.wright.cs.sp16.ceg3120;
 
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
+
+
+//import com.sun.corba.se.pept.transport.Connection;
 
 /**
  * The application's main class.
  */
 public class MainApp {
-	/**
-	 * The main method that displays the main application window.
-	 * 
-	 * 
-	 */
-	private static void closeWindow() {
+	static JFrame connectionWindow;
+	static String JDBC_DRIVER;  
+	static String DB_URL;
+	
+	
+	static void connectionWinSetup(){
+		connectionWindow = new JFrame("Connection Interface");
+		JLabel userLabel = new JLabel("User Name: ");
+		JTextField userTextField = new JTextField();
+		JLabel passLabel = new JLabel("Password: ");
+		JTextField passTextField = new JTextField();
 		
-		final JFrame frame = new JFrame("Hello World");
-		JLabel label = new JLabel("Hello World");
-		frame.getContentPane().add(label);
-		frame.addWindowListener(new WindowAdapter() {
+		connectionWindow.setLayout(new GridLayout(3,2));
+		connectionWindow.getContentPane().add(userLabel);
+		connectionWindow.getContentPane().add(userTextField);
+		connectionWindow.getContentPane().add(passLabel);
+		connectionWindow.getContentPane().add(passTextField);
+		//frame.getContentPane().add(userLabel);
+		//frame.getContentPane().add(userLabel);
+		
+		connectionWindow.addWindowListener(new WindowAdapter() {
 			
 			@Override
 			public void windowClosing(WindowEvent we) {
-				int close = JOptionPane.showConfirmDialog(frame, 
+				int close = JOptionPane.showConfirmDialog(connectionWindow, 
 						"Exit the application?", 
 						"Exit", 
 						JOptionPane.YES_NO_OPTION);
 				
 				if (close == JOptionPane.YES_OPTION) {
 					
-					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					connectionWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				} else {
-					frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+					connectionWindow.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 				}
 			}
 		});
 		
-		frame.setSize(300, 300);
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
+		connectionWindow.setSize(300, 300);
+		connectionWindow.setLocationRelativeTo(null);
+		connectionWindow.setVisible(true);
+		
 	}
-	
 	/**
 	 * The main method that displays the main application window.
 	 * 
@@ -72,16 +94,72 @@ public class MainApp {
 	 */
 	
 	public static void main(String[] args) {
-		// Schedule a job for the event-dispatching thread:
-		// creating and showing this application's GUI.
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				
-				
-				closeWindow();
+	
+		//connectionWinSetup();
+		
+ 	   // JDBC driver name and database URL
+		   JDBC_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";  
+		   DB_URL = "jdbc:derby:testdb";
 
-			}
-		});
+		   //  Database credentials
+		    String USER = "";
+		    String PASS = "";
+		   
+		   Connection conn = null;
+		   Statement stmt = null;
+		   try{
+			   //STEP 2: Register JDBC driver
+		      Class.forName(JDBC_DRIVER).newInstance();
+
+		      //STEP 3: Open a connection
+		      System.out.println("Connecting to database...");
+		      conn = DriverManager.getConnection(DB_URL);
+
+		      //STEP 4: Execute a query
+		      System.out.println("Creating statement...");
+		      stmt = conn.createStatement();
+		      String sql;
+		      sql = "SELECT * FROM TEAM6";
+		      ResultSet rs = stmt.executeQuery(sql);
+
+		      //STEP 5: Extract data from result set
+		      while(rs.next()){
+		         //Retrieve by column name
+		         //int id  = rs.getInt("id");
+		         //int age = rs.getInt("age");
+		         //String first = rs.getString("first");
+		         //String last = rs.getString("last");
+
+		         //Display values
+		         System.out.print("ID: " + rs.getInt("memid"));
+		         System.out.print(", First: " + rs.getString("lastname"));
+		         System.out.println(", Last: " + rs.getString("firstname"));
+		      }
+		      //STEP 6: Clean-up environment
+		      rs.close();
+		      stmt.close();
+		      conn.close();
+		   }catch(SQLException se){
+		      //Handle errors for JDBC
+		      se.printStackTrace();
+		   }catch(Exception e){
+		      //Handle errors for Class.forName
+		      e.printStackTrace();
+		   }finally{
+		      //finally block used to close resources
+		      try{
+		         if(stmt!=null)
+		            stmt.close();
+		      }catch(SQLException se2){
+		      }// nothing we can do
+		      try{
+		         if(conn!=null)
+		            conn.close();
+		      }catch(SQLException se){
+		         se.printStackTrace();
+		      }//end finally try
+		   }//end try
+		   System.out.println("Goodbye!");
+		
 	}
 }

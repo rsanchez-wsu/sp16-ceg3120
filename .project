@@ -27,4 +27,14 @@
 		<nature>edu.umd.cs.findbugs.plugin.eclipse.findbugsNature</nature>
 		<nature>net.sf.eclipsecs.core.CheckstyleNature</nature>
 	</natures>
+	<variableList>
+		<variable>
+			<name>CLASSPATH</name>
+			<value>file:/C:/Users/carl.heritage/Desktop/School%20-%20Sp%202016/Design%20of%20Info%20Tech/db-derby-10.12.1.1-bin/db-derby-10.12.1.1-bin/lib/derbytools.jar</value>
+		</variable>
+		<variable>
+			<name>DERBY_INSTALL</name>
+			<value>file:/C:/Users/carl.heritage/Desktop/School%20-%20Sp%202016/Design%20of%20Info%20Tech/db-derby-10.12.1.1-bin/db-derby-10.12.1.1-bin</value>
+		</variable>
+	</variableList>
 </projectDescription>
