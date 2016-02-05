@@ -36,7 +36,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.JButton;
@@ -47,6 +47,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import javafx.scene.control.ComboBox;
 
 
 /**
@@ -79,7 +81,7 @@ public class CreateWindow extends JFrame {
 	private static JTextField databaseUrl = new JTextField(10);
 	private static JTextField username = new JTextField(10);
 	private static JTextField password = new JTextField(10);
-	static String[] testStrings = { "None Selected", "Demo Driver 1", "Demo Driver 2", 
+	static String[] testStrings = { "None Selected", "MySQL Driver", "Demo Driver 2", 
 			"Demo Driver 3" };
 	private static JComboBox<?> driver = new JComboBox<Object>(testStrings);
 	private static JCheckBox savePassword = new JCheckBox();
@@ -101,6 +103,7 @@ public class CreateWindow extends JFrame {
 	// ActionListener for clear button
 	private static ActionListener clearListener = new ClearListener();
 	private static ActionListener saveListener = new SaveListener();
+	private static ActionListener connectListener = new ConnectListener();
 	// private ActionListener exitListener = new ExitListener();
 
 	/**
@@ -236,11 +239,45 @@ public class CreateWindow extends JFrame {
 		buttonPanel.add(clear);
 		clear.addActionListener(clearListener);
 		save.addActionListener(saveListener);
+		connect.addActionListener(connectListener);
 		// exit.addActionListener(exitListener);
 		controlPanel.add(connectPanel);
 		controlPanel.add(buttonPanel);
 	}
 
+	/**
+	 * make connect button work
+	 * @author kenton
+	 *
+	 */
+	private static class ConnectListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent ae) {
+			DbConnect connect = new DbConnect();
+			String dbName = name.getText();
+			String dbAddress = databaseUrl.getText();
+			String dbUsername = username.getText();
+			String dbPassword = password.getText();
+			String dbDriver = driver.getSelectedItem().toString();
+			System.out.println(dbName);
+			System.out.println(dbAddress);
+			System.out.println(dbUsername);
+			System.out.println(dbPassword);
+			System.out.println(dbDriver);
+			if (dbDriver.equals("MySQL Driver")) {
+				connect = new DbConnect(dbAddress, dbUsername, dbPassword, dbName);
+			}
+			try {
+				connect.configure();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
 	/**
 	 * make clear button to work.
 	 */
