@@ -42,12 +42,15 @@ public class DbConnect {
 	private com.mysql.jdbc.jdbc2.optional.MysqlDataSource dataSource =
 			new com.mysql.jdbc.jdbc2.optional.MysqlDataSource();
 	
+	/**
+	 * DbConnect is just a place holder constructor.
+	 */
 	public DbConnect() {
 		
 	}
 	
 	/**
-	 * DbConnect is the only constructor that the DbConnect class has.
+	 * DbConnect is the default constructor that the DbConnect class has.
 	 * after this is done call the configure method to set up the db
 	 * connection.
 	 * @param dbAddress database address

@@ -48,7 +48,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import javafx.scene.control.ComboBox;
+//import javafx.scene.control.ComboBox;
 
 
 /**
@@ -246,13 +246,15 @@ public class CreateWindow extends JFrame {
 	}
 
 	/**
-	 * make connect button work
+	 * make connect button work.
 	 * @author kenton
 	 *
 	 */
 	private static class ConnectListener implements ActionListener {
 
-		@Override
+		/**
+		 * setting up the connection to a database.
+		 */
 		public void actionPerformed(ActionEvent ae) {
 			DbConnect connect = new DbConnect();
 			String dbName = name.getText();
@@ -271,7 +273,6 @@ public class CreateWindow extends JFrame {
 			try {
 				connect.configure();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
