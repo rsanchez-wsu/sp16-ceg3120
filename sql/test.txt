@@ -1,0 +1,23 @@
+Add row
+INSERT INTO inventory (productName, productDescription, productCategory, price, quantity)
+VALUES
+('columm 1 value','columm 2 value','columm 3 value','etc'),
+Drop row 
+DELETE FROM table name
+WHERE Store_Name = 'first value of the columm to delete';
+Empty a table
+DELETE * FROM table_name;
+Insert row 
+INSERT INTO “table name” (column1, column2, column3, column4, column5, column6)
+VALUES (' column1 value',' column2 value',etc);
+Edit row
+UPDATE “table name”
+SET “select column”=’new value’, another column='new value'
+WHERE “select column=’value that needs to change';
+create user 
+CREATE LOGIN "user" WITH PASSWORD = 'Password';
+drop a user 
+DROP USER username;
+edit rights for users
+GRANT ALTER TO "user"
+
