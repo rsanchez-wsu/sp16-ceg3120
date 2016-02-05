@@ -39,9 +39,11 @@ public class MainApp {
 	 */
 	private static void closeWindow() {
 
-		final JFrame frame = new JFrame("Hello World");
-		JLabel label = new JLabel("Hello World");
+		JFrame frame = new JFrame("");
+		JLabel label = new JLabel("hi");
+		label.setLocation(27, 20);
 		frame.getContentPane().add(label);
+		
 		frame.addWindowListener(new WindowAdapter() {
 
 			@Override
@@ -58,7 +60,7 @@ public class MainApp {
 			}
 		});
 
-		frame.setSize(300, 300);
+		frame.setSize(600, 600);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
