@@ -39,11 +39,11 @@ public class MainApp {
 	 */
 	private static void closeWindow() {
 
-		JFrame frame = new JFrame("");
+		final JFrame frame = new JFrame("");
 		JLabel label = new JLabel("hi");
 		label.setLocation(27, 20);
 		frame.getContentPane().add(label);
-		
+
 		frame.addWindowListener(new WindowAdapter() {
 
 			@Override
