@@ -22,15 +22,15 @@
 package edu.wright.cs.sp16.ceg3120;
 
 import java.awt.event.ActionEvent;
-
 import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-
-/**  Main Frame for application.
+/**
+ * Main Frame for application.
  *
  * 
  * @author Bonnie Shields
@@ -39,14 +39,14 @@ import javax.swing.JMenuItem;
 public class MainFrame {
 
 	static JFrame frame;
-	/** 
+
+	/**
 	 * Main Frame for application.
 	 * 
 	 * 
 	 * @author Bonnie Shields
 	 */
-	
-	public static void main(String[] args) {
+	public static void createFrame() {
 		frame = new JFrame("Sequel Master");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// display the menu bar on the top of the page
@@ -55,10 +55,9 @@ public class MainFrame {
 		frame.setSize(650, 500);
 	}
 
-	/** 
-	 * This will display the menu bar in the main application.
-	 * 
-	 * @author Bonnie
+	/**
+	 * Display menu function creates the menu bar and adds the "File option to
+	 * it. Also sets up the connection option to launch the connect window.
 	 */
 	public static void displayMenu() {
 		JMenuBar menuBar = new JMenuBar();
@@ -76,6 +75,33 @@ public class MainFrame {
 
 		frame.setJMenuBar(menuBar);
 	}
+
+	/**
+	 * The main method creates a listener thread to manage the GUI and launches
+	 * the window.
+	 * 
+	 * @param args
+	 *            Default input requirement
+	 */
+
+	public static void main(String[] args) {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+
+			@Override
+			public void run() {
+				createFrame();
+
+			}
+
+		});
+
+	}
+
+	/**
+	 * This will display the menu bar in the main application.
+	 * 
+	 * @author Bonnie
+	 */
 
 	/**
 	 * Add listener to Connect button from File menu.
