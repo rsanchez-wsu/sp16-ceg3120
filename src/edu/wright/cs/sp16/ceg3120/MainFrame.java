@@ -21,6 +21,7 @@
 
 package edu.wright.cs.sp16.ceg3120;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -86,22 +87,12 @@ public class MainFrame {
 
 	public static void main(String[] args) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-
 			@Override
 			public void run() {
 				createFrame();
-
 			}
-
 		});
-
 	}
-
-	/**
-	 * This will display the menu bar in the main application.
-	 * 
-	 * @author Bonnie
-	 */
 
 	/**
 	 * Add listener to Connect button from File menu.
@@ -109,7 +100,6 @@ public class MainFrame {
 	 * @author Bonnie
 	 */
 	private static class ConnectWindow implements ActionListener {
-
 		/**
 		 * Need to implement this with the CreateWindow class.
 		 */
@@ -117,6 +107,8 @@ public class MainFrame {
 		public void actionPerformed(ActionEvent arg0) {
 			CreateWindow popup = new CreateWindow();
 			popup.setVisible(true);
+			//Added dimensions to keep the popup from showing up at just the title bar
+			popup.setSize(new Dimension(250, 350));
 		}
 	}
 }
