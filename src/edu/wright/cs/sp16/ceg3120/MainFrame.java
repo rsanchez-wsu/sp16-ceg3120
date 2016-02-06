@@ -47,10 +47,13 @@ public class MainFrame{
 	 */
 	private static class ConnectWindow implements ActionListener{
 
+		/**
+		 * Need to implement this with the CreateWindow class
+		 */
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			CreateWindow popup = new CreateWindow();
-			popup.setVisible(false);	
+			popup.setVisible(true);	
 		}
 	}
 }

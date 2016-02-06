@@ -106,6 +106,7 @@ public class CreateWindow extends JFrame {
 	private static ActionListener connectListener = new ConnectListener();
 	// private ActionListener exitListener = new ExitListener();
 
+	
 	/**
 	 * Constructor.
 	 */
