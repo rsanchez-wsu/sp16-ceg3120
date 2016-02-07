@@ -24,8 +24,8 @@ package edu.wright.cs.sp16.ceg3120;
 //import java.awt.event.WindowAdapter;
 //import java.awt.event.WindowEvent;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+//import javax.swing.JFrame;
+//import javax.swing.JLabel;
 //import javax.swing.JOptionPane;
 
 /**
@@ -33,7 +33,7 @@ import javax.swing.JLabel;
  */
 public class UserSettingsPage {
 	
-	final JFrame userFrame = new JFrame("User Settings");
-	JLabel databaseLabel = new JLabel("Database");
+//	final JFrame userFrame = new JFrame("User Settings");
+//	JLabel databaseLabel = new JLabel("Database");
 }
 

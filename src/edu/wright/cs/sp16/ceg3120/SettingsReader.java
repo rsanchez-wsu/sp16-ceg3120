@@ -179,24 +179,24 @@ public class SettingsReader {
 
 	}
 
-	/**
-	 * Debug print loop.
-	 * 
-	 * @param nl
-	 *            NodeList
-	 */
-	@SuppressWarnings("unused")
-	private static void printList(NodeList nl) {
-		for (Node n : asList(nl)) {
-			boolean verbose = true;
-			if (!verbose) {
-				if (IGNORE.contains(n.getNodeName())) {
-					continue;
-				}
-			}
-			System.out.println(n.getNodeType() + " " + n.getNodeName() + " " + n.getNodeValue());
-		}
-		System.exit(0);
-	}
+//	/**
+//	 * Debug print loop.
+//	 * 
+//	 * @param nl
+//	 *            NodeList
+//	 */
+//	@SuppressWarnings("unused")
+//	private static void printList(NodeList nl) {
+//		for (Node n : asList(nl)) {
+//			boolean verbose = true;
+//			if (!verbose) {
+//				if (IGNORE.contains(n.getNodeName())) {
+//					continue;
+//				}
+//			}
+//			System.out.println(n.getNodeType() + " " + n.getNodeName() + " " + n.getNodeValue());
+//		}
+//		System.exit(0);
+//	}
 
 }
