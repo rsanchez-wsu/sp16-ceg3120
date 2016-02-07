@@ -18,34 +18,36 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
 //This code was soured from the following website http://www.petefreitag.com/item/445.cfm 
+
 package edu.wright.cs.sp16.ceg3120;
-import java.io.StringWriter;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import org.w3c.dom.Document;
-
-
-public class XmlWrite 
-{
-	//public static void main(String[] args)
-	//{
-		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-		Document doc = docBuilder.parse();//enter input source inside the brackets
-//this is where we can add attributes and tags
-	//write xml document to a string
-		Transformer transformer = TransformerFactory.newInstance().newTransformer();
-	//	transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-StreamResult result = new StreamResult(new StringWriter());
-DOMSource source = new DOMSource(doc);
-transformer.transformer source,result;
-String xmlString = result.getWriter().toString();
-//System.out.println(xmlString);
-System.out.println(xmlStrng);
-}
+//import java.io.StringWriter;
+//
+//import javax.xml.parsers.DocumentBuilder;
+//import javax.xml.parsers.DocumentBuilderFactory;
+//import javax.xml.transform.Transformer;
+//import javax.xml.transform.TransformerFactory;
+//import javax.xml.transform.dom.DOMSource;
+//import javax.xml.transform.stream.StreamResult;
+//import org.w3c.dom.Document;
+//
+//
+//public class XmlWrite 
+//{
+//	//public static void main(String[] args)
+//	//{
+//		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+//		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+//		Document doc = docBuilder.parse();//enter input source inside the brackets
+////this is where we can add attributes and tags
+//	//write xml document to a string
+//		Transformer transformer = TransformerFactory.newInstance().newTransformer();
+//	//	transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+//StreamResult result = new StreamResult(new StringWriter());
+//DOMSource source = new DOMSource(doc);
+//transformer.transformer source,result;
+//String xmlString = result.getWriter().toString();
+////System.out.println(xmlString);
+//System.out.println(xmlStrng);
+//}
