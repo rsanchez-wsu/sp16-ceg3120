@@ -44,6 +44,7 @@ public class MainGui extends JFrame implements ActionListener {
 	
 	private JMenuItem exitItem = null;
 	private JMenuItem fullScreenItem = null;
+	private MainTabPane tabPane = null;
 	
 	/**
 	 * The constructor method that initializes the main application window.
@@ -66,10 +67,12 @@ public class MainGui extends JFrame implements ActionListener {
 	}
 	
 	/**
-	 * Derp.
+	 * Creates the tab pane that holds all the tabs for the application.
 	 */
 	private void createTabPane() {
+		tabPane = new MainTabPane();
 		
+		add(tabPane);
 	}
 
 	/**
