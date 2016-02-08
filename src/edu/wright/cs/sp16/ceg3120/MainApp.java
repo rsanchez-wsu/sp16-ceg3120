@@ -32,10 +32,9 @@ import javax.swing.JOptionPane;
  * The application's main class.
  */
 public class MainApp {
+	
 	/**
 	 * The main method that displays the main application window.
-	 * 
-	 * 
 	 */
 	private static void closeWindow() {
 		
