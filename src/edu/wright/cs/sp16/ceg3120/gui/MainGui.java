@@ -21,14 +21,17 @@
 
 package edu.wright.cs.sp16.ceg3120.gui;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import javax.swing.Action;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.text.DefaultEditorKit;
 
 /**
  * The Frame that holds the application and all the interactions to user.
@@ -40,6 +43,7 @@ public class MainGui extends JFrame implements ActionListener {
 	private static final long serialVersionUID = -24143968339746394L;
 	
 	private JMenuItem exitItem = null;
+	private JMenuItem fullScreenItem = null;
 	
 	/**
 	 * The constructor method that initializes the main application window.
@@ -85,18 +89,32 @@ public class MainGui extends JFrame implements ActionListener {
 		file.add(exitItem);
 
 		// Edit menu
-		JMenu edit = new JMenu("Edit");
 		
 		//TODO: Decide what to include in Edit Menu
-		// - Copy
-		// - Paste
-		// - Cut
+		Action cutAction = new DefaultEditorKit.CutAction();
+		cutAction.putValue(Action.NAME, "Cut");
+		
+		Action copyAction = new DefaultEditorKit.CopyAction();
+		copyAction.putValue(Action.NAME, "Copy");
+		
+		Action pasteAction = new DefaultEditorKit.PasteAction();
+		pasteAction.putValue(Action.NAME, "Paste");
+
+		JMenu edit = new JMenu("Edit");
+		
+		edit.add(cutAction);
+		edit.add(copyAction);
+		edit.add(pasteAction);
 		
 		// Window menu
-		JMenu window = new JMenu("Window");
 
-		//TODO: Decide what to include in Window Menu
-		// - Full Screen
+		fullScreenItem = new JMenuItem("Full Screen");
+		fullScreenItem.setMnemonic(KeyEvent.VK_F);
+		fullScreenItem.setToolTipText("Make application full screen");
+		fullScreenItem.addActionListener(this);
+
+		JMenu window = new JMenu("Window");
+		window.add(fullScreenItem);
 		
 		// Help menu
 		JMenu help = new JMenu("Help");
@@ -118,8 +136,18 @@ public class MainGui extends JFrame implements ActionListener {
 	 */
 	public void actionPerformed(ActionEvent actionEvent) {
 		if (actionEvent.getSource().equals(exitItem)) {
+			// Close application
+			
 			setVisible(false);
 			dispose();
+		} else if (actionEvent.getSource().equals(fullScreenItem)) {
+			// Make application fullscreen.
+			
+			Toolkit tk = Toolkit.getDefaultToolkit();
+			int width = ((int) tk.getScreenSize().getWidth());
+			int height = ((int) tk.getScreenSize().getHeight());
+			setSize(width, height);
+			setLocation(0, 0);
 		}
 	}
 
