@@ -257,7 +257,7 @@ public class CreateWindow extends JFrame {
 		 * setting up the connection to a database.
 		 */
 		public void actionPerformed(ActionEvent ae) {
-			DbConnect connect = new DbConnect();
+			MySqlConnect connect = new MySqlConnect();
 			String dbName = name.getText();
 			String dbAddress = databaseUrl.getText();
 			String dbUsername = username.getText();
@@ -269,7 +269,7 @@ public class CreateWindow extends JFrame {
 			System.out.println(dbPassword);
 			System.out.println(dbDriver);
 			if (dbDriver.equals("MySQL Driver")) {
-				connect = new DbConnect(dbAddress, dbUsername, dbPassword, dbName);
+				connect = new MySqlConnect(dbAddress, dbUsername, dbPassword, dbName);
 			}
 			try {
 				connect.configure();
