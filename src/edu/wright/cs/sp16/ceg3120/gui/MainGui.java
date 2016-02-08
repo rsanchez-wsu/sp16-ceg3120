@@ -114,11 +114,12 @@ public class MainGui extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * Derp derp.
+	 * Handles all actions on JMenu and any other actions that should be based in the Base Gui.
 	 */
 	public void actionPerformed(ActionEvent actionEvent) {
 		if (actionEvent.getSource().equals(exitItem)) {
-			System.exit(0);
+			setVisible(false);
+			dispose();
 		}
 	}
 
