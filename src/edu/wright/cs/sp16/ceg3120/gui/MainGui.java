@@ -93,7 +93,6 @@ public class MainGui extends JFrame implements ActionListener {
 
 		// Edit menu
 		
-		//TODO: Decide what to include in Edit Menu
 		Action cutAction = new DefaultEditorKit.CutAction();
 		cutAction.putValue(Action.NAME, "Cut");
 		
