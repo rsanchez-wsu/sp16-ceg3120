@@ -26,6 +26,9 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 // import com.puppycrawl.tools.checkstyle.api.Configurable;
 
 /**
@@ -34,6 +37,8 @@ import java.sql.SQLException;
  */
 
 public class DbConnect {
+	
+	private JPanel successPanel = new JPanel();
 
 	private String dbAddress;
 	private String dbUsername;
@@ -80,9 +85,7 @@ public class DbConnect {
 			try {
 
 				ResultSet rs = stmt.executeQuery("SELECT * FROM inventory");
-
-				System.out.println("If you see this you connected!");
-
+			
 				ResultSetMetaData rsmd = rs.getMetaData();
 				int columnsNumber = rsmd.getColumnCount();
 				while (rs.next()) {
@@ -95,7 +98,8 @@ public class DbConnect {
 					}
 					System.out.println("");
 				}
-
+				JOptionPane.showMessageDialog(successPanel, "Connection successful");
+			
 				rs.close();
 				stmt.close();
 				conn.close();
@@ -105,7 +109,7 @@ public class DbConnect {
 				conn.close();
 				System.out.println("If you see this, you failed to connect!");
 				System.out.println(SqlEx.getMessage());
-
+				
 			} finally {
 				stmt.close();
 				conn.close();

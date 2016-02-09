@@ -99,6 +99,7 @@ public class CreateWindow extends JFrame {
 	private JPanel inputPanel6 = new JPanel();
 	private JPanel connectPanel = new JPanel();
 	private JPanel bigPanel = new JPanel();
+	private static JPanel failPanel = new JPanel();
 
 	// ActionListener for clear button
 	private static ActionListener clearListener = new ClearListener();
@@ -270,6 +271,8 @@ public class CreateWindow extends JFrame {
 			System.out.println(dbDriver);
 			if (dbDriver.equals("MySQL Driver")) {
 				connect = new DbConnect(dbAddress, dbUsername, dbPassword, dbName);
+			} else {
+				JOptionPane.showMessageDialog(failPanel, "Connection failed, no drivers selected.");
 			}
 			try {
 				connect.configure();

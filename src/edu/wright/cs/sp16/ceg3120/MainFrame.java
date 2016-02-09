@@ -21,14 +21,16 @@
 
 package edu.wright.cs.sp16.ceg3120;
 
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 /**
  * Main Frame for application.
@@ -49,11 +51,25 @@ public class MainFrame {
 	 */
 	public static void createFrame() {
 		frame = new JFrame("Sequel Master");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		// display the menu bar on the top of the page
 		displayMenu();
 		frame.setVisible(true);
-		frame.setSize(650, 500);
+		frame.setSize(500, 500);
+		frame.setLocationRelativeTo(null);
+		frame.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent evt) {
+				int answer = JOptionPane.showConfirmDialog(frame,
+						"Do you really want to quit?", 
+						"Quit",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+				if (answer == JOptionPane.YES_OPTION) {
+					System.exit(0);
+				}
+
+			} // end of widowClosing
+
+		}); // end of WindowListener
 	}
 
 	/**
@@ -73,8 +89,9 @@ public class MainFrame {
 
 		ActionListener connect = new ConnectWindow();
 		connMenuItem.addActionListener(connect);
-
+		
 		frame.setJMenuBar(menuBar);
+	
 	}
 
 	/**
@@ -105,10 +122,10 @@ public class MainFrame {
 		 */
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			CreateWindow popup = new CreateWindow();
+			final CreateWindow popup = new CreateWindow();
 			popup.setVisible(true);
-			//Added dimensions to keep the popup from showing up at just the title bar
-			popup.setSize(new Dimension(250, 350));
+			popup.pack();
+			popup.setLocationRelativeTo(null);
 		}
 	}
 }
