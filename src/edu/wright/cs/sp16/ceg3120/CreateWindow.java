@@ -430,15 +430,18 @@ public class CreateWindow extends JFrame {
 					// Save salt and encrypted password to file
 					writeEncrypt(encPass, salt);
 					readEncrypt(username.getText()); //testing
+					/*{
+					
+						This is where the code to send the password to the text field would go, if we had one
+						
+					}*/
 				} catch (NoSuchAlgorithmException e) {
 					System.err.println("Caught NoSuchAlgorithmException: " + e.getMessage());
 				} catch (InvalidKeySpecException e) {
 					System.err.println("Caught InvalidKeySpecException: " + e.getMessage());
 				}
 	
-			} //else {
-				
-			//}
+			} //don't need an else statement here
 			JOptionPane.showMessageDialog(null, "This button is not yet implemented. " 
 					+ "This can be milestone 2.");
 		}
