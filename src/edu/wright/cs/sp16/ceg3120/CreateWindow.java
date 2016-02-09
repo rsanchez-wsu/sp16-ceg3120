@@ -432,7 +432,8 @@ public class CreateWindow extends JFrame {
 					readEncrypt(username.getText()); //testing
 					/*{
 					
-						This is where the code to send the password to the text field would go, if we had one
+						Code to send the password to the text field
+						for the autofill feature.
 						
 					}*/
 				} catch (NoSuchAlgorithmException e) {
