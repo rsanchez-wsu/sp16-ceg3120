@@ -21,7 +21,6 @@
 
 package edu.wright.cs.sp16.ceg3120;
 
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,8 +38,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-
-
 //import com.sun.corba.se.pept.transport.Connection;
 
 /**
@@ -48,140 +45,148 @@ import javax.swing.JTextField;
  */
 public class MainApp {
 	static JFrame connectionWindow;
-	static String JDBC_DRIVER;  
-	static String DB_URL_BASE="jdbc:derby:";
+	static String JDBC_DRIVER;
+	static String DB_URL_BASE = "jdbc:derby:";
 	static String DB_URL;
-	
-	static void connectToDB(){
-	 	   // JDBC driver name and database URL
-			   JDBC_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";  
-			   //DB_URL_BASE = "jdbc:derby:";//jdbc compliant DBMS: derby, mysql, 
 
-			   //  Database credentials
-			    String USER = "";
-			    String PASS = "";
-			   
-			   Connection conn = null;
-			   Statement stmt = null;
-			   try{
-				   //STEP 2: Register JDBC driver
-			      Class.forName(JDBC_DRIVER).newInstance();
+	/**
+	 * Sets up connection and connects to database.
+	 * 
+	 */
+	static void connectTodb() {
+		// JDBC driver name and database URL
+		JDBC_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
+		// DB_URL_BASE = "jdbc:derby:";//jdbc compliant DBMS: derby, mysql,
 
-			      //STEP 3: Open a connection
-			      System.out.println("Connecting to database...");
-			      conn = DriverManager.getConnection(DB_URL);
+		// Database credentials
+		// String user = "";
+		// String pass = "";
 
-			      //STEP 4: Execute a query
-			      System.out.println("Creating statement...");
-			      stmt = conn.createStatement();
-			      String sql;
-			      sql = "SELECT * FROM TEAM6";
-			      ResultSet rs = stmt.executeQuery(sql);
+		try (Connection conn = DriverManager.getConnection(DB_URL); 
+				Statement stmt = conn.createStatement()) {
+			try {
+				// STEP 2: Register JDBC driver
+				Class.forName(JDBC_DRIVER).newInstance();
 
-			      //STEP 5: Extract data from result set
-			      int colCount = rs.getMetaData().getColumnCount();
-			      while(rs.next()){
-			         String rowContent = new String("");
-			         for(int i=1; i <= colCount; i++){
-			        	 rowContent = rowContent + " : "+ rs.getString(i);
-			         }
-			         System.out.println(rowContent);
-			      }
-			      
-			      //STEP 6: Clean-up environment
-			      rs.close();
-			      stmt.close();
-			      conn.close();
-			   }catch(SQLException se){
-			      //Handle errors for JDBC
-			      se.printStackTrace();
-			   }catch(Exception e){
-			      //Handle errors for Class.forName
-			      e.printStackTrace();
-			   }finally{
-			      //finally block used to close resources
-			      try{
-			         if(stmt!=null)
-			            stmt.close();
-			      }catch(SQLException se2){
-			      }// nothing we can do
-			      try{
-			         if(conn!=null)
-			            conn.close();
-			      }catch(SQLException se){
-			         se.printStackTrace();
-			      }//end finally try
-			   }//end try
-			   System.out.println("Goodbye!");
+				// STEP 3: Open a connection
+				System.out.println("Connecting to database...");
+
+				// STEP 4: Execute a query
+				System.out.println("Creating statement...");
+				String sql;
+				sql = "SELECT * FROM TEAM6";
+				ResultSet rs = stmt.executeQuery(sql);
+
+				// STEP 5: Extract data from result set
+				int colCount = rs.getMetaData().getColumnCount();
+				while (rs.next()) {
+					String rowContent = new String("");
+					for (int i = 1; i <= colCount; i++) {
+						rowContent = rowContent + " : " + rs.getString(i);
+					}
+					System.out.println(rowContent);
+				}
+
+				// STEP 6: Clean-up environment
+				rs.close();
+				stmt.close();
+				conn.close();
+
+			} catch (SQLException se) {
+				// Handle errors for JDBC
+				se.printStackTrace();
+			} catch (Exception e) {
+				// Handle errors for Class.forName
+				e.printStackTrace();
+			} finally {
+				// finally block used to close resources
+				// try{
+				// if(stmt!=null)
+				// stmt.close();
+				// }catch(SQLException se2){
+				// }// nothing we can do
+				// try{
+				// if(conn!=null)
+				// conn.close();
+				// }catch(SQLException se){
+				// se.printStackTrace();
+				// }//end finally try
+			} // end try
+			System.out.println("Goodbye!");
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
-	
-	static void connectionWinSetup(){
+
+	/**
+	 * Initiates the GUI for defining DB connection.
+	 * 
+	 */
+	static void connectionWinSetup() {
 		connectionWindow = new JFrame("Connection Interface");
-		
-		JLabel dbURLLabel = new JLabel("Database URL: ");
-		JTextField dbURLTextField = new JTextField();
-		JLabel userLabel = new JLabel("User Name: ");
-		JTextField userTextField = new JTextField();
-		JLabel passLabel = new JLabel("Password: ");
-		JTextField passTextField = new JTextField();
-		JButton submitConnButton = new JButton("Submit");
+
+		final JLabel dburlLabel = new JLabel("Database URL: ");
+		final JTextField dburlTextField = new JTextField();
+		final JLabel userLabel = new JLabel("User Name: ");
+		final JTextField userTextField = new JTextField();
+		final JLabel passLabel = new JLabel("Password: ");
+		final JTextField passTextField = new JTextField();
+		final JButton submitConnButton = new JButton("Submit");
 		submitConnButton.addActionListener(new ActionListener() {
- 
-            public void actionPerformed(ActionEvent e)
-            {
-                DB_URL=DB_URL_BASE + dbURLTextField.getText();
-                connectToDB();
-            }
-        });
-		
-		connectionWindow.setLayout(new GridLayout(4,2));
-		connectionWindow.getContentPane().add(dbURLLabel);
-		connectionWindow.getContentPane().add(dbURLTextField);
+
+			public void actionPerformed(ActionEvent event) {
+				DB_URL = DB_URL_BASE + dburlTextField.getText();
+				connectTodb();
+			}
+		});
+
+		connectionWindow.setLayout(new GridLayout(4, 2));
+		connectionWindow.getContentPane().add(dburlLabel);
+		connectionWindow.getContentPane().add(dburlTextField);
 		connectionWindow.getContentPane().add(userLabel);
 		connectionWindow.getContentPane().add(userTextField);
 		connectionWindow.getContentPane().add(passLabel);
 		connectionWindow.getContentPane().add(passTextField);
 		connectionWindow.getContentPane().add(submitConnButton);
-		//frame.getContentPane().add(userLabel);
-		//frame.getContentPane().add(userLabel);
-		
+		// frame.getContentPane().add(userLabel);
+		// frame.getContentPane().add(userLabel);
+
 		connectionWindow.addWindowListener(new WindowAdapter() {
-			
+
 			@Override
 			public void windowClosing(WindowEvent we) {
 				int close = JOptionPane.showConfirmDialog(connectionWindow, 
 						"Exit the application?", 
-						"Exit", 
+						"Exit",
 						JOptionPane.YES_NO_OPTION);
-				
+
 				if (close == JOptionPane.YES_OPTION) {
-					
+
 					connectionWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				} else {
 					connectionWindow.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 				}
 			}
 		});
-		
-		//connectionWindow.setSize(300, 300);
+
+		// connectionWindow.setSize(300, 300);
 		connectionWindow.pack();
 		connectionWindow.setLocationRelativeTo(null);
 		connectionWindow.setVisible(true);
-		
+
 	}
-	
-	
+
 	/**
 	 * The main method that displays the main application window.
 	 * 
-	 * @param args The command-line arguments
+	 * @param args
+	 *            The command-line arguments
 	 */
-	
-	public static void main(String[] args) {
-	
-		connectionWinSetup();
-		
 
-		
+	public static void main(String[] args) {
+
+		connectionWinSetup();
+
 	}
 }
