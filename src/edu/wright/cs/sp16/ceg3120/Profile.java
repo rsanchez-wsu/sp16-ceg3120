@@ -79,6 +79,7 @@ public class Profile extends JFrame {
 		choice2 = new Choice();
 		choice3 = new Choice();
 		startupConnect = new JCheckBox();
+		startupMotd = new JCheckBox();
 		useMonospaced = new JCheckBox();
 		gridLines = new JCheckBox();
 		pxQueries = new JComboBox<Object>();
@@ -102,7 +103,7 @@ public class Profile extends JFrame {
 
 		otherConnection.addTab("Connection 1", jpanel1);
 
-		defaultFavorite.setText("Default Favorite:");
+		defaultFavorite.setText("Default Database:");
 
 		defaultView.setText("Default View:");
 
@@ -114,6 +115,9 @@ public class Profile extends JFrame {
 
 		startupConnect.setFont(new Font("Lucida Grande", 0, 11)); // NOI18N
 		startupConnect.setText("Connect to Default on Startup");
+		
+		startupMotd.setFont(new Font("Lucida Grande", 0, 11)); // NOI18N
+		startupMotd.setText("\"Message of the Day\" on Startup");
 
 		useMonospaced.setFont(new Font("Lucida Grande", 0, 11)); // NOI18N
 		useMonospaced.setText("Use monospaced fonts");
@@ -167,7 +171,8 @@ public class Profile extends JFrame {
 										GroupLayout.PREFERRED_SIZE, 
 										166, 
 										GroupLayout.PREFERRED_SIZE)
-								.addComponent(startupConnect).addComponent(gridLines))
+								.addComponent(startupConnect).addComponent(
+										startupMotd).addComponent(gridLines))
 						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		jpanel2Layout.setVerticalGroup(jpanel2Layout.createParallelGroup(
 				GroupLayout.Alignment.LEADING)
@@ -177,6 +182,7 @@ public class Profile extends JFrame {
 										choice1, GroupLayout.PREFERRED_SIZE,
 										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGap(2, 2, 2).addComponent(startupConnect)
+						.addGap(3, 3, 3).addComponent(startupMotd)
 						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 						.addGroup(jpanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 								.addComponent(defaultView).addComponent(
@@ -208,7 +214,7 @@ public class Profile extends JFrame {
 										.addComponent(queries)))
 						.addContainerGap(33, Short.MAX_VALUE)));
 
-		otherConnection.addTab("Other Connection", jpanel2);
+		otherConnection.addTab("User Preferences", jpanel2);
 
 		fileMenu.setText("File");
 		jmenuBar1.add(fileMenu);
@@ -302,6 +308,7 @@ public class Profile extends JFrame {
 	private JLabel queries;
 	private JLabel rememberLast;
 	private JCheckBox startupConnect;
+	private JCheckBox startupMotd;
 	private JLabel tableViews;
 	private JCheckBox useMonospaced;
 	private JMenu windowMenu;

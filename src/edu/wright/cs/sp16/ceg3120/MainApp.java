@@ -22,6 +22,7 @@
 package edu.wright.cs.sp16.ceg3120;
 
 
+//import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ContainerEvent;
@@ -30,7 +31,9 @@ import java.awt.event.ContainerListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+//import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+
 
 
 /**
@@ -67,6 +70,7 @@ public class MainApp {
 		
 		frame.addContainerListener(new ContainerListener() {
 			
+//			@Override
 //			public void windowClosing(Window we) {
 //				int close = JOptionPane.showConfirmDialog(frame, 
 //						"Exit the application?", 
