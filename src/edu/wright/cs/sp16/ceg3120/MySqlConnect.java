@@ -59,7 +59,7 @@ public class MySqlConnect {
 	 * 
 	 * 
 	 * @param dbAddress
-	 *            database address without port (uses default MySQL port)
+	 *            database address without port (uses default MySQL port = 3306)
 	 *            Capitalization does not matter, IP address or domain names are
 	 *            accepted.
 	 * @param dbUsername
