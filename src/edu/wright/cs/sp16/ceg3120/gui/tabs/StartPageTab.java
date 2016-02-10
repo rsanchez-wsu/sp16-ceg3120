@@ -29,7 +29,7 @@ import java.awt.Component;
  * - Tip of the Day
  * - etc.
  * 
- * @author codybutz
+ * @author codybutz, alyssa
  *
  */
 public class StartPageTab extends Component {
