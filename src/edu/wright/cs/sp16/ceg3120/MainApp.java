@@ -49,94 +49,99 @@ import javax.swing.JTextField;
 public class MainApp {
 	static JFrame connectionWindow;
 	static String JDBC_DRIVER;  
-	static String DB_URL_BASE="jdbc:derby:";
+	static String DB_URL_BASE = "jdbc:derby:";
 	static String DB_URL;
 	
-	static void connectToDB(){
-	 	   // JDBC driver name and database URL
-			   JDBC_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";  
-			   //DB_URL_BASE = "jdbc:derby:";//jdbc compliant DBMS: derby, mysql, 
+	/**
+	 * connectToDB will make a connection to the database. 
+	 */
+	static void connectToDatabase() {
+		//JDBC driver name and database URL
+		JDBC_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
+		//DB_URL_BASE = "jdbc:derby:";//JBDC compliant DBMS: derby, mySQL, 
+		//  Database credentials
+		//String user = "";
+		//String password = "";
+		Connection conn = null;
+		Statement stmt = null;
+		try {
+			//STEP 2: Register JDBC driver
+			Class.forName(JDBC_DRIVER).newInstance();
 
-			   //  Database credentials
-			    String USER = "";
-			    String PASS = "";
-			   
-			   Connection conn = null;
-			   Statement stmt = null;
-			   try{
-				   //STEP 2: Register JDBC driver
-			      Class.forName(JDBC_DRIVER).newInstance();
+			//STEP 3: Open a connection
+			System.out.println("Connecting to database...");
+			conn = DriverManager.getConnection(DB_URL);
 
-			      //STEP 3: Open a connection
-			      System.out.println("Connecting to database...");
-			      conn = DriverManager.getConnection(DB_URL);
+			//STEP 4: Execute a query
+			System.out.println("Creating statement...");
+			stmt = conn.createStatement();
+			String sql;
+			sql = "SELECT * FROM TEAM6";
+			ResultSet rs = stmt.executeQuery(sql);
 
-			      //STEP 4: Execute a query
-			      System.out.println("Creating statement...");
-			      stmt = conn.createStatement();
-			      String sql;
-			      sql = "SELECT * FROM TEAM6";
-			      ResultSet rs = stmt.executeQuery(sql);
-
-			      //STEP 5: Extract data from result set
-			      int colCount = rs.getMetaData().getColumnCount();
-			      while(rs.next()){
-			         String rowContent = new String("");
-			         for(int i=1; i <= colCount; i++){
-			        	 rowContent = rowContent + " : "+ rs.getString(i);
-			         }
-			         System.out.println(rowContent);
-			      }
-			      
-			      //STEP 6: Clean-up environment
-			      rs.close();
-			      stmt.close();
-			      conn.close();
-			   }catch(SQLException se){
-			      //Handle errors for JDBC
-			      se.printStackTrace();
-			   }catch(Exception e){
-			      //Handle errors for Class.forName
-			      e.printStackTrace();
-			   }finally{
-			      //finally block used to close resources
-			      try{
-			         if(stmt!=null)
-			            stmt.close();
-			      }catch(SQLException se2){
-			      }// nothing we can do
-			      try{
-			         if(conn!=null)
-			            conn.close();
-			      }catch(SQLException se){
-			         se.printStackTrace();
-			      }//end finally try
-			   }//end try
-			   System.out.println("Goodbye!");
+			//STEP 5: Extract data from result set
+			int colCount = rs.getMetaData().getColumnCount();
+			while (rs.next()) {
+				String rowContent = new String("");
+				for (int i = 1; i <= colCount; i++) {
+					rowContent = rowContent + " : " + rs.getString(i);
+				}
+				System.out.println(rowContent);
+			}
+			//STEP 6: Clean-up environment
+			rs.close();
+			stmt.close();
+			conn.close();
+		} catch (SQLException se) {
+			//Handle errors for JDBC
+			se.printStackTrace(); 
+		} catch (Exception e) {
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		} finally {
+			//finally block used to close resources
+			try {
+				if (stmt != null) {
+					stmt.close();
+				}
+			} catch (SQLException se2) {
+				System.out.println("Nothing we can do");
+			} // nothing we can do
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException se) {
+				se.printStackTrace();
+			} //end finally try
+		} //end try
+		System.out.println("Goodbye!");
 	}
 	
-	static void connectionWinSetup(){
+	/**
+	 * connectionWindSetup creates window display.
+	 */
+	static void connectionWinSetup() {
 		connectionWindow = new JFrame("Connection Interface");
 		
-		JLabel dbURLLabel = new JLabel("Database URL: ");
-		JTextField dbURLTextField = new JTextField();
-		JLabel userLabel = new JLabel("User Name: ");
-		JTextField userTextField = new JTextField();
-		JLabel passLabel = new JLabel("Password: ");
-		JTextField passTextField = new JTextField();
+		JLabel dbUrlLabel = new JLabel("Database URL: ");
+		final JTextField dbUrlTextField = new JTextField();
+		final JLabel userLabel = new JLabel("User Name: ");
+		final JTextField userTextField = new JTextField();
+		final JLabel passLabel = new JLabel("Password: ");
+		final JTextField passTextField = new JTextField();
 		JButton submitConnButton = new JButton("Submit");
 		submitConnButton.addActionListener(new ActionListener() {
- 
-            public void actionPerformed(ActionEvent e)
-            {
-                DB_URL=DB_URL_BASE + dbURLTextField.getText();
-                connectToDB();
-            }
-        });
+
+			public void actionPerformed(ActionEvent event) {
+				DB_URL = DB_URL_BASE + dbUrlTextField.getText();
+				connectToDatabase();
+			}
+		});
 		
 		connectionWindow.setLayout(new GridLayout(4,2));
-		connectionWindow.getContentPane().add(dbURLLabel);
-		connectionWindow.getContentPane().add(dbURLTextField);
+		connectionWindow.getContentPane().add(dbUrlLabel);
+		connectionWindow.getContentPane().add(dbUrlTextField);
 		connectionWindow.getContentPane().add(userLabel);
 		connectionWindow.getContentPane().add(userTextField);
 		connectionWindow.getContentPane().add(passLabel);
