@@ -33,7 +33,7 @@ public class SplashScreen{
 	public void showSplashScreen() {
 		// create window, apply image
 		JWindow window = new JWindow();
-		ImageIcon icon = new ImageIcon("src/img/splashscreen_pic.png");
+		ImageIcon icon = new ImageIcon("img/splashscreen_pic.png");
 		JLabel label = new JLabel(icon);
 		
 		window.add(label);
