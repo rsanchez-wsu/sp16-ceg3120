@@ -23,6 +23,8 @@ package edu.wright.cs.sp16.ceg3120;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
@@ -31,6 +33,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -46,21 +49,99 @@ import javax.swing.JTextField;
 public class MainApp {
 	static JFrame connectionWindow;
 	static String JDBC_DRIVER;  
+	static String DB_URL_BASE="jdbc:derby:";
 	static String DB_URL;
 	
+	static void connectToDB(){
+	 	   // JDBC driver name and database URL
+			   JDBC_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";  
+			   //DB_URL_BASE = "jdbc:derby:";//jdbc compliant DBMS: derby, mysql, 
+
+			   //  Database credentials
+			    String USER = "";
+			    String PASS = "";
+			   
+			   Connection conn = null;
+			   Statement stmt = null;
+			   try{
+				   //STEP 2: Register JDBC driver
+			      Class.forName(JDBC_DRIVER).newInstance();
+
+			      //STEP 3: Open a connection
+			      System.out.println("Connecting to database...");
+			      conn = DriverManager.getConnection(DB_URL);
+
+			      //STEP 4: Execute a query
+			      System.out.println("Creating statement...");
+			      stmt = conn.createStatement();
+			      String sql;
+			      sql = "SELECT * FROM TEAM6";
+			      ResultSet rs = stmt.executeQuery(sql);
+
+			      //STEP 5: Extract data from result set
+			      int colCount = rs.getMetaData().getColumnCount();
+			      while(rs.next()){
+			         String rowContent = new String("");
+			         for(int i=1; i <= colCount; i++){
+			        	 rowContent = rowContent + " : "+ rs.getString(i);
+			         }
+			         System.out.println(rowContent);
+			      }
+			      
+			      //STEP 6: Clean-up environment
+			      rs.close();
+			      stmt.close();
+			      conn.close();
+			   }catch(SQLException se){
+			      //Handle errors for JDBC
+			      se.printStackTrace();
+			   }catch(Exception e){
+			      //Handle errors for Class.forName
+			      e.printStackTrace();
+			   }finally{
+			      //finally block used to close resources
+			      try{
+			         if(stmt!=null)
+			            stmt.close();
+			      }catch(SQLException se2){
+			      }// nothing we can do
+			      try{
+			         if(conn!=null)
+			            conn.close();
+			      }catch(SQLException se){
+			         se.printStackTrace();
+			      }//end finally try
+			   }//end try
+			   System.out.println("Goodbye!");
+	}
 	
 	static void connectionWinSetup(){
 		connectionWindow = new JFrame("Connection Interface");
+		
+		JLabel dbURLLabel = new JLabel("Database URL: ");
+		JTextField dbURLTextField = new JTextField();
 		JLabel userLabel = new JLabel("User Name: ");
 		JTextField userTextField = new JTextField();
 		JLabel passLabel = new JLabel("Password: ");
 		JTextField passTextField = new JTextField();
+		JButton submitConnButton = new JButton("Submit");
+		submitConnButton.addActionListener(new ActionListener() {
+ 
+            public void actionPerformed(ActionEvent e)
+            {
+                DB_URL=DB_URL_BASE + dbURLTextField.getText();
+                connectToDB();
+            }
+        });
 		
-		connectionWindow.setLayout(new GridLayout(3,2));
+		connectionWindow.setLayout(new GridLayout(4,2));
+		connectionWindow.getContentPane().add(dbURLLabel);
+		connectionWindow.getContentPane().add(dbURLTextField);
 		connectionWindow.getContentPane().add(userLabel);
 		connectionWindow.getContentPane().add(userTextField);
 		connectionWindow.getContentPane().add(passLabel);
 		connectionWindow.getContentPane().add(passTextField);
+		connectionWindow.getContentPane().add(submitConnButton);
 		//frame.getContentPane().add(userLabel);
 		//frame.getContentPane().add(userLabel);
 		
@@ -82,11 +163,14 @@ public class MainApp {
 			}
 		});
 		
-		connectionWindow.setSize(300, 300);
+		//connectionWindow.setSize(300, 300);
+		connectionWindow.pack();
 		connectionWindow.setLocationRelativeTo(null);
 		connectionWindow.setVisible(true);
 		
 	}
+	
+	
 	/**
 	 * The main method that displays the main application window.
 	 * 
@@ -95,71 +179,9 @@ public class MainApp {
 	
 	public static void main(String[] args) {
 	
-		//connectionWinSetup();
+		connectionWinSetup();
 		
- 	   // JDBC driver name and database URL
-		   JDBC_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";  
-		   DB_URL = "jdbc:derby:testdb";
 
-		   //  Database credentials
-		    String USER = "";
-		    String PASS = "";
-		   
-		   Connection conn = null;
-		   Statement stmt = null;
-		   try{
-			   //STEP 2: Register JDBC driver
-		      Class.forName(JDBC_DRIVER).newInstance();
-
-		      //STEP 3: Open a connection
-		      System.out.println("Connecting to database...");
-		      conn = DriverManager.getConnection(DB_URL);
-
-		      //STEP 4: Execute a query
-		      System.out.println("Creating statement...");
-		      stmt = conn.createStatement();
-		      String sql;
-		      sql = "SELECT * FROM TEAM6";
-		      ResultSet rs = stmt.executeQuery(sql);
-
-		      //STEP 5: Extract data from result set
-		      while(rs.next()){
-		         //Retrieve by column name
-		         //int id  = rs.getInt("id");
-		         //int age = rs.getInt("age");
-		         //String first = rs.getString("first");
-		         //String last = rs.getString("last");
-
-		         //Display values
-		         System.out.print("ID: " + rs.getInt("memid"));
-		         System.out.print(", First: " + rs.getString("lastname"));
-		         System.out.println(", Last: " + rs.getString("firstname"));
-		      }
-		      //STEP 6: Clean-up environment
-		      rs.close();
-		      stmt.close();
-		      conn.close();
-		   }catch(SQLException se){
-		      //Handle errors for JDBC
-		      se.printStackTrace();
-		   }catch(Exception e){
-		      //Handle errors for Class.forName
-		      e.printStackTrace();
-		   }finally{
-		      //finally block used to close resources
-		      try{
-		         if(stmt!=null)
-		            stmt.close();
-		      }catch(SQLException se2){
-		      }// nothing we can do
-		      try{
-		         if(conn!=null)
-		            conn.close();
-		      }catch(SQLException se){
-		         se.printStackTrace();
-		      }//end finally try
-		   }//end try
-		   System.out.println("Goodbye!");
 		
 	}
 }
