@@ -25,9 +25,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JWindow;
 
-/**This is the splash screen class for the application. It simply loads the 
- *splash screen image onto a window for a small amount of time before 
- *displaying the main screen of the application.
+/**
+ * This is the splash screen class for the application. It simply loads the 
+ * splash screen image onto a window for a small amount of time before 
+ * displaying the main screen of the application.
  *
  * @author Alex Vance
  */
