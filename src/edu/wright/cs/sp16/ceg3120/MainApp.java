@@ -28,10 +28,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import edu.wright.cs.sp16.ceg3120.gui.SplashScreen;
+
 /**
  * The application's main class.
  */
-public class MainApp {
+public class MainApp{
 	
 	/**
 	 * The main method that displays the main application window.
@@ -72,6 +74,10 @@ public class MainApp {
 	public static void main(String[] args) {
 		// Schedule a job for the event-dispatching thread:
 		// creating and showing this application's GUI.
+		
+		SplashScreen screen = new SplashScreen();
+		screen.showSplashScreen();
+		
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
