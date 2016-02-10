@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!ELEMENT config (profiles)+>
+<!ELEMENT profiles (user)+>
+<!ELEMENT user(database+, username, password, firstName, lastName, accountType?, department?)
+
+<!ELEMENT database (#PCDATA)
+<!ATTLIST database data_code ID #REQUIRED>
+
+<!ELEMENT username (#PCDATA)
+<!ATTLIST username id_code ID #REQUIRED>
+
+<!ELEMENT password (#PCDATA)
+<!ATTLIST password pwd_code ID #REQUIRED>
+
+<!ELEMENT firstName (#PCDATA)
+<!ATTLIST firstName fn_code ID #REQUIRED>
+
+<!ELEMENT lastName (#PCDATA)
+<!ATTLIST lastName ln_code ID #REQUIRED>
+
+<!ELEMENT accountType (#PCDATA)
+
+<!ELEMENT department (#PCDATA)
+
+<!ELEMENT appSettings (showMotd)+>
+
