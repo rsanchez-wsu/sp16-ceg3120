@@ -43,12 +43,12 @@ public class MainFrame {
 
 	/**
 	 * Main Frame for application.
-	 * 
+	 * Create the frame for use to show the Menu Bar. This will be initial frame of the app. 
 	 * 
 	 * @author Bonnie Shields
 	 */
 	public static void createFrame() {
-		frame = new JFrame("Sequel Master");
+		frame = new JFrame("SQLizard");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// display the menu bar on the top of the page
 		displayMenu();
@@ -72,6 +72,7 @@ public class MainFrame {
 		JMenuItem connMenuItem = new JMenuItem("Connect");
 		fileMenu.add(connMenuItem);
 
+		//action listener for the Connect menu item within File
 		ActionListener connect = new ConnectWindow();
 		connMenuItem.addActionListener(connect);
 
