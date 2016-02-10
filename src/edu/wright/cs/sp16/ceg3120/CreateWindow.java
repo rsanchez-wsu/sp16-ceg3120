@@ -109,7 +109,7 @@ public class CreateWindow extends JFrame {
 	 * Constructor.
 	 */
 	public CreateWindow() {
-		super("Create Window");
+		super("Connect to Database");
 
 		// Title Panel and its position
 		createTitlePanel(title);
