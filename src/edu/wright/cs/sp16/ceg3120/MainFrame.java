@@ -54,6 +54,7 @@ public class MainFrame {
 		displayMenu();
 		frame.setVisible(true);
 		frame.setSize(650, 500);
+		frame.setLocationRelativeTo(null);
 	}
 
 	/**
@@ -108,7 +109,8 @@ public class MainFrame {
 			CreateWindow popup = new CreateWindow();
 			popup.setVisible(true);
 			//Added dimensions to keep the popup from showing up at just the title bar
-			popup.setSize(new Dimension(250, 350));
+			popup.setSize(new Dimension(400, 400));
+			popup.setLocationRelativeTo(null);
 		}
 	}
 }
