@@ -50,7 +50,6 @@ import javax.swing.JTextField;
 
 //import javafx.scene.control.ComboBox;
 
-
 /**
  * The Create_GUI class.
  */
@@ -81,7 +80,7 @@ public class CreateWindow extends JFrame {
 	private static JTextField databaseUrl = new JTextField(10);
 	private static JTextField username = new JTextField(10);
 	private static JTextField password = new JTextField(10);
-	static String[] testStrings = { "None Selected", "MySQL Driver", "Demo Driver 2", 
+	static String[] testStrings = { "None Selected", "MySQL Driver", "PostgreSQL Driver",
 			"Demo Driver 3" };
 	private static JComboBox<?> driver = new JComboBox<Object>(testStrings);
 	private static JCheckBox savePassword = new JCheckBox();
@@ -106,7 +105,6 @@ public class CreateWindow extends JFrame {
 	private static ActionListener connectListener = new ConnectListener();
 	// private ActionListener exitListener = new ExitListener();
 
-	
 	/**
 	 * Constructor.
 	 */
@@ -248,6 +246,7 @@ public class CreateWindow extends JFrame {
 
 	/**
 	 * make connect button work.
+	 * 
 	 * @author kenton
 	 *
 	 */
@@ -270,16 +269,25 @@ public class CreateWindow extends JFrame {
 			System.out.println(dbDriver);
 			if (dbDriver.equals("MySQL Driver")) {
 				connect = new MySqlConnect(dbAddress, dbUsername, dbPassword, dbName);
+				try {
+					connect.configure();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			} else if (dbDriver.equals("PostgreSQL Driver")) {
+				PostgreConnect postgreConnect = new PostgreConnect(dbAddress, dbUsername,
+						dbPassword, dbName);
+				try {
+					postgreConnect.configure();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
-			try {
-				connect.configure();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+
 		}
-		
+
 	}
-	
+
 	/**
 	 * make clear button to work.
 	 */
@@ -303,9 +311,10 @@ public class CreateWindow extends JFrame {
 	 * make save button to work.
 	 */
 	private static class SaveListener implements ActionListener {
-		
+
 		/**
-		 * Write User's name, Database URL, Username, encrypted password and salt to a file. 
+		 * Write User's name, Database URL, Username, encrypted password and
+		 * salt to a file.
 		 */
 
 		public void writeEncrypt(byte[] encPass, byte[] salt) {
@@ -331,35 +340,36 @@ public class CreateWindow extends JFrame {
 				} finally {
 					output.close();
 				}
-			} catch (FileNotFoundException ex) { 
-				//"File not found.";
+			} catch (FileNotFoundException ex) {
+				// "File not found.";
 			} catch (IOException ex) {
-				//log(ex);
-			} 
+				// log(ex);
+			}
 		}
-		
+
 		/**
-		 * Read User's name, Database URL, Username, encrypted password and salt from a file. 
+		 * Read User's name, Database URL, Username, encrypted password and salt
+		 * from a file.
 		 */
 		public void readEncrypt(String userName) {
-	
+
 			try {
 				File file = new File("UserData/" + userName);
-			
+
 				InputStream inputSteam = new FileInputStream(file);
 				try {
 					try {
-						//final PasswordEncryptionService pes =
-						//		new PasswordEncryptionService(); //testing
-					
-						byte[] readName = new byte[name.getText().getBytes("ISO-8859-1").length ];
+						// final PasswordEncryptionService pes =
+						// new PasswordEncryptionService(); //testing
+
+						byte[] readName = new byte[name.getText().getBytes("ISO-8859-1").length];
 						byte[] readDatabase = 
-							new byte[databaseUrl.getText().getBytes("ISO-8859-1").length];
+								new byte[databaseUrl.getText().getBytes("ISO-8859-1").length];
 						int endOfFile = 0;
 						final ArrayList<byte[]> userInfoLst = new ArrayList<byte[]>();
 						endOfFile = inputSteam.read(readName);
 						byte[] line = new byte[2];
-						endOfFile = inputSteam.read(line);	
+						endOfFile = inputSteam.read(line);
 						endOfFile = inputSteam.read(readDatabase);
 						endOfFile = inputSteam.read(line);
 						byte[] readUser = 
@@ -371,7 +381,7 @@ public class CreateWindow extends JFrame {
 						endOfFile = inputSteam.read(line);
 						byte[] salt = new byte[8];
 						endOfFile = inputSteam.read(salt);
-					
+
 						userInfoLst.add(readName);
 						userInfoLst.add(readDatabase);
 						userInfoLst.add(readUser);
@@ -383,34 +393,37 @@ public class CreateWindow extends JFrame {
 							inputSteam.close();
 						} else {
 							System.out.print("");
-							inputSteam.close();	
+							inputSteam.close();
 						}
-						//System.out.println(pes.authenticate(password.getText(), 
-						//userInfoLst.get(3) , userInfoLst.get(4)));
-						System.out.println((new String(userInfoLst.get(0), 
-								"ISO-8859-1")));
-						//System.out.println(((new String(userInfoLst.get(1))))); //testing
-						//System.out.println(((new String(userInfoLst.get(2))))); //testing
-						//System.out.println(Arrays.toString(userInfoLst.get(3))); //testing
-						//System.out.println(Arrays.toString(userInfoLst.get(4))); //testing
+						// System.out.println(pes.authenticate(password.getText(),
+						// userInfoLst.get(3) , userInfoLst.get(4)));
+						System.out.println((new String(userInfoLst.get(0), "ISO-8859-1")));
+						// System.out.println(((new
+						// String(userInfoLst.get(1))))); //testing
+						// System.out.println(((new
+						// String(userInfoLst.get(2))))); //testing
+						// System.out.println(Arrays.toString(userInfoLst.get(3)));
+						// //testing
+						// System.out.println(Arrays.toString(userInfoLst.get(4)));
+						// //testing
 					} finally {
 						inputSteam.close();
-					} 
+					}
 				} catch (IOException ex) {
-				
-					//exception
+
+					// exception
 				}
 			} catch (FileNotFoundException ex) {
-				//exception
-			}		
+				// exception
+			}
 		}
-		
+
 		/**
 		 * Listen for save button click.
 		 */
-		
+
 		public void actionPerformed(ActionEvent ae) {
-			
+
 			/**
 			 * Saving password: make sure to encrypt.
 			 */
@@ -426,20 +439,20 @@ public class CreateWindow extends JFrame {
 					System.out.println("Pass: " + pass);
 					System.out.println("Encrypted Pass: " + Arrays.toString(encPass));
 					System.out.println("Encrypted Pass: " + Arrays.toString(salt));
-					
+
 					// Save salt and encrypted password to file
 					writeEncrypt(encPass, salt);
-					readEncrypt(username.getText()); //testing
+					readEncrypt(username.getText()); // testing
 				} catch (NoSuchAlgorithmException e) {
 					System.err.println("Caught NoSuchAlgorithmException: " + e.getMessage());
 				} catch (InvalidKeySpecException e) {
 					System.err.println("Caught InvalidKeySpecException: " + e.getMessage());
 				}
-	
-			} //else {
-				
-			//}
-			JOptionPane.showMessageDialog(null, "This button is not yet implemented. " 
+
+			} // else {
+
+			// }
+			JOptionPane.showMessageDialog(null, "This button is not yet implemented. "
 					+ "This can be milestone 2.");
 		}
 	}
@@ -452,13 +465,13 @@ public class CreateWindow extends JFrame {
 		cw.setSize(500, 500); // set size of cw frame
 		cw.setVisible(true);
 		cw.setLocationRelativeTo(null); // centered
-		cw.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // don't close on "X"
+		cw.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // don't close
+																	// on "X"
 		cw.pack();
 		cw.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent evt) {
-				int answer = JOptionPane.showConfirmDialog(cw, "Do you really want to quit?", 
-						"Quit",
-						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+				int answer = JOptionPane.showConfirmDialog(cw, "Do you really want to quit?",
+						"Quit",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 				if (answer == JOptionPane.YES_OPTION) {
 					System.exit(0);
 				}
