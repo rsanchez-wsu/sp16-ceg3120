@@ -19,35 +19,58 @@
  *
  */
 
-//This code was soured from the following website http://www.petefreitag.com/item/445.cfm 
+//This code was sourced from the following website http://www.petefreitag.com/item/445.cfm 
 
 package edu.wright.cs.sp16.ceg3120;
-//import java.io.StringWriter;
-//
-//import javax.xml.parsers.DocumentBuilder;
-//import javax.xml.parsers.DocumentBuilderFactory;
-//import javax.xml.transform.Transformer;
-//import javax.xml.transform.TransformerFactory;
-//import javax.xml.transform.dom.DOMSource;
-//import javax.xml.transform.stream.StreamResult;
-//import org.w3c.dom.Document;
-//
-//
-//public class XmlWrite 
-//{
-//	//public static void main(String[] args)
-//	//{
-//		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-//		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-//		Document doc = docBuilder.parse();//enter input source inside the brackets
-////this is where we can add attributes and tags
-//	//write xml document to a string
-//		Transformer transformer = TransformerFactory.newInstance().newTransformer();
-//	//	transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-//StreamResult result = new StreamResult(new StringWriter());
-//DOMSource source = new DOMSource(doc);
-//transformer.transformer source,result;
-//String xmlString = result.getWriter().toString();
-////System.out.println(xmlString);
-//System.out.println(xmlStrng);
-//}
+
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+
+import java.io.IOException;
+import java.io.StringWriter;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+
+/**
+ * Class that parses xml and should store it in a document.
+ * Tyrone, I hope this is what you meant by this but all the errors are fixed.
+ *
+ */
+public class XmlWrite {
+	/**
+	 * Unfinished method that really shouldn't be main, Tyrone, what's going on here 
+	 * and what's supposed to be going on?
+	 * @param args standard (but shouldn't exist because this shouldn't be main
+	 * @throws TransformerException exception handling for creating Transformer
+	 * @throws ParserConfigurationException exception handling for creating newDocumentBuilder
+	 * @throws SAXException exception handling for using docBuilder.parse
+	 * @throws IOException exception handling for using docBuilder.parse
+	 */
+	public static void main(String[] args) throws TransformerException, 
+	ParserConfigurationException, SAXException, IOException {
+		
+		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+		//Is profile.xml the correct thing to insert in this statement?
+		Document doc = docBuilder.parse("Profile.xml");//enter input source inside the brackets
+		//this is where we can add attributes and tags
+		//write xml document to a string
+		Transformer transformer = TransformerFactory.newInstance().newTransformer();
+	//	transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+		StreamResult result = new StreamResult(new StringWriter());
+		DOMSource source = new DOMSource(doc);
+		transformer.transform(source,result);
+				
+		String xmlString = result.getWriter().toString();
+		System.out.println(xmlString);
+		System.out.println(xmlString);
+	}
+}
