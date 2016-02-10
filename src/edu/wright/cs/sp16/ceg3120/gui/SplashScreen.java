@@ -42,7 +42,7 @@ public class SplashScreen{
 		
 		//provide splash screen loading effect
 		try {
-			Thread.sleep(5000);
+			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
