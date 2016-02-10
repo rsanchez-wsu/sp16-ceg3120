@@ -62,19 +62,20 @@ public class MainApp {
 		//  Database credentials
 		//String user = "";
 		//String password = "";
-		Connection conn = null;
-		Statement stmt = null;
-		try {
+		//Connection conn = null;
+		//Statement stmt = null;
+		try ( Connection conn = DriverManager.getConnection(DB_URL);
+				Statement stmt = conn.createStatement(); ) {
 			//STEP 2: Register JDBC driver
 			Class.forName(JDBC_DRIVER).newInstance();
 
 			//STEP 3: Open a connection
 			System.out.println("Connecting to database...");
-			conn = DriverManager.getConnection(DB_URL);
+			//conn = DriverManager.getConnection(DB_URL);
 
 			//STEP 4: Execute a query
 			System.out.println("Creating statement...");
-			stmt = conn.createStatement();
+			//stmt = conn.createStatement();
 			String sql;
 			sql = "SELECT * FROM TEAM6";
 			ResultSet rs = stmt.executeQuery(sql);
@@ -98,23 +99,24 @@ public class MainApp {
 		} catch (Exception e) {
 			//Handle errors for Class.forName
 			e.printStackTrace();
-		} finally {
-			//finally block used to close resources
-			try {
-				if (stmt != null) {
-					stmt.close();
-				}
-			} catch (SQLException se2) {
-				System.out.println("Nothing we can do");
-			} // nothing we can do
-			try {
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException se) {
-				se.printStackTrace();
-			} //end finally try
-		} //end try
+		} 
+//		finally {
+//			//finally block used to close resources
+//			try {
+//				if (stmt != null) {
+//					stmt.close();
+//				}
+//			} catch (SQLException se2) {
+//				System.out.println("Nothing we can do");
+//			} // nothing we can do
+//			try {
+//				if (conn != null) {
+//					conn.close();
+//				}
+//			} catch (SQLException se) {
+//				se.printStackTrace();
+//			} //end finally try
+//		} //end try
 		System.out.println("Goodbye!");
 	}
 	
