@@ -73,26 +73,26 @@ public class MainApp {
 			System.out.println("Connecting to database...");
 			//conn = DriverManager.getConnection(DB_URL);
 
-			//STEP 4: Execute a query
-			System.out.println("Creating statement...");
-			//stmt = conn.createStatement();
-			String sql;
-			sql = "SELECT * FROM TEAM6";
-			ResultSet rs = stmt.executeQuery(sql);
-
-			//STEP 5: Extract data from result set
-			int colCount = rs.getMetaData().getColumnCount();
-			while (rs.next()) {
-				String rowContent = new String("");
-				for (int i = 1; i <= colCount; i++) {
-					rowContent = rowContent + " : " + rs.getString(i);
-				}
-				System.out.println(rowContent);
-			}
-			//STEP 6: Clean-up environment
-			rs.close();
-			stmt.close();
-			conn.close();
+//			//STEP 4: Execute a query
+//			System.out.println("Creating statement...");
+//			//stmt = conn.createStatement();
+//			String sql;
+//			sql = "SELECT * FROM TEAM6";
+//			ResultSet rs = stmt.executeQuery(sql);
+//
+//			//STEP 5: Extract data from result set
+//			int colCount = rs.getMetaData().getColumnCount();
+//			while (rs.next()) {
+//				String rowContent = new String("");
+//				for (int i = 1; i <= colCount; i++) {
+//					rowContent = rowContent + " : " + rs.getString(i);
+//				}
+//				System.out.println(rowContent);
+//			}
+//			//STEP 6: Clean-up environment
+//			rs.close();
+			//stmt.close();
+			//conn.close();
 		} catch (SQLException se) {
 			//Handle errors for JDBC
 			se.printStackTrace(); 
