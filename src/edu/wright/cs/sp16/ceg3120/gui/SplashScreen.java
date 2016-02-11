@@ -38,16 +38,16 @@ public class SplashScreen{
 	public void showSplashScreen() {
 		// create window, apply image
 		JWindow window = new JWindow();
-		ImageIcon icon = new ImageIcon("img/splashscreen_pic.png");
+		ImageIcon icon = new ImageIcon("img/SQLizard.jpg");
 		JLabel label = new JLabel(icon);
 		
 		window.add(label);
-		window.setBounds(225, 125, 900, 500);
+		window.setBounds(225, 125, 880, 495);
 		window.setVisible(true);
 		
 		//provide splash screen loading effect
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
