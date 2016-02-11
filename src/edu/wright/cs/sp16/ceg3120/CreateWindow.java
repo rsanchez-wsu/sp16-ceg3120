@@ -270,24 +270,20 @@ public class CreateWindow extends JFrame {
 			System.out.println(dbPassword);
 			System.out.println(dbDriver);
 			
-			// Requires that all boxes be completed (alias name, db URL, username, password)
+			// Requires that all boxes be completed (alias name, db URL, username, password, driver)
 			if (name.getText().trim().length() == 0 ) {
 				JOptionPane.showMessageDialog(null,"Connection failed: alias name is required.");
-			}			
-			else if (databaseUrl.getText().trim().length() == 0 ) {
+			} else if (databaseUrl.getText().trim().length() == 0 ) {
 				JOptionPane.showMessageDialog(null,"Connection failed: database URL is required.");
-			}
-			else if (username.getText().trim().length() == 0 ) {
+			} else if (username.getText().trim().length() == 0 ) {
 				JOptionPane.showMessageDialog(null,"Connection failed: username is required.");
-			}
-			else if (password.getText().trim().length() == 0 ) {
+			} else if (password.getText().trim().length() == 0 ) {
 				JOptionPane.showMessageDialog(null,"Connection failed: password is required.");
-			}
-			// Requires a driver to be selected
-			else if (dbDriver.equals("MySQL Driver")) {
+			} else if (dbDriver.equals("MySQL Driver")) {
 				connect = new DbConnect(dbAddress, dbUsername, dbPassword, dbName);
 			} else {
-				JOptionPane.showMessageDialog(failPanel, "Connection failed: driver selection is required.");
+				JOptionPane.showMessageDialog(failPanel, "Connection failed: "
+						+ "driver selection is required.");
 			}
 			try {
 				connect.configure();
