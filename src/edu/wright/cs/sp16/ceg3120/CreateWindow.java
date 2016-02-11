@@ -62,7 +62,7 @@ public class CreateWindow extends JFrame {
 	private JLabel title = new JLabel("Create Database");
 
 	// input labels
-	private JLabel inputLabel1 = new JLabel("Database Name: ");
+	private JLabel inputLabel1 = new JLabel("Alias Name: ");
 	private JLabel inputLabel2 = new JLabel("Database URL: ");
 	private JLabel inputLabel3 = new JLabel("Username: ");
 	private JLabel inputLabel4 = new JLabel("Password: ");
