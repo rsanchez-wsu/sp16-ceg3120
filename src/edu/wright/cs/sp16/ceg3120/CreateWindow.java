@@ -269,10 +269,25 @@ public class CreateWindow extends JFrame {
 			System.out.println(dbUsername);
 			System.out.println(dbPassword);
 			System.out.println(dbDriver);
-			if (dbDriver.equals("MySQL Driver")) {
+			
+			// Requires that all boxes be completed (alias name, db URL, username, password)
+			if (name.getText().trim().length() == 0 ) {
+				JOptionPane.showMessageDialog(null,"Connection failed: alias name is required.");
+			}			
+			else if (databaseUrl.getText().trim().length() == 0 ) {
+				JOptionPane.showMessageDialog(null,"Connection failed: database URL is required.");
+			}
+			else if (username.getText().trim().length() == 0 ) {
+				JOptionPane.showMessageDialog(null,"Connection failed: username is required.");
+			}
+			else if (password.getText().trim().length() == 0 ) {
+				JOptionPane.showMessageDialog(null,"Connection failed: password is required.");
+			}
+			// Requires a driver to be selected
+			else if (dbDriver.equals("MySQL Driver")) {
 				connect = new DbConnect(dbAddress, dbUsername, dbPassword, dbName);
 			} else {
-				JOptionPane.showMessageDialog(failPanel, "Connection failed, no drivers selected.");
+				JOptionPane.showMessageDialog(failPanel, "Connection failed: driver selection is required.");
 			}
 			try {
 				connect.configure();
@@ -420,7 +435,7 @@ public class CreateWindow extends JFrame {
 			if (savePassword.isSelected()) {
 				String pass = password.getText();
 				byte[] encPass;
-
+		
 				// Encryption
 				final PasswordEncryptionService pes = new PasswordEncryptionService();
 				try {
@@ -446,8 +461,12 @@ public class CreateWindow extends JFrame {
 				}
 	
 			} //don't need an else statement here
-			JOptionPane.showMessageDialog(null, "This button is not yet implemented. " 
-					+ "This can be milestone 2.");
+			// Required alias name, database URL, and username to save
+			if (name.getText().trim().length() == 0 || databaseUrl.getText().trim().length() == 0
+					|| username.getText().trim().length() == 0) {
+				JOptionPane.showMessageDialog(null,"Save failed: alias name, database URL, and"
+						+ " username are required.");
+			}			
 		}
 	}
 
