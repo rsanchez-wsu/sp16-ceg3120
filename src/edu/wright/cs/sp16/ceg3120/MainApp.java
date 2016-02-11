@@ -53,7 +53,7 @@ public class MainApp {
 	 * Sets up connection and connects to database.
 	 * 
 	 */
-	static void connectTodb() {
+	static void connectTodb() throws SQLException {
 		// JDBC driver name and database URL
 		JDBC_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
 		try ( Connection conn = DriverManager.getConnection(DB_URL);
@@ -83,13 +83,6 @@ public class MainApp {
 				// Open a connection
 				System.out.println("Connecting to database...");
 
-				// Clean-up environment
-				stmt.close();
-				conn.close();
-
-			} catch (SQLException se) {
-				// Handle errors for JDBC
-				se.printStackTrace();
 			} catch (Exception e) {
 				// Handle errors for Class.forName
 				e.printStackTrace();
@@ -123,7 +116,12 @@ public class MainApp {
 			public void actionPerformed(ActionEvent event) {
 
 				DB_URL = DB_URL_BASE + dburlTextField.getText();
-				connectTodb();
+				try {
+					connectTodb();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		
