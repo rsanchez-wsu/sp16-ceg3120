@@ -75,7 +75,7 @@ public class MainApp {
 		System.out.println("Goodbye!");
 
 		try (Connection conn = DriverManager.getConnection(DB_URL); 
-				Statement stmt = conn.createStatement()) {
+				) {
 			try {
 				// Register JDBC driver
 				Class.forName(JDBC_DRIVER).newInstance();
