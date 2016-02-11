@@ -21,6 +21,8 @@
 
 package edu.wright.cs.sp16.ceg3120.gui;
 
+import java.awt.Toolkit;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JWindow;
@@ -42,7 +44,12 @@ public class SplashScreen{
 		JLabel label = new JLabel(icon);
 		
 		window.add(label);
-		window.setBounds(225, 125, 880, 495);
+		
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		int width = ((int) tk.getScreenSize().getWidth());
+		int height = ((int) tk.getScreenSize().getHeight());
+		
+		window.setBounds((width / 2) - 440, (height / 2) - 245, 880, 495);
 		window.setVisible(true);
 		
 		//provide splash screen loading effect

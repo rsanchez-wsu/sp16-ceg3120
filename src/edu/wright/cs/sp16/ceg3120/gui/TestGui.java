@@ -38,11 +38,11 @@ public class TestGui {
 	 */
 	public static void main(String[] args) {
 		try {
+
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			
 			SplashScreen screen = new SplashScreen();
 			screen.showSplashScreen();
-			
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
 			MainGui gui = new MainGui();
 			gui.setVisible(true);
