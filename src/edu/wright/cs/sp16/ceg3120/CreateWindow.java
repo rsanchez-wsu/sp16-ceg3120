@@ -34,6 +34,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
@@ -332,15 +333,17 @@ public class CreateWindow extends JFrame {
 				}
 				FileOutputStream output = new FileOutputStream("UserData/" + username.getText());
 				try {
-					output.write(name.getText().getBytes("ISO-8859-1"));
-					output.write(System.getProperty("line.separator").getBytes("ISO-8859-1"));
-					output.write(databaseUrl.getText().getBytes("ISO-8859-1"));
-					output.write(System.getProperty("line.separator").getBytes("ISO-8859-1"));
-					output.write(username.getText().getBytes("ISO-8859-1"));
-					output.write(System.getProperty("line.separator").getBytes("ISO-8859-1"));
 					output.write(encPass);
-					output.write(System.getProperty("line.separator").getBytes("ISO-8859-1"));
+					output.write(System.getProperty("line.separator").getBytes("Cp1252"));
 					output.write(salt);
+					output.write(System.getProperty("line.separator").getBytes("Cp1252"));
+					output.write(name.getText().getBytes("Cp1252"));
+					output.write(System.getProperty("line.separator").getBytes("Cp1252"));
+					output.write(databaseUrl.getText().getBytes("Cp1252"));
+					output.write(System.getProperty("line.separator").getBytes("Cp1252"));
+					output.write(username.getText().getBytes("Cp1252"));
+					output.write(System.getProperty("line.separator").getBytes("Cp1252"));
+
 
 				} finally {
 					output.close();
@@ -353,62 +356,84 @@ public class CreateWindow extends JFrame {
 		}
 		
 		/**
+		 * Read all bytes in the file. 
+		 */
+		public static byte[] getBytesFromFile(File file) throws IOException {
+			InputStream is = new FileInputStream(file);
+			try {
+			
+			
+				long length = file.length();
+			
+
+
+				byte[] bytes = new byte[(int)length];
+
+				int offset = 0;
+				int numRead = 0;
+				while (offset < bytes.length
+						&& (numRead = is.read( bytes, offset, bytes.length - offset )) >= 0) {
+					offset += numRead;
+				}
+
+				if (offset < bytes.length) {
+					is.close();
+					throw new IOException("Could not completely read file " + file.getName());
+				}
+
+				is.close();
+				return bytes;
+			} finally {
+				is.close();
+				
+			} 
+		}
+		//public byte[] findNewLINE(InputStream inputSteam, )
+		
+		/**
 		 * Read User's name, Database URL, Username, encrypted password and salt from a file. 
 		 */
-		public void readEncrypt(String userName) {
-	
+		public ArrayList<byte[]> readEncrypt(String userName) {
+			String[] separated = null;
+			final ArrayList<byte[]> userInfoLst = new ArrayList<byte[]>();
 			try {
 				File file = new File("UserData/" + userName);
-			
+				
 				InputStream inputSteam = new FileInputStream(file);
 				try {
 					try {
-						//final PasswordEncryptionService pes =
-						//		new PasswordEncryptionService(); //testing
-					
-						byte[] readName = new byte[name.getText().getBytes("ISO-8859-1").length ];
-						byte[] readDatabase = 
-							new byte[databaseUrl.getText().getBytes("ISO-8859-1").length];
+											
 						int endOfFile = 0;
-						final ArrayList<byte[]> userInfoLst = new ArrayList<byte[]>();
-						endOfFile = inputSteam.read(readName);
-						byte[] line = new byte[2];
-						endOfFile = inputSteam.read(line);	
-						endOfFile = inputSteam.read(readDatabase);
-						endOfFile = inputSteam.read(line);
-						byte[] readUser = 
-								new byte[username.getText().getBytes("ISO-8859-1").length];
-						endOfFile = inputSteam.read(readUser);
-						endOfFile = inputSteam.read(line);
 						byte[] pass = new byte[20];
+						byte[] line = new byte[2];
+						byte[] salt = new byte[8];
 						endOfFile = inputSteam.read(pass);
 						endOfFile = inputSteam.read(line);
-						byte[] salt = new byte[8];
 						endOfFile = inputSteam.read(salt);
-					
-						userInfoLst.add(readName);
-						userInfoLst.add(readDatabase);
-						userInfoLst.add(readUser);
+				
+						String filedata = new String(getBytesFromFile(file), "Cp1252");
+						
+						separated = filedata.split(System.getProperty("line.separator"));
+						inputSteam.close();
+						userInfoLst.add(separated[2].getBytes("Cp1252"));
+						userInfoLst.add(separated[3].getBytes("Cp1252"));
+						userInfoLst.add(separated[4].getBytes("Cp1252"));
 						userInfoLst.add(pass);
 						userInfoLst.add(salt);
 						userInfoLst.add(line);
-						userInfoLst.remove(5);
+						
+						
 						if (endOfFile == -1) {
 							inputSteam.close();
+							System.out.print("endOfFile");
 						} else {
-							System.out.print("");
+
 							inputSteam.close();	
 						}
-						//System.out.println(pes.authenticate(password.getText(), 
-						//userInfoLst.get(3) , userInfoLst.get(4)));
-						System.out.println((new String(userInfoLst.get(0), 
-								"ISO-8859-1")));
-						//System.out.println(((new String(userInfoLst.get(1))))); //testing
-						//System.out.println(((new String(userInfoLst.get(2))))); //testing
-						//System.out.println(Arrays.toString(userInfoLst.get(3))); //testing
-						//System.out.println(Arrays.toString(userInfoLst.get(4))); //testing
+						
 					} finally {
 						inputSteam.close();
+						
 					} 
 				} catch (IOException ex) {
 				
@@ -416,7 +441,8 @@ public class CreateWindow extends JFrame {
 				}
 			} catch (FileNotFoundException ex) {
 				//exception
-			}		
+			}
+			return userInfoLst;
 		}
 		
 		/**
@@ -431,7 +457,7 @@ public class CreateWindow extends JFrame {
 			if (savePassword.isSelected()) {
 				String pass = password.getText();
 				byte[] encPass;
-		
+
 				// Encryption
 				final PasswordEncryptionService pes = new PasswordEncryptionService();
 				try {
@@ -440,10 +466,25 @@ public class CreateWindow extends JFrame {
 					System.out.println("Pass: " + pass);
 					System.out.println("Encrypted Pass: " + Arrays.toString(encPass));
 					System.out.println("Encrypted Pass: " + Arrays.toString(salt));
-					
 					// Save salt and encrypted password to file
+					
+					//Testing for write and read functions
 					writeEncrypt(encPass, salt);
-					readEncrypt(username.getText()); //testing
+					final ArrayList<byte[]> readDataEncrypt =
+							readEncrypt(username.getText()); //testing
+					System.out.println("Database Name: " 
+							+ new String(readDataEncrypt.get(0), "Cp1252"));
+					System.out.println("DataBase URL: " 
+							+ new String(readDataEncrypt.get(1), "Cp1252"));
+					System.out.println("Username: " 
+							+ new String(readDataEncrypt.get(2), "Cp1252"));
+					System.out.println("Stored Encrypted Pass: " 
+							+ Arrays.toString(readDataEncrypt.get(3)));
+					System.out.println("Stored Encrypted Pass: " 
+							+ Arrays.toString(readDataEncrypt.get(4)));
+					System.out.println("Is Pass Word Correct?: " 
+							+ pes.authenticate(pass, readDataEncrypt.get(3),
+									readDataEncrypt.get(4)));
 					/*{
 					
 						Code to send the password to the text field
@@ -454,6 +495,9 @@ public class CreateWindow extends JFrame {
 					System.err.println("Caught NoSuchAlgorithmException: " + e.getMessage());
 				} catch (InvalidKeySpecException e) {
 					System.err.println("Caught InvalidKeySpecException: " + e.getMessage());
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 	
 			} //don't need an else statement here
