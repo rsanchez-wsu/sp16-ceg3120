@@ -48,7 +48,9 @@ public class MainApp {
 	static String JDBC_DRIVER;
 	static String DB_URL_BASE = "jdbc:derby:";
 	static String DB_URL;
-
+	static final String USER = "username";
+	static final String PASS = "password";
+	
 	/**
 	 * Sets up connection and connects to database.
 	 * 
@@ -59,7 +61,7 @@ public class MainApp {
 		try ( Connection conn = DriverManager.getConnection(DB_URL);
 				Statement stmt = conn.createStatement(); ) {
 			// Register JDBC driver
-			Class.forName(JDBC_DRIVER).newInstance();
+			Class.forName(DB_URL_BASE).newInstance();
 
 			// Open a connection
 			System.out.println("Connecting to database...");
@@ -74,7 +76,7 @@ public class MainApp {
 
 		System.out.println("Goodbye!");
 
-		try (Connection conn = DriverManager.getConnection(DB_URL); 
+		try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS); 
 				) {
 			try {
 				// Register JDBC driver
@@ -82,6 +84,7 @@ public class MainApp {
 
 				// Open a connection
 				System.out.println("Connecting to database...");
+			//	conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
 			} catch (Exception e) {
 				// Handle errors for Class.forName
