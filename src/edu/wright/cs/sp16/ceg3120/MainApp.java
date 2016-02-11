@@ -58,9 +58,11 @@ public class MainApp {
 		JDBC_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
 		// DB_URL_BASE = "jdbc:derby:";//jdbc compliant DBMS: derby, mysql,
 
+
 		// Database credentials
 		// String user = "";
 		// String pass = "";
+
 
 		try (Connection conn = DriverManager.getConnection(DB_URL); 
 				Statement stmt = conn.createStatement()) {
@@ -117,11 +119,11 @@ public class MainApp {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+
 	}
 
 	/**
 	 * Initiates the GUI for defining DB connection.
-	 * 
 	 */
 	static void connectionWinSetup() {
 		connectionWindow = new JFrame("Connection Interface");
@@ -133,15 +135,17 @@ public class MainApp {
 		final JLabel passLabel = new JLabel("Password: ");
 		final JTextField passTextField = new JTextField();
 		final JButton submitConnButton = new JButton("Submit");
+
 		submitConnButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent event) {
+
 				DB_URL = DB_URL_BASE + dburlTextField.getText();
 				connectTodb();
 			}
 		});
-
-		connectionWindow.setLayout(new GridLayout(4, 2));
+		
+		connectionWindow.setLayout(new GridLayout(4,2));
 		connectionWindow.getContentPane().add(dburlLabel);
 		connectionWindow.getContentPane().add(dburlTextField);
 		connectionWindow.getContentPane().add(userLabel);
