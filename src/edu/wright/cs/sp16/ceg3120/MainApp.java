@@ -37,6 +37,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -139,8 +140,40 @@ public class MainApp {
 		connectionWindow.getContentPane().add(passTextField);
 		connectionWindow.getContentPane().add(submitConnButton);
 		
+		// connectionWindow.setSize(300, 300);
+		connectionWindow.pack();
+		connectionWindow.setLocationRelativeTo(null);
+		connectionWindow.setVisible(true);
 
-		connectionWindow.addWindowListener(new WindowAdapter() {
+	}
+	
+	/*
+	 * 
+	 */
+	static void mainWinSetup() {
+		JFrame mainWindow = new JFrame("SQLizard");
+		JMenuBar menuBar = new JMenuBar();
+		JMenu fileMenu = new JMenu("File");
+		JMenuItem open = new JMenuItem("New Connection");
+		open.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				connectionWinSetup();
+			}
+			
+		});
+		fileMenu.add(open);
+		JMenu connMenu = new JMenu("Connections");
+		JMenu helpMenu = new JMenu("Help");
+		menuBar.add(fileMenu);
+		menuBar.add(connMenu);
+		menuBar.add(helpMenu);
+		mainWindow.setJMenuBar(menuBar);
+		
+		mainWindow.setSize(500,500);
+		mainWindow.setVisible(true);
+		mainWindow.addWindowListener(new WindowAdapter() {
 
 			@Override
 			public void windowClosing(WindowEvent we) {
@@ -157,30 +190,6 @@ public class MainApp {
 				}
 			}
 		});
-
-		// connectionWindow.setSize(300, 300);
-		connectionWindow.pack();
-		connectionWindow.setLocationRelativeTo(null);
-		connectionWindow.setVisible(true);
-
-	}
-	
-	/*
-	 * 
-	 */
-	static void mainWinSetup() {
-		JFrame mainWindow = new JFrame("SQLizard");
-		JMenuBar menuBar = new JMenuBar();
-		JMenu fileMenu = new JMenu("File");
-		JMenu connMenu = new JMenu("Connections");
-		JMenu helpMenu = new JMenu("Help");
-		menuBar.add(fileMenu);
-		menuBar.add(connMenu);
-		menuBar.add(helpMenu);
-		mainWindow.setJMenuBar(menuBar);
-		
-		mainWindow.setSize(500,500);
-		mainWindow.setVisible(true);
 	}
 
 	/**
@@ -192,7 +201,6 @@ public class MainApp {
 
 	public static void main(String[] args) {
 
-		connectionWinSetup();
 		mainWinSetup();
 
 	}
