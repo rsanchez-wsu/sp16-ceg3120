@@ -35,6 +35,8 @@ import java.sql.Statement;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -59,7 +61,7 @@ public class MainApp {
 		// JDBC driver name and database URL
 		JDBC_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
 		try ( Connection conn = DriverManager.getConnection(DB_URL);
-				Statement stmt = conn.createStatement(); ) {
+				Statement stmt = conn.createStatement()) {
 			// Register JDBC driver
 			Class.forName(DB_URL_BASE).newInstance();
 
@@ -162,6 +164,24 @@ public class MainApp {
 		connectionWindow.setVisible(true);
 
 	}
+	
+	/*
+	 * 
+	 */
+	static void mainWinSetup() {
+		JFrame mainWindow = new JFrame("SQLizard");
+		JMenuBar menuBar = new JMenuBar();
+		JMenu fileMenu = new JMenu("File");
+		JMenu connMenu = new JMenu("Connections");
+		JMenu helpMenu = new JMenu("Help");
+		menuBar.add(fileMenu);
+		menuBar.add(connMenu);
+		menuBar.add(helpMenu);
+		mainWindow.setJMenuBar(menuBar);
+		
+		mainWindow.setSize(500,500);
+		mainWindow.setVisible(true);
+	}
 
 	/**
 	 * The main method that displays the main application window.
@@ -173,6 +193,7 @@ public class MainApp {
 	public static void main(String[] args) {
 
 		connectionWinSetup();
+		mainWinSetup();
 
 	}
 }
