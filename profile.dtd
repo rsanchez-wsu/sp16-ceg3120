@@ -1,28 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT config (profiles, appSettings)>
 
+<!ELEMENT profiles (user)>
 
-<!ELEMENT config (profiles)+>
-<!ELEMENT profiles (user)+>
-<!ELEMENT user(database+, username, password, firstName, lastName, accountType?, department?)
+<!ELEMENT user (database, username, password, firstName, lastName, accountType?, department?)>
 
-<!ELEMENT database (#PCDATA)
-<!ATTLIST database data_code ID #REQUIRED>
+<!ELEMENT database (#PCDATA)>
 
-<!ELEMENT username (#PCDATA)
-<!ATTLIST username id_code ID #REQUIRED>
+<!ELEMENT username (#PCDATA)>
 
-<!ELEMENT password (#PCDATA)
-<!ATTLIST password pwd_code ID #REQUIRED>
+<!ELEMENT password (#PCDATA)>
+<!ATTLIST password plainText CDATA "false">
+<!ATTLIST password save CDATA "false">
 
-<!ELEMENT firstName (#PCDATA)
-<!ATTLIST firstName fn_code ID #REQUIRED>
+<!ELEMENT firstName (#PCDATA)>
 
-<!ELEMENT lastName (#PCDATA)
-<!ATTLIST lastName ln_code ID #REQUIRED>
+<!ELEMENT lastName (#PCDATA)>
 
-<!ELEMENT accountType (#PCDATA)
+<!ELEMENT accountType (#PCDATA)>
 
-<!ELEMENT department (#PCDATA)
+<!ELEMENT department (#PCDATA)>
 
-<!ELEMENT appSettings (showMotd)+>
+<!ELEMENT appSettings (showMotd)>
+<!ELEMENT showMotd (#PCDATA)>
 
