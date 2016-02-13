@@ -21,35 +21,22 @@
 
 package edu.wright.cs.sp16.ceg3120.gui;
 
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
-/**
- * Driver for testing the GUI.
+/**The add/view driver page allows the user to create and view currently
+ * used and running drivers.
  * 
- * @author codybutz
- *
+ * @author Alex Vance
  */
-public class TestGui {
-
-	/**
-	 * Driver method that sets the system look and feel.
-	 * @param args Arguments from command line.
+public class AddViewDriver {
+	
+	
+	/**Create the page and display it to the screen.
+	 * 
+	 * @author Alex Vance
 	 */
-	public static void main(String[] args) {
-		try {
-
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			
-			SplashScreen screen = new SplashScreen();
-			screen.showSplashScreen();
-
-			MainGui gui = new MainGui();
-			gui.setVisible(true);
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-				| UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
-		}
+	public void showAddViewDriverPage() {
+		
+		
 		
 	}
 

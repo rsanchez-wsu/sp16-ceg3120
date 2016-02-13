@@ -50,7 +50,7 @@ public class MainGui extends JFrame implements ActionListener {
 	 * The constructor method that initializes the main application window.
 	 */
 	public MainGui() {
-		super("Sequel Master");
+		super("SQLizard");
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(960, 600);
