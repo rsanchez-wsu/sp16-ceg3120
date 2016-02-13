@@ -20,6 +20,7 @@
  */
 
 package edu.wright.cs.sp16.ceg3120;
+
 /**
  * This will create a derby database to connect to within the application.
  * 
@@ -32,6 +33,9 @@ public class DerbyConnect {
 	private String dbUsername;
 	private String dbPassword;
 	private String dbName;
+//	private String dbUrl = "jdbc:derby://localhost:1527/testDB;create=true;"
+//			+ "user=bonnie;password=bonnie";
+//	private Connection conn;
 	
 	/**
 	 * Default constructor.
@@ -55,6 +59,19 @@ public class DerbyConnect {
 		setDbPassword(dbPassword);
 		setDbName(dbName);
 	}
+	
+	/**
+	 * This will create the connection for the derby database.
+	 */
+//	public void createConnection() {
+//		//Still working on creating the connection.
+//		try {
+//			Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
+//			conn = DriverManager.getConnection(dbUrl);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 	
 	/**
 	 * Sets the database address name.
@@ -119,13 +136,5 @@ public class DerbyConnect {
 	public String getDbName() {
 		return dbName;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }
