@@ -21,158 +21,67 @@
 
 package edu.wright.cs.sp16.ceg3120;
 
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-
-//import com.sun.corba.se.pept.transport.Connection;
 
 /**
  * The application's main class.
  */
 public class MainApp {
-	static JFrame connectionWindow;
-	static String JDBC_DRIVER;
-	static String DB_URL_BASE = "jdbc:derby:";
-	static String DB_URL;
-	static final String USER = "username";
-	static final String PASS = "password";
-	
-	/**
-	 * Sets up connection and connects to database.
-	 * 
-	 */
-	static void connectTodb() throws SQLException {
-		// JDBC driver name and database URL
-		JDBC_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
-		try ( Connection conn = DriverManager.getConnection(DB_URL);
-				Statement stmt = conn.createStatement(); ) {
-			// Register JDBC driver
-			Class.forName(DB_URL_BASE).newInstance();
-
-			// Open a connection
-			System.out.println("Connecting to database...");
-
-		} catch (SQLException se) {
-			//Handle errors for JDBC
-			se.printStackTrace(); 
-		} catch (Exception e) {
-			//Handle errors for Class.forName
-			e.printStackTrace();
-		} 
-
-		System.out.println("Goodbye!");
-
-		try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS); 
-				) {
-			try {
-				// Register JDBC driver
-				Class.forName(JDBC_DRIVER).newInstance();
-
-				// Open a connection
-				System.out.println("Connecting to database...");
-			//	conn = DriverManager.getConnection(DB_URL,USER,PASS);
-
-			} catch (Exception e) {
-				// Handle errors for Class.forName
-				e.printStackTrace();
-			} 
-				
-			System.out.println("Goodbye!");
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-
-	}
-
-	/**
-	 * Initiates the GUI for defining DB connection.
-	 */
-	static void connectionWinSetup() {
-		connectionWindow = new JFrame("Connection Interface");
-
-		final JLabel dburlLabel = new JLabel("Database URL: ");
-		final JTextField dburlTextField = new JTextField();
-		final JLabel userLabel = new JLabel("User Name: ");
-		final JTextField userTextField = new JTextField();
-		final JLabel passLabel = new JLabel("Password: ");
-		final JTextField passTextField = new JTextField();
-		final JButton submitConnButton = new JButton("Submit");
-
-		submitConnButton.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent event) {
-
-				DB_URL = DB_URL_BASE + dburlTextField.getText();
-				try {
-					connectTodb();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		});
-		
-		connectionWindow.setLayout(new GridLayout(4,2));
-		connectionWindow.getContentPane().add(dburlLabel);
-		connectionWindow.getContentPane().add(dburlTextField);
-		connectionWindow.getContentPane().add(userLabel);
-		connectionWindow.getContentPane().add(userTextField);
-		connectionWindow.getContentPane().add(passLabel);
-		connectionWindow.getContentPane().add(passTextField);
-		connectionWindow.getContentPane().add(submitConnButton);
-		
-
-		connectionWindow.addWindowListener(new WindowAdapter() {
-
-			@Override
-			public void windowClosing(WindowEvent we) {
-				int close = JOptionPane.showConfirmDialog(connectionWindow, 
-						"Exit the application?", 
-						"Exit",
-						JOptionPane.YES_NO_OPTION);
-
-				if (close == JOptionPane.YES_OPTION) {
-
-					connectionWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				} else {
-					connectionWindow.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-				}
-			}
-		});
-
-		// connectionWindow.setSize(300, 300);
-		connectionWindow.pack();
-		connectionWindow.setLocationRelativeTo(null);
-		connectionWindow.setVisible(true);
-
-	}
-
 	/**
 	 * The main method that displays the main application window.
 	 * 
-	 * @param args
-	 *            The command-line arguments
+	 * 
 	 */
-
+	private static void closeWindow() {
+		
+		final JFrame frame = new JFrame("Hello World");
+		JLabel label = new JLabel("Hello World");
+		frame.getContentPane().add(label);
+		frame.addWindowListener(new WindowAdapter() {
+			
+			@Override
+			public void windowClosing(WindowEvent we) {
+				int close = JOptionPane.showConfirmDialog(frame, 
+						"Exit the application?", 
+						"Exit", 
+						JOptionPane.YES_NO_OPTION);
+				
+				if (close == JOptionPane.YES_OPTION) {
+					
+					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				} else {
+					frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+				}
+			}
+		});
+		
+		frame.setSize(300, 300);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+	}
+	
+	/**
+	 * The main method that displays the main application window.
+	 * 
+	 * @param args The command-line arguments
+	 */
+	
 	public static void main(String[] args) {
+		// Schedule a job for the event-dispatching thread:
+		// creating and showing this application's GUI.
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				
+				
+				closeWindow();
 
-		connectionWinSetup();
-
+			}
+		});
 	}
 }
