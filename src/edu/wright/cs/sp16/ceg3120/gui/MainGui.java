@@ -120,7 +120,8 @@ public class MainGui extends JFrame implements ActionListener {
 		
 		// Help menu
 		JMenu help = new JMenu("Help");
-
+		help.add("Welcome");
+		help.add("About");
 		//TODO: Decide what to include in Help Menu
 
 		JMenuBar menuBar = new JMenuBar();
