@@ -21,7 +21,7 @@
 
 package edu.wright.cs.sp16.ceg3120.gui;
 
-import edu.wright.cs.sp16.ceg3120.gui.tabs.ConnectionTab;
+//import edu.wright.cs.sp16.ceg3120.gui.tabs.ConnectionTab;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.StartPageTab;
 
 import javax.swing.JTabbedPane;
@@ -57,10 +57,10 @@ public class MainTabPane extends JTabbedPane {
 	 * TODO: Creates a new connection tab and adds it to the tab pane.
 	 */
 	public void addConnectionTab() {
-		ConnectionTab connectionTab = new ConnectionTab();
+	//	ConnectionTab connectionTab = new ConnectionTab();
 		
 		// todo: add icon, add better tooltip
-		addTab("New Connection", null, connectionTab, "Make a connection here!!");
+		//addTab("New Connection", null, connectionTab, "Make a connection here!!");
 	}
 	
 	/**
