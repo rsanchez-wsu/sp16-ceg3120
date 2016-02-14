@@ -26,7 +26,7 @@ import java.awt.Component;
 /**
  * The tab that contains all the components for the connection.
  * 
- * @author codybutz
+ * @author sam
  *
  */
 public class ConnectionTab extends Component {

@@ -22,6 +22,8 @@
 package edu.wright.cs.sp16.ceg3120.gui;
 
 //import edu.wright.cs.sp16.ceg3120.gui.tabs.ConnectionTab;
+import edu.wright.cs.sp16.ceg3120.gui.tabs.BackupExportTab;
+import edu.wright.cs.sp16.ceg3120.gui.tabs.ConnectionTab;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.StartPageTab;
 
 import javax.swing.JTabbedPane;
@@ -35,6 +37,7 @@ import javax.swing.JTabbedPane;
 public class MainTabPane extends JTabbedPane {
 	
 	private static final long serialVersionUID = 1147338263638840061L;
+
 
 	/**
 	 * Creates the MainTabPane and starts up a "Start Page" tab.
@@ -57,17 +60,20 @@ public class MainTabPane extends JTabbedPane {
 	 * TODO: Creates a new connection tab and adds it to the tab pane.
 	 */
 	public void addConnectionTab() {
-	//	ConnectionTab connectionTab = new ConnectionTab();
-		
+		//ConnectionTab connectionTab = new ConnectionTab();
+
 		// todo: add icon, add better tooltip
-		//addTab("New Connection", null, connectionTab, "Make a connection here!!");
+		//addTab(TabNames.Connection.toString(), null, connectionTab, "Make a connection here!!");
 	}
 	
 	/**
-	 * TODO: Add "Connection" Tab.
+	 * TODO: Add "Backup\Export" Tab.
 	 */
 	public void addBackupExportTab() {
-		
+		//BackupExportTab backupExport = new BackupExportTab();
+
+		// todo: add icon, add better tooltip
+		//addTab(TabNames.BackupExport.toString(), null, backupExport, "Export and backup");
 	}
 	
 	/**
@@ -81,8 +87,9 @@ public class MainTabPane extends JTabbedPane {
 	 * Creates a start page tab and adds it to the tab pane.
 	 */
 	public void addStartPageTab() {
-		StartPageTab startPageTab = new StartPageTab();
-		
-		addTab("Start Page", null, startPageTab, null);
+		//StartPageTab startPageTab = new StartPageTab();
+
+		// todo: add icon, add better tooltip
+		//addTab(TabNames.Start.toString(), null, startPageTab, null);
 	}
 }

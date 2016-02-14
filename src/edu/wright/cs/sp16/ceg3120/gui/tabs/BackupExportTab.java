@@ -26,7 +26,7 @@ import java.awt.Component;
 /**
  * The tab that contains the components for backing up/exporting a database.
  * 
- * @author codybutz
+ * @author sam
  *
  */
 public class BackupExportTab extends Component {
