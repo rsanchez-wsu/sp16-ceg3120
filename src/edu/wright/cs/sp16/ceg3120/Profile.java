@@ -65,6 +65,7 @@ public class Profile extends JFrame {
 	 */
 	
 	// <editor-fold default state="collapsed" disc="Generated Code">
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void initComponents() {
 
 		otherConnection = new JTabbedPane();
@@ -82,7 +83,7 @@ public class Profile extends JFrame {
 		startupMotd = new JCheckBox();
 		useMonospaced = new JCheckBox();
 		gridLines = new JCheckBox();
-		pxQueries = new JComboBox();
+		pxQueries = new JComboBox<NumberOfQueries>();
 		queries = new JLabel();
 		jmenuBar1 = new JMenuBar();
 		fileMenu = new JMenu();
@@ -126,7 +127,8 @@ public class Profile extends JFrame {
 		gridLines.setText("Display vertical grid lines");
 
 		pxQueries.setModel(new DefaultComboBoxModel(
-				new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+				new NumberOfQueries[] {NumberOfQueries.Zero, NumberOfQueries.Five, 
+						NumberOfQueries.Ten, NumberOfQueries.Twenty }));
 
 		queries.setText("queries");
 
@@ -304,7 +306,7 @@ public class Profile extends JFrame {
 	private JPanel jpanel1;
 	private JPanel jpanel2;
 	private JTabbedPane otherConnection;
-	private JComboBox pxQueries;
+	private JComboBox<NumberOfQueries> pxQueries;
 	private JLabel queries;
 	private JLabel rememberLast;
 	private JCheckBox startupConnect;

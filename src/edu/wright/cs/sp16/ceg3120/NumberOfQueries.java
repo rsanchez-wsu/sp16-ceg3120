@@ -28,5 +28,5 @@ package edu.wright.cs.sp16.ceg3120;
  */
 
 public enum NumberOfQueries {
-		ZERO, FIVE, TEN, TWENTY
+		Zero, Five, Ten, Twenty
 }
