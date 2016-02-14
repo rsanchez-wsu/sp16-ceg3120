@@ -1,37 +1,26 @@
 <?xml version="1.0"  encoding="UTF-8"?>
 <!DOCTYPE config PUBLIC "//UNKNOWN/" "profile.dtd">
 
-<!-- Here is the initial structure for the user based off of the user profile 
-	page of the wiki -->
-<config>
 	<profiles>
-		<user>
-			<!-- I'm thinking this is to log into the program -->
-			<database>foo</database>
-			<username></username>
-			<!-- Attribute plain-text to allow manual editing of password and save 
-				to allow and remember not to save -->
-			<password plainText="false" save="true"></password>
-			<!-- Names should be separate so that the page can display their first 
-				name as introduction: "Welcome, David" -->
-			<firstName></firstName>
-			<lastName></lastName>
-			<!-- Admin, SuperUser, User, Guest -->
-			<accountType></accountType>
-			<!-- Not sure if we need this -->
-			<department></department>
-			<!--this is a flexible option we will definitely need this if we will 
-				use a employee database, for customer databases we can change the department 
-				field to either gender or age for data mining purposes -->
-		</user>
+	
+		<userPreferences>
+		
+			<defaultDatabase>foo</defaultDatabase>
+			
+			<connectOnStartup></connectOnStartup>
+			
+			<messageOnStartup></messageOnStartup>
+			
+			<defaultView></defaultView>
+			
+			<defaultEncoding></defaultEncoding>
+			
+			<monospacedFont></monospacedFont>
+			
+			<verticleGridLines></verticleGridLines>
+			
+			<rememberLastQueries></rememberLastQueries>
+			
+		</userPreferences>
+		
 	</profiles>
-
-	<!-- Global app settings -->
-	<appSettings>
-		<!-- Show message of the day: true, false -->
-		<showMotd></showMotd>
-		<!-- Search history is its own file -->
-	</appSettings>
-
-</config>
-<!-- What else does an xml file need to contain in order to run? -->

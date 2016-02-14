@@ -1,26 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!ELEMENT config (profiles, appSettings)>
 
-<!ELEMENT profiles (user)>
+<!ELEMENT profiles (userPreferences)>
 
-<!ELEMENT user (database, username, password, firstName, lastName, accountType?, department?)>
+<!ELEMENT userPreferences (defaultDatabase, connectOnStartup, messageOnStartup, defaultView, defaultEncoding, monospacedFont, verticleGridLines, rememberLastQueries)>
 
-<!ELEMENT database (#PCDATA)>
+<!ELEMENT defaultDatabase (#PCDATA)>
 
-<!ELEMENT username (#PCDATA)>
+<!ELEMENT connectOnStartup (#PCDATA)>
 
-<!ELEMENT password (#PCDATA)>
-<!ATTLIST password plainText CDATA "false">
-<!ATTLIST password save CDATA "false">
+<!ELEMENT messageOnStartup (#PCDATA)>
 
-<!ELEMENT firstName (#PCDATA)>
+<!ELEMENT defaultView (#PCDATA)>
 
-<!ELEMENT lastName (#PCDATA)>
+<!ELEMENT defaultEncoding (#PCDATA)>
 
-<!ELEMENT accountType (#PCDATA)>
+<!ELEMENT monospacedFont (#PCDATA)>
 
-<!ELEMENT department (#PCDATA)>
+<!ELEMENT verticleGridLines (#PCDATA)>
 
-<!ELEMENT appSettings (showMotd)>
-<!ELEMENT showMotd (#PCDATA)>
-
+<!ELEMENT rememberLastQueries (#PCDATA) >

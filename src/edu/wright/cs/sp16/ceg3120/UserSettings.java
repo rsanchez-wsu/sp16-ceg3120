@@ -47,8 +47,7 @@ public class UserSettings {
 	/**
 	 * A getter/setter.
 	 * 
-	 * @param database
-	 *            the database to set
+	 * @param database the database to set
 	 */
 	public void setDatabase(String database) {
 		this.database = database;
@@ -66,8 +65,7 @@ public class UserSettings {
 	/**
 	 * A getter/setter.
 	 * 
-	 * @param username
-	 *            the username to set
+	 * @param username the username to set
 	 */
 	public void setUsername(String username) {
 		this.username = username;
@@ -85,8 +83,7 @@ public class UserSettings {
 	/**
 	 * A getter/setter.
 	 * 
-	 * @param firstName
-	 *            the firstName to set
+	 * @param firstName the firstName to set
 	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
@@ -104,8 +101,7 @@ public class UserSettings {
 	/**
 	 * A getter/setter.
 	 * 
-	 * @param lastName
-	 *            the lastName to set
+	 * @param lastName the lastName to set
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
@@ -123,8 +119,7 @@ public class UserSettings {
 	/**
 	 * A getter/setter.
 	 * 
-	 * @param department
-	 *            the department to set
+	 * @param department the department to set
 	 */
 	public void setDepartment(String department) {
 		this.department = department;
@@ -142,8 +137,7 @@ public class UserSettings {
 	/**
 	 * A getter/setter.
 	 * 
-	 * @param accountType
-	 *            the accountType to set
+	 * @param accountType the accountType to set
 	 */
 	public void setAccountType(String accountType) {
 		this.accountType = accountType;
