@@ -398,9 +398,7 @@ public class CreateWindow extends JFrame {
 			if (sv == JOptionPane.CANCEL_OPTION) {
 				JOptionPane option = new JOptionPane();
 				option.setVisible(false);
-			} else if (sv == JOptionPane.YES_OPTION) {
-				// Save it and connect to the database
-			}
+			} //else if {...}
 		}
 		
 		/**
