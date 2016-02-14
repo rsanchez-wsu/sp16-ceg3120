@@ -66,7 +66,9 @@ import javax.xml.transform.stream.StreamResult;
 //import javafx.scene.control.ComboBox;
 
 /**
- * The Create_GUI class.
+ * @author Devesh Amin
+ *     The CreateWindow class.
+ * 
  */
 public class CreateWindow extends JFrame {
 
@@ -86,7 +88,7 @@ public class CreateWindow extends JFrame {
 	private JLabel inputLabel8 = new JLabel("Alias Name");
 
 	// new buttons
-	private JButton save = new JButton("Save");
+	//private JButton save = new JButton("Save");
 	private JButton clear = new JButton("Clear");
 	private JButton connect = new JButton("Connect");
 	// private JButton exit = new JButton("Exit");
@@ -109,16 +111,18 @@ public class CreateWindow extends JFrame {
 	private JPanel buttonPanel = new JPanel();
 	private JPanel inputPanel1 = new JPanel();
 	private JPanel inputPanel2 = new JPanel();
+	private JPanel inputPanel2a2 = new JPanel();
 	private JPanel inputPanel3 = new JPanel();
 	private JPanel inputPanel4 = new JPanel();
 	private JPanel inputPanel5 = new JPanel();
 	private JPanel inputPanel6 = new JPanel();
-	private JPanel connectPanel = new JPanel();
+	//private JPanel connectPanel = new JPanel();
 	private JPanel bigPanel = new JPanel();
+	private static JPanel svAlias = new JPanel();
 
 	// ActionListener for clear button
 	private static ActionListener clearListener = new ClearListener();
-	private static ActionListener saveListener = new SaveListener();
+	//private static ActionListener saveListener = new SaveListener();
 	private static ActionListener connectListener = new ConnectListener();
 	// private ActionListener exitListener = new ExitListener();
 
@@ -135,6 +139,10 @@ public class CreateWindow extends JFrame {
 		// input panel for Name and its position
 		createInput1Panel();
 		getContentPane().add(inputPanel1, BorderLayout.CENTER);
+		
+		//input panel for databaseName and its position
+		createInput2a2Panel();
+		getContentPane().add(inputPanel2a2, BorderLayout.CENTER);
 
 		// input panel for databaseUrl and its position
 		createInput2Panel();
@@ -178,15 +186,23 @@ public class CreateWindow extends JFrame {
 	}
 
 	/**
+	 * Adding grid, label and TextField for Database Name.
+	 */
+	private void createInput2a2Panel() {
+		inputPanel2a2.setLayout(new GridLayout(1, 2));
+		inputPanel2a2.add(inputLabel1);
+		inputPanel2a2.add(name);
+	}
+	
+	/**
 	 * Adding grid, label and TextField for DatabaseUrl.
 	 */
 	private void createInput2Panel() {
-		inputPanel2.setLayout(new GridLayout(2, 2));
-		inputPanel2.add(inputLabel1);
+		inputPanel2.setLayout(new GridLayout(1, 2));
 		inputPanel2.add(inputLabel2);
-		inputPanel2.add(name);
 		inputPanel2.add(databaseUrl);
 	}
+
 
 	/**
 	 * Adding grid, label and TextField for Username.
@@ -230,9 +246,11 @@ public class CreateWindow extends JFrame {
 	 * Adding all the panels in one big panel with grid.
 	 */
 	private void createBigPanel() {
-		bigPanel.setLayout(new GridLayout(6, 1));
+		bigPanel.setLayout(new GridLayout(7, 1));
 		createInput1Panel();
 		bigPanel.add(inputPanel1);
+		createInput2a2Panel();
+		bigPanel.add(inputPanel2a2);
 		createInput2Panel();
 		bigPanel.add(inputPanel2);
 		createInput3Panel();
@@ -249,17 +267,18 @@ public class CreateWindow extends JFrame {
 	 * Adding buttons and setting grid for the buttons.
 	 */
 	private void createControlPanel() {
-		controlPanel.setLayout(new GridLayout(2, 2));
-		connectPanel.setLayout(new GridLayout(1, 2));
-		connectPanel.add(connect);
+		controlPanel.setLayout(new GridLayout(1, 2));
+		//connectPanel.setLayout(new GridLayout(1, 2));
+		//connectPanel.add(connect);
 		buttonPanel.setLayout(new GridLayout(1, 2));
-		buttonPanel.add(save);
+		//buttonPanel.add(save);
+		buttonPanel.add(connect);
 		buttonPanel.add(clear);
 		clear.addActionListener(clearListener);
-		save.addActionListener(saveListener);
+		//save.addActionListener(saveListener);
 		connect.addActionListener(connectListener);
 		// exit.addActionListener(exitListener);
-		controlPanel.add(connectPanel);
+		//controlPanel.add(connectPanel);
 		controlPanel.add(buttonPanel);
 	}
 
@@ -270,64 +289,6 @@ public class CreateWindow extends JFrame {
 	 *
 	 */
 	private static class ConnectListener implements ActionListener {
-
-		/**
-		 * setting up the connection to a database.
-		 */
-		public void actionPerformed(ActionEvent ae) {
-			String dbName = name.getText();
-			String dbAddress = databaseUrl.getText();
-			String dbUsername = username.getText();
-			String dbPassword = password.getText();
-			String dbDriver = driver.getSelectedItem().toString();
-			System.out.println(dbName);
-			System.out.println(dbAddress);
-			System.out.println(dbUsername);
-			System.out.println(dbPassword);
-			System.out.println(dbDriver);
-			if (dbDriver.equals("MySQL Driver")) {
-				MySqlConnect connect = new MySqlConnect(dbAddress, dbUsername, dbPassword, dbName);
-				try {
-					connect.configure();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			} else if (dbDriver.equals("PostgreSQL Driver")) {
-				PostgreConnect postgreConnect = new PostgreConnect(dbAddress, dbUsername,
-						dbPassword, dbName);
-				try {
-					postgreConnect.configure();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-
-		}
-
-	}
-
-	/**
-	 * make clear button to work.
-	 */
-	private static class ClearListener implements ActionListener {
-		/**
-		 * setting all the TextBoxes, CheckBoxes and ComboBoxes to its default state.
-		 */
-		public void actionPerformed(ActionEvent ae) {
-			name.setText("");
-			databaseUrl.setText("");
-			username.setText("");
-			password.setText("");
-			driver.setSelectedIndex(0);
-			savePassword.setSelected(false);
-			autoConnect.setSelected(false);
-		}
-	}
-
-	/**
-	 * make save button to work.
-	 */
-	private static class SaveListener implements ActionListener {
 		/**
 		 * Writes Alias to File.
 		 * 
@@ -411,13 +372,78 @@ public class CreateWindow extends JFrame {
 			}
 
 		}
+		
+
+		/** Reads an alias based on name.
+		 * @param alias Alias name to read
+		 */
+		public static void readAlias(String alias) {
+			try {
+				File xmlFile = new File("UserData\\aliases.xml");
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();
+				Document doc = docBuilder.parse(xmlFile);
+				doc.getDocumentElement().normalize();
+				System.out.println("reading");
+				NodeList aliasList = doc.getElementsByTagName("alias");
+				for (int i = 0; i < aliasList.getLength(); i++) {
+					Node currentNode = aliasList.item(i);
+					Element curElement = (Element) currentNode;
+					if (currentNode.getNodeType() == Node.ELEMENT_NODE
+							&& alias.equals(curElement.getAttribute("name"))) {
+						System.out.println("dbName: "
+								+ curElement.getElementsByTagName(""
+										+ "dbName"
+										).item(0).getTextContent());
+						System.out.println("dbUrl: "
+								+ curElement.getElementsByTagName(""
+										+ "dbURL").item(0).getTextContent());
+						System.out.println("userName: "
+								+ curElement.getElementsByTagName(""
+										+ "userName").item(0).getTextContent());
+						curElement = (Element) curElement.getElementsByTagName("password").item(0);
+						System.out.println("password: " + curElement.getTextContent().trim());
+						System.out.println("salt: "
+								+ curElement.getElementsByTagName("salt").item(0).getTextContent()
+								+ "\n");
+					}
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (SAXException e) {
+				e.printStackTrace();
+			} catch (ParserConfigurationException e) {
+				e.printStackTrace();
+			}
+
+		}
 
 		/**
-		 * Listen for save button click.
+		 * save alias?.
+		 * 
 		 */
+		public void saveAlias() {
+			int sv = JOptionPane.showConfirmDialog(svAlias,
+					"Do you want to save this alias?" ,
+					"Save Alias?",
+					JOptionPane.YES_NO_CANCEL_OPTION);
+			if (sv == JOptionPane.CANCEL_OPTION) {
+				JOptionPane option = new JOptionPane();
+				option.setVisible(false);
+			} //else if {...}
+		}
 
+
+		/**
+		 * setting up the connection to a database.
+		 */
 		public void actionPerformed(ActionEvent ae) {
-
+			/**
+			 * @author Devesh Amin
+			 *     Save alias while connecting to the database?.
+			 */
+			saveAlias();
+			
 			/**
 			 * Saving password: make sure to encrypt.
 			 */
@@ -451,47 +477,50 @@ public class CreateWindow extends JFrame {
 			} catch (SAXException e) {
 				e.printStackTrace();
 			}
-		}
-	}
-
-	/** Reads an alias based on name.
-	 * @param alias Alias name to read
-	 */
-	public static void readAlias(String alias) {
-		try {
-			File xmlFile = new File("UserData\\aliases.xml");
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();
-			Document doc = docBuilder.parse(xmlFile);
-			doc.getDocumentElement().normalize();
-			System.out.println("reading");
-			NodeList aliasList = doc.getElementsByTagName("alias");
-			for (int i = 0; i < aliasList.getLength(); i++) {
-				Node currentNode = aliasList.item(i);
-				Element curElement = (Element) currentNode;
-				if (currentNode.getNodeType() == Node.ELEMENT_NODE
-						&& alias.equals(curElement.getAttribute("name"))) {
-					System.out.println("dbName: "
-							+ curElement.getElementsByTagName("dbName").item(0).getTextContent());
-					System.out.println("dbUrl: "
-							+ curElement.getElementsByTagName("dbURL").item(0).getTextContent());
-					System.out.println("userName: "
-							+ curElement.getElementsByTagName("userName").item(0).getTextContent());
-					curElement = (Element) curElement.getElementsByTagName("password").item(0);
-					System.out.println("password: " + curElement.getTextContent().trim());
-					System.out.println("salt: "
-							+ curElement.getElementsByTagName("salt").item(0).getTextContent()
-							+ "\n");
+	
+			String dbName = name.getText();
+			String dbAddress = databaseUrl.getText();
+			String dbUsername = username.getText();
+			String dbPassword = password.getText();
+			String dbDriver = driver.getSelectedItem().toString();
+			System.out.println(dbDriver);
+			if (dbDriver.equals("MySQL Driver")) {
+				MySqlConnect connect = new MySqlConnect(dbAddress, dbUsername, dbPassword, dbName);
+				try {
+					connect.configure();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			} else if (dbDriver.equals("PostgreSQL Driver")) {
+				PostgreConnect postgreConnect = new PostgreConnect(dbAddress, dbUsername,
+						dbPassword, dbName);
+				try {
+					postgreConnect.configure();
+				} catch (SQLException e) {
+					e.printStackTrace();
 				}
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
+
 		}
 
+	}
+
+	/**
+	 * make clear button to work.
+	 */
+	private static class ClearListener implements ActionListener {
+		/**
+		 * setting all the TextBoxes, CheckBoxes and ComboBoxes to its default state.
+		 */
+		public void actionPerformed(ActionEvent ae) {
+			name.setText("");
+			databaseUrl.setText("");
+			username.setText("");
+			password.setText("");
+			driver.setSelectedIndex(0);
+			savePassword.setSelected(false);
+			autoConnect.setSelected(false);
+		}
 	}
 
 	/**
