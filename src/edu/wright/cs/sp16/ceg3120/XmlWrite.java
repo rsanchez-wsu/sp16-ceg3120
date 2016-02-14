@@ -60,7 +60,8 @@ public class XmlWrite {
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 		//I added a string passed to this method as the file
-		Document doc = docBuilder.parse(filename);//enter input source inside the brackets
+		Document doc = docBuilder.parse(filename);
+		//enter input source inside the brackets
 		//this is where we can add attributes and tags
 		//write xml document to a string
 		Transformer transformer = TransformerFactory.newInstance().newTransformer();
