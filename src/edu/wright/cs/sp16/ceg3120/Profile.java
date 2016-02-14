@@ -82,7 +82,7 @@ public class Profile extends JFrame {
 		startupMotd = new JCheckBox();
 		useMonospaced = new JCheckBox();
 		gridLines = new JCheckBox();
-		pxQueries = new JComboBox<Object>();
+		pxQueries = new JComboBox();
 		queries = new JLabel();
 		jmenuBar1 = new JMenuBar();
 		fileMenu = new JMenu();
@@ -125,7 +125,7 @@ public class Profile extends JFrame {
 		gridLines.setFont(new Font("Lucida Grande", 0, 11)); // NOI18N
 		gridLines.setText("Display vertical grid lines");
 
-		pxQueries.setModel(new DefaultComboBoxModel<Object>(
+		pxQueries.setModel(new DefaultComboBoxModel(
 				new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
 		queries.setText("queries");
@@ -304,7 +304,7 @@ public class Profile extends JFrame {
 	private JPanel jpanel1;
 	private JPanel jpanel2;
 	private JTabbedPane otherConnection;
-	private JComboBox<Object> pxQueries;
+	private JComboBox pxQueries;
 	private JLabel queries;
 	private JLabel rememberLast;
 	private JCheckBox startupConnect;
