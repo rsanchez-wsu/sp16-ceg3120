@@ -53,7 +53,9 @@ import javax.swing.JTextField;
 
 
 /**
- * The Create_GUI class.
+ * @author Devesh Amin
+ *     The CreateWindow class.
+ * 
  */
 public class CreateWindow extends JFrame {
 
@@ -72,7 +74,7 @@ public class CreateWindow extends JFrame {
 	private JLabel inputLabel7 = new JLabel("Auto-Connect On Startup?");
 
 	// new buttons
-	private JButton save = new JButton("Save");
+	//private JButton save = new JButton("Save");
 	private JButton clear = new JButton("Clear");
 	private JButton connect = new JButton("Connect");
 	// private JButton exit = new JButton("Exit");
@@ -98,13 +100,14 @@ public class CreateWindow extends JFrame {
 	private JPanel inputPanel4 = new JPanel();
 	private JPanel inputPanel5 = new JPanel();
 	private JPanel inputPanel6 = new JPanel();
-	private JPanel connectPanel = new JPanel();
+	//private JPanel connectPanel = new JPanel();
+	private static JPanel saveAlias = new JPanel();
 	private JPanel bigPanel = new JPanel();
 	private static JPanel failPanel = new JPanel();
 
 	// ActionListener for clear button
 	private static ActionListener clearListener = new ClearListener();
-	private static ActionListener saveListener = new SaveListener();
+	//private static ActionListener saveListener = new SaveListener();
 	private static ActionListener connectListener = new ConnectListener();
 	// private ActionListener exitListener = new ExitListener();
 
@@ -146,7 +149,8 @@ public class CreateWindow extends JFrame {
 		// control panel for buttons and its position
 		createControlPanel();
 		getContentPane().add(controlPanel, BorderLayout.SOUTH);
-	}
+		
+	} //end of CreateWindow constructor
 
 	/**
 	 * Adding title to panel.
@@ -234,95 +238,35 @@ public class CreateWindow extends JFrame {
 	 * Adding buttons and setting grid for the buttons.
 	 */
 	private void createControlPanel() {
-		controlPanel.setLayout(new GridLayout(2, 2));
-		connectPanel.setLayout(new GridLayout(1, 2));
-		connectPanel.add(connect);
+		controlPanel.setLayout(new GridLayout(1, 2));
+		//connectPanel.setLayout(new GridLayout(1, 2));
+		//connectPanel.add(connect);
 		buttonPanel.setLayout(new GridLayout(1, 2));
-		buttonPanel.add(save);
+		//buttonPanel.add(save);
+		buttonPanel.add(connect);
 		buttonPanel.add(clear);
 		clear.addActionListener(clearListener);
-		save.addActionListener(saveListener);
+		//save.addActionListener(saveListener);
 		connect.addActionListener(connectListener);
 		// exit.addActionListener(exitListener);
-		controlPanel.add(connectPanel);
+		//controlPanel.add(connectPanel);
 		controlPanel.add(buttonPanel);
 	}
 
+	
 	/**
-	 * make connect button work.
 	 * @author kenton
-	 *
+	 *     make connect button work.
+	 * 
+	 * @author chris
+	 *     make password encrypt and read/wite to the file.
+	 *     
 	 */
 	private static class ConnectListener implements ActionListener {
 
 		/**
-		 * setting up the connection to a database.
-		 */
-		public void actionPerformed(ActionEvent ae) {
-			DbConnect connect = new DbConnect();
-			String dbName = name.getText();
-			String dbAddress = databaseUrl.getText();
-			String dbUsername = username.getText();
-			String dbPassword = password.getText();
-			String dbDriver = driver.getSelectedItem().toString();
-			System.out.println(dbName);
-			System.out.println(dbAddress);
-			System.out.println(dbUsername);
-			System.out.println(dbPassword);
-			System.out.println(dbDriver);
-			
-			// Requires that all boxes be completed (alias name, db URL, username, password, driver)
-			if (name.getText().trim().length() == 0 ) {
-				JOptionPane.showMessageDialog(null,"Connection failed: alias name is required.");
-			} else if (databaseUrl.getText().trim().length() == 0 ) {
-				JOptionPane.showMessageDialog(null,"Connection failed: database URL is required.");
-			} else if (username.getText().trim().length() == 0 ) {
-				JOptionPane.showMessageDialog(null,"Connection failed: username is required.");
-			} else if (password.getText().trim().length() == 0 ) {
-				JOptionPane.showMessageDialog(null,"Connection failed: password is required.");
-			} else if (dbDriver.equals("MySQL Driver")) {
-				connect = new DbConnect(dbAddress, dbUsername, dbPassword, dbName);
-			} else {
-				JOptionPane.showMessageDialog(failPanel, "Connection failed: "
-						+ "driver selection is required.");
-			}
-			try {
-				connect.configure();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-	}
-	
-	/**
-	 * make clear button to work.
-	 */
-	private static class ClearListener implements ActionListener {
-		/**
-		 * setting all the TextBoxes, CheckBoxes and ComboBoxes to its default
-		 * state.
-		 */
-		public void actionPerformed(ActionEvent ae) {
-			name.setText("");
-			databaseUrl.setText("");
-			username.setText("");
-			password.setText("");
-			driver.setSelectedIndex(0);
-			savePassword.setSelected(false);
-			autoConnect.setSelected(false);
-		}
-	}
-
-	/**
-	 * make save button to work.
-	 */
-	private static class SaveListener implements ActionListener {
-		
-		/**
 		 * Write User's name, Database URL, Username, encrypted password and salt to a file. 
 		 */
-
 		public void writeEncrypt(byte[] encPass, byte[] salt) {
 			try {
 				if (new File("UserData").isFile() == false) {
@@ -353,7 +297,7 @@ public class CreateWindow extends JFrame {
 			} catch (IOException ex) {
 				//log(ex);
 			} 
-		}
+		} //end of writeEncrypt
 		
 		/**
 		 * Read all bytes in the file. 
@@ -361,12 +305,8 @@ public class CreateWindow extends JFrame {
 		public static byte[] getBytesFromFile(File file) throws IOException {
 			InputStream is = new FileInputStream(file);
 			try {
-			
-			
 				long length = file.length();
-			
-
-
+		
 				byte[] bytes = new byte[(int)length];
 
 				int offset = 0;
@@ -387,7 +327,7 @@ public class CreateWindow extends JFrame {
 				is.close();
 				
 			} 
-		}
+		} //end of getBytesFromFile
 		//public byte[] findNewLINE(InputStream inputSteam, )
 		
 		/**
@@ -443,13 +383,35 @@ public class CreateWindow extends JFrame {
 				//exception
 			}
 			return userInfoLst;
+		} //end of readEncrypt 
+		
+
+		/**
+		 * save alias?.
+		 * 
+		 */
+		public void saveAlias() {
+			int sv = JOptionPane.showConfirmDialog(saveAlias,
+					"Do you want to save this alias?" ,
+					"Save Alias?",
+					JOptionPane.YES_NO_CANCEL_OPTION);
+			if (sv == JOptionPane.CANCEL_OPTION) {
+				JOptionPane option = new JOptionPane();
+				option.setVisible(false);
+			} else if (sv == JOptionPane.YES_OPTION) {
+				// Save it and connect to the database
+			}
 		}
 		
 		/**
-		 * Listen for save button click.
+		 * setting up the connection to a database.
 		 */
-		
 		public void actionPerformed(ActionEvent ae) {
+			/**
+			 * @author Devesh Amin
+			 *     Save alias while connecting to the database?.
+			 */
+			saveAlias();
 			
 			/**
 			 * Saving password: make sure to encrypt.
@@ -507,8 +469,56 @@ public class CreateWindow extends JFrame {
 				JOptionPane.showMessageDialog(null,"Save failed: alias name, database URL, and"
 						+ " username are required.");
 			}			
-		}
-	}
+		
+			DbConnect connect = new DbConnect();
+			String dbName = name.getText();
+			String dbAddress = databaseUrl.getText();
+			String dbUsername = username.getText();
+			String dbPassword = password.getText();
+			String dbDriver = driver.getSelectedItem().toString();
+			System.out.println(dbDriver);
+			
+			// Requires that all boxes be completed (alias name, db URL, username, password, driver)
+			if (name.getText().trim().length() == 0 ) {
+				JOptionPane.showMessageDialog(null,"Connection failed: alias name is required.");
+			} else if (databaseUrl.getText().trim().length() == 0 ) {
+				JOptionPane.showMessageDialog(null,"Connection failed: database URL is required.");
+			} else if (username.getText().trim().length() == 0 ) {
+				JOptionPane.showMessageDialog(null,"Connection failed: username is required.");
+			} else if (password.getText().trim().length() == 0 ) {
+				JOptionPane.showMessageDialog(null,"Connection failed: password is required.");
+			} else if (dbDriver.equals("MySQL Driver")) {
+				connect = new DbConnect(dbAddress, dbUsername, dbPassword, dbName);
+			} else {
+				JOptionPane.showMessageDialog(failPanel, "Connection failed: "
+						+ "driver selection is required.");
+			}
+			try {
+				connect.configure();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}		
+		}//end of actionPerformed
+	}//end of ConnectListener
+	
+	/**
+	 * make clear button to work.
+	 */
+	private static class ClearListener implements ActionListener {
+		/**
+		 * setting all the TextBoxes, CheckBoxes and ComboBoxes to its default
+		 * state.
+		 */
+		public void actionPerformed(ActionEvent ae) {
+			name.setText("");
+			databaseUrl.setText("");
+			username.setText("");
+			password.setText("");
+			driver.setSelectedIndex(0);
+			savePassword.setSelected(false);
+			autoConnect.setSelected(false);
+		}//end of actionPerformed
+	}//end of ClearListener 
 
 	/**
 	 * Main Method.
@@ -532,7 +542,7 @@ public class CreateWindow extends JFrame {
 			} // end of widowClosing
 
 		}); // end of WindowListener
-		// end of Main Method
-	}
-	// end of CreateWindow
-}
+		
+	}// end of Main Method
+	
+}// end of CreateWindow

@@ -50,7 +50,7 @@ public class MainFrame {
 	 * @author Bonnie Shields
 	 */
 	public static void createFrame() {
-		frame = new JFrame("Sequel Master");
+		frame = new JFrame("SQLizard");
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		// display the menu bar on the top of the page
 		displayMenu();
