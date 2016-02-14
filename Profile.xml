@@ -1,11 +1,13 @@
 <?xml version="1.0"  encoding="UTF-8"?>
+<!DOCTYPE config PUBLIC "//UNKNOWN/" "profile.dtd">
+
 <!-- Here is the initial structure for the user based off of the user profile 
 	page of the wiki -->
 <config>
 	<profiles>
 		<user>
 			<!-- I'm thinking this is to log into the program -->
-			<database></database>
+			<database>foo</database>
 			<username></username>
 			<!-- Attribute plain-text to allow manual editing of password and save 
 				to allow and remember not to save -->
