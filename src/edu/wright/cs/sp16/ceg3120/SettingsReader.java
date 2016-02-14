@@ -82,18 +82,24 @@ public class SettingsReader {
 	/**
 	 * Reads an xml file and does some stuff. Sample Method
 	 * 
-	 * @param xml
-	 *            file path
+	 * @param xmlFileName
+	 *            file path name
 	 */
-	public static void readXml(String xml) {
+	public static void readXml(String xmlFileName) {
 		// rolev = new ArrayList<String>();
 		Document dom;
 		// Make an instance of the DocumentBuilderFactory
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		dbf.setIgnoringComments(true);
+		dbf.setIgnoringElementContentWhitespace(true);
+		dbf.setValidating(true);
+		dbf.setNamespaceAware(true);
+		
+		
 		try {
 			DocumentBuilder db = dbf.newDocumentBuilder();
 
-			dom = db.parse(xml);
+			dom = db.parse(xmlFileName);
 			Element doc = dom.getDocumentElement();
 
 			// user profiles
