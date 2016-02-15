@@ -53,9 +53,6 @@ public class DerbyConnect {
 	 *            - sets the database name.
 	 */
 	public DerbyConnect(String dbName) {
-//		setDbAddress(dbAddress);
-//		setDbUsername(dbUsername);
-//		setDbPassword(dbPassword);
 		setDbName(dbName);
 	}
 
@@ -74,38 +71,7 @@ public class DerbyConnect {
 		}
 	}
 	
-	
 
-//	/**
-//	 * Sets the database address name.
-//	 * 
-//	 * @param dbAddress
-//	 *            - address name of DB.
-//	 */
-//	public void setDbAddress(String dbAddress) {
-//		this.dbAddress = dbAddress;
-//	}
-//
-//	/**
-//	 * Sets the database username.
-//	 * 
-//	 * @param dbUsername
-//	 *            - username for the derby db.
-//	 */
-//	public void setDbUsername(String dbUsername) {
-//		this.dbUsername = dbUsername;
-//	}
-//
-//	/**
-//	 * Sets the password for the derby database.
-//	 * 
-//	 * @param dbPassword
-//	 *            - password for the derby db.
-//	 */
-//	public void setDbPassword(String dbPassword) {
-//		this.dbPassword = dbPassword;
-//	}
-//
 	/**
 	 * Sets the database name for the derby db.
 	 * 
@@ -115,33 +81,6 @@ public class DerbyConnect {
 	public void setDbName(String dbName) {
 		this.dbName = dbName;
 	}
-//
-//	/**
-//	 * returns the address name for the derby db.
-//	 * 
-//	 * @return - return a string of address.
-//	 */
-//	public String getDbAddress() {
-//		return dbAddress;
-//	}
-//
-//	/**
-//	 * returns the username for the derby db.
-//	 * 
-//	 * @return - will return a string of username.
-//	 */
-//	public String getDbUsername() {
-//		return dbUsername;
-//	}
-//
-//	/**
-//	 * returns the password for the derby db.
-//	 * 
-//	 * @return - will return a string of password.
-//	 */
-//	public String getDbPassword() {
-//		return dbPassword;
-//	}
 
 	/**
 	 * returns the database name used for the derby connection.
