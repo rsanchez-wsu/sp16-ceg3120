@@ -1,78 +1,67 @@
 package testConnection;
 
-import java.nio.file.*;
-import java.sql.*;
-import java.io.*;
-import java.util.*;
-
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
- * This program tests that the database and the JDBC driver are correctly configured.
- * @version 1.02 2012-06-05
- * @author Cay Horstmann
+ * 
+ * @author AlisonGuyton.
+ *
  */
-
 public class DBconnection {
-	
+	Connection conn;
+	String url;
+	String username;
+	String password;
+
 	/**
-	 * .
-	 * @param args not empty
-	 * @throws IOException not empty
+	 * DBconnection will establish a connection.
 	 */
-	public static void main(String args[]) throws IOException
-	{
-		try
-		{
-			runTest();
-	      }
-	      catch (SQLException ex)
-	      {
-	         for (Throwable t : ex)
-	            t.printStackTrace();
-	      }
-	   }
+	public DBconnection() {
+		try {
+			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+		} catch (ClassNotFoundException e) {
+			System.out.println(e.toString());
+		}
+		//path may vary
+		url = "jdbc:derby:/Users/AlisonGuyton/.ivy2/cache/org.apache.derby/derby/jars/newDB;"
+				+ "create=true";
 
-	   /**
-	    * Runs a test by creating a table, adding a value, showing the table contents, and removing the
-	    * table.
-	    */
-	   public static void runTest() throws SQLException, IOException
-	   {
-	      
-	      try (Connection conn = getConnection())
-	      {
-	         Statement stat = conn.createStatement();
+		System.out.println("Created SQL Connect");
+	}
 
-	         stat.executeUpdate("CREATE TABLE Greetings (Message CHAR(20))");
-	         stat.executeUpdate("INSERT INTO Greetings VALUES ('Hello, World!')");
+	/**
+	 * CreateConnection creates a connection.
+	 */
+	public void createConnection() {
+		try {
+			conn = DriverManager.getConnection(url);
+			System.out.println("Successfully Connected");
+		} catch (SQLException e) {
+			System.out.println(e.toString());
+		}
+	}
 
-	         try (ResultSet result = stat.executeQuery("SELECT * FROM Greetings"))
-	         {
-	            if (result.next())
-	               System.out.println(result.getString(1));
-	         }
-	         stat.executeUpdate("DROP TABLE Greetings");
-	      }
-	   }
-
-	   /**
-	    * Gets a connection from the properties specified in the file database.properties.
-	    * @return the database connection
-	    */
-	   public static Connection getConnection() throws SQLException, IOException
-	   {
-	      Properties props = new Properties();
-	      try (InputStream in = Files.newInputStream(Paths.get("database.properties")))
-	      {
-	         props.load(in);
-	      }
-	      String drivers = props.getProperty("jdbc.drivers");
-	      if (drivers != null) System.setProperty("jdbc.drivers", drivers);
-	      String url = props.getProperty("jdbc.url");
-	      String username = props.getProperty("jdbc.username");
-	      String password = props.getProperty("jdbc.password");
-
-	      return DriverManager.getConnection(url, username, password);
-	      }
+	/**
+	 * closeConnection closes the established connection to a derby database.
+	 */
+	public void closeConnection() {
+		try {
+			this.conn.close();	
+			System.out.println("Connection successfully closed");
+		} catch (SQLException e) {
+			System.out.println(e.toString());
+		}
+	}
 	
+/**
+ * main.
+ * @param args args.
+ */
+	public static void main(String args[]) {
+		DBconnection sql = new DBconnection();
+		sql.createConnection();
+		sql.closeConnection();
+	}
 }
