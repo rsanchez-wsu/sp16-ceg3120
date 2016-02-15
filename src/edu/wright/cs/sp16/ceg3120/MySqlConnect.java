@@ -44,6 +44,7 @@ public class MySqlConnect {
 	private String dbName;
 	private com.mysql.jdbc.jdbc2.optional.MysqlDataSource dataSource = 
 			new com.mysql.jdbc.jdbc2.optional.MysqlDataSource();
+	private Connection conn = null;
 
 	/**
 	 * MySqlConnect is just a place holder constructor.
@@ -91,7 +92,7 @@ public class MySqlConnect {
 		dataSource.setPassword(getDbPassword());
 		dataSource.setServerName(getDbAddress());
 		dataSource.setDatabaseName(getDbName());
-		Connection conn = dataSource.getConnection();
+		conn = dataSource.getConnection();
 		try {
 			java.sql.Statement stmt = conn.createStatement();
 			try {
@@ -134,6 +135,74 @@ public class MySqlConnect {
 			conn.close();
 		}
 	}
+
+	/**
+	 * executeQuery. definition.
+	 * 
+	 * @return string
+	 * @throws SQLException
+	 *             fd
+	 */
+
+//	public String executeQuery(String stringQuery) throws SQLException {
+//		try {
+//			conn = dataSource.getConnection();
+//			java.sql.PreparedStatement preparedStatement = null;
+//			ResultSet rs = null;
+//			try {
+//				try {
+//					preparedStatement = conn.prepareStatement(stringQuery);
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				} finally {
+//					conn.close();
+//				}
+//				try {
+//					rs = preparedStatement.executeQuery();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				} finally {
+//					// rs.close();
+//					preparedStatement.close();
+//				}
+//				try {
+//					ResultSetMetaData rsmd = rs.getMetaData();
+//					int columnsNumber = rsmd.getColumnCount();
+//					while (rs.next()) {
+//						for (int i = 1; i <= columnsNumber; i++) {
+//							if (i > 1) {
+//								System.out.print(",  ");
+//								String columnValue = rs.getString(i);
+//								System.out.print(columnValue + " " + rsmd.getColumnName(i));
+//							}
+//						}
+//						System.out.println("");
+//					}
+//					rs.close();
+//					preparedStatement.close();
+//					conn.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				} finally {
+//					rs.close();
+//					preparedStatement.close();
+//				}
+//			} catch (SQLException e) {
+//				rs = null;
+//				preparedStatement = null;
+//				conn.close();
+//				System.out.println("ERROR!!!");
+//				e.printStackTrace();
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			conn.close();
+//		}
+//
+//		String string = null;
+//		return string;
+//	}
 
 	/**
 	 * Constructor returns the database address as data type String. Null if no
@@ -218,4 +287,5 @@ public class MySqlConnect {
 	public void setDbName(String dbName) {
 		this.dbName = dbName;
 	}
+
 }
