@@ -60,20 +60,20 @@ public class MainTabPane extends JTabbedPane {
 	 * TODO: Creates a new connection tab and adds it to the tab pane.
 	 */
 	public void addConnectionTab() {
-		//ConnectionTab connectionTab = new ConnectionTab();
+		ConnectionTab connectionTab = new ConnectionTab();
 
 		// todo: add icon, add better tooltip
-		//addTab(TabNames.Connection.toString(), null, connectionTab, "Make a connection here!!");
+		addTab(TabNames.Connection.toString(), null, connectionTab, "Make a connection here!!");
 	}
 	
 	/**
 	 * TODO: Add "Backup\Export" Tab.
 	 */
 	public void addBackupExportTab() {
-		//BackupExportTab backupExport = new BackupExportTab();
+		BackupExportTab backupExport = new BackupExportTab();
 
 		// todo: add icon, add better tooltip
-		//addTab(TabNames.BackupExport.toString(), null, backupExport, "Export and backup");
+		addTab(TabNames.BackupExport.toString(), null, backupExport, "Export and backup");
 	}
 	
 	/**
@@ -87,9 +87,9 @@ public class MainTabPane extends JTabbedPane {
 	 * Creates a start page tab and adds it to the tab pane.
 	 */
 	public void addStartPageTab() {
-		//StartPageTab startPageTab = new StartPageTab();
+		StartPageTab startPageTab = new StartPageTab();
 
 		// todo: add icon, add better tooltip
-		//addTab(TabNames.Start.toString(), null, startPageTab, null);
+		addTab(TabNames.Start.toString(), null, startPageTab, null);
 	}
 }
