@@ -19,42 +19,33 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120.gui;
+package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
-/**
- * Created by Sam on 2/13/2016.'
- * Enums for our Tab Names for clarity in code
+//import javax.swing.JTabbedPane;
+
+/**Learn and Discover tab, providing resources for helpful info lookup.
+ * 
+ * @author Blizzri
  */
-public enum TabNames {
+public class LearnAndDiscoverTab {
 
-	Connection {
-		@Override
-		public String toString() {
-			return "Connection";
-		}
-	},
-	Help {
-		@Override
-		public String toString() {
-			return "Help Page";
-		}
-	},
-	NewConnection {
-		@Override
-		public String toString() {
-			return "New Connction";
-		}
-	},
-	BackupExport {
-		@Override
-		public String toString() {
-			return "Backup\\Export";
-		}
-	},
-	Start {
-		@Override
-		public String toString() {
-			return "Start Page";
-		}
+	/**Initialize the Learn and Discover tab.
+	 * 
+	 * @author Blizzri
+	 */
+	public LearnAndDiscoverTab() {
+		super();
+		
+		initComponents();
 	}
+	
+	/**Create the Learn and Discover tab.
+	 * 
+	 * @author Blizzri
+	 */
+	private void initComponents() {
+		//JTabbedPane pane = new JTabbedPane();
+		
+	}
+
 }
