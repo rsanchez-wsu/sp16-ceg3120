@@ -45,7 +45,6 @@ public class MySqlConnect {
 	private String dbName;
 	private com.mysql.jdbc.jdbc2.optional.MysqlDataSource dataSource = 
 			new com.mysql.jdbc.jdbc2.optional.MysqlDataSource();
-	private Connection conn = null;
 
 	/**
 	 * MySqlConnect is just a place holder constructor.
@@ -89,15 +88,10 @@ public class MySqlConnect {
 	 *             when a SQL connection can't be made.
 	 */
 	public void configure() throws SQLException {
-		try {
-			dataSource.setUser(getDbUsername());
-			dataSource.setPassword(getDbPassword());
-			dataSource.setServerName(getDbAddress());
-			dataSource.setDatabaseName(getDbName());
-			conn = dataSource.getConnection();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		dataSource.setUser(getDbUsername());
+		dataSource.setPassword(getDbPassword());
+		dataSource.setServerName(getDbAddress());
+		dataSource.setDatabaseName(getDbName());
 	}
 
 	/**
@@ -118,54 +112,32 @@ public class MySqlConnect {
 	public String executeQuery(String stringQuery) throws SQLException {
 		String returnString = "";
 		StringBuilder stringBuilder = new StringBuilder();
-		try {
-			// Set up connection object.
-			conn = dataSource.getConnection();
-			try {
-				// Create statement object.
+		try (Connection conn = dataSource.getConnection();
 				Statement inputStatement = conn.createStatement();
-				try {
-					// Create result set object with the SQL query passed in.
-					ResultSet rs = inputStatement.executeQuery(stringQuery);
-					ResultSetMetaData rsmd = null;
-					try {
-						//Try to read the result set and its meta data and print out to string.
-						rsmd = rs.getMetaData();
-						int columnsNumber = rsmd.getColumnCount();
-						//Iterate through all data returned and append to string result.
-						while (rs.next()) {
-							for (int i = 1; i <= columnsNumber; i++) {
-								if (i > 1) {
-									stringBuilder.append(",  ");
-									String columnValue = rs.getString(i);
-									stringBuilder.append(columnValue + " " + rsmd.getColumnName(i));
-								}
-							}
-							System.out.println("");
+				ResultSet rs = inputStatement.executeQuery(stringQuery);) {
+			try {
+				// ResulSetMetaData does not implement AutoClosable() so it
+				// cannot be handled by try-with-resources.
+				ResultSetMetaData rsmd = null;
+				// Try to read the result set and its meta data and print out to
+				// string.
+				rsmd = rs.getMetaData();
+				int columnsNumber = rsmd.getColumnCount();
+				// Iterate through all data returned and append to string
+				// result.
+				while (rs.next()) {
+					for (int i = 1; i <= columnsNumber; i++) {
+						if (i > 1) {
+							stringBuilder.append(",  ");
+							String columnValue = rs.getString(i);
+							stringBuilder.append(columnValue + " " + rsmd.getColumnName(i));
 						}
-						rs.close();
-						inputStatement.close();
-						conn.close();
-					} catch (SQLException e) {
-						e.printStackTrace();
-						inputStatement.close();
-						conn.close();
-					} finally {
-						//Magic happens here to close all connections in case of exception.
-						rsmd = null;
-						rs.close();
-						inputStatement.close();
-						conn.close();
 					}
-				} catch (SQLException e) {
-					e.printStackTrace();
-					inputStatement.close();
+					System.out.println("");
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 		returnString = stringBuilder.toString();
 		return returnString;
