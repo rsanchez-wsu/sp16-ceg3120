@@ -23,6 +23,9 @@ package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
 import java.awt.Component;
 
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 /**
  * A Start Page Tab that contains items such as:
  * - Recent Connections
@@ -32,7 +35,7 @@ import java.awt.Component;
  * @author codybutz, alyssa
  *
  */
-public class StartPageTab extends Component {
+public class StartPageTab extends JPanel {
 
 	private static final long serialVersionUID = 8991726988535798603L;
 
@@ -42,6 +45,8 @@ public class StartPageTab extends Component {
 	 */
 	public StartPageTab() {
 		super();
+		JLabel welcomeLabel = new JLabel("Welcome to Sequel Lizard");
+		add (welcomeLabel);
 	}
 
 }
