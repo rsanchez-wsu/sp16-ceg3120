@@ -28,7 +28,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * @author rhys
+ * @author Rhys
  * 
  *         MySqlConnect is a class to run basic connection to MySQL test
  *         database. This class is capable of receiving a database address, user
@@ -101,11 +101,16 @@ public class MySqlConnect {
 	}
 
 	/**
-	 * executeQuery. definition.
+	 * This function accepts a String variable that is a SQL query, executes the
+	 * query, iterates through the resulting data, and concatenates a string of
+	 * the results from the query. It should be noted that FindBugs flagged this
+	 * approach as unsafe and required a Suppression on the warning. We want to
+	 * be able to execute arbitrary code, so there is no need to protect against
+	 * SQL injection.
 	 * 
-	 * @return string
+	 * @return String variable containing the results of the query executed.
 	 * @throws SQLException
-	 *             fd
+	 *             when there is an issue connection to the database.
 	 */
 	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = 
 			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
