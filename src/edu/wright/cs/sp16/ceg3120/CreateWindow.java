@@ -21,7 +21,13 @@
 
 package edu.wright.cs.sp16.ceg3120;
 
-// Imports for GUI
+//import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -29,15 +35,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+//import java.io.FileOutputStream;
+//import java.io.FileInputStream;
+//import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
+//import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -47,11 +53,21 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 //import javafx.scene.control.ComboBox;
 
 /**
- * The Create_GUI class.
+ * @author Devesh Amin
+ *     The CreateWindow class.
+ * 
  */
 public class CreateWindow extends JFrame {
 
@@ -68,9 +84,10 @@ public class CreateWindow extends JFrame {
 	private JLabel inputLabel5 = new JLabel("Driver: ");
 	private JLabel inputLabel6 = new JLabel("Save Password?");
 	private JLabel inputLabel7 = new JLabel("Auto-Connect On Startup?");
+	private JLabel inputLabel8 = new JLabel("Alias Name");
 
 	// new buttons
-	private JButton save = new JButton("Save");
+	//private JButton save = new JButton("Save");
 	private JButton clear = new JButton("Clear");
 	private JButton connect = new JButton("Connect");
 	// private JButton exit = new JButton("Exit");
@@ -80,6 +97,7 @@ public class CreateWindow extends JFrame {
 	private static JTextField databaseUrl = new JTextField(10);
 	private static JTextField username = new JTextField(10);
 	private static JTextField password = new JTextField(10);
+	private static JTextField alias = new JTextField(10);
 	static String[] testStrings = { "None Selected", "MySQL Driver", "PostgreSQL Driver",
 			"Demo Driver 3" };
 	private static JComboBox<?> driver = new JComboBox<Object>(testStrings);
@@ -92,16 +110,18 @@ public class CreateWindow extends JFrame {
 	private JPanel buttonPanel = new JPanel();
 	private JPanel inputPanel1 = new JPanel();
 	private JPanel inputPanel2 = new JPanel();
+	private JPanel inputPanel2a2 = new JPanel();
 	private JPanel inputPanel3 = new JPanel();
 	private JPanel inputPanel4 = new JPanel();
 	private JPanel inputPanel5 = new JPanel();
 	private JPanel inputPanel6 = new JPanel();
-	private JPanel connectPanel = new JPanel();
+	//private JPanel connectPanel = new JPanel();
 	private JPanel bigPanel = new JPanel();
+	private static JPanel svAlias = new JPanel();
 
 	// ActionListener for clear button
 	private static ActionListener clearListener = new ClearListener();
-	private static ActionListener saveListener = new SaveListener();
+	//private static ActionListener saveListener = new SaveListener();
 	private static ActionListener connectListener = new ConnectListener();
 	// private ActionListener exitListener = new ExitListener();
 
@@ -118,6 +138,10 @@ public class CreateWindow extends JFrame {
 		// input panel for Name and its position
 		createInput1Panel();
 		getContentPane().add(inputPanel1, BorderLayout.CENTER);
+		
+		//input panel for databaseName and its position
+		createInput2a2Panel();
+		getContentPane().add(inputPanel2a2, BorderLayout.CENTER);
 
 		// input panel for databaseUrl and its position
 		createInput2Panel();
@@ -156,10 +180,19 @@ public class CreateWindow extends JFrame {
 	 */
 	private void createInput1Panel() {
 		inputPanel1.setLayout(new GridLayout(1, 2));
-		inputPanel1.add(inputLabel1);
-		inputPanel1.add(name);
+		inputPanel1.add(inputLabel8);
+		inputPanel1.add(alias);
 	}
 
+	/**
+	 * Adding grid, label and TextField for Database Name.
+	 */
+	private void createInput2a2Panel() {
+		inputPanel2a2.setLayout(new GridLayout(1, 2));
+		inputPanel2a2.add(inputLabel1);
+		inputPanel2a2.add(name);
+	}
+	
 	/**
 	 * Adding grid, label and TextField for DatabaseUrl.
 	 */
@@ -168,6 +201,7 @@ public class CreateWindow extends JFrame {
 		inputPanel2.add(inputLabel2);
 		inputPanel2.add(databaseUrl);
 	}
+
 
 	/**
 	 * Adding grid, label and TextField for Username.
@@ -211,9 +245,11 @@ public class CreateWindow extends JFrame {
 	 * Adding all the panels in one big panel with grid.
 	 */
 	private void createBigPanel() {
-		bigPanel.setLayout(new GridLayout(6, 1));
+		bigPanel.setLayout(new GridLayout(7, 1));
 		createInput1Panel();
 		bigPanel.add(inputPanel1);
+		createInput2a2Panel();
+		bigPanel.add(inputPanel2a2);
 		createInput2Panel();
 		bigPanel.add(inputPanel2);
 		createInput3Panel();
@@ -230,17 +266,18 @@ public class CreateWindow extends JFrame {
 	 * Adding buttons and setting grid for the buttons.
 	 */
 	private void createControlPanel() {
-		controlPanel.setLayout(new GridLayout(2, 2));
-		connectPanel.setLayout(new GridLayout(1, 2));
-		connectPanel.add(connect);
+		controlPanel.setLayout(new GridLayout(1, 2));
+		//connectPanel.setLayout(new GridLayout(1, 2));
+		//connectPanel.add(connect);
 		buttonPanel.setLayout(new GridLayout(1, 2));
-		buttonPanel.add(save);
+		//buttonPanel.add(save);
+		buttonPanel.add(connect);
 		buttonPanel.add(clear);
 		clear.addActionListener(clearListener);
-		save.addActionListener(saveListener);
+		//save.addActionListener(saveListener);
 		connect.addActionListener(connectListener);
 		// exit.addActionListener(exitListener);
-		controlPanel.add(connectPanel);
+		//controlPanel.add(connectPanel);
 		controlPanel.add(buttonPanel);
 	}
 
@@ -251,20 +288,200 @@ public class CreateWindow extends JFrame {
 	 *
 	 */
 	private static class ConnectListener implements ActionListener {
+		/**
+		 * Writes Alias to File.
+		 * 
+		 * @param alias
+		 *            alias name
+		 * @param dbName
+		 *            database name
+		 * @param dbUrl
+		 *            database url
+		 * @param userName
+		 *            User name
+		 * @param password
+		 *            password
+		 * @param salt
+		 *            password salt
+		 * @param savePass
+		 *            Whether to save password or not
+		 * @param driver
+		 *            Driver to connect
+		 * @throws IOException
+		 *             Throws Input Output exceptions
+		 * @throws SAXException
+		 *             Throws SAX exceptions
+		 */
+		public static void writeAlias(String alias, String dbName, String dbUrl, String userName,
+				String password, String salt, boolean savePass, String driver)
+						throws SAXException, IOException {
+			System.out.println("writing");
+			try {
+
+				DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+
+				// root elements
+				Document doc = docBuilder.parse("UserData\\aliases.xml");
+				Element root = doc.getDocumentElement();
+
+				Element al = doc.createElement("alias");
+				al.setAttribute("name", alias);
+				root.appendChild(al);
+
+				Element db = doc.createElement("dbName");
+				db.appendChild(doc.createTextNode(dbName));
+				al.appendChild(db);
+
+				Element ur = doc.createElement("dbURL");
+				ur.appendChild(doc.createTextNode(dbUrl));
+				al.appendChild(ur);
+
+				Element nm = doc.createElement("userName");
+				nm.appendChild(doc.createTextNode(userName));
+				al.appendChild(nm);
+
+				Element ps = doc.createElement("password");
+				ps.setAttribute("saved", (savePass ? "true" : "false"));
+				if (savePass) {
+					ps.appendChild(doc.createTextNode(password));
+				}
+				al.appendChild(ps);
+
+				Element sl = doc.createElement("salt");
+				sl.appendChild(doc.createTextNode((savePass ? salt : "")));
+				ps.appendChild(sl);
+
+				Element dv = doc.createElement("driver");
+				dv.appendChild(doc.createTextNode(driver));
+				al.appendChild(nm);
+
+				// write the content into xml file
+				TransformerFactory transformerFactory = TransformerFactory.newInstance();
+				Transformer transformer = transformerFactory.newTransformer();
+				DOMSource source = new DOMSource(doc);
+				StreamResult result = new StreamResult(new File("UserData\\aliases.xml"));
+				transformer.transform(source, result);
+
+				System.out.println("File saved!");
+			} catch (ParserConfigurationException pce) {
+				pce.printStackTrace();
+			} catch (TransformerException tfe) {
+				tfe.printStackTrace();
+			}
+
+		}
+		
+
+		/** Reads an alias based on name.
+		 * @param alias Alias name to read
+		 */
+		public static void readAlias(String alias) {
+			try {
+				File xmlFile = new File("UserData\\aliases.xml");
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();
+				Document doc = docBuilder.parse(xmlFile);
+				doc.getDocumentElement().normalize();
+				System.out.println("reading");
+				NodeList aliasList = doc.getElementsByTagName("alias");
+				for (int i = 0; i < aliasList.getLength(); i++) {
+					Node currentNode = aliasList.item(i);
+					Element curElement = (Element) currentNode;
+					if (currentNode.getNodeType() == Node.ELEMENT_NODE
+							&& alias.equals(curElement.getAttribute("name"))) {
+						System.out.println("dbName: "
+								+ curElement.getElementsByTagName(""
+										+ "dbName"
+										).item(0).getTextContent());
+						System.out.println("dbUrl: "
+								+ curElement.getElementsByTagName(""
+										+ "dbURL").item(0).getTextContent());
+						System.out.println("userName: "
+								+ curElement.getElementsByTagName(""
+										+ "userName").item(0).getTextContent());
+						curElement = (Element) curElement.getElementsByTagName("password").item(0);
+						System.out.println("password: " + curElement.getTextContent().trim());
+						System.out.println("salt: "
+								+ curElement.getElementsByTagName("salt").item(0).getTextContent()
+								+ "\n");
+					}
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (SAXException e) {
+				e.printStackTrace();
+			} catch (ParserConfigurationException e) {
+				e.printStackTrace();
+			}
+
+		}
+
+		/**
+		 * save alias?.
+		 * 
+		 */
+		public void saveAlias() {
+			int sv = JOptionPane.showConfirmDialog(svAlias,
+					"Do you want to save this alias?" ,
+					"Save Alias?",
+					JOptionPane.YES_NO_CANCEL_OPTION);
+			if (sv == JOptionPane.CANCEL_OPTION) {
+				JOptionPane option = new JOptionPane();
+				option.setVisible(false);
+			} //else if {...}
+		}
+
 
 		/**
 		 * setting up the connection to a database.
 		 */
 		public void actionPerformed(ActionEvent ae) {
+			/**
+			 * @author Devesh Amin
+			 *     Save alias while connecting to the database?.
+			 */
+			saveAlias();
+			
+			/**
+			 * Saving password: make sure to encrypt.
+			 */
+			String passA = "";
+			String saltA = "";
+			if (savePassword.isSelected()) {
+				String pass = password.getText();
+				byte[] encPass;
+
+				// Encryption
+				final PasswordEncryptionService pes = new PasswordEncryptionService();
+				try {
+					byte[] salt = pes.generateSalt();
+					encPass = pes.getEncryptedPassword(pass, salt);
+					passA = Arrays.toString(encPass);
+					saltA = Arrays.toString(salt);
+				} catch (NoSuchAlgorithmException e) {
+					System.err.println("Caught NoSuchAlgorithmException: " + e.getMessage());
+				} catch (InvalidKeySpecException e) {
+					System.err.println("Caught InvalidKeySpecException: " + e.getMessage());
+				}
+
+			}
+			try {
+				writeAlias(alias.getText(), name.getText(), databaseUrl.getText(),
+						username.getText(), passA, saltA, savePassword.isSelected(),
+						String.valueOf(driver.getSelectedItem()));
+				readAlias("test");
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (SAXException e) {
+				e.printStackTrace();
+			}
+	
 			String dbName = name.getText();
 			String dbAddress = databaseUrl.getText();
 			String dbUsername = username.getText();
 			String dbPassword = password.getText();
 			String dbDriver = driver.getSelectedItem().toString();
-			System.out.println(dbName);
-			System.out.println(dbAddress);
-			System.out.println(dbUsername);
-			System.out.println(dbPassword);
 			System.out.println(dbDriver);
 			if (dbDriver.equals("MySQL Driver")) {
 				MySqlConnect connect = new MySqlConnect(dbAddress, dbUsername, dbPassword, dbName);
@@ -292,8 +509,7 @@ public class CreateWindow extends JFrame {
 	 */
 	private static class ClearListener implements ActionListener {
 		/**
-		 * setting all the TextBoxes, CheckBoxes and ComboBoxes to its default
-		 * state.
+		 * setting all the TextBoxes, CheckBoxes and ComboBoxes to its default state.
 		 */
 		public void actionPerformed(ActionEvent ae) {
 			name.setText("");
@@ -303,156 +519,6 @@ public class CreateWindow extends JFrame {
 			driver.setSelectedIndex(0);
 			savePassword.setSelected(false);
 			autoConnect.setSelected(false);
-		}
-	}
-
-	/**
-	 * make save button to work.
-	 */
-	private static class SaveListener implements ActionListener {
-
-		/**
-		 * Write User's name, Database URL, Username, encrypted password and
-		 * salt to a file.
-		 */
-
-		public void writeEncrypt(byte[] encPass, byte[] salt) {
-			try {
-				if (new File("UserData").isFile() == false) {
-					File dir = new File("UserData");
-					if (dir.mkdir() == false) {
-						System.out.print("");
-					}
-				}
-				FileOutputStream output = new FileOutputStream("UserData/" + username.getText());
-				try {
-					output.write(name.getText().getBytes("ISO-8859-1"));
-					output.write(System.getProperty("line.separator").getBytes("ISO-8859-1"));
-					output.write(databaseUrl.getText().getBytes("ISO-8859-1"));
-					output.write(System.getProperty("line.separator").getBytes("ISO-8859-1"));
-					output.write(username.getText().getBytes("ISO-8859-1"));
-					output.write(System.getProperty("line.separator").getBytes("ISO-8859-1"));
-					output.write(encPass);
-					output.write(System.getProperty("line.separator").getBytes("ISO-8859-1"));
-					output.write(salt);
-
-				} finally {
-					output.close();
-				}
-			} catch (FileNotFoundException ex) {
-				// "File not found.";
-			} catch (IOException ex) {
-				// log(ex);
-			}
-		}
-
-		/**
-		 * Read User's name, Database URL, Username, encrypted password and salt
-		 * from a file.
-		 */
-		public void readEncrypt(String userName) {
-
-			try {
-				File file = new File("UserData/" + userName);
-
-				InputStream inputSteam = new FileInputStream(file);
-				try {
-					try {
-						// final PasswordEncryptionService pes =
-						// new PasswordEncryptionService(); //testing
-
-						byte[] readName = new byte[name.getText().getBytes("ISO-8859-1").length];
-						byte[] readDatabase = 
-								new byte[databaseUrl.getText().getBytes("ISO-8859-1").length];
-						int endOfFile = 0;
-						final ArrayList<byte[]> userInfoLst = new ArrayList<byte[]>();
-						endOfFile = inputSteam.read(readName);
-						byte[] line = new byte[2];
-						endOfFile = inputSteam.read(line);
-						endOfFile = inputSteam.read(readDatabase);
-						endOfFile = inputSteam.read(line);
-						byte[] readUser = 
-								new byte[username.getText().getBytes("ISO-8859-1").length];
-						endOfFile = inputSteam.read(readUser);
-						endOfFile = inputSteam.read(line);
-						byte[] pass = new byte[20];
-						endOfFile = inputSteam.read(pass);
-						endOfFile = inputSteam.read(line);
-						byte[] salt = new byte[8];
-						endOfFile = inputSteam.read(salt);
-
-						userInfoLst.add(readName);
-						userInfoLst.add(readDatabase);
-						userInfoLst.add(readUser);
-						userInfoLst.add(pass);
-						userInfoLst.add(salt);
-						userInfoLst.add(line);
-						userInfoLst.remove(5);
-						if (endOfFile == -1) {
-							inputSteam.close();
-						} else {
-							System.out.print("");
-							inputSteam.close();
-						}
-						// System.out.println(pes.authenticate(password.getText(),
-						// userInfoLst.get(3) , userInfoLst.get(4)));
-						System.out.println((new String(userInfoLst.get(0), "ISO-8859-1")));
-						// System.out.println(((new
-						// String(userInfoLst.get(1))))); //testing
-						// System.out.println(((new
-						// String(userInfoLst.get(2))))); //testing
-						// System.out.println(Arrays.toString(userInfoLst.get(3)));
-						// //testing
-						// System.out.println(Arrays.toString(userInfoLst.get(4)));
-						// //testing
-					} finally {
-						inputSteam.close();
-					}
-				} catch (IOException ex) {
-
-					// exception
-				}
-			} catch (FileNotFoundException ex) {
-				// exception
-			}
-		}
-
-		/**
-		 * Listen for save button click.
-		 */
-
-		public void actionPerformed(ActionEvent ae) {
-
-			/**
-			 * Saving password: make sure to encrypt.
-			 */
-			if (savePassword.isSelected()) {
-				String pass = password.getText();
-				byte[] encPass;
-
-				// Encryption
-				final PasswordEncryptionService pes = new PasswordEncryptionService();
-				try {
-					byte[] salt = pes.generateSalt();
-					encPass = pes.getEncryptedPassword(pass, salt);
-					System.out.println("Pass: " + pass);
-					System.out.println("Encrypted Pass: " + Arrays.toString(encPass));
-					System.out.println("Encrypted Pass: " + Arrays.toString(salt));
-
-					// Save salt and encrypted password to file
-					writeEncrypt(encPass, salt);
-					readEncrypt(username.getText()); // testing
-				} catch (NoSuchAlgorithmException e) {
-					System.err.println("Caught NoSuchAlgorithmException: " + e.getMessage());
-				} catch (InvalidKeySpecException e) {
-					System.err.println("Caught InvalidKeySpecException: " + e.getMessage());
-				}
-
-			} // else {
-
-			// }
-			JOptionPane.showMessageDialog(null, "This button is not yet implemented. "
-					+ "This can be milestone 2.");
 		}
 	}
 
@@ -470,7 +536,7 @@ public class CreateWindow extends JFrame {
 		cw.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent evt) {
 				int answer = JOptionPane.showConfirmDialog(cw, "Do you really want to quit?",
-						"Quit",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+						"Quit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 				if (answer == JOptionPane.YES_OPTION) {
 					System.exit(0);
 				}
