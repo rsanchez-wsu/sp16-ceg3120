@@ -21,36 +21,40 @@
 
 package edu.wright.cs.sp16.ceg3120.gui;
 
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
 /**
- * Driver for testing the GUI.
- * 
- * @author codybutz
- *
+ * Created by Sam on 2/13/2016.'
+ * Enums for our Tab Names for clarity in code
  */
-public class TestGui {
+public enum TabNames {
 
-	/**
-	 * Driver method that sets the system look and feel.
-	 * @param args Arguments from command line.
-	 */
-	public static void main(String[] args) {
-		try {
-
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			
-			SplashScreen screen = new SplashScreen();
-			screen.showSplashScreen();
-
-			MainGui gui = new MainGui();
-			gui.setVisible(true);
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-				| UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
+	Connection {
+		@Override
+		public String toString() {
+			return "Connection";
 		}
-		
+	},
+	Help {
+		@Override
+		public String toString() {
+			return "Help Page";
+		}
+	},
+	NewConnection {
+		@Override
+		public String toString() {
+			return "New Connction";
+		}
+	},
+	BackupExport {
+		@Override
+		public String toString() {
+			return "Backup\\Export";
+		}
+	},
+	Start {
+		@Override
+		public String toString() {
+			return "Start Page";
+		}
 	}
-
 }

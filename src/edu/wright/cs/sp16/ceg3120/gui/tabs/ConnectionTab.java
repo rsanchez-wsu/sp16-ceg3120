@@ -19,38 +19,35 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120.gui;
+package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import java.awt.Component;
 
 /**
- * Driver for testing the GUI.
+ * The tab that contains all the components for the connection.
  * 
- * @author codybutz
+ * @author sam
  *
  */
-public class TestGui {
-
+public class ConnectionTab extends Component {
+	
+	private static final long serialVersionUID = -9056641573923593935L;
+	
 	/**
-	 * Driver method that sets the system look and feel.
-	 * @param args Arguments from command line.
+	 * Default constructor, initializes components.
 	 */
-	public static void main(String[] args) {
-		try {
-
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			
-			SplashScreen screen = new SplashScreen();
-			screen.showSplashScreen();
-
-			MainGui gui = new MainGui();
-			gui.setVisible(true);
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-				| UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
-		}
+	public ConnectionTab() {
+		super();
+		
+		initComponents();
+	}
+	
+	/**
+	 * TODO: create all components for this window and
+	 * 		 initialize them here.
+	 * */
+	private void initComponents() {
+		
 		
 	}
-
 }

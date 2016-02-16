@@ -19,38 +19,24 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120.gui;
+package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import java.awt.Component;
 
 /**
- * Driver for testing the GUI.
+ * The tab that contains the components for backing up/exporting a database.
  * 
- * @author codybutz
+ * @author sam
  *
  */
-public class TestGui {
+public class BackupExportTab extends Component {
+
+	private static final long serialVersionUID = -8711368784659297765L;
 
 	/**
-	 * Driver method that sets the system look and feel.
-	 * @param args Arguments from command line.
+	 * Default constructor, initializes components.
 	 */
-	public static void main(String[] args) {
-		try {
-
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			
-			SplashScreen screen = new SplashScreen();
-			screen.showSplashScreen();
-
-			MainGui gui = new MainGui();
-			gui.setVisible(true);
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-				| UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
-		}
-		
+	public BackupExportTab() {
+		super();
 	}
-
 }
