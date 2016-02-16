@@ -57,7 +57,7 @@ public class MainApp {
 			@Override
 			public void actionPerformed(ActionEvent ewa) {
 				if (ewa.getActionCommand().equals("Profile")) {
-					//Profile newProfile = new Profile();
+					Profile newProfile = new Profile();
 					System.out.println("Hi");
 				}
 
