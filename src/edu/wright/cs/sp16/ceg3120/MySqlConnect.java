@@ -25,6 +25,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * @author rhys
@@ -44,6 +45,7 @@ public class MySqlConnect {
 	private String dbName;
 	private com.mysql.jdbc.jdbc2.optional.MysqlDataSource dataSource = 
 			new com.mysql.jdbc.jdbc2.optional.MysqlDataSource();
+	private Connection conn = null;
 
 	/**
 	 * MySqlConnect is just a place holder constructor.
@@ -87,52 +89,81 @@ public class MySqlConnect {
 	 *             when a SQL connection can't be made.
 	 */
 	public void configure() throws SQLException {
-		dataSource.setUser(getDbUsername());
-		dataSource.setPassword(getDbPassword());
-		dataSource.setServerName(getDbAddress());
-		dataSource.setDatabaseName(getDbName());
-		Connection conn = dataSource.getConnection();
 		try {
-			java.sql.Statement stmt = conn.createStatement();
-			try {
-
-				ResultSet rs = stmt.executeQuery("SELECT * FROM inventory");
-
-				System.out.println("If you see this you connected!");
-
-				ResultSetMetaData rsmd = rs.getMetaData();
-				int columnsNumber = rsmd.getColumnCount();
-				while (rs.next()) {
-					for (int i = 1; i <= columnsNumber; i++) {
-						if (i > 1) {
-							System.out.print(",  ");
-							String columnValue = rs.getString(i);
-							System.out.print(columnValue + " " + rsmd.getColumnName(i));
-						}
-					}
-					System.out.println("");
-				}
-
-				rs.close();
-				stmt.close();
-				conn.close();
-
-			} catch (SQLException SqlEx) {
-				stmt.close();
-				conn.close();
-				System.out.println("If you see this, you failed to connect!");
-				System.out.println(SqlEx.getMessage());
-
-			} finally {
-				stmt.close();
-				conn.close();
-			}
-			stmt.close();
-			conn.close();
-
-		} finally {
-			conn.close();
+			dataSource.setUser(getDbUsername());
+			dataSource.setPassword(getDbPassword());
+			dataSource.setServerName(getDbAddress());
+			dataSource.setDatabaseName(getDbName());
+			conn = dataSource.getConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * executeQuery. definition.
+	 * 
+	 * @return string
+	 * @throws SQLException
+	 *             fd
+	 */
+	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = 
+			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
+			"We specifically want to allow the user to execute arbitrary SQL")
+	public String executeQuery(String stringQuery) throws SQLException {
+		String returnString = "";
+		StringBuilder stringBuilder = new StringBuilder();
+		try {
+			// Set up connection object.
+			conn = dataSource.getConnection();
+			try {
+				// Create statement object.
+				Statement inputStatement = conn.createStatement();
+				try {
+					// Create result set object with the SQL query passed in.
+					ResultSet rs = inputStatement.executeQuery(stringQuery);
+					ResultSetMetaData rsmd = null;
+					try {
+						//Try to read the result set and its meta data and print out to string.
+						rsmd = rs.getMetaData();
+						int columnsNumber = rsmd.getColumnCount();
+						//Iterate through all data returned and append to string result.
+						while (rs.next()) {
+							for (int i = 1; i <= columnsNumber; i++) {
+								if (i > 1) {
+									stringBuilder.append(",  ");
+									String columnValue = rs.getString(i);
+									stringBuilder.append(columnValue + " " + rsmd.getColumnName(i));
+								}
+							}
+							System.out.println("");
+						}
+						rs.close();
+						inputStatement.close();
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+						inputStatement.close();
+						conn.close();
+					} finally {
+						//Magic happens here to close all connections in case of exception.
+						rsmd = null;
+						rs.close();
+						inputStatement.close();
+						conn.close();
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+					inputStatement.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		returnString = stringBuilder.toString();
+		return returnString;
 	}
 
 	/**
