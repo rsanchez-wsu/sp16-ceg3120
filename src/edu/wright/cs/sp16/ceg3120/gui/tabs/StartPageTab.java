@@ -44,7 +44,7 @@ public class StartPageTab extends JPanel {
 	public StartPageTab() {
 		super();
 		JLabel welcomeLabel = new JLabel("Welcome to Sequel Lizard, "
-				+ "hope you enjoy the application.");
+				+ "hope you enjoy the application. - Cody");
 		add(welcomeLabel);
 	}
 
