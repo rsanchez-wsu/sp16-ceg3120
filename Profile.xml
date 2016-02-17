@@ -5,21 +5,21 @@
 	
 		<userPreferences>
 		
-			<defaultDatabase>foo</defaultDatabase>
+			<defaultDatabase>rhyspowell.info:3306</defaultDatabase>
 			
-			<connectOnStartup></connectOnStartup>
+			<connectOnStartup>True</connectOnStartup>
 			
-			<messageOnStartup></messageOnStartup>
+			<messageOnStartup>True</messageOnStartup>
 			
-			<defaultView></defaultView>
+			<defaultView>read-only</defaultView>
 			
-			<defaultEncoding></defaultEncoding>
+			<defaultEncoding>UTF-8</defaultEncoding>
 			
-			<monospacedFont></monospacedFont>
+			<monospacedFont>False</monospacedFont>
 			
-			<verticleGridLines></verticleGridLines>
+			<verticleGridLines>False</verticleGridLines>
 			
-			<rememberLastQueries></rememberLastQueries>
+			<rememberLastQueries>Five</rememberLastQueries>
 			
 		</userPreferences>
 		
