@@ -26,40 +26,63 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
-import java.util.Arrays;
+
+//import javax.crypto.BadPaddingException;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
 /**
- * PasswordEncryptionService class handles the password encryption. It uses PBKDF2 to encrypt and
- * decrypt clear text.
+ * PasswordEncryptionService class handles the password encryption. It uses
+ * PBKDF2 to encrypt and decrypt clear text.
  */
 public class PasswordEncryptionService {
-	
+
 	/**
-	 * The authenticate function takes the user inputed password and tests it to see if it matches 
-	 * the stored encrypted password.
-	 * @param attemptedPassword // Password to test
-	 * @param encryptedPassword // Encrypted password
-	 * @param salt // Hash
+	 * The authenticate function takes the user inputed password and tests it to
+	 * see if it matches the stored encrypted password.
+	 * 
+	 * @param salt
+	 *            // Hash
 	 * @return // Returns if authentication successful
-	 * @throws NoSuchAlgorithmException // Throws if algorithm not found
-	 * @throws InvalidKeySpecException // Throws if key is invalid
 	 */
-	public boolean authenticate(String attemptedPassword, byte[] encryptedPassword, byte[] salt)
-		throws NoSuchAlgorithmException, InvalidKeySpecException {
-		byte[] encryptedAttemptedPassword = getEncryptedPassword(attemptedPassword, salt);
-		return Arrays.equals(encryptedPassword, encryptedAttemptedPassword);
+	public String deCrypt(String password, String salt) {
+		// PBKDF2
+		//try {
+			//String algorithm = "PBKDF2WithHmacSHA1";
+
+			// SHA-1 generates 160 bit hashes
+			//int derivedKeyLength = 160;
+
+			// Recommended at least 1000 iterations
+			//int iterations = 20000;
+			//byte[] passByte = password.getBytes();
+			//byte[] saltByte = salt.getBytes();
+			//KeySpec spec = new PBEKeySpec(password.toCharArray(), saltByte, 
+			//		iterations, derivedKeyLength);
+			//Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+			// cipher.init(Cipher.DECRYPT_MODE, saltByet);
+			// byte[] encryptedAttemptedPassword =
+			// getEncryptedPassword(attemptedPassword, salt);
+			// return Arrays.equals(encryptedPassword,
+			// encryptedAttemptedPassword);
+			//return (cipher.doFinal(passByte).toString());
+		return password + salt;
+		//}
 	}
 
 	/**
-	 * The getEncryptedPassword function encrypts the clear text password
-	 * using PBKDF2.
-	 * @param password // Password to encrypt
-	 * @param salt // Hash
+	 * The getEncryptedPassword function encrypts the clear text password using
+	 * PBKDF2.
+	 * 
+	 * @param password
+	 *            // Password to encrypt
+	 * @param salt
+	 *            // Hash
 	 * @return // Returns encrypted password
-	 * @throws NoSuchAlgorithmException // Throws if algorithm not found
-	 * @throws InvalidKeySpecException // Throws if key is invalid
+	 * @throws NoSuchAlgorithmException
+	 *             // Throws if algorithm not found
+	 * @throws InvalidKeySpecException
+	 *             // Throws if key is invalid
 	 */
 	public byte[] getEncryptedPassword(String password, byte[] salt)
 			throws NoSuchAlgorithmException, InvalidKeySpecException {
@@ -68,7 +91,7 @@ public class PasswordEncryptionService {
 
 		// SHA-1 generates 160 bit hashes
 		int derivedKeyLength = 160;
-		
+
 		// Recommended at least 1000 iterations
 		int iterations = 20000;
 		KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, iterations, derivedKeyLength);
@@ -76,10 +99,12 @@ public class PasswordEncryptionService {
 		return factory.generateSecret(spec).getEncoded();
 	}
 
-	/** 
+	/**
 	 * The generateSalt function generates a salt hash for the encryption.
+	 * 
 	 * @return // Returns hash
-	 * @throws NoSuchAlgorithmException // Throws if algorithm not found
+	 * @throws NoSuchAlgorithmException
+	 *             // Throws if algorithm not found
 	 */
 	public byte[] generateSalt() throws NoSuchAlgorithmException {
 		// VERY important to use SecureRandom instead of just Random
