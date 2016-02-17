@@ -23,6 +23,7 @@ package edu.wright.cs.sp16.ceg3120.gui;
 
 import edu.wright.cs.sp16.ceg3120.gui.tabs.LearnAndDiscoverTab;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.MySqLizardTab;
+import edu.wright.cs.sp16.ceg3120.gui.tabs.WhatsNewTab;
 
 import java.awt.Component;
 
@@ -52,7 +53,7 @@ public class StartTabPane extends JTabbedPane  {
 	public void initComponents() {
 		addLearnAndDiscoverTab();
 		addMySqLizardTab();
-		//addWhatsNewTab();
+		addWhatsNewTab();
 	}
 	
 	/**Initialize learn and discover tab.
@@ -77,10 +78,10 @@ public class StartTabPane extends JTabbedPane  {
 	/**Initialize what' new tab.
 	 * @author Sam
 	 */
-	/*public void addWhatsNewTab() {
+	public void addWhatsNewTab() {
 		//TODO: add what's new tab class
-		Component whatsNewTab = null;
+		WhatsNewTab whatsNewTab = new WhatsNewTab();
 		
 		addTab("What's new", null, whatsNewTab, null);
-	}*/
+	}
 }

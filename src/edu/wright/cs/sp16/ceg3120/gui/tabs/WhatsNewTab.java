@@ -21,38 +21,33 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
-import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.GridLayout;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-
-
-/**MySqlizard tab for main page.
- * Created by Sam on 2/17/2016.
+/**What's new tab for main page.
+ * @author Alex
+ * 
  */
-public class MySqLizardTab extends JPanel {
+public class WhatsNewTab extends JPanel{
 
-	private static final long serialVersionUID = -797683451675465457L;
+	private static final long serialVersionUID = -797678469999457L;
 	
-	/**Initialize the mySqlizard tab.
-	 * @author Alex
+	/** Create the tab.
+	 *@author Alex
+	 * 
 	 */
-	public MySqLizardTab() {
-		super(new GridLayout(3,1));
-
+	public WhatsNewTab() {
+		super();
 		initComponents();
 	}
-
-	/**Initialize components.
+	
+	/**Initialize components for tab.
 	 * @author Alex
-     * 
-     */
+	 * 
+	 */
 	private void initComponents() {
-
 		JLabel title = new JLabel();
 		title.setText("My Sql Lizard");
 		title.setSize(100, 100);
@@ -60,26 +55,5 @@ public class MySqLizardTab extends JPanel {
 
 		add(title);
 	}
-	
-	/**Draw components on.
-	 * @author Alex
-     * 
-     */
-	protected void paintComponent(Graphics graphic) {
-		//TODO: add constants for these dimensions
-		super.paintComponent(graphic);
-		graphic.drawRect(0,0,1000,100);
-		graphic.setColor(Color.lightGray);
-		graphic.fillRect(0,0,1000,100);
 
-		super.paintComponent(graphic);
-		graphic.drawRect(0,0,1000,400);
-		graphic.setColor(Color.white);
-		graphic.fillRect(0,100,1000,400);
-
-		super.paintComponent(graphic);
-		graphic.drawRect(0,0,1000,100);
-		graphic.setColor(Color.lightGray);
-		graphic.fillRect(0,0,1000,100);
-	}
 }
