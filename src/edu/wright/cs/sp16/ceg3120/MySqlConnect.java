@@ -115,29 +115,27 @@ public class MySqlConnect {
 		try (Connection conn = dataSource.getConnection();
 				Statement inputStatement = conn.createStatement();
 				ResultSet rs = inputStatement.executeQuery(stringQuery);) {
-			try {
-				// ResulSetMetaData does not implement AutoClosable() so it
-				// cannot be handled by try-with-resources.
-				ResultSetMetaData rsmd = null;
-				// Try to read the result set and its meta data and print out to
-				// string.
-				rsmd = rs.getMetaData();
-				int columnsNumber = rsmd.getColumnCount();
-				// Iterate through all data returned and append to string
-				// result.
-				while (rs.next()) {
-					for (int i = 1; i <= columnsNumber; i++) {
-						if (i > 1) {
-							stringBuilder.append(",  ");
-							String columnValue = rs.getString(i);
-							stringBuilder.append(columnValue + " " + rsmd.getColumnName(i));
-						}
+			// ResulSetMetaData does not implement AutoClosable() so it
+			// cannot be handled by try-with-resources.
+			ResultSetMetaData rsmd = null;
+			// Try to read the result set and its meta data and print out to
+			// string.
+			rsmd = rs.getMetaData();
+			int columnsNumber = rsmd.getColumnCount();
+			// Iterate through all data returned and append to string
+			// result.
+			while (rs.next()) {
+				for (int i = 1; i <= columnsNumber; i++) {
+					if (i > 1) {
+						stringBuilder.append(",  ");
+						String columnValue = rs.getString(i);
+						stringBuilder.append(columnValue + " " + rsmd.getColumnName(i));
 					}
-					System.out.println("");
 				}
-			} catch (SQLException e) {
-				e.printStackTrace();
+				System.out.println("");
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		returnString = stringBuilder.toString();
 		return returnString;
