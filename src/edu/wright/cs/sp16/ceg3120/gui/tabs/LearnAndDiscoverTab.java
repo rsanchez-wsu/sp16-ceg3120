@@ -46,7 +46,7 @@ public class LearnAndDiscoverTab extends JPanel {
 	 * @author Blizzri
 	 */
 	public LearnAndDiscoverTab() {
-		super(new GridLayout(3,3));
+		super(new GridLayout(3, 3));
 
 		initComponents();
 	}
@@ -90,6 +90,7 @@ public class LearnAndDiscoverTab extends JPanel {
 		b.setBackground(Color.WHITE);
 		b.setToolTipText(url);
 		b.setPreferredSize(new Dimension(40,40));
+		b.setMaximumSize(new Dimension(40,40));
 
 		return b;
 	}
