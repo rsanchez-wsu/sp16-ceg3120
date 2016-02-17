@@ -4,6 +4,12 @@
 
 package edu.wright.cs.sp16.ceg3120;
 
+
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,6 +18,15 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
+import java.util.Vector;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * This class connects to a database and manipulates it.
@@ -20,7 +35,7 @@ import java.util.Scanner;
  *
  */
 public class DerbyConn {
-
+	private static ResultSet rs = null;
 	private static Connection conn = null;
 	private static PreparedStatement pstmt = null;
 	private static Statement stmt = null;
@@ -28,22 +43,32 @@ public class DerbyConn {
 	/**
 	 * The main method.
 	 * 
-	 * @param args Arguments.
+	 * @param args
+	 *            Arguments.
 	 */
 	public static void main(String[] args) {
 		String firstName = null;
 		String lastName = null;
-		String input = null;
+
 		String id = null;
 		int idNum = 0;
 
-		Scanner keyboard = new Scanner(System.in);
 		establishConn();
+
+		try {
+			createTable();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		createWindow();
+
 		System.out
 				.println("Welcome to the database: To view contents enter 1, "
 						+ "To enter new data enter 2, To delete an item from "
-						+ "the table enter 3");
-		input = keyboard.next();
+						+ "the table enter 3, To create a table enter 4");
+		Scanner keyboard = new Scanner(System.in);
+		String input = keyboard.next();
 		int choice = Integer.parseInt(input);
 		switch (choice) {
 		case 1:
@@ -67,14 +92,135 @@ public class DerbyConn {
 			deleteItem(id);
 			printTable();
 			break;
+		case 4:
+			displayTable();
+			break;
 		default:
 			break;
 		}
 
 	}
 
-	/**This method establishes a connection with the database.
-     */
+	/**
+	 * This method creates the application window.
+	 * 
+	 */
+	private static void createWindow() {
+		JFrame frame = new JFrame("Team 4 Database");
+		
+		frame.addWindowListener(new WindowAdapter() {
+
+			public void windowClosing(WindowEvent event) {
+				System.exit(0);
+			}
+		});
+
+		// JLabel jlbempty = new JLabel("Some Stuff");
+		// jlbempty.setPreferredSize(new Dimension(175, 100));
+
+		JButton displayTable = new JButton("Display Table");
+		displayTable.setSize(40, 60);
+		displayTable.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				displayTable();
+			}
+		});
+		JPanel panel = new JPanel(new GridLayout(2, 2));
+		panel.add(displayTable);
+		frame.getContentPane().add(panel);
+		frame.setSize(500, 500);
+		frame.setVisible(true);
+	}
+
+	/**
+	 * This method creates the Test table used in the program if it does not
+	 * exist.
+	 * 
+	 * @throws SQLException
+	 *             Sql exception
+	 */
+	private static void createTable() throws SQLException {
+
+		// attempts to create table
+		try {
+			stmt = conn.createStatement();
+			stmt.executeUpdate("CREATE TABLE Test" + "(LNAME VARCHAR(25),"
+					+ "FNAME VARCHAR(25)," + "ID INTEGER)");
+		} catch (SQLException e) {
+			// checks for specific error code for table already existing
+			if (!e.getSQLState().equals("X0Y32")) {
+				throw e;
+			}
+		}
+	}
+
+	/**
+	 * This method puts data from the database into a JTable.
+	 * 
+	 * 
+	 */
+	private static void displayTable() {
+
+		try {
+			pstmt = conn.prepareStatement("select * from Test");
+			rs = pstmt.executeQuery();
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		// Table is created from the table model created in
+		// buildTableModel()
+		JTable table = null;
+		try {
+			table = new JTable(buildTableModel(rs));
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		JOptionPane.showMessageDialog(null, new JScrollPane(table));
+	}
+
+	/**
+	 * This method builds the JTable from the result set of the derby table.
+	 * 
+	 * @param rs
+	 *            The result set of the derby table
+	 * @return Returns a table model for the table to be displayed
+	 * @throws SQLException
+	 *             Throws exception
+	 */
+	public static DefaultTableModel buildTableModel(ResultSet rs)
+			throws SQLException {
+
+		ResultSetMetaData metaData = rs.getMetaData();
+
+		// Gets column names from database table
+		Vector<String> columnNames = new Vector<String>();
+		int columnCount = metaData.getColumnCount();
+		for (int column = 1; column <= columnCount; column++) {
+			columnNames.add(metaData.getColumnName(column));
+		}
+
+		// Gets the data from the database table
+		Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+		while (rs.next()) {
+			Vector<Object> vector = new Vector<Object>();
+			for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+				vector.add(rs.getObject(columnIndex));
+			}
+			data.add(vector);
+		}
+
+		// returns a table model to format the table
+		return new DefaultTableModel(data, columnNames);
+
+	}
+
+	/**
+	 * This method establishes a connection with the database.
+	 */
 	private static void establishConn() {
 		try {
 
@@ -93,11 +239,15 @@ public class DerbyConn {
 		}
 	}
 
-	/**This method inserts an item given by the user into the table.
+	/**
+	 * This method inserts an item given by the user into the table.
 	 * 
-	 * @param lastName The last name of the individual added to the database.
-	 * @param firstName The first name of the individual added to the database.
-	 * @param idNum The id number of the individual added to the database.
+	 * @param lastName
+	 *            The last name of the individual added to the database.
+	 * @param firstName
+	 *            The first name of the individual added to the database.
+	 * @param idNum
+	 *            The id number of the individual added to the database.
 	 */
 	private static void insertItem(String lastName, String firstName, int idNum) {
 		try {
@@ -114,9 +264,13 @@ public class DerbyConn {
 		}
 	}
 
-	/** This method deletes an item from the database from the database based
-	 *  on id number.
-	 * @param idNum The id number of the individual being deleted from the database.
+	/**
+	 * This method deletes an item from the database from the database based on
+	 * id number.
+	 * 
+	 * @param idNum
+	 *            The id number of the individual being deleted from the
+	 *            database.
 	 */
 	private static void deleteItem(String idNum) {
 		try {
@@ -131,12 +285,20 @@ public class DerbyConn {
 		}
 	}
 
-	/** This method prints the current contents of the table.
+	/**
+	 * This method prints the current contents of the table.
 	 */
 	private static void printTable() {
+		String tableName = null;
+		String sql = null;
+		Scanner keyboard = new Scanner(System.in);
+		System.out.println("Enter the table name that you want to print.");
+		tableName = keyboard.next();
+		sql = "SELECT * FROM " + tableName;
+
 		try {
-			stmt = conn.createStatement();
-			ResultSet entries = stmt.executeQuery("select * from Test");
+			pstmt = conn.prepareStatement(sql);
+			ResultSet entries = pstmt.executeQuery();
 			ResultSetMetaData meta = entries.getMetaData();
 			int numberCols = meta.getColumnCount();
 			for (int i = 1; i <= numberCols; i++) {
@@ -155,7 +317,7 @@ public class DerbyConn {
 						+ idNum + "\t\t");
 			}
 			entries.close();
-			stmt.close();
+			pstmt.close();
 		} catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
 		}
