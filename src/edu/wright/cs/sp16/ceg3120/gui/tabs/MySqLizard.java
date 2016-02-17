@@ -26,13 +26,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 /**Second tab in start screen for tips and plugin installation.
- * @author Blizzri
+ * @author Alex
  *
  */
 public class MySqLizard {
 
 	/**Create the tab.
-	 * @author Blizzri
+	 * @author Alex
 	 *
 	 */
 	public MySqLizard() {
@@ -41,10 +41,11 @@ public class MySqLizard {
 	}
 	
 	/** Initialize all tab information and structure.
-	 * @author Blizzri
+	 * @author Alex
 	 *
 	 */
 	private void initComponents() {
+		
 		JFrame frame = new JFrame("MySql");
 		
 		JButton pluginButton = new JButton();

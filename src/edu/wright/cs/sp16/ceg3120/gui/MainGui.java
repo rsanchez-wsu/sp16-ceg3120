@@ -37,8 +37,6 @@ import javax.swing.JMenuItem;
 
 import javax.swing.text.DefaultEditorKit;
 
-import edu.wright.cs.sp16.ceg3120.gui.tabs.StartPageTab;
-
 /**
  * The Frame that holds the application and all the interactions to user.
  * 
@@ -51,7 +49,6 @@ public class MainGui extends JFrame implements ActionListener {
 	private JMenuItem exitItem = null;
 	private JMenuItem fullScreenItem = null;
 	private MainTabPane tabPane = null;
-	private StartPageTab startPage = null;
 	private boolean isFullScreen = false;
 	
 	/**
@@ -81,12 +78,6 @@ public class MainGui extends JFrame implements ActionListener {
 		tabPane = new MainTabPane();
 		
 		add(tabPane);
-	}
-	
-	private void createStartPage() {
-		startPage = new StartPageTab();
-		
-		add(startPage);
 	}
 
 	/**
@@ -184,7 +175,7 @@ public class MainGui extends JFrame implements ActionListener {
 			dispose();
 		} else if (actionEvent.getSource().equals(fullScreenItem)) {
 			
-			// Make application fullscreen.
+			// Make application fullscreen
 			if (isFullScreen == false) {
 				isFullScreen = true;
 				fullScreenItem.setText("Undo Full Screen");

@@ -21,29 +21,28 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
-import java.awt.*;
-
-import javax.swing.*;
-
 import edu.wright.cs.sp16.ceg3120.OpenUrlAction;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 
-//import javax.swing.JTabbedPane;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+
 
 /**Learn and Discover tab, providing resources for helpful info lookup.
  * 
- * @author Blizzri, sam
+ * @author Alex, sam
  */
 public class LearnAndDiscoverTab extends JPanel {
 
-	/**
-	 * idk what this is honestly
-	 */
 	private static final long serialVersionUID = -6246927473993559297L;
 
 	/**Initialize the Learn and Discover tab.
 	 * 
-	 * @author Blizzri
+	 * @author Alex
 	 */
 	public LearnAndDiscoverTab() {
 		super(new GridLayout(3, 3));
@@ -53,45 +52,49 @@ public class LearnAndDiscoverTab extends JPanel {
 	
 	/**Create the Learn and Discover tab.
 	 * 
-	 * @author Blizzri
+	 * @author Alex
 	 */
 	private void initComponents() {
 		//JTabbedPane pane = new JTabbedPane();
 
-		//URL information for tool tips
-		String sqlUrl = "http://www.w3schools.com/sql/";
-		String driverInfoUrl = "";
-		String jenkinsUrl = "https://jenkins-ci.org/";
-		String derbyUrl = "https://db.apache.org/derby/";
+		//initialization of buttons, url links, add to page
 		String githubUrl = "https://github.com/rsanchez-wsu/sp16-ceg3120";
-
-		JFrame frame = new JFrame("Links");
-
+		
 		JButton gitButton = createTabButton("Git", githubUrl);
-		JButton sqlButton = createTabButton("Sql", sqlUrl);
-		JButton driverButton = createTabButton("Driver", driverInfoUrl);
-		JButton derbyButton = createTabButton("Derby", derbyUrl);
-		JButton jenkinsButton = createTabButton("Jenkins", jenkinsUrl);
-
 		add(gitButton);
+		
+		String sqlUrl = "http://www.w3schools.com/sql/";
+		JButton sqlButton = createTabButton("Sql", sqlUrl);
 		add(sqlButton);
+		
+		String driverInfoUrl = "http://www.google.com";
+		JButton driverButton = createTabButton("Driver", driverInfoUrl);
 		add(driverButton);
+		
+		String derbyUrl = "https://db.apache.org/derby/";
+		JButton derbyButton = createTabButton("Derby", derbyUrl);
 		add(derbyButton);
+		
+		String jenkinsUrl = "https://jenkins-ci.org/";
+		JButton jenkinsButton = createTabButton("Jenkins", jenkinsUrl);
 		add(jenkinsButton);
-
+		
 		//TODO: add links to preferences page as well as help within app
 	}
+	
+	/**Dynamically create buttons for URL links.
+	 * @author Alex
+	 */
+	JButton createTabButton(String text, String url) {
+		JButton button = new JButton();
 
-	JButton createTabButton(String text, String url){
-		JButton b = new JButton();
-
-		b.setText(text);
-		b.setOpaque(false);
-		b.setBackground(Color.WHITE);
-		b.setToolTipText(url);
-		b.setPreferredSize(new Dimension(40,40));
-		b.setMaximumSize(new Dimension(40,40));
-
-		return b;
+		button.setText(text);
+		button.setOpaque(false);
+		button.setBackground(Color.WHITE);
+		button.setToolTipText(url);
+		button.setPreferredSize(new Dimension(40,40));
+		button.setMaximumSize(new Dimension(40,40));
+		button.addActionListener(new OpenUrlAction());
+		return button;
 	}
 }

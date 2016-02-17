@@ -21,12 +21,10 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
-import java.awt.GridLayout;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 import edu.wright.cs.sp16.ceg3120.gui.StartTabPane;
+
+import java.awt.GridLayout;
+import javax.swing.JPanel;
 
 /**
  * A Start Page Tab that contains items such as:
@@ -55,6 +53,9 @@ public class StartPageTab extends JPanel {
 		initComponents();
 	}
 	
+	/**Create the start tab pane.
+	 * @author Sam
+	 */
 	public void initComponents() {
 		startTabPane = new StartTabPane();
 		

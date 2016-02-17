@@ -30,8 +30,10 @@ import java.net.URI;
 
 import java.net.URISyntaxException;
 
+import javax.swing.JButton;
+
 /**Action event to handle clicking on a url in the interface.
- * @author Blizzri
+ * @author Alex
  *
  */
 public class OpenUrlAction implements ActionListener  {
@@ -40,9 +42,13 @@ public class OpenUrlAction implements ActionListener  {
 	@Override
 	public void actionPerformed(ActionEvent evt) {
 		
+		//gather url from click event source
+		JButton tempLabel = (JButton) evt.getSource();
+		
 		URI uri;
+		
 		try {
-			uri = new URI("www.google.com");
+			uri = new URI(tempLabel.getToolTipText());
 			open(uri);
 		} catch (URISyntaxException e1) {
 			e1.printStackTrace();
@@ -50,7 +56,7 @@ public class OpenUrlAction implements ActionListener  {
 	}
 	
 	/**Check if supported, open associated uri for user.
-	 * @author Blizzri
+	 * @author Alex
 	 *
 	 */
 	private static void open(URI uri) {
