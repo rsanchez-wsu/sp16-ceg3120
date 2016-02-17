@@ -92,8 +92,10 @@ public class DerbyConn {
 			deleteItem(id);
 			printTable();
 			break;
-		case 4:
-			displayTable();
+		case 4: 
+			System.out.println("Enter the number of columns for the table: ");
+			numVal = keyboard.next();
+			addTable(numVal);
 			break;
 		default:
 			break;
@@ -284,6 +286,67 @@ public class DerbyConn {
 			sqlExcept.printStackTrace();
 		}
 	}
+	
+	/** This method creates a new table in the database.
+	 */
+private static void addTable(Int items) {
+		
+		    try {
+		      stmt = conn.createStatement();
+				Scanner orbital = new Scanner(System.in);
+				String[] tableInfo = new String[items*2];
+				int location = 0;
+				for(int i = 0; i < items; i++){
+				String colName;	
+                                    System.out.println("If value " + i++ + "is a string enter 1, "
+							+ "if it is a number enter 2, if it is a boolean enter 3: ");
+					int choice = orbital.nextInt();
+                                        
+					switch (choice) {
+					case 1:
+						tableInfo[location] = "VARCHAR(255), ";
+						location++;
+						System.out.println("Enter in the name of the catagory: ");
+						colName = orbital.next();
+						tableInfo[location] = colName;
+						location++;
+						
+						break;
+					case 2:
+						tableInfo[location] = "INTEGER, ";
+						location++;
+						System.out.println("Enter in the name of the catagory: ");
+						colName = orbital.next();
+						tableInfo[location] = colName;
+						location++;
+
+						break;
+					case 3:
+						tableInfo[location] = "BOOLEAN, ";
+						location++;
+						System.out.println("Enter in the name of the catagory: ");
+						colName = orbital.next();
+						tableInfo[location] = colName;
+						location++;
+						break;
+					default:
+						break;
+					}
+					
+				}
+			 String sql = "CREATE TABLE REGISTRATION " +
+		                   "(id INTEGER not NULL, " ;
+				for(int j = 0; j < location; j= j+2){
+					sql = sql + tableInfo[j + 1] + " " + tableInfo[j];
+				}
+                                sql = sql + " PRIMARY KEY ( id ))";
+                      pstmt.executeQuery(sql);
+
+		      System.out.println("Created table in given database...");			
+		} catch (SQLException sqlExcept) {
+			sqlExcept.printStackTrace();
+		}
+    }
 
 	/**
 	 * This method prints the current contents of the table.
