@@ -365,6 +365,7 @@ public class CreateWindow extends JFrame {
 						// PasswordEncryptionService();
 						// password.setText(pes.deCrypt(holdPass, holdSalt));
 						password.setText("this is broken right now");
+						driver.setSelectedIndex(1);
 						savePassword.setSelected(Boolean.valueOf(curElement.getAttribute("saved")));
 					}
 				}
@@ -458,6 +459,10 @@ public class CreateWindow extends JFrame {
 				nm.appendChild(doc.createTextNode(userName));
 				al.appendChild(nm);
 
+				Element dv = doc.createElement("driver");
+				dv.appendChild(doc.createTextNode(driver));
+				al.appendChild(nm);
+				
 				Element ps = doc.createElement("password");
 				ps.setAttribute("saved", (savePass ? "true" : "false"));
 				if (savePass) {
@@ -468,10 +473,6 @@ public class CreateWindow extends JFrame {
 				Element sl = doc.createElement("salt");
 				sl.appendChild(doc.createTextNode((savePass ? salt : "")));
 				ps.appendChild(sl);
-
-				Element dv = doc.createElement("driver");
-				dv.appendChild(doc.createTextNode(driver));
-				al.appendChild(nm);
 
 				// write the content into xml file
 				TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -585,6 +586,7 @@ public class CreateWindow extends JFrame {
 			driver.setSelectedIndex(0);
 			savePassword.setSelected(false);
 			autoConnect.setSelected(false);
+			alias.setText("");
 		}
 	}
 
