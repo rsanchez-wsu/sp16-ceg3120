@@ -42,13 +42,13 @@ public enum TabNames {
 	NewConnection {
 		@Override
 		public String toString() {
-			return "New Connction";
+			return "New Connection";
 		}
 	},
 	BackupExport {
 		@Override
 		public String toString() {
-			return "Backup\\Export";
+			return "Backup/Export";
 		}
 	},
 	Start {
