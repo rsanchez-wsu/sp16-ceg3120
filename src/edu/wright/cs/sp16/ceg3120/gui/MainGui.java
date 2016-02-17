@@ -49,6 +49,7 @@ public class MainGui extends JFrame implements ActionListener {
 	private JMenuItem exitItem = null;
 	private JMenuItem fullScreenItem = null;
 	private MainTabPane tabPane = null;
+	private boolean isFullScreen = false;
 	
 	/**
 	 * The constructor method that initializes the main application window.
@@ -173,13 +174,23 @@ public class MainGui extends JFrame implements ActionListener {
 			setVisible(false);
 			dispose();
 		} else if (actionEvent.getSource().equals(fullScreenItem)) {
-			// Make application fullscreen.
 			
-			Toolkit tk = Toolkit.getDefaultToolkit();
-			int width = ((int) tk.getScreenSize().getWidth());
-			int height = ((int) tk.getScreenSize().getHeight());
-			setSize(width, height);
-			setLocation(0, 0);
+			// Make application fullscreen.
+			if (isFullScreen == false) {
+				isFullScreen = true;
+				fullScreenItem.setText("Undo Full Screen");
+				fullScreenItem.setToolTipText("Reset application to original size");
+				Toolkit tk = Toolkit.getDefaultToolkit();
+				int width = ((int) tk.getScreenSize().getWidth());
+				int height = ((int) tk.getScreenSize().getHeight());
+				setSize(width, height);
+				setLocation(0, 0);
+			} else {
+				isFullScreen = false;
+				fullScreenItem.setText("Full Screen");
+				fullScreenItem.setToolTipText("Make application full screen");
+				setSize(960, 600);
+			}
 		}
 	}
 	
