@@ -21,13 +21,11 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.GridBagLayout;
-import java.awt.Component;
+import java.awt.*;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.*;
+
+import edu.wright.cs.sp16.ceg3120.OpenUrlAction;
 
 
 //import javax.swing.JTabbedPane;
@@ -36,7 +34,7 @@ import javax.swing.JFrame;
  * 
  * @author Blizzri, sam
  */
-public class LearnAndDiscoverTab extends Component {
+public class LearnAndDiscoverTab extends JPanel {
 
 	/**
 	 * idk what this is honestly
@@ -48,7 +46,8 @@ public class LearnAndDiscoverTab extends Component {
 	 * @author Blizzri
 	 */
 	public LearnAndDiscoverTab() {
-		super();
+		super(new GridLayout(3,3));
+
 		initComponents();
 	}
 	
@@ -58,60 +57,40 @@ public class LearnAndDiscoverTab extends Component {
 	 */
 	private void initComponents() {
 		//JTabbedPane pane = new JTabbedPane();
-		
+
 		//URL information for tool tips
-		final String sqlUrl = "http://www.w3schools.com/sql/";
-		final String driverInfoUrl = "";
-		final String jenkinsUrl = "https://jenkins-ci.org/";
-		final String derbyUrl = "https://db.apache.org/derby/";
-		final String githubUrl = "https://github.com/rsanchez-wsu/sp16-ceg3120";
-		
+		String sqlUrl = "http://www.w3schools.com/sql/";
+		String driverInfoUrl = "";
+		String jenkinsUrl = "https://jenkins-ci.org/";
+		String derbyUrl = "https://db.apache.org/derby/";
+		String githubUrl = "https://github.com/rsanchez-wsu/sp16-ceg3120";
+
 		JFrame frame = new JFrame("Links");
-		
-		final JButton sqlButton = new JButton();
-		final JButton driverButton = new JButton();
-		final JButton jenkinsButton = new JButton();
-		final JButton derbyButton = new JButton();
-		final JButton gitButton = new JButton();
-		
-		Container container = frame.getContentPane();
-		container.setLayout(new GridBagLayout());
-		
-		sqlButton.setText("SQL help/reference: ");
-		sqlButton.setOpaque(false);
-		sqlButton.setBackground(Color.WHITE);
-		sqlButton.setToolTipText(sqlUrl);
-		//sqlButton.addActionListener(new OpenUrlAction());
-		container.add(sqlButton);
-		
-		driverButton.setText("Driver information: ");
-		driverButton.setOpaque(false);
-		driverButton.setBackground(Color.WHITE);
-		driverButton.setToolTipText(driverInfoUrl);
-		//driverButton.addActionListener(new OpenUrlAction());
-		container.add(driverButton);
-		
-		jenkinsButton.setText("Jenkins: ");
-		jenkinsButton.setOpaque(false);
-		jenkinsButton.setBackground(Color.WHITE);
-		jenkinsButton.setToolTipText(jenkinsUrl);
-		//jenkinsButton.addActionListener(new OpenUrlAction());
-		container.add(jenkinsButton);
-		
-		derbyButton.setText("Derby: ");
-		derbyButton.setOpaque(false);
-		derbyButton.setBackground(Color.WHITE);
-		derbyButton.setToolTipText(derbyUrl);
-		//derbyButton.addActionListener(new OpenUrlAction());
-		container.add(derbyButton);
-		
-		gitButton.setText("Github: ");
-		gitButton.setOpaque(false);
-		gitButton.setBackground(Color.WHITE);
-		gitButton.setToolTipText(githubUrl);
-		//driverButton.addActionListener(new OpenUrlAction());
-		container.add(gitButton);
-				
+
+		JButton gitButton = createTabButton("Git", githubUrl);
+		JButton sqlButton = createTabButton("Sql", sqlUrl);
+		JButton driverButton = createTabButton("Driver", driverInfoUrl);
+		JButton derbyButton = createTabButton("Derby", derbyUrl);
+		JButton jenkinsButton = createTabButton("Jenkins", jenkinsUrl);
+
+		add(gitButton);
+		add(sqlButton);
+		add(driverButton);
+		add(derbyButton);
+		add(jenkinsButton);
+
 		//TODO: add links to preferences page as well as help within app
+	}
+
+	JButton createTabButton(String text, String url){
+		JButton b = new JButton();
+
+		b.setText(text);
+		b.setOpaque(false);
+		b.setBackground(Color.WHITE);
+		b.setToolTipText(url);
+		b.setPreferredSize(new Dimension(40,40));
+
+		return b;
 	}
 }

@@ -30,7 +30,7 @@ public class StartTabPane extends JTabbedPane {
 	 * Initialize learn and discover tab
 	 * */
 	public void addLearnAndDiscoverTab() {
-		Component learnDiscoverTab = new LearnAndDiscoverTab();
+		LearnAndDiscoverTab learnDiscoverTab = new LearnAndDiscoverTab();
 		
 		addTab("Learn and Discover", null, learnDiscoverTab, null);
 	}

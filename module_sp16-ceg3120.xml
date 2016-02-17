@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_sp16-ceg3120" default="compile.module.sp16-ceg3120">
+  <dirname property="module.sp16-ceg3120.basedir" file="${ant.file.module_sp16-ceg3120}"/>
+  
+  <property name="module.jdk.home.sp16-ceg3120" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.sp16-ceg3120" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.sp16-ceg3120" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.sp16-ceg3120" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="sp16-ceg3120.output.dir" value="${module.sp16-ceg3120.basedir}/bin"/>
+  <property name="sp16-ceg3120.testoutput.dir" value="${module.sp16-ceg3120.basedir}/bin"/>
+  
+  <path id="sp16-ceg3120.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="sp16-ceg3120.module.production.classpath">
+    <path refid="${module.jdk.classpath.sp16-ceg3120}"/>
+  </path>
+  
+  <path id="sp16-ceg3120.runtime.production.module.classpath">
+    <pathelement location="${sp16-ceg3120.output.dir}"/>
+  </path>
+  
+  <path id="sp16-ceg3120.module.classpath">
+    <pathelement location="${sp16-ceg3120.output.dir}"/>
+    <path refid="${module.jdk.classpath.sp16-ceg3120}"/>
+  </path>
+  
+  <path id="sp16-ceg3120.runtime.module.classpath">
+    <pathelement location="${sp16-ceg3120.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.sp16-ceg3120">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.sp16-ceg3120">
+    <patternset refid="excluded.from.module.sp16-ceg3120"/>
+  </patternset>
+  
+  <path id="sp16-ceg3120.module.sourcepath">
+    <dirset dir="${module.sp16-ceg3120.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.sp16-ceg3120" depends="compile.module.sp16-ceg3120.production,compile.module.sp16-ceg3120.tests" description="Compile module sp16-ceg3120"/>
+  
+  <target name="compile.module.sp16-ceg3120.production" depends="register.custom.compilers" description="Compile module sp16-ceg3120; production classes">
+    <mkdir dir="${sp16-ceg3120.output.dir}"/>
+    <javac2 destdir="${sp16-ceg3120.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.sp16-ceg3120}/javac">
+      <compilerarg line="${compiler.args.sp16-ceg3120}"/>
+      <bootclasspath refid="sp16-ceg3120.module.bootclasspath"/>
+      <classpath refid="sp16-ceg3120.module.production.classpath"/>
+      <src refid="sp16-ceg3120.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.sp16-ceg3120"/>
+    </javac2>
+    
+    <copy todir="${sp16-ceg3120.output.dir}">
+      <fileset dir="${module.sp16-ceg3120.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.sp16-ceg3120.tests" depends="register.custom.compilers,compile.module.sp16-ceg3120.production" description="compile module sp16-ceg3120; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.sp16-ceg3120" description="cleanup module">
+    <delete dir="${sp16-ceg3120.output.dir}"/>
+    <delete dir="${sp16-ceg3120.testoutput.dir}"/>
+  </target>
+</project>
