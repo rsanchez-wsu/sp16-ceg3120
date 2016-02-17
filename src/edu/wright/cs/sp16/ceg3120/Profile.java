@@ -21,7 +21,6 @@
 
 package edu.wright.cs.sp16.ceg3120;
 
-import java.awt.Choice;
 import java.awt.Font;
 
 import javax.swing.DefaultComboBoxModel;
@@ -56,9 +55,9 @@ public class Profile extends JFrame {
 
 
 	// Components of window declaration - do not modify
-	private Choice choice1;
-	private Choice choice2;
-	private Choice choice3;
+	private JComboBox<String> choice1;
+	private JComboBox<String> choice2;
+	private JComboBox<String> choice3;
 	private JLabel defaultEncoding;
 	private JLabel defaultFavorite;
 	private JLabel defaultView;
@@ -109,25 +108,25 @@ public class Profile extends JFrame {
 		otherConnection = new JTabbedPane();
 		jpanel1 = new JPanel();
 		jpanel2 = new JPanel();
-		defaultFavorite = new JLabel();
-		defaultView = new JLabel();
-		defaultEncoding = new JLabel();
-		tableViews = new JLabel();
-		rememberLast = new JLabel();
-		choice1 = new Choice();
-		choice2 = new Choice();
-		choice3 = new Choice();
-		startupConnect = new JCheckBox();
-		startupMotd = new JCheckBox();
-		useMonospaced = new JCheckBox();
-		gridLines = new JCheckBox();
-		pxQueries = new JComboBox<NumberOfQueries>();
-		queries = new JLabel();
-		jmenuBar1 = new JMenuBar();
-		fileMenu = new JMenu();
-		editMenu = new JMenu();
-		windowMenu = new JMenu();
-		helpMenu = new JMenu();
+		defaultFavorite = new JLabel();   //default database
+		defaultView = new JLabel();       //default view
+		defaultEncoding = new JLabel();   //default encoding
+		tableViews = new JLabel();        //table views
+		rememberLast = new JLabel();     //remember last
+		choice1 = new JComboBox<String>();          //default database
+		choice2 = new JComboBox<String>();          //default view
+		choice3 = new JComboBox<String>();          //default encoding
+		startupConnect = new JCheckBox();   //connect on startup
+		startupMotd = new JCheckBox();      //show message of the day
+		useMonospaced = new JCheckBox();    //use monospaced fonts
+		gridLines = new JCheckBox();        //show gridlines
+		pxQueries = new JComboBox<NumberOfQueries>();    //show queries
+		queries = new JLabel();    //show queries
+		jmenuBar1 = new JMenuBar();  //actual menu bar
+		fileMenu = new JMenu();     //file
+		editMenu = new JMenu();     //edit
+		windowMenu = new JMenu();   //window
+		helpMenu = new JMenu();     //help
 
 		// End of initializing components ,,,
 
