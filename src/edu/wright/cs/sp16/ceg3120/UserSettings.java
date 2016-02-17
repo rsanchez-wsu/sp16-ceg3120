@@ -26,120 +26,140 @@ package edu.wright.cs.sp16.ceg3120;
  *
  */
 public class UserSettings {
-	private String database;
-	private String username;
-	// TODO password
-	private String firstName;
-	private String lastName;
-	private String department;
-	// enum?
-	private String accountType;
-
+	private String defaultDatabase;
+	private boolean connectOnStartup;
+	private boolean messageOfTheDay;
+	private String defaultView;
+	private String defaultEncoding;
+	private boolean monspacedFonts;
+	private boolean showGridLines;
+	private String numberOfQueries;
+	
 	/**
-	 * A getter/setter.
-	 * 
-	 * @return the database
+	 * Returns the default database.
+	 * @return defaultDatabase
 	 */
-	public String getDatabase() {
-		return database;
+	public String getDefaultDatabase() {
+		return defaultDatabase;
 	}
-
+	
 	/**
-	 * A getter/setter.
-	 * 
-	 * @param database the database to set
+	 * Sets the default database.
+	 * @param defaultDatabase database returned
 	 */
-	public void setDatabase(String database) {
-		this.database = database;
+	public void setDefaultDatabase(String defaultDatabase) {
+		this.defaultDatabase = defaultDatabase;
 	}
-
+	
 	/**
-	 * A getter/setter.
-	 * 
-	 * @return the username
+	 * Returns if there's a connection on startup.
+	 * @return connectOnStartup
 	 */
-	public String getUsername() {
-		return username;
+	public boolean isConnectOnStartup() {
+		return connectOnStartup;
 	}
-
+	
 	/**
-	 * A getter/setter.
-	 * 
-	 * @param username the username to set
+	 * Sets if there's a connection on startup.
+	 * @param connectOnStartup startup connection
 	 */
-	public void setUsername(String username) {
-		this.username = username;
+	public void setConnectOnStartup(boolean connectOnStartup) {
+		this.connectOnStartup = connectOnStartup;
 	}
-
+	
 	/**
-	 * A getter/setter.
-	 * 
-	 * @return the firstName
+	 * Returns if there's a message of the day.
+	 * @return messageOfTheDay
 	 */
-	public String getFirstName() {
-		return firstName;
+	public boolean isMessageOfTheDay() {
+		return messageOfTheDay;
 	}
-
+	
 	/**
-	 * A getter/setter.
-	 * 
-	 * @param firstName the firstName to set
+	 * Sets the message of the day.
+	 * @param messageOfTheDay message of the day
 	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setMessageOfTheDay(boolean messageOfTheDay) {
+		this.messageOfTheDay = messageOfTheDay;
 	}
-
+	
 	/**
-	 * A getter/setter.
-	 * 
-	 * @return the lastName
+	 * Returns the default view.
+	 * @return defaultView
 	 */
-	public String getLastName() {
-		return lastName;
+	public String getDefaultView() {
+		return defaultView;
 	}
-
+	
 	/**
-	 * A getter/setter.
-	 * 
-	 * @param lastName the lastName to set
+	 * Sets the default view.
+	 * @param defaultView default view
 	 */
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setDefaultView(String defaultView) {
+		this.defaultView = defaultView;
 	}
-
+	
 	/**
-	 * A getter/setter.
-	 * 
-	 * @return the department
+	 * Returns the default encoding.
+	 * @return defaultEncoding
 	 */
-	public String getDepartment() {
-		return department;
+	public String getDefaultEncoding() {
+		return defaultEncoding;
 	}
-
+	
 	/**
-	 * A getter/setter.
-	 * 
-	 * @param department the department to set
+	 * Sets the default encoding.
+	 * @param defaultEncoding default encoding
 	 */
-	public void setDepartment(String department) {
-		this.department = department;
+	public void setDefaultEncoding(String defaultEncoding) {
+		this.defaultEncoding = defaultEncoding;
 	}
-
+	
 	/**
-	 * A getter/setter.
-	 * 
-	 * @return the accountType
+	 * Returns if font is monospaced.
+	 * @return monospacedFonts
 	 */
-	public String getAccountType() {
-		return accountType;
+	public boolean isMonspacedFonts() {
+		return monspacedFonts;
 	}
-
+	
 	/**
-	 * A getter/setter.
-	 * 
-	 * @param accountType the accountType to set
+	 * Sets if the font is monospaced.
+	 * @param monspacedFonts monospaced fonts
 	 */
-	public void setAccountType(String accountType) {
-		this.accountType = accountType;
+	public void setMonspacedFonts(boolean monspacedFonts) {
+		this.monspacedFonts = monspacedFonts;
+	}
+	
+	/**
+	 * Returns if the grid lines are shown.
+	 * @return showGridLines
+	 */
+	public boolean isShowGrinLines() {
+		return showGridLines;
+	}
+	
+	/**
+	 * Sets if the grid lines are shown.
+	 * @param showGrinLines shows grid lines
+	 */
+	public void setShowGrinLines(boolean showGrinLines) {
+		this.showGridLines = showGrinLines;
+	}
+	
+	/**
+	 * Returns the number of queries.
+	 * @return numberOfQueries
+	 */
+	public String getNumberOfQueries() {
+		return numberOfQueries;
+	}
+	
+	/**
+	 * Sets the number of queries.
+	 * @param numberOfQueries number of queries
+	 */
+	public void setNumberOfQueries(String numberOfQueries) {
+		this.numberOfQueries = numberOfQueries;
 	}
 }
