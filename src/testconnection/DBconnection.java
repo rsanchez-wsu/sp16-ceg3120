@@ -31,10 +31,10 @@ import java.sql.SQLException;
  *
  */
 public class DBconnection {
-	Connection conn;
+	Connection conn = null;
 	String url;
-	String username;
-	String password;
+	//String username;
+	//String password;
 
 	/**
 	 * DBconnection will establish a connection.
