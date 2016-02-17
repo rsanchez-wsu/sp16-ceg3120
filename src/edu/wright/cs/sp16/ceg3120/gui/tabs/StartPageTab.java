@@ -21,8 +21,12 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
+import java.awt.GridLayout;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import edu.wright.cs.sp16.ceg3120.gui.StartTabPane;
 
 /**
  * A Start Page Tab that contains items such as:
@@ -30,22 +34,35 @@ import javax.swing.JPanel;
  * - Tip of the Day
  * - etc.
  * 
- * @author codybutz, alyssa
+ * @author codybutz, alyssa, sam
  *
  */
 public class StartPageTab extends JPanel {
 
 	private static final long serialVersionUID = 8991726988535798603L;
 
+	
+	
 	/**
 	 * Initializes Start Page Tab, pulls recent connections, adds components to GUI.
 	 * TODO: Pull recent connections, initialize components.
 	 */
 	public StartPageTab() {
-		super();
-		JLabel welcomeLabel = new JLabel("Welcome to Sequel Lizard, "
-				+ "hope you enjoy the application. - Cody");
-		add(welcomeLabel);
+		super(new GridLayout(1,1));
+		//JLabel welcomeLabel = new JLabel("Welcome to Sequel Lizard, "
+		//		+ "hope you enjoy the application. - Cody");
+		//add(welcomeLabel);
+		
+		setSize(960, 600);
+		initComponents();
+		
+		
+	}
+	
+	public void initComponents() {
+		StartTabPane startTabPane = new StartTabPane();
+		
+		add(startTabPane);
 	}
 
 }
