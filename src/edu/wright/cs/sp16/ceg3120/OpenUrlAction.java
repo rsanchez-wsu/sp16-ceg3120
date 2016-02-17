@@ -34,7 +34,7 @@ import java.net.URISyntaxException;
  * @author Blizzri
  *
  */
-class OpenUrlAction implements ActionListener  {
+public class OpenUrlAction implements ActionListener  {
 	
 	//action event for clicking on a url.
 	@Override

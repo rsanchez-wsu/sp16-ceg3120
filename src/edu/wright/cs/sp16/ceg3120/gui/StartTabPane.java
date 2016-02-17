@@ -1,9 +1,6 @@
 package edu.wright.cs.sp16.ceg3120.gui;
 
-import edu.wright.cs.sp16.ceg3120.gui.tabs.BackupExportTab;
-import edu.wright.cs.sp16.ceg3120.gui.tabs.ConnectionTab;
-import edu.wright.cs.sp16.ceg3120.gui.tabs.LearnAndDiscoverTab;
-import edu.wright.cs.sp16.ceg3120.gui.tabs.StartPageTab;
+import edu.wright.cs.sp16.ceg3120.gui.tabs.*;
 
 import java.awt.Component;
 
@@ -30,7 +27,7 @@ public class StartTabPane extends JTabbedPane {
 	 * Initialize learn and discover tab
 	 * */
 	public void addLearnAndDiscoverTab() {
-		Component learnDiscoverTab = new LearnAndDiscoverTab();
+		LearnAndDiscoverTab learnDiscoverTab = new LearnAndDiscoverTab();
 		
 		addTab("Learn and Discover", null, learnDiscoverTab, null);
 	}
@@ -39,8 +36,7 @@ public class StartTabPane extends JTabbedPane {
 	 * Initialize my sql lizard tab
 	 * */
 	public void addMySqLizardTab() {
-		//todo: add my sql lizard tab class
-		Component mySqLizardTab = null;
+		MySqLizardTab mySqLizardTab = new MySqLizardTab();
 		
 		addTab("My SqLizard", null, mySqLizardTab, null);
 	}

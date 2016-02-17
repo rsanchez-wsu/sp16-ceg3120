@@ -41,7 +41,7 @@ public class StartPageTab extends JPanel {
 
 	private static final long serialVersionUID = 8991726988535798603L;
 
-	
+	private StartTabPane startTabPane;
 	
 	/**
 	 * Initializes Start Page Tab, pulls recent connections, adds components to GUI.
@@ -49,18 +49,14 @@ public class StartPageTab extends JPanel {
 	 */
 	public StartPageTab() {
 		super(new GridLayout(1,1));
-		//JLabel welcomeLabel = new JLabel("Welcome to Sequel Lizard, "
-		//		+ "hope you enjoy the application. - Cody");
-		//add(welcomeLabel);
+
 		
 		setSize(960, 600);
 		initComponents();
-		
-		
 	}
 	
 	public void initComponents() {
-		StartTabPane startTabPane = new StartTabPane();
+		startTabPane = new StartTabPane();
 		
 		add(startTabPane);
 	}
