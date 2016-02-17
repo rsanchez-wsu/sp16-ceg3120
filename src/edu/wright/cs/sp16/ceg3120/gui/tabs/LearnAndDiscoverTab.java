@@ -24,17 +24,24 @@ package edu.wright.cs.sp16.ceg3120.gui.tabs;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridBagLayout;
+import java.awt.Component;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+
 
 //import javax.swing.JTabbedPane;
 
 /**Learn and Discover tab, providing resources for helpful info lookup.
  * 
- * @author Blizzri
+ * @author Blizzri, sam
  */
-public class LearnAndDiscoverTab {
+public class LearnAndDiscoverTab extends Component {
+
+	/**
+	 * idk what this is honestly
+	 */
+	private static final long serialVersionUID = -6246927473993559297L;
 
 	/**Initialize the Learn and Discover tab.
 	 * 
