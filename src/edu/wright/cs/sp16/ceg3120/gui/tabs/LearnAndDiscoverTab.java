@@ -42,7 +42,6 @@ public class LearnAndDiscoverTab {
 	 */
 	public LearnAndDiscoverTab() {
 		super();
-		
 		initComponents();
 	}
 	
@@ -107,6 +106,5 @@ public class LearnAndDiscoverTab {
 		container.add(gitButton);
 				
 		//TODO: add links to preferences page as well as help within app
-		
 	}
 }
