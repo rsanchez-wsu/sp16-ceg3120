@@ -40,9 +40,13 @@ public class DBconnection {
 	 * DBconnection will establish a connection.
 	 */
 	public DBconnection() {
-
+		try {
+			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+		} catch (ClassNotFoundException e) {
+			System.out.println(e.toString());
+		}
 		//path may vary per user because it is an Embedded Driver
-		url = "jdbc:derby:./*;"
+		url = "jdbc:derby:/Users/AlisonGuyton/.ivy2/cache/org.apache.derby/derby/jars/newDB;"
 				+ "create=true";
 
 		System.out.println("Created SQL Connect");
