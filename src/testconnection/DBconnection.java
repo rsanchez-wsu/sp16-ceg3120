@@ -42,7 +42,7 @@ public class DBconnection {
 	public DBconnection() {
 
 		//path may vary per user because it is an Embedded Driver
-		url = "jdbc:derby:./*;"
+		url = "jdbc:derby:./DATABASE;"
 				+ "create=true";
 
 		System.out.println("Created SQL Connect");
