@@ -21,9 +21,9 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
-import edu.wright.cs.sp16.ceg3120.gui.StartTabPane;
-
+import java.awt.Color;
 import java.awt.GridLayout;
+
 import javax.swing.JPanel;
 
 /**
@@ -38,8 +38,6 @@ import javax.swing.JPanel;
 public class StartPageTab extends JPanel {
 
 	private static final long serialVersionUID = 8991726988535798603L;
-
-	private StartTabPane startTabPane;
 	
 	/**
 	 * Initializes Start Page Tab, pulls recent connections, adds components to GUI.
@@ -57,9 +55,25 @@ public class StartPageTab extends JPanel {
 	 * @author Sam
 	 */
 	public void initComponents() {
-		startTabPane = new StartTabPane();
+		//todo: decide if we want seperate classes and/or methods for these components
+		//Initalize components
+		JPanel recentConnectionPane = new JPanel();
+		JPanel tipOfTheDay = new JPanel();
 		
-		add(startTabPane);
+		//set size
+		recentConnectionPane.setSize(480, 500);
+		tipOfTheDay.setSize(480, 500);
+		
+		//set color -- current colors for debug
+		recentConnectionPane.setBackground(Color.blue);
+		tipOfTheDay.setBackground(Color.black);
+		
+		//add sub components
+		
+		
+		//add components
+		add(recentConnectionPane);
+		add(tipOfTheDay);
 	}
 
 }
