@@ -427,17 +427,17 @@ public class CreateWindow extends JFrame {
 					doc = docBuilder.parse("UserData\\aliases.xml");
 					root = doc.getDocumentElement();
 				} else {
-					File userDir = new File("UserData");
-
-					// if the directory does not exist, create it
-					if (!userDir.exists()) {
-						try {
-							userDir.mkdir();
-							;
-						} catch (SecurityException se) {
-							// handle it
-						}
-					}
+//					File userDir = new File("UserData");
+//
+//					// if the directory does not exist, create it
+//					if (!userDir.exists()) {
+//						try {
+//							userDir.mkdir();
+//							;
+//						} catch (SecurityException se) {
+//							// handle it
+//						}
+//					}
 					doc = docBuilder.newDocument();
 					root = doc.createElement("aliases");
 					doc.appendChild(root);
