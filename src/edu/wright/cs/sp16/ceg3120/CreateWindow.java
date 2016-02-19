@@ -71,6 +71,11 @@ import javax.xml.transform.stream.StreamResult;
 public class CreateWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	
+	private static JFrame frame;
+	
+	// variable to see if you are connected
+	private static boolean connected = false;
 
 	// title label
 	private JLabel title = new JLabel("Aliases");
@@ -131,7 +136,7 @@ public class CreateWindow extends JFrame {
 	 */
 	public CreateWindow() {
 		super("Connect to Database");
-
+		
 		// Title Panel and its position
 		createTitlePanel(title);
 		getContentPane().add(titlePanel, BorderLayout.NORTH);
@@ -167,6 +172,9 @@ public class CreateWindow extends JFrame {
 		// control panel for buttons and its position
 		createControlPanel();
 		getContentPane().add(controlPanel, BorderLayout.SOUTH);
+		
+		// set frame to use else where
+		setFrame(this);
 	}
 
 	/**
@@ -549,22 +557,44 @@ public class CreateWindow extends JFrame {
 			}
 			System.out.println(dbDriver);
 			if (dbDriver.equals("MySQL Driver")) {
-				MySqlConnect connect = new MySqlConnect(dbAddress, dbUsername, dbPassword, dbName);
+				MySqlConnect mysqlconnect = 
+						new MySqlConnect(dbAddress, dbUsername, dbPassword, dbName);
 				try {
-					connect.configure();
+					mysqlconnect.configure();
+					setConnected(true);
 				} catch (SQLException e) {
 					e.printStackTrace();
+				} finally {
+					testConnection(isConnected());
 				}
 			} else if (dbDriver.equals("PostgreSQL Driver")) {
 				PostgreConnect postgreConnect = 
 						new PostgreConnect(dbAddress, dbUsername, dbPassword, dbName);
 				try {
 					postgreConnect.configure();
+					setConnected(true);
 				} catch (SQLException e) {
 					e.printStackTrace();
+				} finally {
+					testConnection(isConnected());
 				}
 			}
 
+		}
+
+		/**
+		 * will do something weather the connection was successful.
+		 * currently will close the window when the database is connected.
+		 * @param connected
+		 * 				boolean value set by setconnected 
+		 */
+		private void testConnection(boolean connected) {
+			if (!connected) {
+				// generate error
+			} else {
+				//will close the window if the connection is successful.
+				getFrame().dispose();
+			}
 		}
 
 	}
@@ -614,4 +644,39 @@ public class CreateWindow extends JFrame {
 		// end of Main Method
 	}
 	// end of CreateWindow
+
+	/**
+	 * getter for is connected.
+	 * @return boolean
+	 * 				returns weather or not that the database is connected
+	 */
+	public static boolean isConnected() {
+		return connected;
+	}
+
+	/**
+	 * set the connected variable.
+	 * @param connected
+	 * 				boolean to set if connected to a database
+	 */
+	public static void setConnected(boolean connected) {
+		CreateWindow.connected = connected;
+	}
+	
+	/**
+	 * getter for frame.
+	 * @return the frame for the createwindow
+	 */
+	public static JFrame getFrame() {
+		return frame;
+	}
+
+	/**
+	 * setter for frame.
+	 * @param frame
+	 * 			this is the createwindow frame
+	 */
+	public static void setFrame(JFrame frame) {
+		CreateWindow.frame = frame;
+	}
 }
