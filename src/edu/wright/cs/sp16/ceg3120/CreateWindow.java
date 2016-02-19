@@ -65,8 +65,7 @@ import javax.xml.transform.stream.StreamResult;
 //import javafx.scene.control.ComboBox;
 
 /**
- * @author Devesh Amin
- *     The CreateWindow class.
+ * @author Devesh Amin The CreateWindow class.
  * 
  */
 public class CreateWindow extends JFrame {
@@ -74,7 +73,7 @@ public class CreateWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	// title label
-	private JLabel title = new JLabel("Create Database");
+	private JLabel title = new JLabel("Aliases");
 
 	// input labels
 	private JLabel inputLabel1 = new JLabel("Database Name: ");
@@ -87,20 +86,21 @@ public class CreateWindow extends JFrame {
 	private JLabel inputLabel8 = new JLabel("Alias Name");
 
 	// new buttons
-	//private JButton save = new JButton("Save");
+	// private JButton save = new JButton("Save");
 	private JButton clear = new JButton("Clear");
 	private JButton connect = new JButton("Connect");
 	// private JButton exit = new JButton("Exit");
 
 	// input fields for the labels
 	private static JTextField name = new JTextField(10);
-	private static JTextField databaseUrl = new JTextField(10);
+	private static JTextField databaseUrl = new JTextField(20);
 	private static JTextField username = new JTextField(10);
 	private static JTextField password = new JTextField(10);
 	private static JTextField alias = new JTextField(10);
-	static String[] testStrings = { "None Selected", "MySQL Driver", "PostgreSQL Driver",
-			"Demo Driver 3" };
-	private static JComboBox<?> driver = new JComboBox<Object>(testStrings);
+	static String[] testStrings = { "None Selected", "MySQL Driver", 
+			"PostgreSQL Driver", "Demo Driver 3" };
+	private static JComboBox<?> driver = new JComboBox<String>(testStrings);
+	private static JComboBox<?> aliases;
 	private static JCheckBox savePassword = new JCheckBox();
 	private static JCheckBox autoConnect = new JCheckBox();
 
@@ -115,13 +115,14 @@ public class CreateWindow extends JFrame {
 	private JPanel inputPanel4 = new JPanel();
 	private JPanel inputPanel5 = new JPanel();
 	private JPanel inputPanel6 = new JPanel();
-	//private JPanel connectPanel = new JPanel();
+	// private JPanel connectPanel = new JPanel();
 	private JPanel bigPanel = new JPanel();
 	private static JPanel svAlias = new JPanel();
 
 	// ActionListener for clear button
 	private static ActionListener clearListener = new ClearListener();
-	//private static ActionListener saveListener = new SaveListener();
+	private static ActionListener aliasListener = new AliasListener();
+	// private static ActionListener saveListener = new SaveListener();
 	private static ActionListener connectListener = new ConnectListener();
 	// private ActionListener exitListener = new ExitListener();
 
@@ -138,8 +139,8 @@ public class CreateWindow extends JFrame {
 		// input panel for Name and its position
 		createInput1Panel();
 		getContentPane().add(inputPanel1, BorderLayout.CENTER);
-		
-		//input panel for databaseName and its position
+
+		// input panel for databaseName and its position
 		createInput2a2Panel();
 		getContentPane().add(inputPanel2a2, BorderLayout.CENTER);
 
@@ -172,7 +173,38 @@ public class CreateWindow extends JFrame {
 	 * Adding title to panel.
 	 */
 	private void createTitlePanel(JLabel tt) {
+		String[] listA = { "No Saved Aliases" };
+		titlePanel.setLayout(new GridLayout(2, 1));
 		titlePanel.add(tt);
+		try {
+			File xmlFile = new File("UserData\\aliases.xml");
+			if (xmlFile.exists()) {
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				// dbFactory.setValidating(true);
+				DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();
+				Document doc = docBuilder.parse(xmlFile);
+				doc.getDocumentElement().normalize();
+				System.out.println("reading");
+				NodeList aliasList = doc.getElementsByTagName("alias");
+				int length = aliasList.getLength();
+				listA = new String[length + 1];
+				listA[0] = "Choose Alias";
+				for (int i = 0; i < length; i++) {
+					Node currentNode = aliasList.item(i);
+					Element curElement = (Element) currentNode;
+					listA[i + 1] = curElement.getAttribute("name");
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		}
+		aliases = new JComboBox<String>(listA);
+		aliases.addActionListener(aliasListener);
+		titlePanel.add(aliases);
 	}
 
 	/**
@@ -192,7 +224,7 @@ public class CreateWindow extends JFrame {
 		inputPanel2a2.add(inputLabel1);
 		inputPanel2a2.add(name);
 	}
-	
+
 	/**
 	 * Adding grid, label and TextField for DatabaseUrl.
 	 */
@@ -201,7 +233,6 @@ public class CreateWindow extends JFrame {
 		inputPanel2.add(inputLabel2);
 		inputPanel2.add(databaseUrl);
 	}
-
 
 	/**
 	 * Adding grid, label and TextField for Username.
@@ -267,18 +298,85 @@ public class CreateWindow extends JFrame {
 	 */
 	private void createControlPanel() {
 		controlPanel.setLayout(new GridLayout(1, 2));
-		//connectPanel.setLayout(new GridLayout(1, 2));
-		//connectPanel.add(connect);
+		// connectPanel.setLayout(new GridLayout(1, 2));
+		// connectPanel.add(connect);
 		buttonPanel.setLayout(new GridLayout(1, 2));
-		//buttonPanel.add(save);
+		// buttonPanel.add(save);
 		buttonPanel.add(connect);
 		buttonPanel.add(clear);
 		clear.addActionListener(clearListener);
-		//save.addActionListener(saveListener);
+		// save.addActionListener(saveListener);
 		connect.addActionListener(connectListener);
 		// exit.addActionListener(exitListener);
-		//controlPanel.add(connectPanel);
+		// controlPanel.add(connectPanel);
 		controlPanel.add(buttonPanel);
+	}
+	
+	/** Listener for alias select.
+	 * 
+	 * @author Nick
+	 *
+	 */
+	private static class AliasListener implements ActionListener {
+		/** Alias chosen.
+		 * 
+		 */
+		public void actionPerformed(ActionEvent ae) {
+			String toRead = aliases.getSelectedItem().toString();
+			alias.setText(toRead);
+			readAlias(toRead);
+		}
+
+		/**
+		 * Reads an alias based on name.
+		 * 
+		 * @param alias
+		 *            Alias name to read
+		 */
+		public static void readAlias(String alias) {
+			try {
+				File xmlFile = new File("UserData\\aliases.xml");
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				// dbFactory.setValidating(true);
+				DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();
+				Document doc = docBuilder.parse(xmlFile);
+				doc.getDocumentElement().normalize();
+				System.out.println("reading");
+				NodeList aliasList = doc.getElementsByTagName("alias");
+				for (int i = 0; i < aliasList.getLength(); i++) {
+					Node currentNode = aliasList.item(i);
+					Element curElement = (Element) currentNode;
+					if (currentNode.getNodeType() == Node.ELEMENT_NODE
+							&& alias.equals(curElement.getAttribute("name"))) {
+						System.out.println(curElement.getElementsByTagName("dbName").item(0)
+								.getTextContent());
+						name.setText(curElement.getElementsByTagName("dbName").item(0)
+								.getTextContent());
+						databaseUrl.setText(curElement.getElementsByTagName("dbURL").item(0)
+								.getTextContent());
+						username.setText(curElement.getElementsByTagName("userName").item(0)
+								.getTextContent());
+						curElement = (Element) curElement.getElementsByTagName("password").item(0);
+						//String holdPass = curElement.getTextContent();
+						//String holdSalt = curElement.getElementsByTagName("salt").item(0)
+						//		.getTextContent();
+						// final PasswordEncryptionService pes = new
+						// PasswordEncryptionService();
+						// password.setText(pes.deCrypt(holdPass, holdSalt));
+						password.setText("this is broken right now");
+						driver.setSelectedIndex(1);
+						savePassword.setSelected(Boolean.valueOf(curElement.getAttribute("saved")));
+					}
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (SAXException e) {
+				e.printStackTrace();
+			} catch (ParserConfigurationException e) {
+				e.printStackTrace();
+			}
+
+		}
 	}
 
 	/**
@@ -312,19 +410,38 @@ public class CreateWindow extends JFrame {
 		 * @throws SAXException
 		 *             Throws SAX exceptions
 		 */
-		public static void writeAlias(String alias, String dbName, String dbUrl, String userName,
-				String password, String salt, boolean savePass, String driver)
+		public static void writeAlias(String alias, String dbName, String dbUrl, String userName, 
+				String password, String salt, boolean savePass, String driver) 
 						throws SAXException, IOException {
 			System.out.println("writing");
 			try {
-
+				File file = new File("UserData\\aliases.xml");
 				DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+				Element root;
+				Document doc;
 
 				// root elements
-				Document doc = docBuilder.parse("UserData\\aliases.xml");
-				Element root = doc.getDocumentElement();
 
+				if (file.exists()) {
+					doc = docBuilder.parse("UserData\\aliases.xml");
+					root = doc.getDocumentElement();
+				} else {
+					File userDir = new File("UserData");
+
+					// if the directory does not exist, create it
+					if (!userDir.exists()) {
+						try {
+							userDir.mkdir();
+							;
+						} catch (SecurityException se) {
+							// handle it
+						}
+					}
+					doc = docBuilder.newDocument();
+					root = doc.createElement("aliases");
+					doc.appendChild(root);
+				}
 				Element al = doc.createElement("alias");
 				al.setAttribute("name", alias);
 				root.appendChild(al);
@@ -341,6 +458,10 @@ public class CreateWindow extends JFrame {
 				nm.appendChild(doc.createTextNode(userName));
 				al.appendChild(nm);
 
+				Element dv = doc.createElement("driver");
+				dv.appendChild(doc.createTextNode(driver));
+				al.appendChild(nm);
+				
 				Element ps = doc.createElement("password");
 				ps.setAttribute("saved", (savePass ? "true" : "false"));
 				if (savePass) {
@@ -351,10 +472,6 @@ public class CreateWindow extends JFrame {
 				Element sl = doc.createElement("salt");
 				sl.appendChild(doc.createTextNode((savePass ? salt : "")));
 				ps.appendChild(sl);
-
-				Element dv = doc.createElement("driver");
-				dv.appendChild(doc.createTextNode(driver));
-				al.appendChild(nm);
 
 				// write the content into xml file
 				TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -371,78 +488,29 @@ public class CreateWindow extends JFrame {
 			}
 
 		}
-		
-
-		/** Reads an alias based on name.
-		 * @param alias Alias name to read
-		 */
-		public static void readAlias(String alias) {
-			try {
-				File xmlFile = new File("UserData\\aliases.xml");
-				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();
-				Document doc = docBuilder.parse(xmlFile);
-				doc.getDocumentElement().normalize();
-				System.out.println("reading");
-				NodeList aliasList = doc.getElementsByTagName("alias");
-				for (int i = 0; i < aliasList.getLength(); i++) {
-					Node currentNode = aliasList.item(i);
-					Element curElement = (Element) currentNode;
-					if (currentNode.getNodeType() == Node.ELEMENT_NODE
-							&& alias.equals(curElement.getAttribute("name"))) {
-						System.out.println("dbName: "
-								+ curElement.getElementsByTagName(""
-										+ "dbName"
-										).item(0).getTextContent());
-						System.out.println("dbUrl: "
-								+ curElement.getElementsByTagName(""
-										+ "dbURL").item(0).getTextContent());
-						System.out.println("userName: "
-								+ curElement.getElementsByTagName(""
-										+ "userName").item(0).getTextContent());
-						curElement = (Element) curElement.getElementsByTagName("password").item(0);
-						System.out.println("password: " + curElement.getTextContent().trim());
-						System.out.println("salt: "
-								+ curElement.getElementsByTagName("salt").item(0).getTextContent()
-								+ "\n");
-					}
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (SAXException e) {
-				e.printStackTrace();
-			} catch (ParserConfigurationException e) {
-				e.printStackTrace();
-			}
-
-		}
 
 		/**
 		 * save alias?.
 		 * 
 		 */
 		public void saveAlias() {
-			int sv = JOptionPane.showConfirmDialog(svAlias,
-					"Do you want to save this alias?" ,
-					"Save Alias?",
-					JOptionPane.YES_NO_CANCEL_OPTION);
+			int sv = JOptionPane.showConfirmDialog(svAlias, "Do you want to save this alias?", 
+					"Save Alias?", JOptionPane.YES_NO_CANCEL_OPTION);
 			if (sv == JOptionPane.CANCEL_OPTION) {
 				JOptionPane option = new JOptionPane();
 				option.setVisible(false);
-			} //else if {...}
+			} // else if {...}
 		}
-
 
 		/**
 		 * setting up the connection to a database.
 		 */
 		public void actionPerformed(ActionEvent ae) {
 			/**
-			 * @author Devesh Amin
-			 *     Save alias while connecting to the database?.
+			 * @author Devesh Amin Save alias while connecting to the database?.
 			 */
 			saveAlias();
-			
+
 			/**
 			 * Saving password: make sure to encrypt.
 			 */
@@ -466,22 +534,19 @@ public class CreateWindow extends JFrame {
 				}
 
 			}
-			try {
-				writeAlias(alias.getText(), name.getText(), databaseUrl.getText(),
-						username.getText(), passA, saltA, savePassword.isSelected(),
-						String.valueOf(driver.getSelectedItem()));
-				readAlias("test");
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (SAXException e) {
-				e.printStackTrace();
-			}
-	
 			String dbName = name.getText();
 			String dbAddress = databaseUrl.getText();
 			String dbUsername = username.getText();
 			String dbPassword = password.getText();
 			String dbDriver = driver.getSelectedItem().toString();
+			try {
+				writeAlias(alias.getText(), dbName, dbAddress, dbUsername, passA, saltA,
+						savePassword.isSelected(), dbDriver);
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (SAXException e) {
+				e.printStackTrace();
+			}
 			System.out.println(dbDriver);
 			if (dbDriver.equals("MySQL Driver")) {
 				MySqlConnect connect = new MySqlConnect(dbAddress, dbUsername, dbPassword, dbName);
@@ -491,8 +556,8 @@ public class CreateWindow extends JFrame {
 					e.printStackTrace();
 				}
 			} else if (dbDriver.equals("PostgreSQL Driver")) {
-				PostgreConnect postgreConnect = new PostgreConnect(dbAddress, dbUsername,
-						dbPassword, dbName);
+				PostgreConnect postgreConnect = 
+						new PostgreConnect(dbAddress, dbUsername, dbPassword, dbName);
 				try {
 					postgreConnect.configure();
 				} catch (SQLException e) {
@@ -509,7 +574,8 @@ public class CreateWindow extends JFrame {
 	 */
 	private static class ClearListener implements ActionListener {
 		/**
-		 * setting all the TextBoxes, CheckBoxes and ComboBoxes to its default state.
+		 * setting all the TextBoxes, CheckBoxes and ComboBoxes to its default
+		 * state.
 		 */
 		public void actionPerformed(ActionEvent ae) {
 			name.setText("");
@@ -519,6 +585,7 @@ public class CreateWindow extends JFrame {
 			driver.setSelectedIndex(0);
 			savePassword.setSelected(false);
 			autoConnect.setSelected(false);
+			alias.setText("");
 		}
 	}
 
@@ -535,7 +602,7 @@ public class CreateWindow extends JFrame {
 		cw.pack();
 		cw.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent evt) {
-				int answer = JOptionPane.showConfirmDialog(cw, "Do you really want to quit?",
+				int answer = JOptionPane.showConfirmDialog(cw, "Do you really want to quit?", 
 						"Quit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 				if (answer == JOptionPane.YES_OPTION) {
 					System.exit(0);
