@@ -26,6 +26,7 @@ import java.awt.Font;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -34,8 +35,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.LayoutStyle;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.UIManager;
+
 
 /**
  * This class is created to display the profile window which contains the
@@ -173,155 +175,104 @@ public class Profile extends JFrame {
 				NumberOfQueries.Ten, NumberOfQueries.Twenty }));
 
 		queries.setText("queries");
+		
+		JButton btnSave = new JButton("Save");
+		
+		JButton btnCancel = new JButton("Cancel");
 
 		GroupLayout jpanel2Layout = new GroupLayout(jpanel2);
-		jpanel2.setLayout(jpanel2Layout);
-		jpanel2Layout
-				.setHorizontalGroup(jpanel2Layout
-				.createParallelGroup(leading)
-				.addGroup(
-						jpanel2Layout
-						.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(
-								jpanel2Layout
-								.createParallelGroup(
-										leading)
-								.addComponent(
-										defaultFavorite)
-								.addComponent(
-										defaultEncoding)
-								.addComponent(
-										defaultView)
-								.addComponent(
-										tableViews)
-								.addComponent(
-										rememberLast))
-						.addGap(59, 59, 59)
-						.addGroup(
-								jpanel2Layout
-								.createParallelGroup(
-										leading)
-								.addGroup(
-										jpanel2Layout
-										.createSequentialGroup()
-										.addComponent(
-												pxQueries,
-												GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(18,
-												18,
-												18)
-										.addComponent(
-												queries))
-								.addComponent(
-										useMonospaced)
-								.addComponent(
-										choice3,
-										GroupLayout.PREFERRED_SIZE,
-										166,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(
-										choice2,
-										GroupLayout.PREFERRED_SIZE,
-										166,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(
-										choice1,
-										GroupLayout.PREFERRED_SIZE,
-										166,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(
-										startupConnect)
-								.addComponent(
-										startupMotd)
-								.addComponent(gridLines))
-						.addContainerGap(
-								GroupLayout.DEFAULT_SIZE,
-								Short.MAX_VALUE)));
-		jpanel2Layout
-				.setVerticalGroup(jpanel2Layout
-				.createParallelGroup(leading)
-				.addGroup(
-						jpanel2Layout
-						.createSequentialGroup()
-						.addGap(20, 20, 20)
-						.addGroup(
-								jpanel2Layout.createParallelGroup(
-										leading)
-								.addComponent(
-										defaultFavorite)
-								.addComponent(
-										choice1,
-										GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-						.addGap(2, 2, 2)
+		jpanel2Layout.setHorizontalGroup(
+				jpanel2Layout.createParallelGroup(Alignment.LEADING)
+				.addGroup(jpanel2Layout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(jpanel2Layout.createParallelGroup(Alignment.LEADING)
+						.addComponent(defaultFavorite)
+						.addComponent(defaultEncoding)
+						.addComponent(defaultView)
+						.addComponent(tableViews)
+						.addComponent(rememberLast))
+					.addGap(59)
+					.addGroup(jpanel2Layout.createParallelGroup(Alignment.LEADING)
+						.addGroup(jpanel2Layout.createSequentialGroup()
+							.addComponent(
+									pxQueries, 
+									GroupLayout.PREFERRED_SIZE, 
+									GroupLayout.DEFAULT_SIZE, 
+									GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(queries)
+							.addPreferredGap(ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+							.addComponent(btnSave)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnCancel))
+						.addComponent(useMonospaced)
+						.addComponent(choice3, 
+								GroupLayout.PREFERRED_SIZE, 166, 
+								GroupLayout.PREFERRED_SIZE)
+						.addComponent(choice2, 
+								GroupLayout.PREFERRED_SIZE, 166, 
+								GroupLayout.PREFERRED_SIZE)
+						.addComponent(choice1, 
+								GroupLayout.PREFERRED_SIZE, 166, 
+								GroupLayout.PREFERRED_SIZE)
 						.addComponent(startupConnect)
-						.addGap(3, 3, 3)
 						.addComponent(startupMotd)
-						.addPreferredGap(
-								LayoutStyle.ComponentPlacement.RELATED)
-						.addGroup(
-								jpanel2Layout
-								.createParallelGroup(
-										leading)
-								.addComponent(
-										defaultView)
-								.addComponent(
-										choice3,
-										GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-						.addGap(18, 18, 18)
-						.addGroup(
-								jpanel2Layout
-								.createParallelGroup(
-										leading)
-								.addComponent(
-										defaultEncoding)
-								.addComponent(
-										choice2,
-										GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-						.addGap(18, 18, 18)
-						.addGroup(
-								jpanel2Layout
-								.createParallelGroup(
-										leading)
-								.addGroup(
-										jpanel2Layout
-										.createSequentialGroup()
-										.addComponent(
-												useMonospaced)
-										.addPreferredGap(
-												LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(
-												gridLines))
-								.addComponent(
-										tableViews))
-						.addPreferredGap(
-								LayoutStyle.ComponentPlacement.RELATED)
-						.addGroup(
-								jpanel2Layout
-								.createParallelGroup(
-										leading)
-								.addComponent(
-										rememberLast)
-								.addGroup(
-										jpanel2Layout
-										.createParallelGroup(
-												GroupLayout.Alignment.BASELINE)
-										.addComponent(
-												pxQueries,
-												GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(
-												queries)))
-						.addContainerGap(33, Short.MAX_VALUE)));
+						.addComponent(gridLines))
+					.addContainerGap())
+		);
+		jpanel2Layout.setVerticalGroup(
+				jpanel2Layout.createParallelGroup(Alignment.LEADING)
+				.addGroup(jpanel2Layout.createSequentialGroup()
+					.addGap(20)
+					.addGroup(jpanel2Layout.createParallelGroup(Alignment.LEADING)
+						.addComponent(defaultFavorite)
+						.addComponent(choice1, 
+								GroupLayout.PREFERRED_SIZE, 
+								GroupLayout.DEFAULT_SIZE, 
+								GroupLayout.PREFERRED_SIZE))
+					.addGap(2)
+					.addComponent(startupConnect)
+					.addGap(3)
+					.addComponent(startupMotd)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(jpanel2Layout.createParallelGroup(Alignment.LEADING)
+						.addComponent(defaultView)
+						.addComponent(choice3, 
+								GroupLayout.PREFERRED_SIZE, 
+								GroupLayout.DEFAULT_SIZE, 
+								GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(jpanel2Layout.createParallelGroup(Alignment.LEADING)
+						.addComponent(defaultEncoding)
+						.addComponent(choice2, 
+								GroupLayout.PREFERRED_SIZE, 
+								GroupLayout.DEFAULT_SIZE, 
+								GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(jpanel2Layout.createParallelGroup(Alignment.LEADING)
+						.addGroup(jpanel2Layout.createSequentialGroup()
+							.addComponent(useMonospaced)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(gridLines))
+						.addComponent(tableViews))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(jpanel2Layout.createParallelGroup(Alignment.LEADING)
+						.addComponent(rememberLast)
+						.addGroup(jpanel2Layout.createParallelGroup(Alignment.BASELINE)
+							.addComponent(pxQueries, 
+									GroupLayout.PREFERRED_SIZE, 
+									GroupLayout.DEFAULT_SIZE, 
+									GroupLayout.PREFERRED_SIZE)
+							.addComponent(queries)))
+					.addContainerGap(33, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING, jpanel2Layout.createSequentialGroup()
+					.addContainerGap(236, Short.MAX_VALUE)
+					.addGroup(jpanel2Layout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnSave)
+						.addComponent(btnCancel))
+					.addContainerGap())
+		);
+		jpanel2.setLayout(jpanel2Layout);
 
 		otherConnection.addTab("User Preferences", jpanel2);
 
@@ -361,10 +312,10 @@ public class Profile extends JFrame {
 	} // End of initComponents method ,,,
 
 	/**
-	 * @param args
-	 *            the command line arguments.
+	 * The method to run the profile window.
+	 * This now runs from MainApp by clicking the profile button
 	 */
-	public static void main(String[] args) {
+	public static void mainProfile() {
 		/* Set the Nimbus look and feel */
 		// <editor-fold default state="collapsed" desc=" Look and feel setting
 		// code (optional) ">
@@ -404,5 +355,4 @@ public class Profile extends JFrame {
 			}
 		});
 	}
-
 } // End of Profile class ,,,
