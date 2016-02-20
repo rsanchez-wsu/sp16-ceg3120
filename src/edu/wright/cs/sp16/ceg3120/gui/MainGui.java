@@ -97,13 +97,30 @@ public class MainGui extends JFrame implements ActionListener {
 		// File menu
 		JMenu file = new JMenu("File");
 		file.setMnemonic(KeyEvent.VK_F);
+		
+		Action openAction = new DefaultEditorKit.CutAction();
+		openAction.putValue(Action.NAME, "Open");
+		
+		Action newAction = new DefaultEditorKit.CutAction();
+		newAction.putValue(Action.NAME, "New");
+		
+		Action saveAction = new DefaultEditorKit.CutAction();
+		saveAction.putValue(Action.NAME, "Save");
+		
+		Action printAction = new DefaultEditorKit.CutAction();
+		printAction.putValue(Action.NAME, "Print");
 
 		exitItem = new JMenuItem("Exit");
 		exitItem.setMnemonic(KeyEvent.VK_E);
 		exitItem.setToolTipText("Exit application");
 		exitItem.addActionListener(this);
 
+		file.add(openAction);
+		file.add(newAction);
+		file.add(saveAction);
+		file.add(printAction);
 		file.add(exitItem);
+
 
 		// Edit menu
 		
@@ -122,6 +139,85 @@ public class MainGui extends JFrame implements ActionListener {
 		edit.add(copyAction);
 		edit.add(pasteAction);
 		
+		// Search menu
+		
+		Action topAction = new DefaultEditorKit.CutAction();
+		topAction.putValue(Action.NAME, "Top");
+		
+		Action bottomAction = new DefaultEditorKit.CopyAction();
+		bottomAction.putValue(Action.NAME, "Bottom");
+		
+		Action goToLineAction = new DefaultEditorKit.PasteAction();
+		goToLineAction.putValue(Action.NAME, "Go To Line");
+		
+		Action findAction = new DefaultEditorKit.PasteAction();
+		findAction.putValue(Action.NAME, "Find");
+
+		Action replaceAction = new DefaultEditorKit.PasteAction();
+		replaceAction.putValue(Action.NAME, "Replace");
+
+		JMenu search = new JMenu("Search");
+		
+		search.add(topAction);
+		search.add(bottomAction);
+		search.add(goToLineAction);
+		search.add(findAction);
+		search.add(replaceAction);
+		
+		// Session menu
+		
+		Action newSessionAction = new DefaultEditorKit.CutAction();
+		newSessionAction.putValue(Action.NAME, "New Session");
+		
+		Action connectAction = new DefaultEditorKit.CopyAction();
+		connectAction.putValue(Action.NAME, "Connect To Database");
+		
+		Action disconnectAction = new DefaultEditorKit.PasteAction();
+		disconnectAction.putValue(Action.NAME, "Disconnect From Database");
+		
+		Action disconnectAllAction = new DefaultEditorKit.PasteAction();
+		disconnectAllAction.putValue(Action.NAME, "Disconnect From All");
+
+		Action createAliasAction = new DefaultEditorKit.PasteAction();
+		createAliasAction.putValue(Action.NAME, "Create Alias");
+		
+		Action driverAction = new DefaultEditorKit.PasteAction();
+		driverAction.putValue(Action.NAME, "New Driver");
+
+		JMenu session = new JMenu("Session");
+		
+		session.add(newSessionAction);
+		session.add(connectAction);
+		session.add(disconnectAction);
+		session.add(disconnectAllAction);
+		session.add(createAliasAction);
+		session.add(driverAction);
+		
+		// SQL menu
+		
+		Action executeAllAction = new DefaultEditorKit.CutAction();
+		executeAllAction.putValue(Action.NAME, "Execute All");
+		
+		Action executeHighlightedAction = new DefaultEditorKit.CopyAction();
+		executeHighlightedAction.putValue(Action.NAME, "Execute Highlighted");
+		
+		Action formatAction = new DefaultEditorKit.PasteAction();
+		formatAction.putValue(Action.NAME, "Format SQL");
+		
+		Action commitAction = new DefaultEditorKit.PasteAction();
+		commitAction.putValue(Action.NAME, "Commit SQL");
+
+		Action rollbackAction = new DefaultEditorKit.PasteAction();
+		rollbackAction.putValue(Action.NAME, "Rollback SQL");
+
+		JMenu sql = new JMenu("SQL");
+		
+		sql.add(executeAllAction);
+		sql.add(executeHighlightedAction);
+		sql.add(formatAction);
+		sql.add(commitAction);
+		sql.add(rollbackAction);
+		
 		// Window menu
 
 		fullScreenItem = new JMenuItem("Full Screen");
@@ -134,7 +230,7 @@ public class MainGui extends JFrame implements ActionListener {
 		
 		// Help menu
 		JMenu help = new JMenu("Help");
-		help.add("Welcome").addActionListener(new ActionListener(){
+		help.add("Welcome").addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent event) {
 				//disable the main window
@@ -167,6 +263,9 @@ public class MainGui extends JFrame implements ActionListener {
 
 		menuBar.add(file);
 		menuBar.add(edit);
+		menuBar.add(search);
+		menuBar.add(session);
+		menuBar.add(sql);
 		menuBar.add(window);
 		menuBar.add(help);
 		
