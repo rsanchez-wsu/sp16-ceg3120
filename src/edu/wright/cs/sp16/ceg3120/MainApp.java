@@ -40,39 +40,38 @@ public class MainApp {
 	 * The main method that displays the main application window.
 	 */
 	private static void closeWindow() {
-		
+
 		final JFrame frame = new JFrame("Hello World");
 		JLabel label = new JLabel("Hello World");
 		frame.getContentPane().add(label);
 		frame.addWindowListener(new WindowAdapter() {
-			
+
 			@Override
 			public void windowClosing(WindowEvent we) {
-				int close = JOptionPane.showConfirmDialog(frame, 
-						"Exit the application?", 
-						"Exit", 
+				int close = JOptionPane.showConfirmDialog(frame, "Exit the application?", "Exit",
 						JOptionPane.YES_NO_OPTION);
-				
+
 				if (close == JOptionPane.YES_OPTION) {
-					
+
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				} else {
 					frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 				}
 			}
 		});
-		
+
 		frame.setSize(300, 300);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
-	
+
 	/**
 	 * The main method that displays the main application window.
 	 * 
-	 * @param args The command-line arguments
+	 * @param args
+	 *            The command-line arguments
 	 */
-	
+
 	public static void main(String[] args) {
 		// Schedule a job for the event-dispatching thread:
 		// creating and showing this application's GUI.
@@ -83,8 +82,7 @@ public class MainApp {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				
-				
+
 				closeWindow();
 
 			}
