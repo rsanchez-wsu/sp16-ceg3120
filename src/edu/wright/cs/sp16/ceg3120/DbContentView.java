@@ -28,7 +28,7 @@ import javax.swing.JPanel;
  */
 public class DbContentView extends JPanel {
 
-/**UID.
+/**UID for class DbContentView.
  * 
  *  
  */

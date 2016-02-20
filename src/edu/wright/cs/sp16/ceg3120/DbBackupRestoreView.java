@@ -29,7 +29,7 @@ import javax.swing.JPanel;
  */
 public class DbBackupRestoreView extends JPanel {
 
-	/**UID.
+	/**UID for class DbBackupRestoreView.
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;

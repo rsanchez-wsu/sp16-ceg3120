@@ -28,7 +28,7 @@ import javax.swing.JPanel;
  */
 public class DbRelationshipsView extends JPanel {
 
-	/**UID.
+	/**UID for class DbRelationshipsView.
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;

@@ -40,7 +40,7 @@ public class DbViewer extends JTabbedPane{
 	private static final long serialVersionUID = 1L;
 
 /**DbViewer.
- * GUI for one of database
+ * GUI 
  * 
  */
 	public DbViewer() {

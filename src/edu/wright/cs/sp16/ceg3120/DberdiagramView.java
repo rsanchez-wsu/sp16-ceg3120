@@ -29,7 +29,7 @@ import javax.swing.JPanel;
  */
 public class DberdiagramView extends JPanel {
 
-	/**UID.
+	/**UID for class DberdiagramView.
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;

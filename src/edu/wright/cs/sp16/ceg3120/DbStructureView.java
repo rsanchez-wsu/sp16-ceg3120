@@ -28,7 +28,7 @@ import javax.swing.JPanel;
  */
 public class DbStructureView extends JPanel {
 
-	/**UID.
+	/**UID for class DbStructureView.
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;

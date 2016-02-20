@@ -28,7 +28,7 @@ import javax.swing.JPanel;
  */
 public class DbQueryBuilderView extends JPanel {
 
-	/**UID.
+	/**UID for class DbQueryBuilderView.
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
