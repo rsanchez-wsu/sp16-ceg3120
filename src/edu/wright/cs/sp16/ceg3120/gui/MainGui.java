@@ -21,6 +21,8 @@
 
 package edu.wright.cs.sp16.ceg3120.gui;
 
+import edu.wright.cs.sp16.ceg3120.gui.tabs.StartPageTab;
+
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,8 +38,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import javax.swing.text.DefaultEditorKit;
-
-import edu.wright.cs.sp16.ceg3120.gui.tabs.StartPageTab;
 
 /**
  * The Frame that holds the application and all the interactions to user.
@@ -83,11 +83,16 @@ public class MainGui extends JFrame implements ActionListener {
 		add(tabPane);
 	}
 	
-	private void createStartPage() {
-		startPage = new StartPageTab();
-		
-		add(startPage);
-	}
+//	/**
+//	 * FindBugs Error: 
+//	 * Private method edu.wright.cs.sp16.ceg3120.gui.MainGui.createStartPage() is never called
+//	 */
+//	@SuppressWarnings("unused")
+//	private void createStartPage() {
+//		startPage = new StartPageTab();
+//		
+//		add(startPage);
+//	}
 
 	/**
 	 * Creates the menu bar.
@@ -308,6 +313,7 @@ public class MainGui extends JFrame implements ActionListener {
 	public void makeDisabled() {
 		setEnabled(false);
 	}
+	
 	/**
 	 * Enables the main window.
 	 */
