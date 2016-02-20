@@ -104,8 +104,8 @@ public class CreateWindow extends JFrame {
 	private static JTextField alias = new JTextField(10);
 	static String[] testStrings = { "None Selected", "MySQL Driver", 
 			"PostgreSQL Driver", "Demo Driver 3" };
-	private static JComboBox<?> driver = new JComboBox<String>(testStrings);
-	private static JComboBox<?> aliases;
+	private static JComboBox<String> driver = new JComboBox<String>(testStrings);
+	private static JComboBox<String> aliases;
 	private static JCheckBox savePassword = new JCheckBox();
 	private static JCheckBox autoConnect = new JCheckBox();
 
@@ -423,7 +423,7 @@ public class CreateWindow extends JFrame {
 						throws SAXException, IOException {
 			System.out.println("writing");
 			try {
-				File file = new File("UserData\\aliases.xml");
+				File file = new File("UserData/aliases.xml");
 				DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 				Element root;
@@ -432,7 +432,7 @@ public class CreateWindow extends JFrame {
 				// root elements
 
 				if (file.exists()) {
-					doc = docBuilder.parse("UserData\\aliases.xml");
+					doc = docBuilder.parse("UserData/aliases.xml");
 					root = doc.getDocumentElement();
 				} else {
 //					File userDir = new File("UserData");
