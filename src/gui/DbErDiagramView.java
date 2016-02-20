@@ -19,33 +19,19 @@
  *
  */
 
-package gui;
 
-import testconnection.DbConnection;
+package gui;
 
 import javax.swing.JPanel;
 
-
-/**
- * ConnectionPanel holds the components/descriptions and view of a 
- * database for the program SQLizard.
- * @author carl.heritage
- *
+/**tab5.
+ * 
  */
-public class ConnectionPanel extends JPanel {
-	private static final long serialVersionUID = 1L;
-	//private static final JPanel dbDetails = new JPanel();
-	//private static final JTabbedPane dbViews = new JTabbedPane();
-	private DbConnection dbConn;
-	
-	/**Constructor for the ConnectionPanel class.
-	 * @param newConnection a successful connection to a DB
+public class DbErDiagramView extends JPanel {
+
+	/**UID for class DberdiagramView.
+	 * 
 	 */
-	ConnectionPanel(DbConnection newConnection) {
-		super();
-		dbConn = newConnection;
-		dbConn.getDbName();
-		setVisible(true);
-		
-	}
+	private static final long serialVersionUID = 1L;
+
 }

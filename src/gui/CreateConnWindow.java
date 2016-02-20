@@ -21,7 +21,7 @@
 
 package gui;
 
-import testconnection.DBconnection;
+import testconnection.DbConnection;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -44,7 +44,7 @@ import javax.swing.JTextField;
 public class CreateConnWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private WinMain mainWinRef;
-	private static DBconnection dbConn;
+	private static DbConnection dbConn;
 	private static final JLabel dburlLabel = new JLabel("Database URL: ");
 	private static final JTextField dburlTextField = new JTextField();
 	private static final JLabel jdbcTypesLabel = new JLabel("JDBC Type: ");
@@ -82,7 +82,7 @@ public class CreateConnWindow extends JFrame {
 			public void actionPerformed(ActionEvent event) {
 				
 				try {
-					dbConn = new DBconnection(dburlTextField.getText(),
+					dbConn = new DbConnection(dburlTextField.getText(),
 							jdbcTypesBox.getSelectedItem().toString(),
 							userTextField.getText(),
 							passTextField.getText());
@@ -107,7 +107,7 @@ public class CreateConnWindow extends JFrame {
 	 * Returns the DBConnection.
 	 * @return the DBConnection
 	 */
-	public DBconnection getDbConnection() {
+	public DbConnection getDbConnection() {
 		return dbConn;
 	}
 	

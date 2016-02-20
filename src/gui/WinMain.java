@@ -21,7 +21,7 @@
 
 package gui;
 
-import testconnection.DBconnection;
+import testconnection.DbConnection;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -114,7 +114,7 @@ public class WinMain extends JFrame {
 	 * Add a working connection as a tab to the window.
 	 * @param newConnection The connection to base the new tab on.
 	 */
-	public void addConnection(DBconnection newConnection) {
+	public void addConnection(DbConnection newConnection) {
 		connectionTabs.addTab(newConnection.getDbName(), new ConnectionPanel(newConnection));
 	}
 }

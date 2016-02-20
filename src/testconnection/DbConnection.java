@@ -31,7 +31,7 @@ import java.sql.SQLException;
  * @author AlisonGuyton.
  *
  */
-public class DBconnection {
+public class DbConnection {
 	private Connection conn = null;
 	private String url;
 	private String dbType = "";
@@ -43,7 +43,7 @@ public class DBconnection {
 	/**
 	 * Default constructor for a DBconnection.
 	 */
-	public DBconnection() {
+	public DbConnection() {
 		try {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 		} catch (ClassNotFoundException e) {
@@ -63,7 +63,7 @@ public class DBconnection {
 	 * @param user The username
 	 * @param pass The password for the user
 	 */
-	public DBconnection(String url, String dbType, String user, String pass) {
+	public DbConnection(String url, String dbType, String user, String pass) {
 		//TODO: Create connection with passed arguments
 		this.url = url;
 		this.dbType = dbType;
