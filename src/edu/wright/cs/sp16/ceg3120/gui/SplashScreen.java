@@ -34,7 +34,7 @@ import javax.swing.JWindow;
  *
  * @author Alex Vance
  */
-public class SplashScreen{
+public class SplashScreen {
 
 	/**Construct a splash screen.*/
 	public void showSplashScreen() {
