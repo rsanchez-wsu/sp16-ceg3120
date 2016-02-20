@@ -100,8 +100,8 @@ public class CreateWindow extends JFrame {
 	private static JTextField alias = new JTextField(10);
 	static String[] testStrings = { "None Selected", "MySQL Driver", 
 			"PostgreSQL Driver", "Demo Driver 3" };
-	private static JComboBox<?> driver = new JComboBox<String>(testStrings);
-	private static JComboBox<?> aliases;
+	private static JComboBox<String> driver = new JComboBox<String>(testStrings);
+	private static JComboBox<String> aliases;
 	private static JCheckBox savePassword = new JCheckBox();
 	private static JCheckBox autoConnect = new JCheckBox();
 
@@ -178,7 +178,7 @@ public class CreateWindow extends JFrame {
 		titlePanel.setLayout(new GridLayout(2, 1));
 		titlePanel.add(tt);
 		try {
-			File xmlFile = new File("UserData\\aliases.xml");
+			File xmlFile = new File("UserData/aliases.xml");
 			if (xmlFile.exists()) {
 				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 				// dbFactory.setValidating(true);
@@ -336,7 +336,7 @@ public class CreateWindow extends JFrame {
 		 */
 		public static void readAlias(String alias) {
 			try {
-				File xmlFile = new File("UserData\\aliases.xml");
+				File xmlFile = new File("UserData/aliases.xml");
 				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 				// dbFactory.setValidating(true);
 				DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();
@@ -416,7 +416,7 @@ public class CreateWindow extends JFrame {
 						throws SAXException, IOException {
 			System.out.println("writing");
 			try {
-				File file = new File("UserData\\aliases.xml");
+				File file = new File("UserData/aliases.xml");
 				DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 				Element root;
@@ -425,18 +425,23 @@ public class CreateWindow extends JFrame {
 				// root elements
 
 				if (file.exists()) {
-					doc = docBuilder.parse("UserData\\aliases.xml");
+					doc = docBuilder.parse("UserData/aliases.xml");
 					root = doc.getDocumentElement();
 				} else {
+					boolean fileStatus = false;
 					File userDir = new File("UserData");
 
 					// if the directory does not exist, create it
 					if (!userDir.exists()) {
 						try {
-							userDir.mkdir();
+							fileStatus = userDir.mkdir();
 							;
+							if (fileStatus == false) {
+								System.out.println(fileStatus);
+							}
 						} catch (SecurityException se) {
 							// handle it
+							System.out.println(fileStatus);
 						}
 					}
 					doc = docBuilder.newDocument();
@@ -478,7 +483,7 @@ public class CreateWindow extends JFrame {
 				TransformerFactory transformerFactory = TransformerFactory.newInstance();
 				Transformer transformer = transformerFactory.newTransformer();
 				DOMSource source = new DOMSource(doc);
-				StreamResult result = new StreamResult(new File("UserData\\aliases.xml"));
+				StreamResult result = new StreamResult(new File("UserData/aliases.xml"));
 				transformer.transform(source, result);
 
 				System.out.println("File saved!");
