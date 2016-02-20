@@ -50,28 +50,28 @@ public class DbViewer extends JTabbedPane{
 
 		JTabbedPane tabbedPane = new JTabbedPane();
 
-		DBContentView contentTab = new DBContentView();
+		DbContentView contentTab = new DbContentView();
 		tabbedPane.addTab("Content",contentTab);
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
-		DBStructureView structureTab = new DBStructureView();
+		DbStructureView structureTab = new DbStructureView();
 		tabbedPane.addTab("Structure",structureTab);
 		tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 		//Add the tabbed pane to this panel.
 		
-		DBRelationshipsView relationshipsTab = new DBRelationshipsView();
+		DbRelationshipsView relationshipsTab = new DbRelationshipsView();
 		tabbedPane.addTab("Relationships",relationshipsTab);
 		tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
 
-		DBQueryBuilderView querybuilderTab = new DBQueryBuilderView();
+		DbQueryBuilderView querybuilderTab = new DbQueryBuilderView();
 		tabbedPane.addTab("Query Builder",querybuilderTab);
 		tabbedPane.setMnemonicAt(3, KeyEvent.VK_4);
 
-		DBERDiagramView erdiagramTab = new DBERDiagramView();
+		DberdiagramView erdiagramTab = new DberdiagramView();
 		tabbedPane.addTab("ER Diagram",erdiagramTab);
 		tabbedPane.setMnemonicAt(4, KeyEvent.VK_5);
 
-		DBBackupRestoreView backuprestoreTab = new DBBackupRestoreView();
+		DbBackupRestoreView backuprestoreTab = new DbBackupRestoreView();
 		tabbedPane.addTab("Backup/Restore",backuprestoreTab);
 		tabbedPane.setMnemonicAt(5, KeyEvent.VK_6);
 		add(tabbedPane);
