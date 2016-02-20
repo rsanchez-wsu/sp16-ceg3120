@@ -343,7 +343,7 @@ public class CreateWindow extends JFrame {
 		 */
 		public static void readAlias(String alias) {
 			try {
-				File xmlFile = new File("UserData\\aliases.xml");
+				File xmlFile = new File("UserData/aliases.xml");
 				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 				// dbFactory.setValidating(true);
 				DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();
@@ -428,24 +428,27 @@ public class CreateWindow extends JFrame {
 				DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 				Element root;
 				Document doc;
-
+				boolean fileStatus = false;
 				// root elements
 
 				if (file.exists()) {
 					doc = docBuilder.parse("UserData/aliases.xml");
 					root = doc.getDocumentElement();
 				} else {
-//					File userDir = new File("UserData");
-//
-//					// if the directory does not exist, create it
-//					if (!userDir.exists()) {
-//						try {
-//							userDir.mkdir();
-//							;
-//						} catch (SecurityException se) {
-//							// handle it
-//						}
-//					}
+					File userDir = new File("UserData");
+
+					// if the directory does not exist, create it
+					if (!userDir.exists()) {
+						try {
+							fileStatus = userDir.mkdir();
+							;
+							if (fileStatus == false) {
+								System.out.println(fileStatus);
+							}
+						} catch (SecurityException se) {
+							// handle it
+						}
+					}
 					doc = docBuilder.newDocument();
 					root = doc.createElement("aliases");
 					doc.appendChild(root);
@@ -485,7 +488,7 @@ public class CreateWindow extends JFrame {
 				TransformerFactory transformerFactory = TransformerFactory.newInstance();
 				Transformer transformer = transformerFactory.newTransformer();
 				DOMSource source = new DOMSource(doc);
-				StreamResult result = new StreamResult(new File("UserData\\aliases.xml"));
+				StreamResult result = new StreamResult(new File("UserData/aliases.xml"));
 				transformer.transform(source, result);
 
 				System.out.println("File saved!");
