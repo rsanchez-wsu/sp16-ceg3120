@@ -21,45 +21,39 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
-import edu.wright.cs.sp16.ceg3120.gui.StartTabPane;
+import java.awt.Font;
 
-import java.awt.GridLayout;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-/**
- * A Start Page Tab that contains items such as:
- * - Recent Connections
- * - Tip of the Day
- * - etc.
+/**What's new tab for main page.
+ * @author Alex
  * 
- * @author codybutz, alyssa, sam
- *
  */
-public class StartPageTab extends JPanel {
+public class WhatsNewTab extends JPanel{
 
-	private static final long serialVersionUID = 8991726988535798603L;
-
-	private StartTabPane startTabPane;
+	private static final long serialVersionUID = -797678469999457L;
 	
-	/**
-	 * Initializes Start Page Tab, pulls recent connections, adds components to GUI.
-	 * TODO: Pull recent connections, initialize components.
+	/** Create the tab.
+	 *@author Alex
+	 * 
 	 */
-	public StartPageTab() {
-		super(new GridLayout(1,1));
-
-		
-		setSize(960, 600);
+	public WhatsNewTab() {
+		super();
 		initComponents();
 	}
 	
-	/**Create the start tab pane.
-	 * @author Sam
+	/**Initialize components for tab.
+	 * @author Alex
+	 * 
 	 */
-	public void initComponents() {
-		startTabPane = new StartTabPane();
-		
-		add(startTabPane);
+	private void initComponents() {
+		JLabel title = new JLabel();
+		title.setText("My Sql Lizard");
+		title.setSize(100, 100);
+		title.setFont(new Font("Serif", Font.PLAIN, 22));
+
+		add(title);
 	}
 
 }

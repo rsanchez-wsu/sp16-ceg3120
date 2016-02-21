@@ -21,45 +21,40 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
-import edu.wright.cs.sp16.ceg3120.gui.StartTabPane;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
-import java.awt.GridLayout;
-import javax.swing.JPanel;
-
-/**
- * A Start Page Tab that contains items such as:
- * - Recent Connections
- * - Tip of the Day
- * - etc.
- * 
- * @author codybutz, alyssa, sam
+/**Second tab in start screen for tips and plugin installation.
+ * @author Alex
  *
  */
-public class StartPageTab extends JPanel {
+public class MySqLizard {
 
-	private static final long serialVersionUID = 8991726988535798603L;
-
-	private StartTabPane startTabPane;
-	
-	/**
-	 * Initializes Start Page Tab, pulls recent connections, adds components to GUI.
-	 * TODO: Pull recent connections, initialize components.
+	/**Create the tab.
+	 * @author Alex
+	 *
 	 */
-	public StartPageTab() {
-		super(new GridLayout(1,1));
-
-		
-		setSize(960, 600);
+	public MySqLizard() {
+		super();
 		initComponents();
 	}
 	
-	/**Create the start tab pane.
-	 * @author Sam
+	/** Initialize all tab information and structure.
+	 * @author Alex
+	 *
 	 */
-	public void initComponents() {
-		startTabPane = new StartTabPane();
+	private void initComponents() {
 		
-		add(startTabPane);
+		JFrame frame = new JFrame("MySql");
+		
+		JButton pluginButton = new JButton();
+		pluginButton.setText("Install plugins");
+		
+		JLabel tipLabel = new JLabel();
+		tipLabel.setText("Tip of the day");
+		
+		frame.add(pluginButton);
+		frame.add(tipLabel);
 	}
-
 }
