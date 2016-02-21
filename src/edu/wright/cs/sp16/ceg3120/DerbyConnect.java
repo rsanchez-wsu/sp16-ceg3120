@@ -21,8 +21,13 @@
 
 package edu.wright.cs.sp16.ceg3120;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
 //import java.sql.Statement;
 
 /**
@@ -89,6 +94,48 @@ public class DerbyConnect {
 	 */
 	public String getDbName() {
 		return dbName;
+	}
+	/**
+	 * the method is to run derby commands in derby drivers and return the results of any command
+	 * 
+	 * @return String variable containing the results of the query executed.
+	 * @throws Exception
+	 *  */
+	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = 
+			"Derby_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
+			"We specifically want to allow the user to execute arbitrary Derby")
+	public String dataEntry(String Query) throws Exception {
+		String returning="";
+		StringBuilder Builder =new StringBuilder();
+		
+		 
+		try (
+				Statement input = conn.createStatement();
+				ResultSet rs = input.executeQuery(Query);) {
+			// ResulSetMetaData does not implement AutoClosable() so it
+			// cannot be handled by try-with-resources.
+			ResultSetMetaData rsmd = null;
+			// Try to read the result set and its meta data and print out to
+			// string.
+			rsmd = rs.getMetaData();
+			int columnsNumber = rsmd.getColumnCount();
+			// Iterate through all data returned and append to string
+			// result.
+			while (rs.next()) {
+				for (int i = 1; i <= columnsNumber; i++) {
+					if (i > 1) {
+						Builder.append(",  ");
+						String columnValue = rs.getString(i);
+						Builder.append(columnValue + " " + rsmd.getColumnName(i));
+					}
+				}
+				System.out.println("");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		returning=Builder.toString();
+		return returning;
 	}
 
 }
