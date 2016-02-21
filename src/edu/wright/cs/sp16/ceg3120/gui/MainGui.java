@@ -21,7 +21,8 @@
 
 package edu.wright.cs.sp16.ceg3120.gui;
 
-import edu.wright.cs.sp16.ceg3120.gui.tabs.StartPageTab;
+import edu.wright.cs.sp16.ceg3120.CreateWindow;
+//import edu.wright.cs.sp16.ceg3120.gui.tabs.StartPageTab;
 
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -50,8 +51,9 @@ public class MainGui extends JFrame implements ActionListener {
 	
 	private JMenuItem exitItem = null;
 	private JMenuItem fullScreenItem = null;
+	private JMenuItem connect = null;
 	private MainTabPane tabPane = null;
-	private StartPageTab startPage = null;
+	//private StartPageTab startPage = null;
 	private boolean isFullScreen = false;
 	
 	/**
@@ -62,6 +64,7 @@ public class MainGui extends JFrame implements ActionListener {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(960, 600);
+		setLocationRelativeTo(null);
 		initComponents();
 	}
 	
@@ -174,8 +177,9 @@ public class MainGui extends JFrame implements ActionListener {
 		Action newSessionAction = new DefaultEditorKit.CutAction();
 		newSessionAction.putValue(Action.NAME, "New Session");
 		
-		Action connectAction = new DefaultEditorKit.CopyAction();
-		connectAction.putValue(Action.NAME, "Connect To Database");
+		connect = new JMenuItem("Connect To Database");
+		ActionListener con = new ConWindow();
+		connect.addActionListener(con);
 		
 		Action disconnectAction = new DefaultEditorKit.PasteAction();
 		disconnectAction.putValue(Action.NAME, "Disconnect From Database");
@@ -192,7 +196,7 @@ public class MainGui extends JFrame implements ActionListener {
 		JMenu session = new JMenu("Session");
 		
 		session.add(newSessionAction);
-		session.add(connectAction);
+		session.add(connect);
 		session.add(disconnectAction);
 		session.add(disconnectAllAction);
 		session.add(createAliasAction);
@@ -229,7 +233,7 @@ public class MainGui extends JFrame implements ActionListener {
 		fullScreenItem.setMnemonic(KeyEvent.VK_F);
 		fullScreenItem.setToolTipText("Make application full screen");
 		fullScreenItem.addActionListener(this);
-
+		
 		JMenu window = new JMenu("Window");
 		window.add(fullScreenItem);
 		
@@ -304,6 +308,26 @@ public class MainGui extends JFrame implements ActionListener {
 				fullScreenItem.setToolTipText("Make application full screen");
 				setSize(960, 600);
 			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @author devesh
+	 *     New CreateWindow to call the CreateWindow class.
+	 *
+	 */
+	private static class ConWindow implements ActionListener {
+		
+		/**
+		 * Perform action to the CreateWindow.
+		 */
+		public void actionPerformed(ActionEvent arg0) {
+			
+			final CreateWindow popthis = new CreateWindow();
+			popthis.setVisible(true);
+			popthis.pack();
+			popthis.setLocationRelativeTo(null);
 		}
 	}
 	
