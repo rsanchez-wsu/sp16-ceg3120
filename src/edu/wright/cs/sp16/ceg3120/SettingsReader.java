@@ -76,7 +76,7 @@ public class SettingsReader {
 	 */
 	public static void main(String[] args) {
 		UserSettings us = readXml("Profile.xml");
-		System.out.printf("%s\n%s\n%s", us.getDefaultDatabase(), us.getDefaultEncoding(), 
+		System.out.printf("%s%n%s%n%s", us.getDefaultDatabase(), us.getDefaultEncoding(), 
 				us.getDefaultView());
 	}
 
