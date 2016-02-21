@@ -118,7 +118,7 @@ public class SettingsReader {
 					userSettings.setDefaultDatabase(tagText);
 					break;
 				case CONNECT_ON_STARTUP:
-					// validate true/false with dtd
+					// validate true/false with dtd?
 					boolean connect = Boolean.parseBoolean(tagText);
 					userSettings.setConnectOnStartup(connect);
 					break;
@@ -138,8 +138,7 @@ public class SettingsReader {
 					break;
 				case VERTICAL_GRID_LINES:
 					boolean vert = Boolean.parseBoolean(tagText);
-					// TODO Rename function
-					userSettings.setShowGrinLines(vert);
+					userSettings.setShowGridLines(vert);
 					break;
 				case REMEMBER_LAST_QUERIES:
 					userSettings.setNumberOfQueries(tagText);
