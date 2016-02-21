@@ -30,13 +30,12 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-
-
 
 /**
  * Reads settings.xml. Contains template code to be expanded.
@@ -45,26 +44,26 @@ import javax.xml.parsers.ParserConfigurationException;
 public class SettingsReader {
 
 	// tags
-	static final String CONFIG = "config";
 	static final String PROFILES = "profiles";
-	static final String USER = "user";
-	static final String DATABASE = "database";
-	static final String USERNAME = "username";
-	static final String PASSWORD = "password";
-	static final String FIRST_NAME = "firstName";
-	static final String LAST_NAME = "lastName";
-	static final String ACCOUNT_TYPE = "accountType";
-	static final String DEPARTMENT = "department";
-	static final String APP_SETTINGS = "appSettings";
-	static final String SHOW_MOTD = "showMotd";
+
+	static final String USER_PREFERENCES = "userPreferences";
+
+	static final String DEFAULT_DATABASE = "defaultDatabase";
+	static final String CONNECT_ON_STARTUP = "connectOnStartup";
+	static final String MESSAGE_ON_STARTUP = "messageOnStartup";
+	static final String DEFAULT_VIEW = "defaultView";
+	static final String DEFAULT_ENCODING = "defaultEncoding";
+	static final String MONOSPACED_FONT = "monospacedFont";
+	static final String VERTICAL_GRID_LINES = "verticleGridLines";
+	static final String REMEMBER_LAST_QUERIES = "rememberLastQueries";
 
 	// tags without relevant meaning
 	static final String TEXT = "#text";
 	static final String COMMENT = "#comment";
-	static final ArrayList<String> IGNORE;
+	static final Set<String> IGNORE;
 
 	static {
-		IGNORE = new ArrayList<>();
+		IGNORE = new HashSet<>();
 		IGNORE.add(TEXT);
 		IGNORE.add(COMMENT);
 	}
@@ -76,17 +75,21 @@ public class SettingsReader {
 	 *            no args
 	 */
 	public static void main(String[] args) {
-		readXml("Profile.xml");
+		UserSettings us = readXml("Profile.xml");
+		System.out.printf("%s\n%s\n%s", us.getDefaultDatabase(), us.getDefaultEncoding(), 
+				us.getDefaultView());
 	}
 
 	/**
-	 * Reads an xml file and does some stuff. Sample Method
+	 * Instantiates a UserSettings object based on an xml file.
 	 * 
 	 * @param xmlFileName
 	 *            file path name
 	 */
-	public static void readXml(String xmlFileName) {
-		// rolev = new ArrayList<String>();
+	public static UserSettings readXml(String xmlFileName) {
+
+		UserSettings userSettings = new UserSettings();
+
 		Document dom;
 		// Make an instance of the DocumentBuilderFactory
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -94,85 +97,59 @@ public class SettingsReader {
 		dbf.setIgnoringElementContentWhitespace(true);
 		dbf.setValidating(true);
 		dbf.setNamespaceAware(true);
-		
-		
+
 		try {
 			DocumentBuilder db = dbf.newDocumentBuilder();
 
 			dom = db.parse(xmlFileName);
 			Element doc = dom.getDocumentElement();
 
-			// user profiles
-			NodeList profiles = doc.getElementsByTagName(PROFILES).item(0).getChildNodes();
-			for (Node userTag : asList(profiles)) {
-				if (IGNORE.contains(userTag.getNodeName())) {
+			Node temp = doc.getElementsByTagName(USER_PREFERENCES).item(0);
+			NodeList preferences = temp.getChildNodes();
+			for (Node prefTag : asList(preferences)) {
+				if (IGNORE.contains(prefTag.getNodeName())) {
 					continue;
 				}
-				// only meaningful child type of profiles is user
-				assert userTag.getNodeName().equals(USER);
 
-				NodeList userTags = userTag.getChildNodes();
-				UserSettings user = new UserSettings();
+				String tagText = prefTag.getTextContent();
 
-				for (Node tag : asList(userTags)) {
-					// System.out.println(tag.getNodeName());
-					switch (tag.getNodeName()) {
-					case DATABASE:
-						user.setDatabase(tag.getTextContent());
-						break;
-					case USERNAME:
-						user.setUsername(tag.getTextContent());
-						break;
-					case PASSWORD:
-
-						// TODO password decrypt password
-						break;
-					case FIRST_NAME:
-						user.setFirstName(tag.getTextContent());
-						break;
-					case LAST_NAME:
-						user.setLastName(tag.getTextContent());
-						break;
-					case ACCOUNT_TYPE:
-						user.setAccountType(tag.getTextContent());
-						break;
-					case DEPARTMENT:
-						user.setDepartment(tag.getTextContent());
-						break;
-					case COMMENT:
-						break;
-					case TEXT:
-						break;
-					default:
-
-						System.err.println("unhandled case " + tag.getNodeName());
-						break;
-					}
-				}
-				System.out.println(DATABASE + " = " + user.getDatabase());
-			}
-
-			// app settings
-			NodeList appSettings = doc.getElementsByTagName(APP_SETTINGS).item(0).getChildNodes();
-
-			for (Node setting : asList(appSettings)) {
-				switch (setting.getNodeName()) {
-				case SHOW_MOTD:
-					boolean showMotd = false;
-					String value = setting.getTextContent();
-					if (value != null) {
-						showMotd = Boolean.parseBoolean(value);
-					}
-					System.out.println(SHOW_MOTD + " = " + showMotd);
+				switch (prefTag.getNodeName()) {
+				case DEFAULT_DATABASE:
+					userSettings.setDefaultDatabase(tagText);
 					break;
-				case COMMENT:
+				case CONNECT_ON_STARTUP:
+					// validate true/false with dtd
+					boolean connect = Boolean.parseBoolean(tagText);
+					userSettings.setConnectOnStartup(connect);
 					break;
-				case TEXT:
+				case MESSAGE_ON_STARTUP:
+					boolean message = Boolean.parseBoolean(tagText);
+					userSettings.setMessageOfTheDay(message);
+					break;
+				case DEFAULT_VIEW:
+					userSettings.setDefaultView(tagText);
+					break;
+				case DEFAULT_ENCODING:
+					userSettings.setDefaultEncoding(tagText);
+					break;
+				case MONOSPACED_FONT:
+					boolean mono = Boolean.parseBoolean(tagText);
+					userSettings.setMonspacedFonts(mono);
+					break;
+				case VERTICAL_GRID_LINES:
+					boolean vert = Boolean.parseBoolean(tagText);
+					// TODO Rename function
+					userSettings.setShowGrinLines(vert);
+					break;
+				case REMEMBER_LAST_QUERIES:
+					userSettings.setNumberOfQueries(tagText);
 					break;
 				default:
-					System.err.println("unhandled case " + setting.getNodeName());
+
+					System.err.println("unhandled case " + prefTag.getNodeName());
 					break;
 				}
+
 			}
 
 		} catch (ParserConfigurationException pce) {
@@ -183,26 +160,28 @@ public class SettingsReader {
 			System.err.println(ioe.getMessage());
 		}
 
+		return userSettings;
 	}
 
-//	/**
-//	 * Debug print loop.
-//	 * 
-//	 * @param nl
-//	 *            NodeList
-//	 */
-//	@SuppressWarnings("unused")
-//	private static void printList(NodeList nl) {
-//		for (Node n : asList(nl)) {
-//			boolean verbose = true;
-//			if (!verbose) {
-//				if (IGNORE.contains(n.getNodeName())) {
-//					continue;
-//				}
-//			}
-//			System.out.println(n.getNodeType() + " " + n.getNodeName() + " " + n.getNodeValue());
-//		}
-//		System.exit(0);
-//	}
+	// /**
+	// * Debug print loop.
+	// *
+	// * @param nl
+	// * NodeList
+	// */
+	// @SuppressWarnings("unused")
+	// private static void printList(NodeList nl) {
+	// for (Node n : asList(nl)) {
+	// boolean verbose = true;
+	// if (!verbose) {
+	// if (IGNORE.contains(n.getNodeName())) {
+	// continue;
+	// }
+	// }
+	// System.out.println(n.getNodeType() + " " + n.getNodeName() + " " +
+	// n.getNodeValue());
+	// }
+	// System.exit(0);
+	// }
 
 }
