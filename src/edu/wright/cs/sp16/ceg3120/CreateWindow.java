@@ -52,6 +52,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 //import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
@@ -96,7 +97,7 @@ public class CreateWindow extends JFrame {
 	private static JTextField name = new JTextField(10);
 	private static JTextField databaseUrl = new JTextField(20);
 	private static JTextField username = new JTextField(10);
-	private static JTextField password = new JTextField(10);
+	private static JPasswordField password = new JPasswordField(10); 
 	private static JTextField alias = new JTextField(10);
 	static String[] testStrings = { "None Selected", "MySQL Driver", 
 			"PostgreSQL Driver", "Demo Driver 3" };
@@ -511,6 +512,7 @@ public class CreateWindow extends JFrame {
 		/**
 		 * setting up the connection to a database.
 		 */
+		@SuppressWarnings("deprecation")
 		public void actionPerformed(ActionEvent ae) {
 			/**
 			 * @author Devesh Amin Save alias while connecting to the database?.
