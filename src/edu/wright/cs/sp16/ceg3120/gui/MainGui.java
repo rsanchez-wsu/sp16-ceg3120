@@ -127,12 +127,37 @@ public class MainGui extends JFrame implements ActionListener {
 		help.add("Welcome").addActionListener(new ActionListener(){
 			
 			public void actionPerformed(ActionEvent event) {
-				//disable the main window
-				makeDisabled();
+			
+				//create a new frame About and set its properties
+				JFrame frameAbout = new JFrame("Welcome"); 
+				JLabel labelName = new JLabel("SQLizard");
+				JLabel labelVersion = new JLabel("Welcome to the amazing application SQLizard");
+
+				frameAbout.getContentPane().add(labelName);
+				frameAbout.getContentPane().add(labelVersion);
+				
+				frameAbout.setSize(500, 600);
+				frameAbout.setLocationRelativeTo(null);
+				frameAbout.setVisible(true);
+				frameAbout.addWindowListener(new WindowAdapter() {
+					@Override
+					public void windowClosing(WindowEvent we) {
+					
+					}
+				});
+			}
+		});
+		
+		help.addSeparator();
+		help.add("About").addActionListener(new ActionListener(){
+			
+			public void actionPerformed(ActionEvent event) {
+				
+				
 				//create a new frame About and set its properties
 				JFrame frameAbout = new JFrame("About"); 
-				JLabel labelName = new JLabel("SQLizard");
-				JLabel labelVersion = new JLabel("Version: 0.0.0.0");
+				JLabel labelName = new JLabel("About");
+				JLabel labelVersion = new JLabel("Version 0.0.0.0");
 
 				frameAbout.getContentPane().add(labelName);
 				frameAbout.getContentPane().add(labelVersion);
@@ -143,14 +168,13 @@ public class MainGui extends JFrame implements ActionListener {
 				frameAbout.addWindowListener(new WindowAdapter() {
 					@Override
 					public void windowClosing(WindowEvent we) {
-						makeEnabled();
+						
 					}
 				});
 			}
-		});
+		});;
 		
-		help.addSeparator();
-		help.add("About");
+		
 		//TODO: Decide what to include in Help Menu
 
 		JMenuBar menuBar = new JMenuBar();
@@ -183,17 +207,6 @@ public class MainGui extends JFrame implements ActionListener {
 		}
 	}
 	
-	/**
-	 * Disables the main window.
-	 */
-	public void makeDisabled() {
-		setEnabled(false);
-	}
-	/**
-	 * Enables the main window.
-	 */
-	public void makeEnabled() {
-		setEnabled(true);
-	}
+	
 
 }

@@ -22,9 +22,9 @@
 package edu.wright.cs.sp16.ceg3120.gui;
 
 //import edu.wright.cs.sp16.ceg3120.gui.tabs.ConnectionTab;
-import edu.wright.cs.sp16.ceg3120.gui.tabs.BackupExportTab;
-import edu.wright.cs.sp16.ceg3120.gui.tabs.ConnectionTab;
-import edu.wright.cs.sp16.ceg3120.gui.tabs.StartPageTab;
+//import edu.wright.cs.sp16.ceg3120.gui.tabs.BackupExportTab;
+//import edu.wright.cs.sp16.ceg3120.gui.tabs.ConnectionTab;
+//import edu.wright.cs.sp16.ceg3120.gui.tabs.StartPageTab;
 
 import javax.swing.JTabbedPane;
 
