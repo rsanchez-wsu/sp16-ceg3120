@@ -23,7 +23,9 @@ package edu.wright.cs.sp16.ceg3120;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * @author rhys
@@ -41,6 +43,7 @@ public class PostgreConnect {
 	private String dbUsername;
 	private String dbPassword;
 	private String dbName;
+	Connection conn;
 
 	/**
 	 * PostgreConnect is just a place holder constructor.
@@ -87,23 +90,46 @@ public class PostgreConnect {
 
 		try {
 			Class.forName("org.postgresql.Driver");
-			Connection conn = null;
 			try {
 				conn = DriverManager.getConnection("jdbc:postgresql://" + dbAddress
 						+ ":5432/" + dbName, dbUsername,
 						dbPassword);
-				System.out.println(conn.toString());
-				conn.close();
-
 			} catch (SQLException SqlEx) {
-				//conn.close();
 				System.out.println("If you see this, you failed to connect!");
 				System.out.println(SqlEx.getMessage());
-
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * ExecuteQuery is a method which takes a string value that contains a SQL
+	 * query. The method executes the query, iterates through the results, and
+	 * returns a string that contains the results. For this method to work, the
+	 * configure() method must be run successfully first to set up a connection
+	 * to the database.
+	 * 
+	 * @param stringQuery string value that contains a valid SQL query.
+	 *            
+	 * @return results of the query in string format.
+	 */
+	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = 
+			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE",
+			justification = "We specifically want to allow the user to execute arbitrary SQL")
+	public String executeQuery(String stringQuery) {
+		DriverManager.setLoginTimeout(5);
+		StringBuilder stringBuilder = new StringBuilder();
+		try (Statement stmt = conn.createStatement(); 
+				ResultSet rs = stmt.executeQuery(stringQuery)) {
+			for (int i = 1; rs.next() == true; i++) {
+				stringBuilder.append(rs.getString(i));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		String queryOut = stringBuilder.toString();
+		return queryOut;
 	}
 
 	/**
