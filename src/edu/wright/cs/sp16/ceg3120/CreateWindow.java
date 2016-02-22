@@ -565,6 +565,8 @@ public class CreateWindow extends JFrame {
 				try {
 					mysqlconnect.configure();
 					setConnected(true);
+					//Test code to check the connection and query function.
+					System.out.println(mysqlconnect.executeQuery("SELECT * FROM inventory;"));
 				} catch (SQLException e) {
 					e.printStackTrace();
 				} finally {
@@ -575,6 +577,10 @@ public class CreateWindow extends JFrame {
 						new PostgreConnect(dbAddress, dbUsername, dbPassword, dbName);
 				try {
 					postgreConnect.configure();
+					//test code to test the connection and query function
+					System.out.println(postgreConnect.executeQuery("SELECT actor.first_name,"
+							+ " actor.actor_id, actor.last_name, actor.last_update FROM "
+							+ "public.actor;"));
 					setConnected(true);
 				} catch (SQLException e) {
 					e.printStackTrace();
