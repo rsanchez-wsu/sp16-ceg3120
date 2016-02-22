@@ -296,7 +296,6 @@ public class DerbyConn {
 	private static void addTable(int items) {
 
 		try {
-			stmt = conn.createStatement();
 			Scanner orbital = new Scanner(System.in);
 			String[] tableInfo = new String[items*2];
 			int location = 0;
@@ -344,7 +343,8 @@ public class DerbyConn {
 				sql = sql + tableInfo[j + 1] + " " + tableInfo[j];
 			}
 			sql = sql + " PRIMARY KEY ( id ))";
-			pstmt.executeQuery(sql);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.executeUpdate();
 
 			System.out.println("Created table in given database...");			
 		} catch (SQLException sqlExcept) {
