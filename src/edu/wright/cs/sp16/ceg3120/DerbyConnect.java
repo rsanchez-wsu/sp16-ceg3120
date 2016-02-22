@@ -28,7 +28,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-//import java.sql.Statement;
 
 /**
  * This will create a derby database to connect to within the application.
@@ -42,7 +41,6 @@ public class DerbyConnect {
 	private String dbUrl = "jdbc:derby://localhost:1527/testDB;create=true;"
 			+ "user=admin;password=";
 	private Connection conn = null;
-//	private Statement stmt = null;
 
 	/**
 	 * Default constructor.
@@ -69,7 +67,6 @@ public class DerbyConnect {
 		try {
 			Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
 			conn = DriverManager.getConnection(dbUrl);
-//			stmt.close();
 			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -95,6 +92,7 @@ public class DerbyConnect {
 	public String getDbName() {
 		return dbName;
 	}
+
 	/**
 	 * the method is to run derby commands in derby drivers and return the results of any command
 	 * 
@@ -102,16 +100,15 @@ public class DerbyConnect {
 	 * @throws Exception
 	 *  */
 	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = 
-			"Derby_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
+			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
 			"We specifically want to allow the user to execute arbitrary Derby")
-	public String dataEntry(String Query) throws Exception {
-		String returning="";
-		StringBuilder Builder =new StringBuilder();
+	public String dataEntry(String query) {
+		String returning = "";
+		StringBuilder builder = new StringBuilder();
 		
-		 
 		try (
 				Statement input = conn.createStatement();
-				ResultSet rs = input.executeQuery(Query);) {
+				ResultSet rs = input.executeQuery(query)) {
 			// ResulSetMetaData does not implement AutoClosable() so it
 			// cannot be handled by try-with-resources.
 			ResultSetMetaData rsmd = null;
@@ -124,17 +121,18 @@ public class DerbyConnect {
 			while (rs.next()) {
 				for (int i = 1; i <= columnsNumber; i++) {
 					if (i > 1) {
-						Builder.append(",  ");
+						builder.append(",  ");
 						String columnValue = rs.getString(i);
-						Builder.append(columnValue + " " + rsmd.getColumnName(i));
+						builder.append(columnValue + " " + rsmd.getColumnName(i));
 					}
 				}
 				System.out.println("");
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		returning=Builder.toString();
+		returning = builder.toString();
 		return returning;
 	}
 
