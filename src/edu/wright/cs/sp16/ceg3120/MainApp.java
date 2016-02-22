@@ -22,7 +22,7 @@
 package edu.wright.cs.sp16.ceg3120;
 
 
-//import java.awt.Window;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ContainerEvent;
@@ -31,7 +31,7 @@ import java.awt.event.ContainerListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-//import javax.swing.JOptionPane;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 
@@ -60,30 +60,26 @@ public class MainApp {
 					Profile.mainProfile();
 					System.out.println("Hi");
 				}
-
-				
 			}
-			
-			
 		});
 		
 		
 		frame.addContainerListener(new ContainerListener() {
 			
-//			@Override
-//			public void windowClosing(Window we) {
-//				int close = JOptionPane.showConfirmDialog(frame, 
-//						"Exit the application?", 
-//						"Exit", 
-//						JOptionPane.YES_NO_OPTION);
-//				
-//				if (close == JOptionPane.YES_OPTION) {
-//					
-//					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//				} else {
-//					frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-//				}
-//			}
+			@SuppressWarnings("unused")
+			public void windowClosing(Window we) {
+				int close = JOptionPane.showConfirmDialog(frame, 
+						"Exit the application?", 
+						"Exit", 
+						JOptionPane.YES_NO_OPTION);
+				
+				if (close == JOptionPane.YES_OPTION) {
+					
+					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				} else {
+					frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+				}
+			}
 
 			@Override
 			public void componentAdded(ContainerEvent arg0) {
@@ -99,9 +95,7 @@ public class MainApp {
 			
 			
 		});
-		
-		
-		
+
 		frame.setSize(300, 300);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
@@ -119,13 +113,8 @@ public class MainApp {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				
-				
 				createWindow();
 			}
 		});
-		
-
-		
 	}
 }
