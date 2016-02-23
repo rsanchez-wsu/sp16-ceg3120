@@ -16,6 +16,6 @@
 
 <!ELEMENT monospacedFont (#PCDATA)>
 
-<!ELEMENT verticleGridLines (#PCDATA)>
+<!ELEMENT verticalGridLines (#PCDATA)>
 
 <!ELEMENT rememberLastQueries (#PCDATA) >

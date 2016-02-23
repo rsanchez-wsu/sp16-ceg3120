@@ -17,7 +17,7 @@
 			
 			<monospacedFont>False</monospacedFont>
 			
-			<verticleGridLines>False</verticleGridLines>
+			<verticalGridLines>False</verticalGridLines>
 			
 			<rememberLastQueries>Five</rememberLastQueries>
 			

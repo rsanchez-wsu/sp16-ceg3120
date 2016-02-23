@@ -9,7 +9,7 @@
 			<defaultView></defaultView>
 			<defaultEncoding></defaultEncoding>
 			<monospacedFont></monospacedFont>
-			<verticleGridLines></verticleGridLines>
+			<verticalGridLines></verticalGridLines>
 			<rememberLastQueries></rememberLastQueries>
 		</userPreferences>
 	</profiles>
