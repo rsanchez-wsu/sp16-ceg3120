@@ -50,6 +50,9 @@ public class MainGui extends JFrame implements ActionListener {
 	private JMenuItem fullScreenItem = null;
 	private MainTabPane tabPane = null;
 	private boolean isFullScreen = false;
+
+	private JMenuItem aboutMenuItem;
+	private JMenuItem welcomeMenuItem;
 	
 	/**
 	 * The constructor method that initializes the main application window.
@@ -125,55 +128,18 @@ public class MainGui extends JFrame implements ActionListener {
 		
 		// Help menu
 		JMenu help = new JMenu("Help");
-		help.add("Welcome").addActionListener(new ActionListener(){
-			
-			public void actionPerformed(ActionEvent event) {
-			
-				//create a new frame About and set its properties
-				JFrame frameAbout = new JFrame("Welcome"); 
-				JLabel labelName = new JLabel("SQLizard");
-				JLabel labelVersion = new JLabel("Welcome to the amazing application SQLizard");
-
-				frameAbout.getContentPane().add(labelName);
-				frameAbout.getContentPane().add(labelVersion);
-				
-				frameAbout.setSize(500, 600);
-				frameAbout.setLocationRelativeTo(null);
-				frameAbout.setVisible(true);
-				frameAbout.addWindowListener(new WindowAdapter() {
-					@Override
-					public void windowClosing(WindowEvent we) {
-					
-					}
-				});
-			}
-		});
+		
+		welcomeMenuItem = new JMenuItem("Welcome");
+		welcomeMenuItem.addActionListener(this);
+		
+		help.add(welcomeMenuItem);
 		
 		help.addSeparator();
-		help.add("About").addActionListener(new ActionListener(){
-			
-			public void actionPerformed(ActionEvent event) {
-				
-				
-				//create a new frame About and set its properties
-				JFrame frameAbout = new JFrame("About"); 
-				JLabel labelName = new JLabel("About");
-				JLabel labelVersion = new JLabel("Version 0.0.0.0");
-
-				frameAbout.getContentPane().add(labelName);
-				frameAbout.getContentPane().add(labelVersion);
-				
-				frameAbout.setSize(300, 300);
-				frameAbout.setLocationRelativeTo(null);
-				frameAbout.setVisible(true);
-				frameAbout.addWindowListener(new WindowAdapter() {
-					@Override
-					public void windowClosing(WindowEvent we) {
-						
-					}
-				});
-			}
-		});;
+		
+		aboutMenuItem = new JMenuItem("About");
+		aboutMenuItem.addActionListener(this);
+		
+		help.add(aboutMenuItem);
 		
 		
 		//TODO: Decide what to include in Help Menu
@@ -215,6 +181,30 @@ public class MainGui extends JFrame implements ActionListener {
 				fullScreenItem.setToolTipText("Make application full screen");
 				setSize(960, 600);
 			}
+		} else if (actionEvent.getSource().equals(welcomeMenuItem)) {	
+			//create a new frame About and set its properties
+			JFrame frameAbout = new JFrame("Welcome"); 
+			JLabel labelName = new JLabel("SQLizard");
+			JLabel labelVersion = new JLabel("Welcome to the amazing application SQLizard");
+
+			frameAbout.getContentPane().add(labelName);
+			frameAbout.getContentPane().add(labelVersion);
+			
+			frameAbout.setSize(500, 600);
+			frameAbout.setLocationRelativeTo(null);
+			frameAbout.setVisible(true);
+		} else if (actionEvent.getSource().equals(aboutMenuItem)) {	
+			//create a new frame About and set its properties
+			JFrame frameAbout = new JFrame("About"); 
+			JLabel labelName = new JLabel("About");
+			JLabel labelVersion = new JLabel("Version 0.0.0.0");
+
+			frameAbout.getContentPane().add(labelName);
+			frameAbout.getContentPane().add(labelVersion);
+			
+			frameAbout.setSize(300, 300);
+			frameAbout.setLocationRelativeTo(null);
+			frameAbout.setVisible(true);
 		}
 	}
 	
