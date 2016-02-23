@@ -21,16 +21,9 @@
 
 package edu.wright.cs.sp16.ceg3120.gui;
 
-<<<<<<< HEAD
-//import edu.wright.cs.sp16.ceg3120.gui.tabs.ConnectionTab;
-//import edu.wright.cs.sp16.ceg3120.gui.tabs.BackupExportTab;
-//import edu.wright.cs.sp16.ceg3120.gui.tabs.ConnectionTab;
-//import edu.wright.cs.sp16.ceg3120.gui.tabs.StartPageTab;
-=======
 import edu.wright.cs.sp16.ceg3120.gui.tabs.BackupExportTab;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.ConnectionTab;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.StartPageTab;
->>>>>>> 352941d1727bd1c0b73039db5a5c7a4ea1281db2
 
 
 import javax.swing.JTabbedPane;
