@@ -37,7 +37,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-
+//import javax.swing.JOptionPane;
 import javax.swing.text.DefaultEditorKit;
 
 /**
@@ -62,10 +62,11 @@ public class MainGui extends JFrame implements ActionListener {
 	public MainGui() {
 		super("SQLizard");
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(960, 600);
 		setLocationRelativeTo(null);
 		initComponents();
+		
+		
 	}
 	
 	/**
@@ -122,6 +123,7 @@ public class MainGui extends JFrame implements ActionListener {
 		exitItem.setMnemonic(KeyEvent.VK_E);
 		exitItem.setToolTipText("Exit application");
 		exitItem.addActionListener(this);
+		
 
 		file.add(openAction);
 		file.add(newAction);
@@ -323,11 +325,26 @@ public class MainGui extends JFrame implements ActionListener {
 		 * Perform action to the CreateWindow.
 		 */
 		public void actionPerformed(ActionEvent arg0) {
-			
 			final CreateWindow popthis = new CreateWindow();
 			popthis.setVisible(true);
 			popthis.pack();
 			popthis.setLocationRelativeTo(null);
+			//  ******************************** From Lines 331 to 343:
+			//  can't fix: Bug type SIC_INNER_SHOULD_BE_STATIC_ANON *************************
+			/* popthis.addWindowListener(new WindowAdapter() {
+				public void windowClosing(WindowEvent evt) {
+					int answer = JOptionPane.showConfirmDialog(popthis, 
+							"Do you really want to quit?", 
+							"Quit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+					if (answer == JOptionPane.YES_OPTION) {
+						popthis.dispose();
+					} else {
+						popthis.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+					}
+
+				} // end of widowClosing
+
+			}); // end of WindowListener */
 		}
 	}
 	

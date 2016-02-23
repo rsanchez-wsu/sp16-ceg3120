@@ -191,11 +191,11 @@ public class MySqlConnect {
 	 * Sets the database password as a String value. It is case sensitive, and
 	 * is verified against the database.
 	 * 
-	 * @param dbPassword
+	 * @param dbPassword2
 	 *            database password
 	 */
-	public void setDbPassword(String dbPassword) {
-		this.dbPassword = dbPassword;
+	public void setDbPassword(String dbPassword2) {
+		this.dbPassword = dbPassword2;
 	}
 
 	/**
