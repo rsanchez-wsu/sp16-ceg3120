@@ -49,7 +49,7 @@ public class TestGui {
 			SplashScreen screen = new SplashScreen();
 			screen.showSplashScreen();
 
-			MainGui gui = new MainGui();
+			final MainGui gui = new MainGui();
 			gui.setVisible(true);
 			gui.addWindowListener(new WindowAdapter() {
 				public void windowClosing(WindowEvent evt) {
