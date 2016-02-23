@@ -21,6 +21,11 @@
 
 package edu.wright.cs.sp16.ceg3120.gui;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -46,6 +51,19 @@ public class TestGui {
 
 			MainGui gui = new MainGui();
 			gui.setVisible(true);
+			gui.addWindowListener(new WindowAdapter() {
+				public void windowClosing(WindowEvent evt) {
+					int answer = JOptionPane.showConfirmDialog(gui, "Exit SQLizard?", 
+							"Quit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+					if (answer == JOptionPane.YES_OPTION) {
+						System.exit(0);
+					} else {
+						gui.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+					}
+
+				} // end of widowClosing
+
+			}); // end of WindowListener
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
