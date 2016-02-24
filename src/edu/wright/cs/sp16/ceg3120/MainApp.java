@@ -78,7 +78,9 @@ public class MainApp {
 			@Override
 			public void run() {
 				
-				
+				DBconnection sql = new DBconnection();
+				sql.createConnection();
+				sql.closeConnection();
 				closeWindow();
 
 			}

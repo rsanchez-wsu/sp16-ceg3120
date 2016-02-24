@@ -19,14 +19,14 @@
  *
  */
 
-package testconnection;
+package edu.wright.cs.sp16.ceg3120;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * 
+ * DBconnection class creates a connection thru an embedded derby driver. 
  * @author AlisonGuyton.
  *
  */
@@ -46,7 +46,7 @@ public class DBconnection {
 			System.out.println(e.toString());
 		}
 		//path may vary per user because it is an Embedded Driver
-		url = "jdbc:derby:/Users/AlisonGuyton/.ivy2/cache/org.apache.derby/derby/jars/newDB;"
+		url = "jdbc:derby:./DATABASE;"
 				+ "create=true";
 
 		System.out.println("Created SQL Connect");
@@ -76,13 +76,4 @@ public class DBconnection {
 		}
 	}
 	
-/**
- * main.
- * @param args args.
- */
-	public static void main(String[] args) {
-		DBconnection sql = new DBconnection();
-		sql.createConnection();
-		sql.closeConnection();
-	}
 }
