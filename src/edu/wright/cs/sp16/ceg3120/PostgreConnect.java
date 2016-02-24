@@ -24,6 +24,7 @@ package edu.wright.cs.sp16.ceg3120;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -122,8 +123,19 @@ public class PostgreConnect {
 		StringBuilder stringBuilder = new StringBuilder();
 		try (Statement stmt = conn.createStatement(); 
 				ResultSet rs = stmt.executeQuery(stringQuery)) {
-			for (int i = 1; rs.next() == true; i++) {
-				stringBuilder.append(rs.getString(i));
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int columnsNumber = rsmd.getColumnCount();
+			// Iterate through all data returned and append to string
+			// result.
+			while (rs.next()) {
+				for (int i = 1; i <= columnsNumber; i++) {
+					if (i > 1) {
+						stringBuilder.append(",  ");
+						String columnValue = rs.getString(i);
+						stringBuilder.append(columnValue + " " + rsmd.getColumnName(i));
+					}
+				}
+				System.out.println("");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
