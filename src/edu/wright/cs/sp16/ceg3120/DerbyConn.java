@@ -4,7 +4,6 @@
 
 package edu.wright.cs.sp16.ceg3120;
 
-
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -36,9 +36,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class DerbyConn {
 	private static ResultSet rs = null;
-	private static Connection conn = null;
-	private static PreparedStatement pstmt = null;
-	private static Statement stmt = null;
 
 	/**
 	 * The main method.
@@ -49,15 +46,13 @@ public class DerbyConn {
 	public static void main(String[] args) {
 		String firstName = null;
 		String lastName = null;
-
+		int run = 1;
 		String id = null;
 		int idNum = 0;
-		
+
 		String val = null;
 		int numVal = 0;
-
-		establishConn();
-
+		int choice = 0;
 		try {
 			createTable();
 		} catch (SQLException e) {
@@ -66,44 +61,56 @@ public class DerbyConn {
 
 		createWindow();
 
-		System.out
-				.println("Welcome to the database: To view contents enter 1, "
-						+ "To enter new data enter 2, To delete an item from "
-						+ "the table enter 3, To create a table enter 4");
-		Scanner keyboard = new Scanner(System.in);
-		String input = keyboard.next();
-		int choice = Integer.parseInt(input);
-		switch (choice) {
-		case 1:
-			printTable();
-			break;
-		case 2:
-			System.out.println("Enter first name");
-			firstName = keyboard.next();
-			System.out.println("Enter last name");
-			lastName = keyboard.next();
-			System.out.println("Enter ID");
-			id = keyboard.next();
-			idNum = Integer.parseInt(id);
-			insertItem(firstName, lastName, idNum);
-			System.out.println("Insertion Successful");
-			printTable();
-			break;
-		case 3:
-			System.out.println("Enter ID number to delete");
-			id = keyboard.next();
-			deleteItem(id);
-			printTable();
-			break;
-		case 4: 
-			System.out.println("Enter the number of columns for the table: ");
-			val = keyboard.next();
-			numVal = Integer.parseInt(val);
-			addTable(numVal);
-			break;
-		default:
-			break;
-		}
+		do {
+			System.out
+					.println("\nWelcome to the database \nTo view contents enter 1 \n"
+							+ "To enter new data enter 2 \nTo delete an item from "
+							+ "the table enter 3 \nTo create a table enter 4 \nTo exit enter 5");
+			Scanner keyboard = new Scanner(System.in);
+
+			try {
+				choice = keyboard.nextInt();
+			} catch (InputMismatchException exception) {
+				System.out.println("Invalid Input");
+			}
+
+			switch (choice) {
+			case 1:
+				printTable();
+				break;
+			case 2:
+				System.out.println("Enter first name");
+				firstName = keyboard.next();
+				System.out.println("Enter last name");
+				lastName = keyboard.next();
+				System.out.println("Enter ID");
+				id = keyboard.next();
+				idNum = Integer.parseInt(id);
+				insertItem(firstName, lastName, idNum);
+				System.out.println("Insertion Successful");
+				printTable();
+				break;
+			case 3:
+				System.out.println("Enter ID number to delete");
+				id = keyboard.next();
+				deleteItem(id);
+				printTable();
+				break;
+			case 4:
+				System.out
+						.println("Enter the number of columns for the table: ");
+				val = keyboard.next();
+				numVal = Integer.parseInt(val);
+				addTable(numVal);
+				break;
+			case 5:
+				run = 0;
+				System.exit(0);
+				break;
+			default:
+				break;
+			}
+		} while (run != 0);
 
 	}
 
@@ -113,16 +120,13 @@ public class DerbyConn {
 	 */
 	private static void createWindow() {
 		JFrame frame = new JFrame("Team 4 Database");
-		
+
 		frame.addWindowListener(new WindowAdapter() {
 
 			public void windowClosing(WindowEvent event) {
 				System.exit(0);
 			}
 		});
-
-		// JLabel jlbempty = new JLabel("Some Stuff");
-		// jlbempty.setPreferredSize(new Dimension(175, 100));
 
 		JButton displayTable = new JButton("Display Table");
 		displayTable.setSize(40, 60);
@@ -146,7 +150,8 @@ public class DerbyConn {
 	 *             Sql exception
 	 */
 	private static void createTable() throws SQLException {
-
+		Connection conn = establishConn();
+		Statement stmt = null;
 		// attempts to create table
 		try {
 			stmt = conn.createStatement();
@@ -166,7 +171,8 @@ public class DerbyConn {
 	 * 
 	 */
 	private static void displayTable() {
-
+		Connection conn = establishConn();
+		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement("select * from Test");
 			rs = pstmt.executeQuery();
@@ -227,7 +233,8 @@ public class DerbyConn {
 	/**
 	 * This method establishes a connection with the database.
 	 */
-	private static void establishConn() {
+	private static Connection establishConn() {
+		Connection conn = null;
 		try {
 
 			// database connection url. Creates a database called derbyDB in the
@@ -243,6 +250,7 @@ public class DerbyConn {
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
+		return conn;
 	}
 
 	/**
@@ -256,6 +264,8 @@ public class DerbyConn {
 	 *            The id number of the individual added to the database.
 	 */
 	private static void insertItem(String lastName, String firstName, int idNum) {
+		Connection conn = establishConn();
+		PreparedStatement pstmt = null;
 		try {
 
 			pstmt = conn.prepareStatement("INSERT INTO Test values (?,?,?)");
@@ -279,6 +289,8 @@ public class DerbyConn {
 	 *            database.
 	 */
 	private static void deleteItem(String idNum) {
+		Connection conn = establishConn();
+		PreparedStatement pstmt = null;
 		try {
 
 			pstmt = conn.prepareStatement("DELETE FROM Test WHERE ID = ?");
@@ -290,19 +302,25 @@ public class DerbyConn {
 			sqlExcept.printStackTrace();
 		}
 	}
-	
-	/** This method creates a new table in the database.
+
+	/**
+	 * This method creates a new table in the database.
 	 */
 	private static void addTable(int items) {
+		Connection conn = establishConn();
+		PreparedStatement pstmt = null;
 
 		try {
 			Scanner orbital = new Scanner(System.in);
-			String[] tableInfo = new String[items*2];
+			String[] tableInfo = new String[items * 2];
 			int location = 0;
-			for(int i = 0; i < items; i++){
-				String colName;	
-				System.out.println("If value " + i++ + "is a string enter 1, "
-						+ "if it is a number enter 2, if it is a boolean enter 3: ");
+			for (int i = 0; i < items; i++) {
+				String colName;
+				System.out
+						.println("If value "
+								+ i++
+								+ "is a string enter 1, "
+								+ "if it is a number enter 2, if it is a boolean enter 3: ");
 				int choice = orbital.nextInt();
 
 				switch (choice) {
@@ -337,16 +355,16 @@ public class DerbyConn {
 				}
 
 			}
-			String sql = "CREATE TABLE REGISTRATION " +
-					"(id INTEGER not NULL, " ;
-			for(int j = 0; j < location; j= j+2){
+			String sql = "CREATE TABLE REGISTRATION "
+					+ "(id INTEGER not NULL, ";
+			for (int j = 0; j < location; j = j + 2) {
 				sql = sql + tableInfo[j + 1] + " " + tableInfo[j];
 			}
 			sql = sql + " PRIMARY KEY ( id ))";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.executeUpdate();
 
-			System.out.println("Created table in given database...");			
+			System.out.println("Created table in given database...");
 		} catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
 		}
@@ -356,12 +374,10 @@ public class DerbyConn {
 	 * This method prints the current contents of the table.
 	 */
 	private static void printTable() {
-		String tableName = null;
+		Connection conn = establishConn();
+		PreparedStatement pstmt = null;
 		String sql = null;
-		Scanner keyboard = new Scanner(System.in);
-		System.out.println("Enter the table name that you want to print.");
-		tableName = keyboard.next();
-		sql = "SELECT * FROM " + tableName;
+		sql = "SELECT * FROM Test";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
