@@ -2,7 +2,7 @@
 
 <!ELEMENT profiles (userPreferences)>
 
-<!ELEMENT userPreferences (defaultDatabase, connectOnStartup, messageOnStartup, defaultView, defaultEncoding, monospacedFont, verticleGridLines, rememberLastQueries)>
+<!ELEMENT userPreferences (defaultDatabase, connectOnStartup, messageOnStartup, defaultView, defaultEncoding, monospacedFont, verticalGridLines, rememberLastQueries)>
 
 <!ELEMENT defaultDatabase (#PCDATA)>
 
