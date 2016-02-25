@@ -9,8 +9,10 @@
     <dependencies>
         <dependency org="org.apache.derby" name="derby" rev="10.11.1.1" conf="lib->default"/>
         <dependency org="junit" name="junit" rev="4.6" conf="tools->default"/>
+        <dependency org="com.google.code.findbugs" name="findbugs" rev="3.0.1" conf="lib->default"/>
         <dependency org="com.google.code.findbugs" name="findbugs" rev="3.0.1" conf="tools->default"/>
         <dependency org="mysql" name="mysql-connector-java" rev="5.1.6" conf="lib->default"/>
         <dependency org="com.puppycrawl.tools" name="checkstyle" rev="6.11.2" conf="tools->default"/>
+        <dependency org="org.postgresql" name="postgresql" rev="9.4.1207.jre7" conf="tools->default"/>
     </dependencies>
 </ivy-module>
