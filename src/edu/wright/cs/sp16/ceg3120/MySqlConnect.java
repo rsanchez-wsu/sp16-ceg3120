@@ -26,6 +26,9 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 /**
  * @author rhys
  * 
@@ -42,6 +45,7 @@ public class MySqlConnect {
 	private String dbUsername;
 	private String dbPassword;
 	private String dbName;
+	private JPanel successPanel = new JPanel();
 	private com.mysql.jdbc.jdbc2.optional.MysqlDataSource dataSource = 
 			new com.mysql.jdbc.jdbc2.optional.MysqlDataSource();
 
@@ -112,6 +116,10 @@ public class MySqlConnect {
 					}
 					System.out.println("");
 				}
+				JOptionPane.showMessageDialog(successPanel, 
+						"Connection successful", 
+						"Success", 
+						JOptionPane.PLAIN_MESSAGE);
 
 				rs.close();
 				stmt.close();
@@ -121,6 +129,10 @@ public class MySqlConnect {
 				stmt.close();
 				conn.close();
 				System.out.println("If you see this, you failed to connect!");
+				JOptionPane.showMessageDialog(successPanel, 
+						"Connection failed", 
+						"Failed", 
+						JOptionPane.ERROR_MESSAGE);
 				System.out.println(SqlEx.getMessage());
 
 			} finally {

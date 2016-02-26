@@ -326,6 +326,7 @@ public class CreateWindow extends JFrame {
 		public void actionPerformed(ActionEvent ae) {
 			String toRead = aliases.getSelectedItem().toString();
 			alias.setText(toRead);
+			alias.grabFocus();
 			readAlias(toRead);
 		}
 
@@ -500,13 +501,85 @@ public class CreateWindow extends JFrame {
 		 * save alias?.
 		 * 
 		 */
+		@SuppressWarnings("deprecation")
 		public void saveAlias() {
-			int sv = JOptionPane.showConfirmDialog(svAlias, "Do you want to save this alias?", 
+			String dbName = name.getText();
+			String dbAddress = databaseUrl.getText();
+			String dbUsername = username.getText();
+			String dbPassword = password.getText();
+			String dbDriver = driver.getSelectedItem().toString();
+			int sv = JOptionPane.showConfirmDialog(svAlias, 
+					"Do you want to save " + alias.getText() + " alias?", 
 					"Save Alias?", JOptionPane.YES_NO_CANCEL_OPTION);
-			if (sv == JOptionPane.CANCEL_OPTION) {
-				JOptionPane option = new JOptionPane();
-				option.setVisible(false);
-			} // else if {...}
+			if (sv == JOptionPane.YES_OPTION) {
+				String passA = "";
+				String saltA = "";
+				if (savePassword.isSelected()) {
+					String pass = password.getText();
+					byte[] encPass;
+
+					// Encryption
+					final PasswordEncryptionService pes = new PasswordEncryptionService();
+					try {
+						byte[] salt = pes.generateSalt();
+						encPass = pes.getEncryptedPassword(pass, salt);
+						passA = Arrays.toString(encPass);
+						saltA = Arrays.toString(salt);
+					} catch (NoSuchAlgorithmException e) {
+						System.err.println("Caught NoSuchAlgorithmException: " + e.getMessage());
+					} catch (InvalidKeySpecException e) {
+						System.err.println("Caught InvalidKeySpecException: " + e.getMessage());
+					}
+
+				}
+				try {
+					writeAlias(alias.getText(), dbName, dbAddress, dbUsername, passA, saltA,
+							savePassword.isSelected(), dbDriver);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (SAXException e) {
+					e.printStackTrace();
+				}
+				System.out.println(dbDriver);
+				if (dbDriver.equals("MySQL Driver")) {
+					MySqlConnect connect 
+							= new MySqlConnect(dbAddress, dbUsername, dbPassword, dbName);
+					try {
+						connect.configure();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				} else if (dbDriver.equals("PostgreSQL Driver")) {
+					PostgreConnect postgreConnect = 
+							new PostgreConnect(dbAddress, dbUsername, dbPassword, dbName);
+					try {
+						postgreConnect.configure();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			} else if (sv == JOptionPane.NO_OPTION) {
+				System.out.println(dbDriver);
+				if (dbDriver.equals("MySQL Driver")) {
+					MySqlConnect connect 
+							= new MySqlConnect(dbAddress, dbUsername, dbPassword, dbName);
+					try {
+						connect.configure();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				} else if (dbDriver.equals("PostgreSQL Driver")) {
+					PostgreConnect postgreConnect = 
+							new PostgreConnect(dbAddress, dbUsername, dbPassword, dbName);
+					try {
+						postgreConnect.configure();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			} else if (sv == JOptionPane.CANCEL_OPTION) {
+				alias.grabFocus();
+			}
 		}
 
 		/**
@@ -517,64 +590,21 @@ public class CreateWindow extends JFrame {
 			/**
 			 * @author Devesh Amin Save alias while connecting to the database?.
 			 */
-			saveAlias();
-
-			/**
-			 * Saving password: make sure to encrypt.
-			 */
-			String passA = "";
-			String saltA = "";
-			if (savePassword.isSelected()) {
-				String pass = password.getText();
-				byte[] encPass;
-
-				// Encryption
-				final PasswordEncryptionService pes = new PasswordEncryptionService();
-				try {
-					byte[] salt = pes.generateSalt();
-					encPass = pes.getEncryptedPassword(pass, salt);
-					passA = Arrays.toString(encPass);
-					saltA = Arrays.toString(salt);
-				} catch (NoSuchAlgorithmException e) {
-					System.err.println("Caught NoSuchAlgorithmException: " + e.getMessage());
-				} catch (InvalidKeySpecException e) {
-					System.err.println("Caught InvalidKeySpecException: " + e.getMessage());
-				}
-
-			}
-			String dbName = name.getText();
-			String dbAddress = databaseUrl.getText();
-			String dbUsername = username.getText();
-			String dbPassword = password.getText();
-			String dbDriver = driver.getSelectedItem().toString();
-			try {
-				writeAlias(alias.getText(), dbName, dbAddress, dbUsername, passA, saltA,
-						savePassword.isSelected(), dbDriver);
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (SAXException e) {
-				e.printStackTrace();
-			}
-			System.out.println(dbDriver);
-			if (dbDriver.equals("MySQL Driver")) {
-				MySqlConnect connect = new MySqlConnect(dbAddress, dbUsername, dbPassword, dbName);
-				try {
-					connect.configure();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			} else if (dbDriver.equals("PostgreSQL Driver")) {
-				PostgreConnect postgreConnect = 
-						new PostgreConnect(dbAddress, dbUsername, dbPassword, dbName);
-				try {
-					postgreConnect.configure();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+			if (alias.getText().equals("") 
+					|| databaseUrl.getText().equals("") 
+					|| name.getText().equals("")
+					|| username.getText().equals("") 
+					|| password.getText().equals("")) {
+				JOptionPane.showMessageDialog(svAlias, 
+						"Can't proceed with empty text field, try again", 
+						"Failed", 
+						JOptionPane.ERROR_MESSAGE);
+				alias.grabFocus();
+			} else {
+				saveAlias();
 			}
 
 		}
-
 	}
 
 	/**
@@ -594,6 +624,7 @@ public class CreateWindow extends JFrame {
 			savePassword.setSelected(false);
 			autoConnect.setSelected(false);
 			alias.setText("");
+			alias.grabFocus();
 		}
 	}
 
