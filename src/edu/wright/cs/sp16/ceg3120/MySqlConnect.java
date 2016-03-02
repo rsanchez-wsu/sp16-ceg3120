@@ -102,7 +102,7 @@ public class MySqlConnect {
 
 				ResultSet rs = stmt.executeQuery("SELECT * FROM inventory");
 
-				System.out.println("If you see this you connected!");
+				//System.out.println("If you see this you connected!");
 
 				ResultSetMetaData rsmd = rs.getMetaData();
 				int columnsNumber = rsmd.getColumnCount();
