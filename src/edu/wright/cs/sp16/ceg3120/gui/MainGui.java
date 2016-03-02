@@ -21,9 +21,6 @@
 
 package edu.wright.cs.sp16.ceg3120.gui;
 
-import edu.wright.cs.sp16.ceg3120.CreateWindow;
-//import edu.wright.cs.sp16.ceg3120.gui.tabs.StartPageTab;
-
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,7 +34,8 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-//import javax.swing.JOptionPane;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.text.DefaultEditorKit;
 
 /**
@@ -247,17 +245,17 @@ public class MainGui extends JFrame implements ActionListener {
 				//disable the main window
 				makeDisabled();
 				//create a new frame About and set its properties
-				JFrame frameAbout = new JFrame("About"); 
+				JFrame frameWelcome = new JFrame("Welcome to SQLizard"); 
 				JLabel labelName = new JLabel("SQLizard");
 				JLabel labelVersion = new JLabel("Version: 0.0.0.0");
 
-				frameAbout.getContentPane().add(labelName);
-				frameAbout.getContentPane().add(labelVersion);
+				frameWelcome.getContentPane().add(labelName);
+				frameWelcome.getContentPane().add(labelVersion);
 				
-				frameAbout.setSize(300, 300);
-				frameAbout.setLocationRelativeTo(null);
-				frameAbout.setVisible(true);
-				frameAbout.addWindowListener(new WindowAdapter() {
+				frameWelcome.setSize(300, 300);
+				frameWelcome.setLocationRelativeTo(null);
+				frameWelcome.setVisible(true);
+				frameWelcome.addWindowListener(new WindowAdapter() {
 					@Override
 					public void windowClosing(WindowEvent we) {
 						makeEnabled();
@@ -267,7 +265,32 @@ public class MainGui extends JFrame implements ActionListener {
 		});
 		
 		help.addSeparator();
-		help.add("About");
+		help.add("About SQLizard").addActionListener(event -> {
+			
+			JPanel aboutPanel = new JPanel();
+			JOptionPane.showMessageDialog(aboutPanel, 
+					"SQLizard IDE for Databases."
+					+ "\n\n"
+					+ "Version: Lizard.0 Release (0.0.0)\n"
+					+ "Build id: 00000000-0000"
+					+ "\n\n"
+					+ "(c) Copyright SQLizard contributors and others 2016. "
+					+ "All rights reserved."
+					+ "\nSQLizard and the SQLizard logo are "
+					+ "trademarks of the SQLizard Foundation, Inc.,"
+					+ "\nThe SQLizard logo cannot be altered without SQLizard's permission. "
+					+ "SQLizard logos are provided for use "
+					+ "under the SQLizard logo and trademark guidelines. "
+					+ "\nOracle and Java are trademarks or registered "
+					+ "trademarks of Oracle and/or its affiliates. "
+					+ "Other names may be trademarks of their respective owners."
+					+ "\n\nThis product includes software developed by other open "
+					+ "source projects including "
+					+ "the Apache Software Foundation, https://www.apache.org/.", 
+					"About SQLizard", 
+					JOptionPane.INFORMATION_MESSAGE);
+			
+		});
 		//TODO: Decide what to include in Help Menu
 
 		JMenuBar menuBar = new JMenuBar();
@@ -313,40 +336,7 @@ public class MainGui extends JFrame implements ActionListener {
 		}
 	}
 	
-	/**
-	 * 
-	 * @author devesh
-	 *     New CreateWindow to call the CreateWindow class.
-	 *
-	 */
-	private static class ConWindow implements ActionListener {
-		
-		/**
-		 * Perform action to the CreateWindow.
-		 */
-		public void actionPerformed(ActionEvent arg0) {
-			final CreateWindow popthis = new CreateWindow();
-			popthis.setVisible(true);
-			popthis.pack();
-			popthis.setLocationRelativeTo(null);
-			//  ******************************** From Lines 331 to 343:
-			//  can't fix: Bug type SIC_INNER_SHOULD_BE_STATIC_ANON *************************
-			/* popthis.addWindowListener(new WindowAdapter() {
-				public void windowClosing(WindowEvent evt) {
-					int answer = JOptionPane.showConfirmDialog(popthis, 
-							"Do you really want to quit?", 
-							"Quit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-					if (answer == JOptionPane.YES_OPTION) {
-						popthis.dispose();
-					} else {
-						popthis.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-					}
-
-				} // end of widowClosing
-
-			}); // end of WindowListener */
-		}
-	}
+	
 	
 	/**
 	 * Disables the main window.
