@@ -238,7 +238,7 @@ public class MainGui extends JFrame implements ActionListener {
 		window.add(fullScreenItem);
 		
 		// Help menu
-		JMenu help = new JMenu("Help");
+		final JMenu help = new JMenu("Help");
 		help.add("Welcome").addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent event) {
@@ -265,31 +265,12 @@ public class MainGui extends JFrame implements ActionListener {
 		});
 		
 		help.addSeparator();
-		help.add("About SQLizard").addActionListener(event -> {
-			
-			JPanel aboutPanel = new JPanel();
-			JOptionPane.showMessageDialog(aboutPanel, 
-					"SQLizard IDE for Databases."
-					+ "\n\n"
-					+ "Version: Lizard.0 Release (0.0.0)\n"
-					+ "Build id: 00000000-0000"
-					+ "\n\n"
-					+ "(c) Copyright SQLizard contributors and others 2016. "
-					+ "All rights reserved."
-					+ "\nSQLizard and the SQLizard logo are "
-					+ "trademarks of the SQLizard Foundation, Inc.,"
-					+ "\nThe SQLizard logo cannot be altered without SQLizard's permission. "
-					+ "SQLizard logos are provided for use "
-					+ "under the SQLizard logo and trademark guidelines. "
-					+ "\nOracle and Java are trademarks or registered "
-					+ "trademarks of Oracle and/or its affiliates. "
-					+ "Other names may be trademarks of their respective owners."
-					+ "\n\nThis product includes software developed by other open "
-					+ "source projects including "
-					+ "the Apache Software Foundation, https://www.apache.org/.", 
-					"About SQLizard", 
-					JOptionPane.INFORMATION_MESSAGE);
-			
+		help.add("About SQLizard").addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				aboutSqliz();
+				
+			}
 		});
 		//TODO: Decide what to include in Help Menu
 
@@ -350,6 +331,35 @@ public class MainGui extends JFrame implements ActionListener {
 	 */
 	public void makeEnabled() {
 		setEnabled(true);
+	}
+	
+	/**
+	 * AboutSQLizard JMenuItem.
+	 */
+	public void aboutSqliz() {
+		
+		JPanel aboutPanel = new JPanel();
+		JOptionPane.showMessageDialog(aboutPanel, 
+				"SQLizard IDE for Databases."
+				+ "\n\n"
+				+ "Version: Lizard.0 Release (0.0.0)\n"
+				+ "Build id: 00000000-0000"
+				+ "\n\n"
+				+ "(c) Copyright SQLizard contributors and others 2016. "
+				+ "All rights reserved."
+				+ "\nSQLizard and the SQLizard logo are "
+				+ "trademarks of the SQLizard Foundation, Inc.,"
+				+ "\nThe SQLizard logo cannot be altered without SQLizard's permission. "
+				+ "SQLizard logos are provided for use "
+				+ "under the SQLizard logo and trademark guidelines. "
+				+ "\nOracle and Java are trademarks or registered "
+				+ "trademarks of Oracle and/or its affiliates. "
+				+ "Other names may be trademarks of their respective owners."
+				+ "\n\nThis product includes software developed by other open "
+				+ "source projects including "
+				+ "the Apache Software Foundation, https://www.apache.org/.", 
+				"About SQLizard", 
+				JOptionPane.INFORMATION_MESSAGE);
 	}
 
 }
