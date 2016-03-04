@@ -21,8 +21,11 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
-import java.awt.Color;
-import java.awt.GridLayout;
+import edu.wright.cs.sp16.ceg3120.gui.tabs.startpagecomponents.RecentConnectionsPane;
+import edu.wright.cs.sp16.ceg3120.gui.tabs.startpagecomponents.TipOfTheDayPane;
+
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
 import javax.swing.JPanel;
 
@@ -44,36 +47,44 @@ public class StartPageTab extends JPanel {
 	 * TODO: Pull recent connections, initialize components.
 	 */
 	public StartPageTab() {
-		super(new GridLayout(1,1));
+		super(new GridBagLayout());
 
 		
 		setSize(960, 600);
 		initComponents();
 	}
 	
-	/**Create the start tab pane.
+	/**Initialize components in the start tab pane.
 	 * @author Sam
 	 */
 	public void initComponents() {
-		//todo: decide if we want seperate classes and/or methods for these components
-		//Initalize components
-		JPanel recentConnectionPane = new JPanel();
-		JPanel tipOfTheDay = new JPanel();
+		//TODO: have recentConnConstraints, and tipOfTheDayConstraints be separate classes
+		//Initialize components
 		
-		//set size
-		recentConnectionPane.setSize(480, 500);
-		tipOfTheDay.setSize(480, 500);
+		// specify constraints for "Recent Connections" pane
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+		constraints.gridwidth = 2;
+		constraints.fill = GridBagConstraints.BOTH;
+		constraints.weightx = 1.0;
+		constraints.weighty = 1.0;
+
+		//add "Recent Connections" pane with constraints
+		JPanel recentConnsPane = new RecentConnectionsPane();
+		add(recentConnsPane, constraints);
 		
-		//set color -- current colors for debug
-		recentConnectionPane.setBackground(Color.blue);
-		tipOfTheDay.setBackground(Color.black);
-		
-		//add sub components
-		
-		
-		//add components
-		add(recentConnectionPane);
-		add(tipOfTheDay);
+		// specify constraints for "Tip of the day" pane
+		constraints.gridx = 2;
+		constraints.gridy = 0;
+		constraints.gridwidth = 1;
+		constraints.fill = GridBagConstraints.BOTH;
+		constraints.weightx = 0.5;
+		constraints.weighty = 1.0;
+
+		//add "Tip of the day" pane with constraints
+		JPanel tipOfTheDayPane = new TipOfTheDayPane();
+		add(tipOfTheDayPane, constraints);
 	}
 
 }
