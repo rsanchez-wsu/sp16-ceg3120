@@ -57,10 +57,7 @@ public class StartPageTab extends JPanel {
 	/**Initialize components in the start tab pane.
 	 * @author Sam
 	 */
-	public void initComponents() {
-		//TODO: have recentConnConstraints, and tipOfTheDayConstraints be separate classes
-		//Initialize components
-		
+	public void initComponents() {		
 		// specify constraints for "Recent Connections" pane
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.gridx = 0;
