@@ -38,21 +38,22 @@ public class DbConnection {
 	private String connString = "";
 	//private String username = "";
 	//private String password = "";
-	private boolean isConnected;
+	private boolean isConnected = false;
 
 	/**
 	 * Default constructor for a DBconnection.
 	 */
 	public DbConnection() {
+			//path may vary per user because it is an Embedded Driver
+		url = "jdbc:derby:/Users/AlisonGuyton/.ivy2/cache/org.apache.derby/derby/jars/newDB;"
+				+ "create=true";
+	
 		try {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 		} catch (ClassNotFoundException e) {
 			System.out.println(e.toString());
 		}
-		//path may vary per user because it is an Embedded Driver
-		url = "jdbc:derby:/Users/AlisonGuyton/.ivy2/cache/org.apache.derby/derby/jars/newDB;"
-				+ "create=true";
-
+		
 		System.out.println("Created SQL Connect");
 	}
 	
@@ -64,13 +65,19 @@ public class DbConnection {
 	 * @param pass The password for the user
 	 */
 	public DbConnection(String url, String dbType, String user, String pass) {
-		//TODO: Create connection with passed arguments
 		this.url = url;
 		this.dbType = dbType;
 		//this.username = user;
 		//this.password = pass;
 		connString = "jdbc:" + this.dbType + ":" + this.url;
-
+		
+		/*I don't think this is used anymore ~Carl
+		 * try {
+			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+		} catch (ClassNotFoundException e) {
+			System.out.println(e.toString());
+		}*/
+		
 		createConnection();
 	}
 
@@ -80,8 +87,11 @@ public class DbConnection {
 	public void createConnection() {
 		try {
 			conn = DriverManager.getConnection(connString);
-			isConnected = true;
-			System.out.println("Successfully Connected");
+			if (conn.isValid(10)) {
+				isConnected = true;
+				System.out.println("Successfully Connected");
+			}
+			
 		} catch (SQLException e) {
 			isConnected = false;
 			System.out.println(e.toString() + "\nexception thrown");

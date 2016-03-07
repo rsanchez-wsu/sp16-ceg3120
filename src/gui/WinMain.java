@@ -25,8 +25,6 @@ import testconnection.DbConnection;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
-
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -50,14 +48,12 @@ public class WinMain extends JFrame {
 	public WinMain() {
 		super("SQLizard");
 		connectionTabs = new JTabbedPane();
-//		JPanel testPanel = new JPanel();
-//		testPanel.setVisible(true);
-//		connectionTabs.add("hello", testPanel);
+		newConnWindow();
 		add(connectionTabs);
 		buildMenuBar();
 		
 		pack();
-		setSize(500, 500);
+		setSize(750, 500);
 		setVisible(true);
 	}
 	
@@ -67,20 +63,12 @@ public class WinMain extends JFrame {
 	private void buildMenuBar() {
 		menuBar = new JMenuBar();
 		JMenu fileMenu = new JMenu("File");
-		JMenuItem open = new JMenuItem("New Connection");
-		open.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent event) {
-				newConnWindow();
-			}
-
-		});
-		JMenu connMenu = new JMenu("Connections");
-		connMenu.add(open);
+		JMenu editMenu = new JMenu("Edit");
+		JMenu winMenu = new JMenu("Window");
 		JMenu helpMenu = new JMenu("Help");
 		menuBar.add(fileMenu);
-		menuBar.add(connMenu);
+		menuBar.add(editMenu);
+		menuBar.add(winMenu);
 		menuBar.add(helpMenu);
 		setJMenuBar(menuBar);
 	}
@@ -89,7 +77,8 @@ public class WinMain extends JFrame {
 	 * 
 	 */
 	public void newConnWindow() {
-		connWin = new CreateConnWindow(this);		
+		connWin = new CreateConnWindow(this);
+		connectionTabs.addTab("New Connection", connWin);
 	}
 	
 	/**Notification method to call from Create Connection
@@ -98,16 +87,16 @@ public class WinMain extends JFrame {
 	 */
 	public void notifyConnResult() {
 		try {
-			if (connWin.getDbConnection().getConnection().isValid(10)) {
+			if (connWin.getDbConnection().isConnected()) {
 				addConnection(connWin.getDbConnection());
 			} else {
 				System.out.println("Connection Failed");	
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception exc) {
+			exc.printStackTrace();
 		}
 		connWin.reset();
+		
 	}
 	
 	/**
@@ -115,6 +104,7 @@ public class WinMain extends JFrame {
 	 * @param newConnection The connection to base the new tab on.
 	 */
 	public void addConnection(DbConnection newConnection) {
+		
 		connectionTabs.addTab(newConnection.getDbName(), new ConnectionPanel(newConnection));
 	}
 }

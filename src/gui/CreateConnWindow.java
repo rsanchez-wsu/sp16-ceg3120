@@ -23,38 +23,39 @@ package gui;
 
 import testconnection.DbConnection;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-
-
 
 /**
  * A window for entering DB connection details
  * @author carl.heritage
  *
  */
-public class CreateConnWindow extends JFrame {
+public class CreateConnWindow extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private WinMain mainWinRef;
-	private static DbConnection dbConn;
+	private DbConnection dbConn;
+	
+	private final JPanel connContentPanel = new JPanel();
 	private static final JLabel dburlLabel = new JLabel("Database URL: ");
-	private static final JTextField dburlTextField = new JTextField();
+	private final JTextField dburlTextField = new JTextField();
 	private static final JLabel jdbcTypesLabel = new JLabel("JDBC Type: ");
 	private static final String[] jdbcTypes = {"derby","mysql","postgresql"};
-	private static JComboBox<String> jdbcTypesBox = new JComboBox<String>(jdbcTypes);
+	private final JComboBox<String> jdbcTypesBox = new JComboBox<String>(jdbcTypes);
 	private static final JLabel userLabel = new JLabel("User Name: ");
-	private static final JTextField userTextField = new JTextField();
+	private final JTextField userTextField = new JTextField();
 	private static final JLabel passLabel = new JLabel("Password: ");
-	private static final JTextField passTextField = new JTextField();
-	private static final JButton submitConnButton = new JButton("Submit");
+	private final JTextField passTextField = new JTextField();
+	private final JButton submitConnButton = new JButton("Submit");
 	
 	
 	/**
@@ -62,20 +63,25 @@ public class CreateConnWindow extends JFrame {
 	 * @param mainRef Reference to the window using it.
 	 */
 	public CreateConnWindow(WinMain mainRef) {
-		super("New Connection Interface");
+		super();
 		
 		mainWinRef = mainRef;
-		setLayout(new GridLayout(5,2));
-		getContentPane().add(jdbcTypesLabel);
-		getContentPane().add(jdbcTypesBox);
-		getContentPane().add(dburlLabel);
-		getContentPane().add(dburlTextField);
-		getContentPane().add(userLabel);
-		getContentPane().add(userTextField);
-		getContentPane().add(passLabel);
-		getContentPane().add(passTextField);
-		getContentPane().add(submitConnButton);
+		setLayout(new BorderLayout());
+		add(new JLabel("The left side"), BorderLayout.PAGE_START);
 		
+		connContentPanel.setLayout(new GridLayout(5,2));
+		connContentPanel.add(jdbcTypesLabel);
+		connContentPanel.add(jdbcTypesBox);
+		connContentPanel.add(dburlLabel);
+		connContentPanel.add(dburlTextField);
+		connContentPanel.add(userLabel);
+		connContentPanel.add(userTextField);
+		connContentPanel.add(passLabel);
+		connContentPanel.add(passTextField);
+		connContentPanel.add(submitConnButton);
+		connContentPanel.setMaximumSize(new Dimension(100, 200));
+		add(connContentPanel, BorderLayout.CENTER);
+		setSize(new Dimension(100, 200));
 		submitConnButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -86,20 +92,15 @@ public class CreateConnWindow extends JFrame {
 							jdbcTypesBox.getSelectedItem().toString(),
 							userTextField.getText(),
 							passTextField.getText());
-					mainWinRef.notifyConnResult();
-					
-					setVisible(false);
-					
+					mainWinRef.notifyConnResult();					
 				} catch (Exception e) {
 					e.printStackTrace();
 					System.out.println("DB connection failed.");
 				}
 			}
+			
 		});
 
-		
-		pack();
-		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 		
@@ -121,6 +122,5 @@ public class CreateConnWindow extends JFrame {
 		passTextField.setText("");
 		
 		dbConn = null;
-		pack();
 	}
 }

@@ -23,6 +23,8 @@ package gui;
 
 import testconnection.DbConnection;
 
+import java.awt.GridLayout;
+
 import javax.swing.JPanel;
 
 
@@ -34,8 +36,8 @@ import javax.swing.JPanel;
  */
 public class ConnectionPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
-	//private static final JPanel dbDetails = new JPanel();
-	//private static final JTabbedPane dbViews = new JTabbedPane();
+	private final JPanel dbDetails = new JPanel();
+	private final DbViewer dbViews = new DbViewer();
 	private DbConnection dbConn;
 	
 	/**Constructor for the ConnectionPanel class.
@@ -45,6 +47,13 @@ public class ConnectionPanel extends JPanel {
 		super();
 		dbConn = newConnection;
 		dbConn.getDbName();
+		setLayout(new GridLayout(1,2));
+		System.out.println(this.getHeight() +  ", " + this.getWidth());
+		dbDetails.setSize(this.getWidth() * (1 / 3), this.getHeight());
+		dbViews.setSize(this.getWidth() * (2 / 3), this.getHeight());
+		add(dbDetails);
+		add(dbViews);
+		
 		setVisible(true);
 		
 	}
