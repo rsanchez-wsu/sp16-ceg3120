@@ -115,8 +115,8 @@ public class MainApp {
 		JMenuItem mntmPreferences = new JMenuItem("Preferences");
 		mntmPreferences.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent preferences) {
-				Profile profile = new Profile();
-				tabbedPane.addTab("User Preferences", profile);
+				Preferences preferences1 = new Preferences();
+				tabbedPane.addTab("User Preferences", preferences1);
 			}
 		});
 		mnEdit.add(mntmPreferences);

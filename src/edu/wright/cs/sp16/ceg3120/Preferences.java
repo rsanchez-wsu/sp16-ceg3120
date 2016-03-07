@@ -22,8 +22,8 @@
 package edu.wright.cs.sp16.ceg3120;
 
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+//import java.awt.event.ActionEvent;
+//import java.awt.event.ActionListener;
 
 
 import javax.swing.DefaultComboBoxModel;
@@ -40,12 +40,12 @@ import javax.swing.UIManager;
 
 
 /**
- * This class is created to display the profile window which contains the
+ * This class is created to display the preferences window which contains the
  * connections and the user preferences. The user will set the default database,
  * default view, default encoding, table view, and remember any few number of
  * last queries.
  */
-public class Profile extends JPanel {
+public class Preferences extends JPanel {
 
 
 
@@ -78,7 +78,7 @@ public class Profile extends JPanel {
 	/**
 	 * Constructor with zero-arguments to open the connection window.
 	 */
-	public Profile() {
+	public Preferences() {
 
 
 		// This method is created by GUI Builder to customize how the window
@@ -145,11 +145,11 @@ public class Profile extends JPanel {
 		JButton btnSave = new JButton("Save");
 		
 		JButton btnCancel = new JButton("Cancel");
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent exit) {
-				MainApp.removeTab("User Preferences");
-			}
-		});
+//		btnCancel.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent exit) {
+//				MainApp.removeTab("User Preferences");
+//			}
+//		});
 
 		GroupLayout jpanel2Layout = new GroupLayout(this);
 		jpanel2Layout.setHorizontalGroup(
@@ -294,16 +294,16 @@ public class Profile extends JPanel {
 				}
 			}
 		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(Profile.class.getName()).log(
+			java.util.logging.Logger.getLogger(Preferences.class.getName()).log(
 					java.util.logging.Level.SEVERE, null, ex);
 		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(Profile.class.getName()).log(
+			java.util.logging.Logger.getLogger(Preferences.class.getName()).log(
 					java.util.logging.Level.SEVERE, null, ex);
 		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(Profile.class.getName()).log(
+			java.util.logging.Logger.getLogger(Preferences.class.getName()).log(
 					java.util.logging.Level.SEVERE, null, ex);
 		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(Profile.class.getName()).log(
+			java.util.logging.Logger.getLogger(Preferences.class.getName()).log(
 					java.util.logging.Level.SEVERE, null, ex);
 		}
 		// </editor-fold>
@@ -311,7 +311,7 @@ public class Profile extends JPanel {
 		/* Create and display the form */
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new Profile().setVisible(true);
+				new Preferences().setVisible(true);
 			}
 		});
 	}
