@@ -27,8 +27,10 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 /**
  * "Tip of the day" pane on the start page.
@@ -80,12 +82,32 @@ public class TipOfTheDayPane extends JPanel {
 		subConstraints.weighty = 0.5;
 		
 		add(tipTitle, subConstraints);
+		
+		learnDiscoverBtn = new JButton("Learn & Discover");
+		learnDiscoverBtn.setFont(new Font("TimesRoman", Font.BOLD, 12));
+		
+		subConstraints = new GridBagConstraints();
+		subConstraints.anchor = GridBagConstraints.PAGE_START;
+		subConstraints.gridx = 0;
+		subConstraints.gridy = 1;
+		subConstraints.weightx = 0.5;
+		subConstraints.weighty = 5.5;
+		
+		add(learnDiscoverBtn, subConstraints);
+		
+		
 	}
 	
 	/* properties */
 	
 	// tip of the day label
 	JLabel tipTitle;
+	
+	// learn and discover button
+	JButton learnDiscoverBtn;
+	
+	// tip of the day text
+	JTextArea tipOfTheDayTxt;
 	
 	/* property access */
 	
@@ -104,4 +126,38 @@ public class TipOfTheDayPane extends JPanel {
 	public void setTipTitle(JLabel label) {
 		tipTitle = label;
 	}
+	
+	/**
+	 * @return "Learn And Discover" button.
+	 */
+	public JButton getLearnDiscoverBtn() {
+		return learnDiscoverBtn;
+	}
+
+	/**
+	 * Set "Learn And Discover" button.
+	 * 
+	 * @param btn JButton to replace "Learn And Discover" button.
+	 */
+	public void setLearnDiscoverBtn(JButton btn) {
+		learnDiscoverBtn = btn;
+	}
+	
+	/**
+	 * Gets the "Tip of the day" text area component.
+	 * 
+	 * @return JTextArea tipOfTheDayTxt
+	 */
+	public JTextArea getTipOfTheDayTxt() {
+		return tipOfTheDayTxt;
+	}
+	
+	/**
+	 * 
+	 * @param txt JTextArea to replace "Tip of the day" text.
+	 */
+	public void setTipOfTheDayTxt(JTextArea txt) {
+		tipOfTheDayTxt = txt;
+	}
+	
 }
