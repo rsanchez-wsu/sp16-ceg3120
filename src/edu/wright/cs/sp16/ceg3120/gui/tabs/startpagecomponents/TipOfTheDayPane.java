@@ -95,10 +95,32 @@ public class TipOfTheDayPane extends JPanel {
 		
 		add(learnDiscoverBtn, subConstraints);
 		
+		String dummyTipText = "dalksfjlsakfasd fajskldf alsdslfkj as fkjsaldfj klsdf dalsk\n"
+			+"asdfkajsfd laskfdja lskdfja ;lsdlaskdjf laskdjflsak df;aslkfdj saldf; adsk\n"
+			+"asdfkajsfd laskfdja lskdfja ;lsdlaskdjf laskdjflsak df;aslkfdj saldf; adsk\n"
+			+"asdfkajsfd laskfdja lskdfja ;lsdlaskdjf laskdjflsak df;aslkfdj saldf; adsk\n"
+			+"asdfkajsfd laskfdja lskdfja ;lsdlaskdjf laskdjflsak df;aslkfdj saldf; adsk\n"
+			+"asdfkajsfd laskfdja lskdfja ;lsdlaskdjf laskdjflsak df;aslkfdj saldf; adsk\n"
+			+"asdfkajsfd laskfdja lskdfja ;lsdlaskdjf laskdjflsak df;aslkfdj saldf; adsk\n"
+			+"asdfkajsfd laskfdja lskdfja ;lsdlaskdjf laskdjflsak df;aslkfdj saldf; adsk\n";
+		 
 		
+		tipOfTheDayTxt = new JTextArea(dummyTipText);
+		tipOfTheDayTxt.setFont(new Font("TimesRoman", Font.BOLD, 12));
+		
+		subConstraints = new GridBagConstraints();
+		subConstraints.anchor = GridBagConstraints.PAGE_START;
+		subConstraints.gridx = 0;
+		subConstraints.gridy = 2;
+		subConstraints.weightx = 0.5;
+		subConstraints.weighty = 4.5;
+		
+		add(tipOfTheDayTxt, subConstraints);
 	}
 	
 	/* properties */
+	
+	String tipText;
 	
 	// tip of the day label
 	JLabel tipTitle;
@@ -110,6 +132,24 @@ public class TipOfTheDayPane extends JPanel {
 	JTextArea tipOfTheDayTxt;
 	
 	/* property access */
+	
+	/**
+	 * Get "tip of the day" text.
+	 * 
+	 * @return String tipText: tip of the day text.
+	 */
+	public String getTipText() {
+		return tipText;
+	}
+	
+	/**
+	 * Sets the text for tip of the day.
+	 * 
+	 * @param s String you would like to set the tip of the day too.
+	 */
+	public void setTipText(String s) {
+		tipText = s;
+	}
 	
 	/**
 	 * @return "Tip of the day" label.
