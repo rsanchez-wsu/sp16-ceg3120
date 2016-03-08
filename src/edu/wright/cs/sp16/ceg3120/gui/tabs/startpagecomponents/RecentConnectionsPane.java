@@ -99,8 +99,6 @@ public class RecentConnectionsPane extends JPanel {
 			add(recentConnLinks[i], subConstraints);
 		}
 		
-		
-		
 	}
 
 	/* properties */
