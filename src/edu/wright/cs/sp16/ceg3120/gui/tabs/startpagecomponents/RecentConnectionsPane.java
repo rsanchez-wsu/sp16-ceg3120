@@ -25,6 +25,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -93,8 +94,8 @@ public class RecentConnectionsPane extends JPanel {
 			subConstraints.gridy = i + 1;
 			subConstraints.weightx = 0.5;
 			subConstraints.weighty = 0.1;
-			// add padding
-			
+			subConstraints.insets = new Insets(0, 10, 0, 0);
+
 			add(recentConnLinks[i], subConstraints);
 		}
 		
