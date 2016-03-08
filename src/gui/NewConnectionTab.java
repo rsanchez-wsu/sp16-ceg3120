@@ -40,7 +40,7 @@ import javax.swing.JTextField;
  * @author carl.heritage
  *
  */
-public class CreateConnWindow extends JPanel {
+public class NewConnectionTab extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private WinMain mainWinRef;
 	private DbConnection dbConn;
@@ -62,7 +62,7 @@ public class CreateConnWindow extends JPanel {
 	 * Constructor for a CreateConnWindow.
 	 * @param mainRef Reference to the window using it.
 	 */
-	public CreateConnWindow(WinMain mainRef) {
+	public NewConnectionTab(WinMain mainRef) {
 		super();
 		
 		mainWinRef = mainRef;

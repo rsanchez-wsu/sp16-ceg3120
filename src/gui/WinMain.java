@@ -39,7 +39,7 @@ import javax.swing.JTabbedPane;
 public class WinMain extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JTabbedPane connectionTabs;
-	private CreateConnWindow connWin;
+	private NewConnectionTab connWin;
 	private JMenuBar menuBar;
 	
 	/**Constructor for the SQLizard main window.
@@ -77,7 +77,7 @@ public class WinMain extends JFrame {
 	 * 
 	 */
 	public void newConnWindow() {
-		connWin = new CreateConnWindow(this);
+		connWin = new NewConnectionTab(this);
 		connectionTabs.addTab("New Connection", connWin);
 	}
 	
