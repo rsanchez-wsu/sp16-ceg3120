@@ -25,10 +25,15 @@ import edu.wright.cs.sp16.ceg3120.OpenUrlAction;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 
 
@@ -39,15 +44,18 @@ import javax.swing.JPanel;
 public class LearnAndDiscoverTab extends JPanel {
 
 	private static final long serialVersionUID = -6246927473993559297L;
-
+	private GridBagLayout layout;
+	private GridBagConstraints gbc = new GridBagConstraints();
+	
 	/**Initialize the Learn and Discover tab.
 	 * 
 	 * @author Alex
 	 */
 	public LearnAndDiscoverTab() {
-		super(new GridLayout(3, 3));
-
+		super();
+		
 		initComponents();
+
 	}
 	
 	/**Create the Learn and Discover tab.
@@ -55,16 +63,21 @@ public class LearnAndDiscoverTab extends JPanel {
 	 * @author Alex
 	 */
 	private void initComponents() {
-		//JTabbedPane pane = new JTabbedPane();
-
-		//initialization of buttons, url links, add to page
-		String githubUrl = "https://github.com/rsanchez-wsu/sp16-ceg3120";
 		
+		layout = new GridBagLayout();
+		this.setLayout(layout);
+		gbc.fill = GridBagConstraints.VERTICAL;
+		
+		//initialization of buttons, url links, add to page
+		String githubUrl = "https://github.com/rsanchez-wsu/sp16-ceg3120";		
 		JButton gitButton = createTabButton("Git", githubUrl);
+
 		add(gitButton);
 		
+		//add(new JSeparator(SwingConstants.HORIZONTAL));
 		String sqlUrl = "http://www.w3schools.com/sql/";
 		JButton sqlButton = createTabButton("Sql", sqlUrl);
+
 		add(sqlButton);
 		
 		String driverInfoUrl = "http://www.google.com";
@@ -92,8 +105,6 @@ public class LearnAndDiscoverTab extends JPanel {
 		button.setOpaque(false);
 		button.setBackground(Color.WHITE);
 		button.setToolTipText(url);
-		button.setPreferredSize(new Dimension(40,40));
-		button.setMaximumSize(new Dimension(40,40));
 		button.addActionListener(new OpenUrlAction());
 		return button;
 	}

@@ -26,8 +26,12 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 
+import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
 
 
 
@@ -37,7 +41,7 @@ import javax.swing.JPanel;
 public class MySqLizardTab extends JPanel {
 
 	private static final long serialVersionUID = -797683451675465457L;
-	
+	private String[] userConnections;
 	/**Initialize the mySqlizard tab.
 	 * @author Alex
 	 */
@@ -55,10 +59,12 @@ public class MySqLizardTab extends JPanel {
 
 		JLabel title = new JLabel();
 		title.setText("My Sql Lizard");
-		title.setSize(100, 100);
 		title.setFont(new Font("Serif", Font.PLAIN, 22));
-
+		
+		title.setVerticalAlignment(SwingConstants.TOP);
 		add(title);
+		
+		JTable connectionTable = new JTable();
 	}
 	
 	/**Draw components on.
@@ -68,18 +74,18 @@ public class MySqLizardTab extends JPanel {
 	protected void paintComponent(Graphics graphic) {
 		//TODO: add constants for these dimensions
 		super.paintComponent(graphic);
-		graphic.drawRect(0,0,1000,100);
+		graphic.drawRect(0,0,1000,50);
 		graphic.setColor(Color.lightGray);
-		graphic.fillRect(0,0,1000,100);
+		graphic.fillRect(0,0,1000,50);
 
 		super.paintComponent(graphic);
-		graphic.drawRect(0,0,1000,400);
+		graphic.drawRect(0,0,1000,200);
 		graphic.setColor(Color.white);
-		graphic.fillRect(0,100,1000,400);
+		graphic.fillRect(0,100,1000,200);
 
 		super.paintComponent(graphic);
-		graphic.drawRect(0,0,1000,100);
+		graphic.drawRect(0,0,1000,50);
 		graphic.setColor(Color.lightGray);
-		graphic.fillRect(0,0,1000,100);
+		graphic.fillRect(0,0,1000,50);
 	}
 }
