@@ -95,15 +95,11 @@ public class TipOfTheDayPane extends JPanel {
 		
 		add(learnDiscoverBtn, subConstraints);
 		
-		String dummyTipText = "dalksfjlsakfasd fajskldf alsdslfkj as fkjsaldfj klsdf dalsk\n"
-			+"asdfkajsfd laskfdja lskdfja ;lsdlaskdjf laskdjflsak df;aslkfdj saldf; adsk\n"
-			+"asdfkajsfd laskfdja lskdfja ;lsdlaskdjf laskdjflsak df;aslkfdj saldf; adsk\n"
-			+"asdfkajsfd laskfdja lskdfja ;lsdlaskdjf laskdjflsak df;aslkfdj saldf; adsk\n"
-			+"asdfkajsfd laskfdja lskdfja ;lsdlaskdjf laskdjflsak df;aslkfdj saldf; adsk\n"
-			+"asdfkajsfd laskfdja lskdfja ;lsdlaskdjf laskdjflsak df;aslkfdj saldf; adsk\n"
-			+"asdfkajsfd laskfdja lskdfja ;lsdlaskdjf laskdjflsak df;aslkfdj saldf; adsk\n"
-			+"asdfkajsfd laskfdja lskdfja ;lsdlaskdjf laskdjflsak df;aslkfdj saldf; adsk\n";
-		 
+		String dummyTipText = "";
+		
+		for (int i = 0; i < 10; i++) {
+			dummyTipText += "alskdfjalsdfjalsdkfj\n";
+		}
 		
 		tipOfTheDayTxt = new JTextArea(dummyTipText);
 		tipOfTheDayTxt.setFont(new Font("TimesRoman", Font.BOLD, 12));
@@ -145,10 +141,10 @@ public class TipOfTheDayPane extends JPanel {
 	/**
 	 * Sets the text for tip of the day.
 	 * 
-	 * @param s String you would like to set the tip of the day too.
+	 * @param str String you would like to set the tip of the day too.
 	 */
-	public void setTipText(String s) {
-		tipText = s;
+	public void setTipText(String str) {
+		tipText = str;
 	}
 	
 	/**

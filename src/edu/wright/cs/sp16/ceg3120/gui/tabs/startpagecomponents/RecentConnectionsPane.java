@@ -80,6 +80,23 @@ public class RecentConnectionsPane extends JPanel {
 		subConstraints.weighty = 0.5;
 		
 		add(recentConn, subConstraints);
+		
+		recentConnLinks = new JLabel[10];
+		
+		// initialize dummy values for recent connection links
+		for (int i = 0; i < recentConnLinks.length; i++) {
+			recentConnLinks[i] = new JLabel("Recent connection " + i);
+			
+			subConstraints = new GridBagConstraints();
+			subConstraints.anchor = GridBagConstraints.CENTER;
+			subConstraints.gridx = 0;
+			subConstraints.gridy = i;
+			subConstraints.weightx = 0.5;
+			subConstraints.weighty = 0.5;
+		}
+		
+		
+		
 	}
 
 	/* properties */
@@ -89,7 +106,30 @@ public class RecentConnectionsPane extends JPanel {
 	 */
 	JLabel recentConn;
 	
+	/**
+	 * "Recent connection x" link array.
+	 */
+	JLabel[] recentConnLinks;
+	
 	/* property access */
+	
+	/**
+	 * Get the recent connection links.
+	 * 
+	 * @return JLabel[] recentConnLinks: array of links to be displayed on the start page.
+	 */
+	public JLabel[] getRecentConnLinks() {
+		return recentConnLinks;
+	}
+	
+	/**
+	 * Set the new recent connection links.
+	 * 
+	 * @param newLinks what you want to replace the recent connection links with.
+	 */
+	public void setRecentConnLinks(JLabel[] newLinks) {
+		recentConnLinks = newLinks;
+	}
 	
 	/**
 	 * Get "Recent connections" label.
