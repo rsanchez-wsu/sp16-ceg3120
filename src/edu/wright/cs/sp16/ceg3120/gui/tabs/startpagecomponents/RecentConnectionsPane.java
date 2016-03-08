@@ -64,13 +64,10 @@ public class RecentConnectionsPane extends JPanel {
 	 * "Tip of the day" text
 	 */
 	public void initComponents() {
-		// setting border and background color for debug
-		setBackground(Color.getHSBColor(187, 82, 74));
 		setBorder(BorderFactory.createLineBorder(Color.black, 5));
-
+		
 		recentConn = new JLabel("Recent Connections");
 		recentConn.setFont(new Font("TimesRoman", Font.BOLD, 24));
-		recentConn.setBorder(BorderFactory.createLineBorder(Color.blue, 2));
 		
 		// set size and positioning of components
 		GridBagConstraints subConstraints = new GridBagConstraints();
@@ -79,6 +76,7 @@ public class RecentConnectionsPane extends JPanel {
 		subConstraints.gridy = 0;
 		subConstraints.weightx = 0.5;
 		subConstraints.weighty = 0.5;
+		subConstraints.insets = new Insets(0, 10, 0, 0);
 		
 		add(recentConn, subConstraints);
 		
@@ -98,7 +96,6 @@ public class RecentConnectionsPane extends JPanel {
 
 			add(recentConnLinks[i], subConstraints);
 		}
-		
 	}
 
 	/* properties */

@@ -25,6 +25,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -66,12 +67,10 @@ public class TipOfTheDayPane extends JPanel {
 	 */
 	public void initComponents() {
 		// setting border and background color for debug 
-		setBackground(Color.getHSBColor(240, 42, 83));
 		setBorder(BorderFactory.createLineBorder(Color.black, 5));
 		
 		tipTitle = new JLabel("Tip of the day");
 		tipTitle.setFont(new Font("TimesRoman", Font.BOLD, 24));
-		tipTitle.setBorder(BorderFactory.createLineBorder(Color.blue, 2));
 		
 		// set size and positioning of components
 		GridBagConstraints subConstraints = new GridBagConstraints();
@@ -80,6 +79,7 @@ public class TipOfTheDayPane extends JPanel {
 		subConstraints.gridy = 0;
 		subConstraints.weightx = 0.5;
 		subConstraints.weighty = 0.5;
+		subConstraints.insets = new Insets(0, 10, 0, 0);
 		
 		add(tipTitle, subConstraints);
 		
