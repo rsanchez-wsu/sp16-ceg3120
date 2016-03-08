@@ -88,11 +88,14 @@ public class RecentConnectionsPane extends JPanel {
 			recentConnLinks[i] = new JLabel("Recent connection " + i);
 			
 			subConstraints = new GridBagConstraints();
-			subConstraints.anchor = GridBagConstraints.CENTER;
+			subConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
 			subConstraints.gridx = 0;
-			subConstraints.gridy = i;
+			subConstraints.gridy = i + 1;
 			subConstraints.weightx = 0.5;
-			subConstraints.weighty = 0.5;
+			subConstraints.weighty = 0.1;
+			// add padding
+			
+			add(recentConnLinks[i], subConstraints);
 		}
 		
 		
