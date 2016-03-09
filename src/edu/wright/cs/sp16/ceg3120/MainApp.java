@@ -158,6 +158,9 @@ public class MainApp {
 		// Schedule a job for the event-dispatching thread:
 		// creating and showing this application's GUI.
 		SwingUtilities.invokeLater(new Runnable() {
+			
+			UserSettings globalConfig = SettingsReader.readXml("Profile.xml");
+			
 			@Override
 			public void run() {
 				createWindow();

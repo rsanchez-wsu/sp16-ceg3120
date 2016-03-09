@@ -146,11 +146,11 @@ public class Preferences extends JPanel {
 /* we have to work on the cancel button currently it will close the entire window 
   when it is hit. We have to reconfigure so it can just close the preference tab. **/		
 		JButton btnCancel = new JButton("Cancel");
-	btnCancel.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
 				System.exit(0);
-		}
-	});
+				}
+			});
 
 		GroupLayout jpanel2Layout = new GroupLayout(this);
 		jpanel2Layout.setHorizontalGroup(
