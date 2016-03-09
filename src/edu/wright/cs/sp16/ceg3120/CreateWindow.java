@@ -30,10 +30,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
-import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -302,29 +299,14 @@ public class CreateWindow extends JFrame {
 					"Do you want to save " + alias.getText() + " alias?", 
 					"Save Alias?", JOptionPane.YES_NO_CANCEL_OPTION);
 			if (sv == JOptionPane.YES_OPTION) {
-				String passA = "";
-				String saltA = "";
+				String pass = "";
 				if (savePassword.isSelected()) {
-					String pass = password.getText();
-					byte[] encPass;
-
-					// Encryption
-					final PasswordEncryptionService pes = new PasswordEncryptionService();
-					try {
-						byte[] salt = pes.generateSalt();
-						encPass = pes.getEncryptedPassword(pass, salt);
-						passA = Arrays.toString(encPass);
-						saltA = Arrays.toString(salt);
-					} catch (NoSuchAlgorithmException e) {
-						System.err.println("Caught NoSuchAlgorithmException: " + e.getMessage());
-					} catch (InvalidKeySpecException e) {
-						System.err.println("Caught InvalidKeySpecException: " + e.getMessage());
-					}
-
+					pass = password.getText();
+					pass = PasswordEncryptionService.encrypt(pass);
 				}
 				try {
-					XmlHandler.writeAlias(alias.getText(), dbName, dbAddress, dbUsername, passA, 
-							saltA,savePassword.isSelected(), driver.getSelectedIndex());
+					XmlHandler.writeAlias(alias.getText(), dbName, dbAddress, dbUsername, pass,
+							savePassword.isSelected(), driver.getSelectedIndex());
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (SAXException e) {

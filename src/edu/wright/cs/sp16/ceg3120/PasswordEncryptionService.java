@@ -22,96 +22,66 @@
 package edu.wright.cs.sp16.ceg3120;
 
 // Imports for encryption
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.KeySpec;
+import org.apache.commons.codec.binary.Base64;
 
-//import javax.crypto.BadPaddingException;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+
 
 /**
- * PasswordEncryptionService class handles the password encryption. It uses
- * PBKDF2 to encrypt and decrypt clear text.
+ * PasswordEncryptionService class handles the password encryption.
  */
 public class PasswordEncryptionService {
 
-	/**
-	 * The authenticate function takes the user inputed password and tests it to
-	 * see if it matches the stored encrypted password.
+	private static String initVector = "zGPDuuc7RfWJPz3t";
+	private static String key = "vQ2bEnvgEehv23H9";
+	
+	/** Encrypts a given string using AES.
 	 * 
-	 * @param salt
-	 *            // Hash
-	 * @return // Returns if authentication successful
+	 * @param value // String to encrypt.
+	 * @return // Returns encrypted string.
 	 */
-	public String deCrypt(String password, String salt) {
-		// PBKDF2
-		//try {
-			//String algorithm = "PBKDF2WithHmacSHA1";
+	public static String encrypt(String value) {
+		try {
+			IvParameterSpec iv = new IvParameterSpec(initVector.getBytes("UTF-8"));
+			SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes("UTF-8"), "AES");
 
-			// SHA-1 generates 160 bit hashes
-			//int derivedKeyLength = 160;
+			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
+			cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
 
-			// Recommended at least 1000 iterations
-			//int iterations = 20000;
-			//byte[] passByte = password.getBytes();
-			//byte[] saltByte = salt.getBytes();
-			//KeySpec spec = new PBEKeySpec(password.toCharArray(), saltByte, 
-			//		iterations, derivedKeyLength);
-			//Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-			// cipher.init(Cipher.DECRYPT_MODE, saltByet);
-			// byte[] encryptedAttemptedPassword =
-			// getEncryptedPassword(attemptedPassword, salt);
-			// return Arrays.equals(encryptedPassword,
-			// encryptedAttemptedPassword);
-			//return (cipher.doFinal(passByte).toString());
-		return password + salt;
-		//}
+			byte[] encrypted = cipher.doFinal(value.getBytes());
+			System.out.println("encrypted string: " + Base64.encodeBase64String(encrypted));
+
+			return Base64.encodeBase64String(encrypted);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return null;
+	}
+	
+	/** Decrypts a given string using AES.
+	 * 
+	 * @param encrypted // Encrypted string.
+	 * @return // Returns decrypted string.
+	 */
+	public static String decrypt(String encrypted) {
+		try {
+			IvParameterSpec iv = new IvParameterSpec(initVector.getBytes("UTF-8"));
+			SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes("UTF-8"), "AES");
+
+			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
+			cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
+
+			byte[] original = cipher.doFinal(Base64.decodeBase64(encrypted));
+			System.out.println("Decrypted Password: " + new String(original));
+			return new String(original);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return null;
 	}
 
-	/**
-	 * The getEncryptedPassword function encrypts the clear text password using
-	 * PBKDF2.
-	 * 
-	 * @param password
-	 *            // Password to encrypt
-	 * @param salt
-	 *            // Hash
-	 * @return // Returns encrypted password
-	 * @throws NoSuchAlgorithmException
-	 *             // Throws if algorithm not found
-	 * @throws InvalidKeySpecException
-	 *             // Throws if key is invalid
-	 */
-	public byte[] getEncryptedPassword(String password, byte[] salt)
-			throws NoSuchAlgorithmException, InvalidKeySpecException {
-		// PBKDF2
-		String algorithm = "PBKDF2WithHmacSHA1";
-
-		// SHA-1 generates 160 bit hashes
-		int derivedKeyLength = 160;
-
-		// Recommended at least 1000 iterations
-		int iterations = 20000;
-		KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, iterations, derivedKeyLength);
-		SecretKeyFactory factory = SecretKeyFactory.getInstance(algorithm);
-		return factory.generateSecret(spec).getEncoded();
-	}
-
-	/**
-	 * The generateSalt function generates a salt hash for the encryption.
-	 * 
-	 * @return // Returns hash
-	 * @throws NoSuchAlgorithmException
-	 *             // Throws if algorithm not found
-	 */
-	public byte[] generateSalt() throws NoSuchAlgorithmException {
-		// VERY important to use SecureRandom instead of just Random
-		SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
-		// Generate a 8 byte (64 bit) salt as recommended by RSA PKCS5
-		byte[] salt = new byte[8];
-		random.nextBytes(salt);
-		return salt;
-	}
 }
