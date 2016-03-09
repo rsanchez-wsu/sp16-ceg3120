@@ -143,7 +143,8 @@ public class Preferences extends JPanel {
 		queries.setText("queries");
 		
 		JButton btnSave = new JButton("Save");
-		
+/* we have to work on the cancel button currently it will close the entire window 
+  when it is hit. We have to reconfigure so it can just close the preference tab. **/		
 		JButton btnCancel = new JButton("Cancel");
 	btnCancel.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
@@ -268,6 +269,13 @@ public class Preferences extends JPanel {
 		// pack();
 	} // End of initComponents method ,,,
 
+
+
+
+	protected static void exit(int i) {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 
