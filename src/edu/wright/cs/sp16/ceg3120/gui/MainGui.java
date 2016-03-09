@@ -21,6 +21,7 @@
 
 package edu.wright.cs.sp16.ceg3120.gui;
 
+import java.awt.Cursor;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -121,13 +122,14 @@ public class MainGui extends JFrame implements ActionListener {
 		exitItem.setMnemonic(KeyEvent.VK_E);
 		exitItem.setToolTipText("Exit application");
 		exitItem.addActionListener(this);
-		
+		exitItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-		file.add(openAction);
-		file.add(newAction);
-		file.add(saveAction);
-		file.add(printAction);
+		file.add(openAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		file.add(newAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		file.add(saveAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		file.add(printAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		file.add(exitItem);
+		file.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 
 		// Edit menu
@@ -143,9 +145,10 @@ public class MainGui extends JFrame implements ActionListener {
 
 		JMenu edit = new JMenu("Edit");
 		
-		edit.add(cutAction);
-		edit.add(copyAction);
-		edit.add(pasteAction);
+		edit.add(cutAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		edit.add(copyAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		edit.add(pasteAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		edit.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
 		// Search menu
 		
@@ -166,11 +169,12 @@ public class MainGui extends JFrame implements ActionListener {
 
 		JMenu search = new JMenu("Search");
 		
-		search.add(topAction);
-		search.add(bottomAction);
-		search.add(goToLineAction);
-		search.add(findAction);
-		search.add(replaceAction);
+		search.add(topAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		search.add(bottomAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		search.add(goToLineAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		search.add(findAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		search.add(replaceAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		search.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
 		// Session menu
 		
@@ -195,12 +199,13 @@ public class MainGui extends JFrame implements ActionListener {
 
 		JMenu session = new JMenu("Session");
 		
-		session.add(newSessionAction);
-		session.add(connect);
-		session.add(disconnectAction);
-		session.add(disconnectAllAction);
-		session.add(createAliasAction);
-		session.add(driverAction);
+		session.add(newSessionAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		session.add(connect).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		session.add(disconnectAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		session.add(disconnectAllAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		session.add(createAliasAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		session.add(driverAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		session.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
 		// SQL menu
 		
@@ -221,11 +226,12 @@ public class MainGui extends JFrame implements ActionListener {
 
 		JMenu sql = new JMenu("SQL");
 		
-		sql.add(executeAllAction);
-		sql.add(executeHighlightedAction);
-		sql.add(formatAction);
-		sql.add(commitAction);
-		sql.add(rollbackAction);
+		sql.add(executeAllAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		sql.add(executeHighlightedAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		sql.add(formatAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		sql.add(commitAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		sql.add(rollbackAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		sql.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
 		// Window menu
 
@@ -233,12 +239,15 @@ public class MainGui extends JFrame implements ActionListener {
 		fullScreenItem.setMnemonic(KeyEvent.VK_F);
 		fullScreenItem.setToolTipText("Make application full screen");
 		fullScreenItem.addActionListener(this);
-		
+		fullScreenItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		JMenu window = new JMenu("Window");
 		window.add(fullScreenItem);
+		window.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
 		
 		// Help menu
 		final JMenu help = new JMenu("Help");
+		help.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		help.add("Welcome").addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent event) {
