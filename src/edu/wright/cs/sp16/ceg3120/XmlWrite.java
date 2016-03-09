@@ -55,8 +55,7 @@ public class XmlWrite {
 	 * @throws IOException exception handling for using docBuilder.parse
 	 */
 	public static void writeXml(String filename) throws TransformerException, 
-	ParserConfigurationException, SAXException, IOException {
-		
+	ParserConfigurationException, SAXException, IOException {		
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 		//I added a string passed to this method as the file

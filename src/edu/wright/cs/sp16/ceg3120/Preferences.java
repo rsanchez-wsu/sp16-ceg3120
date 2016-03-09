@@ -22,8 +22,8 @@
 package edu.wright.cs.sp16.ceg3120;
 
 import java.awt.Font;
-//import java.awt.event.ActionEvent;
-//import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 import javax.swing.DefaultComboBoxModel;
@@ -145,11 +145,11 @@ public class Preferences extends JPanel {
 		JButton btnSave = new JButton("Save");
 		
 		JButton btnCancel = new JButton("Cancel");
-//		btnCancel.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent exit) {
-//				MainApp.removeTab("User Preferences");
-//			}
-//		});
+	btnCancel.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+		}
+	});
 
 		GroupLayout jpanel2Layout = new GroupLayout(this);
 		jpanel2Layout.setHorizontalGroup(
