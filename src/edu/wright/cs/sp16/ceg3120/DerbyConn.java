@@ -64,8 +64,9 @@ public class DerbyConn {
 		do {
 			System.out
 					.println("\nWelcome to the database \nTo view contents enter 1 \n"
-							+ "To enter new data enter 2 \nTo delete an item from "
-							+ "the table enter 3 \nTo create a table enter 4 \nTo exit enter 5");
+							+ "To insert a new item enter 2 \nTo delete an item from "
+							+ "the table enter 3 \nTo edit an item from the table enter 4 "
+							+ "\nTo create a table enter 5 \nTo exit enter 6");
 			Scanner keyboard = new Scanner(System.in);
 
 			try {
@@ -94,16 +95,29 @@ public class DerbyConn {
 				System.out.println("Enter ID number to delete");
 				id = keyboard.next();
 				deleteItem(id);
+				System.out.println("Deletion Successful");
 				printTable();
 				break;
 			case 4:
+				System.out.println("Enter ID number to edit");
+				id = keyboard.next();
+				idNum = Integer.parseInt(id);
+				System.out.println("Enter new first name");
+				firstName = keyboard.next();
+				System.out.println("Enter new last name");
+				lastName = keyboard.next();
+				editItem(firstName, lastName, idNum);
+				System.out.println("Edit Successful");
+				printTable();
+				break;
+			case 5:
 				System.out
 						.println("Enter the number of columns for the table: ");
 				val = keyboard.next();
 				numVal = Integer.parseInt(val);
 				addTable(numVal);
 				break;
-			case 5:
+			case 6:
 				run = 0;
 				System.exit(0);
 				break;
@@ -263,11 +277,11 @@ public class DerbyConn {
 	 * @param idNum
 	 *            The id number of the individual added to the database.
 	 */
-	private static void insertItem(String lastName, String firstName, int idNum) {
+	private static void insertItem(String firstName, String lastName, int idNum) {
 		Connection conn = establishConn();
 		PreparedStatement pstmt = null;
+		PreparedStatement checkId = null;
 		try {
-
 			pstmt = conn.prepareStatement("INSERT INTO Test values (?,?,?)");
 			pstmt.setString(1, firstName);
 			pstmt.setString(2, lastName);
@@ -281,8 +295,7 @@ public class DerbyConn {
 	}
 
 	/**
-	 * This method deletes an item from the database from the database based on
-	 * id number.
+	 * This method deletes an item from the database based on id number.
 	 * 
 	 * @param idNum
 	 *            The id number of the individual being deleted from the
@@ -295,6 +308,30 @@ public class DerbyConn {
 
 			pstmt = conn.prepareStatement("DELETE FROM Test WHERE ID = ?");
 			pstmt.setString(1, idNum);
+			pstmt.executeUpdate();
+			pstmt.close();
+
+		} catch (SQLException sqlExcept) {
+			sqlExcept.printStackTrace();
+		}
+	}
+	
+	/**
+	 * This method edits an item from the database based on id number.
+	 * 
+	 * @param idNum
+	 *            The id number of the individual being edited from the
+	 *            database.
+	 */
+	private static void editItem(String firstName, String lastName, int idNum) {
+		Connection conn = establishConn();
+		PreparedStatement pstmt = null;
+		try {
+
+			pstmt = conn.prepareStatement("UPDATE Test SET FNAME = ?, LNAME = ? WHERE ID = ?");
+			pstmt.setString(1, firstName);
+			pstmt.setString(2, lastName);
+			pstmt.setInt(3, idNum);
 			pstmt.executeUpdate();
 			pstmt.close();
 
@@ -327,7 +364,7 @@ public class DerbyConn {
 				case 1:
 					tableInfo[location] = "VARCHAR(255), ";
 					location++;
-					System.out.println("Enter in the name of the catagory: ");
+					System.out.println("Enter in the name of the category: ");
 					colName = orbital.next();
 					tableInfo[location] = colName;
 					location++;
@@ -336,7 +373,7 @@ public class DerbyConn {
 				case 2:
 					tableInfo[location] = "INTEGER, ";
 					location++;
-					System.out.println("Enter in the name of the catagory: ");
+					System.out.println("Enter in the name of the category: ");
 					colName = orbital.next();
 					tableInfo[location] = colName;
 					location++;
@@ -345,7 +382,7 @@ public class DerbyConn {
 				case 3:
 					tableInfo[location] = "BOOLEAN, ";
 					location++;
-					System.out.println("Enter in the name of the catagory: ");
+					System.out.println("Enter in the name of the category: ");
 					colName = orbital.next();
 					tableInfo[location] = colName;
 					location++;
@@ -384,6 +421,7 @@ public class DerbyConn {
 			ResultSet entries = pstmt.executeQuery();
 			ResultSetMetaData meta = entries.getMetaData();
 			int numberCols = meta.getColumnCount();
+			System.out.println("");
 			for (int i = 1; i <= numberCols; i++) {
 
 				System.out.print(meta.getColumnLabel(i) + "\t\t");
