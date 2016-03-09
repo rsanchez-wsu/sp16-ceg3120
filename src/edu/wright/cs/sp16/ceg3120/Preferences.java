@@ -145,11 +145,11 @@ public class Preferences extends JPanel {
 		JButton btnSave = new JButton("Save");
 		
 		JButton btnCancel = new JButton("Cancel");
-	btnCancel.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
 				System.exit(0);
-		}
-	});
+				}
+			});
 
 		GroupLayout jpanel2Layout = new GroupLayout(this);
 		jpanel2Layout.setHorizontalGroup(
