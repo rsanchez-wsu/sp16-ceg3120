@@ -125,7 +125,7 @@ public class DerbyConn {
 				firstName = keyboard.next();
 				System.out.println("Enter new name of the Column");
 				lastName = keyboard.next();
-				editTable(val, firstName, LastName);
+				editColumnName(val, firstName, lastName);
 				System.out.println("Table edited successfully");
 				break;
 				
@@ -356,12 +356,16 @@ public class DerbyConn {
 	 * This method edits allows a user to rename a column in a table in the database.
 	 * 
 	 */
-	private static void editTable(String tableName, String oldColumn, String newColumn) {
+	private static void editColumnName(String tableName, String oldColumn, String newColumn) {
 		Connection conn = establishConn();
 		PreparedStatement pstmt = null;
-		try {
-			String command = tableName + "." + oldColumn;			
-			sp_rename command, newColumn, 'COLUMN';
+		try {			
+                        pstmt = conn.prepareStatement("ALTER TABLE table_name = ? CHANGE COLUMN old_name= ? TO new_name = ?;");
+			pstmt.setString(1, tableName);
+			pstmt.setString(2, oldColumn);
+                        pstmt.setString(3, newColumn);
+			pstmt.executeUpdate();
+			pstmt.close();
 			
 		} catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
