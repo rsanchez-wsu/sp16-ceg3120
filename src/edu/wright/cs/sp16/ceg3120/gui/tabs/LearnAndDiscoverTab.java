@@ -21,14 +21,14 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
-import edu.wright.cs.sp16.ceg3120.OpenUrlAction;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import edu.wright.cs.sp16.ceg3120.gui.listeners.OpenUrlAction;
 
 
 

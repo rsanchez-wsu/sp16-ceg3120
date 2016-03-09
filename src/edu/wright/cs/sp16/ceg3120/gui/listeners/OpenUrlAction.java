@@ -19,7 +19,7 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120;
+package edu.wright.cs.sp16.ceg3120.gui.listeners;
 
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;

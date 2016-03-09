@@ -21,7 +21,18 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
-import java.awt.Component;
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JToggleButton;
+import javax.swing.plaf.metal.MetalToggleButtonUI;
 
 /**
  * The tab that contains all the components for the connection.
@@ -29,25 +40,58 @@ import java.awt.Component;
  * @author sam
  *
  */
-public class ConnectionTab extends Component {
-	
+public class ConnectionTab extends JPanel {
+
 	private static final long serialVersionUID = -9056641573923593935L;
-	
+
 	/**
 	 * Default constructor, initializes components.
 	 */
 	public ConnectionTab() {
 		super();
-		
+
 		initComponents();
 	}
-	
+
 	/**
-	 * TODO: create all components for this window and
-	 * 		 initialize them here.
-	 * */
+	 * TODO: create all components for this window and initialize them here.
+	 */
 	private void initComponents() {
+
+		JToggleButton contentButton = new JToggleButton();
+
+		contentButton.setSelected(true);
+		contentButton.setUI(new MetalToggleButtonUI());
+
+		try {
+			URL url = new URL("https://cdn2.iconfinder.com/data/icons/flat-and-simple-part-4/128/table_check-128.png");
+			BufferedImage img = ImageIO.read(url);
+			ImageIcon icon = new ImageIcon(img);
+			contentButton.setIcon(icon);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
-		
+		try {
+			URL url = new URL("https://cdn2.iconfinder.com/data/icons/flat-and-simple-part-4/128/table_alert-128.png");
+			BufferedImage img = ImageIO.read(url);
+			ImageIcon icon = new ImageIcon(img);
+			contentButton.setSelectedIcon(icon);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		add(contentButton);
+
+		JToggleButton structureButton = new JToggleButton("Structure");
+		JToggleButton relationshipButton = new JToggleButton("Relationship");
+		JToggleButton queryBuilderButton = new JToggleButton("Query Builder");
+		add(structureButton);
+		add(relationshipButton);
+		add(queryBuilderButton);
 	}
 }
