@@ -58,6 +58,11 @@ public class MainApp {
 				} else {
 					programWindow.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 				}
+				DBconnection sql = new DBconnection();
+				sql.createConnection();
+				sql.closeConnection();
+				//closeWindow();
+
 			}
 		});
 
