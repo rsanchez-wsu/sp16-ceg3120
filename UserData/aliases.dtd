@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT aliases (alias)>
+	<!ELEMENT alias (dbName, dbURL, userName, driver, password)>
+	<!ATTLIST alias name CDATA #REQUIRED>
+	<!ELEMENT dbName (#PCDATA)>
+	<!ELEMENT dbURL (#PCDATA)>
+	<!ELEMENT userName (#PCDATA)>
+	<!ELEMENT driver (#PCDATA)>
+	<!ELEMENT password (pass, salt)>
+		<!ELEMENT pass (#PCDATA)>
+		<!ELEMENT salt (#PCDATA)>
+		<!ATTLIST password saved CDATA #REQUIRED>
