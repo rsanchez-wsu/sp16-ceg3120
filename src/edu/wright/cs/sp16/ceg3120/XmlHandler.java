@@ -99,8 +99,6 @@ public class XmlHandler {
 	 *            User name
 	 * @param password
 	 *            password
-	 * @param salt
-	 *            password salt
 	 * @param savePass
 	 *            Whether to save password or not
 	 * @param driver
@@ -111,7 +109,7 @@ public class XmlHandler {
 	 *             Throws SAX exceptions
 	 */
 	public static void writeAlias(String alias, String dbName, String dbUrl, String userName, 
-			String password, String salt, boolean savePass, int driver) 
+			String password, boolean savePass, int driver) 
 					throws SAXException, IOException {
 		System.out.println("writing");
 		try {
@@ -170,12 +168,9 @@ public class XmlHandler {
 			ps.setAttribute("saved", (savePass ? "true" : "false"));
 			al.appendChild(ps);
 
-			Element sl = doc.createElement("salt");
 			Element sps = doc.createElement("pass");
-			sl.appendChild(doc.createTextNode((savePass ? salt : "")));
 			sps.appendChild(doc.createTextNode((savePass ? password : "" )));
 			ps.appendChild(sps);
-			ps.appendChild(sl);
 
 			// write the content into xml file
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -228,14 +223,9 @@ public class XmlHandler {
 					driver.setSelectedIndex(Integer.valueOf(
 							curElement.getElementsByTagName("driver").item(0).getTextContent()));
 					curElement = (Element) curElement.getElementsByTagName("password").item(0);
-					//String holdPass = curElement.getTextContent();
-					//String holdSalt = curElement.getElementsByTagName("salt").item(0)
-					//		.getTextContent();
-					// final PasswordEncryptionService pes = new
-					// PasswordEncryptionService();
-					// password.setText(pes.deCrypt(holdPass, holdSalt));
-					password.setText("this is broken right now");
-					driver.setSelectedIndex(1);
+					String holdPass = curElement.getElementsByTagName("pass").item(0)
+							.getTextContent();
+					password.setText(PasswordEncryptionService.decrypt(holdPass));
 					savePassword.setSelected(Boolean.valueOf(curElement.getAttribute("saved")));
 				}
 			}

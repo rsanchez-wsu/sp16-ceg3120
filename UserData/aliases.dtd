@@ -6,7 +6,6 @@
 	<!ELEMENT dbURL (#PCDATA)>
 	<!ELEMENT userName (#PCDATA)>
 	<!ELEMENT driver (#PCDATA)>
-	<!ELEMENT password (pass, salt)>
+	<!ELEMENT password (pass)>
 		<!ELEMENT pass (#PCDATA)>
-		<!ELEMENT salt (#PCDATA)>
 		<!ATTLIST password saved CDATA #REQUIRED>
