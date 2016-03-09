@@ -65,8 +65,9 @@ public class DerbyConn {
 			System.out
 					.println("\nWelcome to the database \nTo view contents enter 1 \n"
 							+ "To insert a new item enter 2 \nTo delete an item from "
-							+ "the table enter 3 \nTo edit an item from the table enter 4 "
-							+ "\nTo create a table enter 5 \nTo exit enter 6");
+							+ "the table enter 3 \nTo edit an item in the table enter 4 "
+							+ "\nTo edit a table enter 6 \nTo exit enter 7");
+
 			Scanner keyboard = new Scanner(System.in);
 
 			try {
@@ -111,13 +112,24 @@ public class DerbyConn {
 				printTable();
 				break;
 			case 5:
-				System.out
-						.println("Enter the number of columns for the table: ");
+				System.out.println("Enter the number of columns for the table: ");
 				val = keyboard.next();
 				numVal = Integer.parseInt(val);
 				addTable(numVal);
+				System.out.println("Table created successfully");
 				break;
 			case 6:
+				System.out.println("Enter the name of the table you wish to edit: ");
+				val = keyboard.next();
+				System.out.println("Enter the old name of the Column");
+				firstName = keyboard.next();
+				System.out.println("Enter new name of the Column");
+				lastName = keyboard.next();
+				editTable(val, firstName, LastName);
+				System.out.println("Table edited successfully");
+				break;
+				
+			case 7:
 				run = 0;
 				System.exit(0);
 				break;
@@ -339,6 +351,22 @@ public class DerbyConn {
 			sqlExcept.printStackTrace();
 		}
 	}
+	
+	/**
+	 * This method edits allows a user to rename a column in a table in the database.
+	 * 
+	 */
+	private static void editTable(String tableName, String oldColumn, String newColumn) {
+		Connection conn = establishConn();
+		PreparedStatement pstmt = null;
+		try {
+			String command = tableName + "." + oldColumn;			
+			sp_rename command, newColumn, 'COLUMN';
+			
+		} catch (SQLException sqlExcept) {
+			sqlExcept.printStackTrace();
+		}
+	}
 
 	/**
 	 * This method creates a new table in the database.
@@ -364,8 +392,7 @@ public class DerbyConn {
 				case 1:
 					tableInfo[location] = "VARCHAR(255), ";
 					location++;
-					System.out.println("Enter in the name of the category: ");
-					colName = orbital.next();
+					colName = "Column" + i;
 					tableInfo[location] = colName;
 					location++;
 
@@ -373,8 +400,7 @@ public class DerbyConn {
 				case 2:
 					tableInfo[location] = "INTEGER, ";
 					location++;
-					System.out.println("Enter in the name of the category: ");
-					colName = orbital.next();
+					colName = "Column" + i;
 					tableInfo[location] = colName;
 					location++;
 
@@ -382,8 +408,7 @@ public class DerbyConn {
 				case 3:
 					tableInfo[location] = "BOOLEAN, ";
 					location++;
-					System.out.println("Enter in the name of the category: ");
-					colName = orbital.next();
+					colName = "Column" + i;
 					tableInfo[location] = colName;
 					location++;
 					break;
@@ -400,6 +425,7 @@ public class DerbyConn {
 			sql = sql + " PRIMARY KEY ( id ))";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.executeUpdate();
+			pstmt.close();
 
 			System.out.println("Created table in given database...");
 		} catch (SQLException sqlExcept) {
