@@ -21,9 +21,12 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
-import edu.wright.cs.sp16.ceg3120.gui.StartTabPane;
+import edu.wright.cs.sp16.ceg3120.gui.tabs.startpagecomponents.RecentConnectionsPane;
+import edu.wright.cs.sp16.ceg3120.gui.tabs.startpagecomponents.TipOfTheDayPane;
 
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+
 import javax.swing.JPanel;
 
 /**
@@ -38,28 +41,47 @@ import javax.swing.JPanel;
 public class StartPageTab extends JPanel {
 
 	private static final long serialVersionUID = 8991726988535798603L;
-
-	private StartTabPane startTabPane;
 	
 	/**
 	 * Initializes Start Page Tab, pulls recent connections, adds components to GUI.
 	 * TODO: Pull recent connections, initialize components.
 	 */
 	public StartPageTab() {
-		super(new GridLayout(1,1));
+		super(new GridBagLayout());
 
 		
 		setSize(960, 600);
 		initComponents();
 	}
 	
-	/**Create the start tab pane.
+	/**Initialize components in the start tab pane.
 	 * @author Sam
 	 */
-	public void initComponents() {
-		startTabPane = new StartTabPane();
+	public void initComponents() {		
+		// specify constraints for "Recent Connections" pane
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+		constraints.gridwidth = 2;
+		constraints.fill = GridBagConstraints.BOTH;
+		constraints.weightx = 1.0;
+		constraints.weighty = 1.0;
+
+		//add "Recent Connections" pane with constraints
+		JPanel recentConnsPane = new RecentConnectionsPane();
+		add(recentConnsPane, constraints);
 		
-		add(startTabPane);
+		// specify constraints for "Tip of the day" pane
+		constraints.gridx = 2;
+		constraints.gridy = 0;
+		constraints.gridwidth = 1;
+		constraints.fill = GridBagConstraints.BOTH;
+		constraints.weightx = 0.5;
+		constraints.weighty = 1.0;
+
+		//add "Tip of the day" pane with constraints
+		JPanel tipOfTheDayPane = new TipOfTheDayPane();
+		add(tipOfTheDayPane, constraints);
 	}
 
 }
