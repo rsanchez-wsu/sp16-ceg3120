@@ -183,19 +183,27 @@ public class MainGui extends JFrame implements ActionListener {
 			}
 		} else if (actionEvent.getSource().equals(welcomeMenuItem)) {	
 			//create a new frame About and set its properties
-			JFrame frameAbout = new JFrame("Welcome"); 
+			JFrame frameWelcome = new JFrame("Welcome"); 
+			makeDisabled();
 			JLabel labelName = new JLabel("SQLizard");
 			JLabel labelVersion = new JLabel("Welcome to the amazing application SQLizard");
-
-			frameAbout.getContentPane().add(labelName);
-			frameAbout.getContentPane().add(labelVersion);
 			
-			frameAbout.setSize(500, 600);
-			frameAbout.setLocationRelativeTo(null);
-			frameAbout.setVisible(true);
+			frameWelcome.getContentPane().add(labelName);
+			frameWelcome.getContentPane().add(labelVersion);
+			
+			frameWelcome.setSize(500, 600);
+			frameWelcome.setLocationRelativeTo(null);
+			frameWelcome.setVisible(true);
+			
+			frameWelcome.addWindowListener(new WindowAdapter() {
+				public void windowClosing(WindowEvent ev) {
+					makeEnabled();
+				}
+			});
 		} else if (actionEvent.getSource().equals(aboutMenuItem)) {	
 			//create a new frame About and set its properties
 			JFrame frameAbout = new JFrame("About"); 
+			makeDisabled();
 			JLabel labelName = new JLabel("About");
 			JLabel labelVersion = new JLabel("Version 0.0.0.0");
 
@@ -205,9 +213,27 @@ public class MainGui extends JFrame implements ActionListener {
 			frameAbout.setSize(300, 300);
 			frameAbout.setLocationRelativeTo(null);
 			frameAbout.setVisible(true);
+			frameAbout.addWindowListener(new WindowAdapter() {
+				public void windowClosing(WindowEvent ev) {
+					makeEnabled();
+				}
+			});
 		}
 	}
 	
-	
+	// enable and disable window
+	/**
+	 * Disables the main window.
+	 */
+	public void makeDisabled() {
+		setEnabled(false);
+	}
+	/**
+	 * Enables the main window.
+	 */
+	public void makeEnabled() {
+		setEnabled(true);
+	}
+
 
 }

@@ -25,7 +25,7 @@ import edu.wright.cs.sp16.ceg3120.gui.tabs.LearnAndDiscoverTab;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.MySqLizardTab;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.WhatsNewTab;
 
-import java.awt.Component;
+
 
 import javax.swing.JTabbedPane;
 
