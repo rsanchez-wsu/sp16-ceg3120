@@ -32,6 +32,7 @@ import java.io.IOException;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JTextField;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -109,8 +110,7 @@ public class XmlHandler {
 	 *             Throws SAX exceptions
 	 */
 	public static void writeAlias(String alias, String dbName, String dbUrl, String userName, 
-			String password, boolean savePass, int driver) 
-					throws SAXException, IOException {
+			String password, boolean savePass, int driver) {
 		System.out.println("writing");
 		try {
 			File file = new File("UserData/aliases.xml");
@@ -181,23 +181,36 @@ public class XmlHandler {
 			transformer.transform(source, result);
 
 			System.out.println("File saved!");
-		} catch (ParserConfigurationException pce) {
-			pce.printStackTrace();
-		} catch (TransformerException tfe) {
-			tfe.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (TransformerException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
 		}
 
 	}
+	
 	/**
 	 * Reads an alias based on name.
 	 * @author Nick Madden
 	 * @param alias
 	 *            Alias name to read
+	 * @param inputFields 
+	 *            Input fields from gui
 	 */
 	
-	public static void readAlias(String alias, JCheckBox savePassword, JTextField name, 
-			JTextField databaseUrl, JTextField username, 
-			JTextField password, JComboBox<String> driver) {
+	public static void readAlias(String alias, JComponent[] inputFields) {
+		JTextField name = ((JTextField) inputFields[Inputs.dbName.getId()]);
+		JTextField databaseUrl = ((JTextField) inputFields[Inputs.dbUrl.getId()]);
+		JTextField username = ((JTextField) inputFields[Inputs.username.getId()]);
+		@SuppressWarnings("unchecked")
+		JComboBox<String> driver = ((JComboBox<String>) inputFields[Inputs.driver.getId()]);
+		JTextField password = ((JTextField) inputFields[Inputs.password.getId()]);
+		JCheckBox savePassword = ((JCheckBox) inputFields[Inputs.save.getId()]);
+		
 		try {
 			File xmlFile = new File("UserData/aliases.xml");
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
