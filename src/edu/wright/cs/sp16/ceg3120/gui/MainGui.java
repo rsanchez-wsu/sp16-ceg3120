@@ -190,9 +190,6 @@ public class MainGui extends JFrame implements ActionListener {
 		
 		Action disconnectAllAction = new DefaultEditorKit.PasteAction();
 		disconnectAllAction.putValue(Action.NAME, "Disconnect From All");
-
-		Action createAliasAction = new DefaultEditorKit.PasteAction();
-		createAliasAction.putValue(Action.NAME, "Create Alias");
 		
 		Action driverAction = new DefaultEditorKit.PasteAction();
 		driverAction.putValue(Action.NAME, "New Driver");
@@ -203,7 +200,6 @@ public class MainGui extends JFrame implements ActionListener {
 		session.add(connect).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		session.add(disconnectAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		session.add(disconnectAllAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
-		session.add(createAliasAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		session.add(driverAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		session.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
