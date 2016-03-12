@@ -176,6 +176,9 @@ public class XmlHandler {
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(doc);
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			transformer.setOutputProperty("{http://xml.apache.org/xalan}line-separator"," ");
+			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,"aliases.dtd");
 			StreamResult result = new StreamResult(new File("UserData/aliases.xml"));
 			transformer.transform(source, result);
