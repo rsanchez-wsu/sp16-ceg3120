@@ -73,18 +73,35 @@ public class Preferences extends JPanel {
 	private JCheckBox useMonospaced;
 	// End of variables declaration
 
+	private final UserSettings initSettings;
+	private UserSettings changedSettings;
 
+	private static final String SETTINGS_FILE_NAME = "Profile.xml";
 
 	/**
 	 * Constructor with zero-arguments to open the connection window.
 	 */
 	public Preferences() {
 
+		initSettings = SettingsReader.readXml(SETTINGS_FILE_NAME);
 
+
+		//changedSettings = new UserSettings(initSettings);
+		
 		// This method is created by GUI Builder to customize how the window
 		// will look like ,,,
 		initComponents();
-	} // End of Constructor method ,,,
+	
+		//load settings into gui
+		choice1.addItem(initSettings.getDefaultDatabase());
+		choice3.addItem(initSettings.getDefaultView());
+		choice2.addItem(initSettings.getDefaultEncoding());
+		startupConnect.setSelected(initSettings.isConnectOnStartup());
+		startupMotd.setSelected(initSettings.isMessageOfTheDay());
+		useMonospaced.setSelected( initSettings.isMonspacedFonts());
+		gridLines.setSelected(initSettings.isShowGridLines());
+		pxQueries.setSelectedItem(NumberOfQueries.valueOf( initSettings.getNumberOfQueries()));
+	} 
 
 
 
@@ -272,10 +289,7 @@ public class Preferences extends JPanel {
 
 
 
-	protected static void exit(int i) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 
 

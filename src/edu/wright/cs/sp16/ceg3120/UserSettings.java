@@ -45,6 +45,30 @@ public class UserSettings {
 	}
 
 	/**
+	 * Default constructor.
+	 */
+	public UserSettings() {
+	}
+
+	/**
+	 * Copy constructor.
+	 * 
+	 * @param other
+	 *            object to copy
+	 */
+	public UserSettings(UserSettings other) {
+
+		defaultDatabase = other.defaultDatabase;
+		connectOnStartup = other.connectOnStartup;
+		messageOfTheDay = other.messageOfTheDay;
+		defaultView = other.defaultView;
+		defaultEncoding = other.defaultEncoding;
+		monspacedFonts = other.monspacedFonts;
+		showGridLines = other.showGridLines;
+		numberOfQueries = other.numberOfQueries;
+	}
+
+	/**
 	 * Sets the default database.
 	 * 
 	 * @param defaultDatabase
@@ -186,4 +210,79 @@ public class UserSettings {
 	public void setNumberOfQueries(String numberOfQueries) {
 		this.numberOfQueries = numberOfQueries;
 	}
+
+	@Override
+	public int hashCode() {
+		// auto generated
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (connectOnStartup ? 1231 : 1237);
+		result = prime * result + ((defaultDatabase == null) ? 0 : defaultDatabase.hashCode());
+		result = prime * result + ((defaultEncoding == null) ? 0 : defaultEncoding.hashCode());
+		result = prime * result + ((defaultView == null) ? 0 : defaultView.hashCode());
+		result = prime * result + (messageOfTheDay ? 1231 : 1237);
+		result = prime * result + (monspacedFonts ? 1231 : 1237);
+		result = prime * result + ((numberOfQueries == null) ? 0 : numberOfQueries.hashCode());
+		result = prime * result + (showGridLines ? 1231 : 1237);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		// Auto generated
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+
+		UserSettings other = (UserSettings) obj;
+
+		if (connectOnStartup != other.connectOnStartup) {
+			return false;
+		}
+		if (defaultDatabase == null) {
+			if (other.defaultDatabase != null) {
+				return false;
+			}
+		} else if (!defaultDatabase.equals(other.defaultDatabase)) {
+			return false;
+		}
+		if (defaultEncoding == null) {
+			if (other.defaultEncoding != null) {
+				return false;
+			}
+		} else if (!defaultEncoding.equals(other.defaultEncoding)) {
+			return false;
+		}
+		if (defaultView == null) {
+			if (other.defaultView != null) {
+				return false;
+			}
+		} else if (!defaultView.equals(other.defaultView)) {
+			return false;
+		}
+		if (messageOfTheDay != other.messageOfTheDay) {
+			return false;
+		}
+		if (monspacedFonts != other.monspacedFonts) {
+			return false;
+		}
+		if (numberOfQueries == null) {
+			if (other.numberOfQueries != null) {
+				return false;
+			}
+		} else if (!numberOfQueries.equals(other.numberOfQueries)) {
+			return false;
+		}
+		if (showGridLines != other.showGridLines) {
+			return false;
+		}
+		return true;
+	}
+
 }

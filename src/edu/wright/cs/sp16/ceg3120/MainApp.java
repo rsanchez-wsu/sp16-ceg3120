@@ -159,7 +159,7 @@ public class MainApp {
 		// creating and showing this application's GUI.
 		SwingUtilities.invokeLater(new Runnable() {
 			
-			UserSettings globalConfig = SettingsReader.readXml("Profile.xml");
+			//UserSettings globalConfig = SettingsReader.readXml("Profile.xml");
 			
 			@Override
 			public void run() {
