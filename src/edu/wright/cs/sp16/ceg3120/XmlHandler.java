@@ -70,7 +70,7 @@ public class XmlHandler {
 				NodeList aliasList = doc.getElementsByTagName("alias");
 				int length = aliasList.getLength();
 				listA = new String[length + 1];
-				listA[0] = "Choose Alias";
+				listA[0] = "Load an Alias";
 				for (int i = 0; i < length; i++) {
 					Node currentNode = aliasList.item(i);
 					Element curElement = (Element) currentNode;
