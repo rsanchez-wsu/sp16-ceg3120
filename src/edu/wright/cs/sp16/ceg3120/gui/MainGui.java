@@ -28,8 +28,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 
 import javax.swing.Action;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -37,6 +39,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.DefaultEditorKit;
 
 /**
@@ -51,6 +54,7 @@ public class MainGui extends JFrame implements ActionListener {
 	private JMenuItem exitItem = null;
 	private JMenuItem fullScreenItem = null;
 	private JMenuItem connect = null;
+	private JMenuItem openItem = null;
 	private MainTabPane tabPane = null;
 	//private StartPageTab startPage = null;
 	private boolean isFullScreen = false;
@@ -106,8 +110,11 @@ public class MainGui extends JFrame implements ActionListener {
 		JMenu file = new JMenu("File");
 		file.setMnemonic(KeyEvent.VK_F);
 		
-		Action openAction = new DefaultEditorKit.CutAction();
-		openAction.putValue(Action.NAME, "Open");
+		openItem = new JMenuItem("Open");
+		openItem.setMnemonic(KeyEvent.VK_E);
+		openItem.setToolTipText("Open SQL File");
+		openItem.addActionListener(this);
+		openItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
 		Action newAction = new DefaultEditorKit.CutAction();
 		newAction.putValue(Action.NAME, "New");
@@ -124,7 +131,7 @@ public class MainGui extends JFrame implements ActionListener {
 		exitItem.addActionListener(this);
 		exitItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-		file.add(openAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		file.add(openItem);
 		file.add(newAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		file.add(saveAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		file.add(printAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -318,6 +325,20 @@ public class MainGui extends JFrame implements ActionListener {
 				fullScreenItem.setText("Full Screen");
 				fullScreenItem.setToolTipText("Make application full screen");
 				setSize(960, 600);
+			}
+		} else if (actionEvent.getSource().equals(openItem)) {
+			
+			// JFileChooser to browse and open the sql file
+			// Waiting on Team 3 to get the SQL code window implemented 
+			// so that we can actually write/read files (this isn't fully complete yet)
+			JFileChooser fileChooser = new JFileChooser();
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("SQL FILES", "sql");
+			fileChooser.setFileFilter(filter);
+			fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+			int result = fileChooser.showOpenDialog(this);
+			if (result == JFileChooser.APPROVE_OPTION) {
+				File openedFile = fileChooser.getSelectedFile();
+				System.out.println("Opened File: " + openedFile.getAbsolutePath());
 			}
 		}
 	}
