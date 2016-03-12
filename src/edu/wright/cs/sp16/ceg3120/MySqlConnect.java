@@ -25,12 +25,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import java.sql.Statement;
 
 /**
- * @author rhys
+ * @author Rhys
  * 
  *         MySqlConnect is a class to run basic connection to MySQL test
  *         database. This class is capable of receiving a database address, user
@@ -39,13 +37,12 @@ import javax.swing.JPanel;
  *         values.
  */
 
-public class MySqlConnect {
+public class MySqlConnect extends DatabaseConnector{
 
 	private String dbAddress;
 	private String dbUsername;
 	private String dbPassword;
 	private String dbName;
-	private JPanel successPanel = new JPanel();
 	private com.mysql.jdbc.jdbc2.optional.MysqlDataSource dataSource = 
 			new com.mysql.jdbc.jdbc2.optional.MysqlDataSource();
 
@@ -95,56 +92,53 @@ public class MySqlConnect {
 		dataSource.setPassword(getDbPassword());
 		dataSource.setServerName(getDbAddress());
 		dataSource.setDatabaseName(getDbName());
-		Connection conn = dataSource.getConnection();
-		try {
-			java.sql.Statement stmt = conn.createStatement();
-			try {
+	}
 
-				ResultSet rs = stmt.executeQuery("SELECT * FROM inventory");
-
-				//System.out.println("If you see this you connected!");
-
-				ResultSetMetaData rsmd = rs.getMetaData();
-				int columnsNumber = rsmd.getColumnCount();
-				while (rs.next()) {
-					for (int i = 1; i <= columnsNumber; i++) {
-						if (i > 1) {
-							System.out.print(",  ");
-							String columnValue = rs.getString(i);
-							System.out.print(columnValue + " " + rsmd.getColumnName(i));
-						}
+	/**
+	 * This function accepts a String variable that is a SQL query, executes the
+	 * query, iterates through the resulting data, and concatenates a string of
+	 * the results from the query. It should be noted that FindBugs flagged this
+	 * approach as unsafe and required a Suppression on the warning. We want to
+	 * be able to execute arbitrary code, so there is no need to protect against
+	 * SQL injection.
+	 * 
+	 * @return String variable containing the results of the query executed.
+	 * @throws SQLException
+	 *             when there is an issue connection to the database.
+	 */
+	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = 
+			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
+			"We specifically want to allow the user to execute arbitrary SQL")
+	public String executeQuery(String stringQuery) throws SQLException {
+		String returnString = "";
+		StringBuilder stringBuilder = new StringBuilder();
+		try (Connection conn = dataSource.getConnection();
+				Statement inputStatement = conn.createStatement();
+				ResultSet rs = inputStatement.executeQuery(stringQuery);) {
+			// ResulSetMetaData does not implement AutoClosable() so it
+			// cannot be handled by try-with-resources.
+			ResultSetMetaData rsmd = null;
+			// Try to read the result set and its meta data and print out to
+			// string.
+			rsmd = rs.getMetaData();
+			int columnsNumber = rsmd.getColumnCount();
+			// Iterate through all data returned and append to string
+			// result.
+			while (rs.next()) {
+				for (int i = 1; i <= columnsNumber; i++) {
+					if (i > 1) {
+						stringBuilder.append(",  ");
+						String columnValue = rs.getString(i);
+						stringBuilder.append(columnValue + " " + rsmd.getColumnName(i));
 					}
-					System.out.println("");
 				}
-				JOptionPane.showMessageDialog(successPanel, 
-						"Connection successful", 
-						"Success", 
-						JOptionPane.PLAIN_MESSAGE);
-
-				rs.close();
-				stmt.close();
-				conn.close();
-
-			} catch (SQLException SqlEx) {
-				stmt.close();
-				conn.close();
-				System.out.println("If you see this, you failed to connect!");
-				JOptionPane.showMessageDialog(successPanel, 
-						"Connection failed", 
-						"Failed", 
-						JOptionPane.ERROR_MESSAGE);
-				System.out.println(SqlEx.getMessage());
-
-			} finally {
-				stmt.close();
-				conn.close();
+				System.out.println("");
 			}
-			stmt.close();
-			conn.close();
-
-		} finally {
-			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
+		returnString = stringBuilder.toString();
+		return returnString;
 	}
 
 	/**
@@ -203,11 +197,11 @@ public class MySqlConnect {
 	 * Sets the database password as a String value. It is case sensitive, and
 	 * is verified against the database.
 	 * 
-	 * @param dbPassword2
+	 * @param dbPassword
 	 *            database password
 	 */
-	public void setDbPassword(String dbPassword2) {
-		this.dbPassword = dbPassword2;
+	public void setDbPassword(String dbPassword) {
+		this.dbPassword = dbPassword;
 	}
 
 	/**

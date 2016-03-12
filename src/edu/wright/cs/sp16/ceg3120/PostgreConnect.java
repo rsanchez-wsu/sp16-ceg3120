@@ -38,7 +38,7 @@ import java.sql.Statement;
  *         values.
  */
 
-public class PostgreConnect {
+public class PostgreConnect extends DatabaseConnector{
 
 	private String dbAddress;
 	private String dbUsername;

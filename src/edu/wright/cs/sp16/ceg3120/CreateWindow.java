@@ -47,6 +47,11 @@ public class CreateWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
+	private JFrame frame;
+	
+	// variable to see if you are connected
+	private boolean connected = false;
+	
 	// title label
 	private JLabel title = new JLabel("Aliases");
 
@@ -55,19 +60,19 @@ public class CreateWindow extends JFrame {
 	private JButton connect = new JButton("Connect");
 
 	// input fields
-	public static JComponent[] inputFields = new JComponent[8];
+	public JComponent[] inputFields = new JComponent[8];
 	static String[] driverNames = { "None Selected",
 			"MySQL Driver", "PostgreSQL Driver", "Demo Driver 3" };
-	private static JComboBox<String> aliases;
+	private JComboBox<String> aliases;
 
 	// creating panels to add labels and text boxes
 	private JPanel titlePanel = new JPanel();
 	private JPanel controlPanel = new JPanel();
 	private JPanel buttonPanel = new JPanel();
-	private static JPanel svAlias = new JPanel();
+	private JPanel svAlias = new JPanel();
 
 	// ActionListener for buttons
-	private static ActionListener actionHandler = new ActionHandler();
+	private ActionListener actionHandler = new ActionHandler();
 
 	/** Constructor for CreatWindow.
 	 * @author Devesh Amin, Nick Madden
@@ -107,6 +112,7 @@ public class CreateWindow extends JFrame {
 				jpanel.add(jtf);
 			}
 			gui.add(jpanel, BorderLayout.CENTER);
+			setFrame(this);
 		}
 		
 		// Add to panels
@@ -147,7 +153,7 @@ public class CreateWindow extends JFrame {
 	/** Save alias to file.
 	 * @author Nick Madden
 	 */
-	public static void saveAndConnect() {
+	public void saveAndConnect() {
 		String alias = ((JTextField) inputFields[Inputs.alias.getId()]).getText();
 		String dbName = ((JTextField) inputFields[Inputs.dbName.getId()]).getText();
 		String dbAddress = ((JTextField) inputFields[Inputs.dbUrl.getId()]).getText();
@@ -178,11 +184,16 @@ public class CreateWindow extends JFrame {
 		switch (dbDriver) {
 		// MySQL Driver
 		case 1:
-			MySqlConnect connect = new MySqlConnect(dbAddress, dbUsername, dbPassword, dbName);
+			MySqlConnect mysqlconnect = new MySqlConnect(dbAddress, dbUsername, dbPassword, dbName);
 			try {
-				connect.configure();
+				mysqlconnect.configure();
+				setConnected(true);
+				//Test code to check the connection and query function.
+				System.out.println(mysqlconnect.executeQuery("SELECT * FROM inventory;"));
 			} catch (SQLException e) {
 				e.printStackTrace();
+			} finally {
+				testConnection(isConnected(), mysqlconnect);
 			}
 			break;
 		// PostgreSQL Driver
@@ -191,8 +202,15 @@ public class CreateWindow extends JFrame {
 					new PostgreConnect(dbAddress, dbUsername, dbPassword, dbName);
 			try {
 				postgreConnect.configure();
+				//test code to test the connection and query function
+				System.out.println(postgreConnect.executeQuery("SELECT actor.first_name,"
+						+ " actor.actor_id, actor.last_name, actor.last_update FROM "
+						+ "public.actor;"));
+				setConnected(true);
 			} catch (SQLException e) {
 				e.printStackTrace();
+			} finally {
+				testConnection(isConnected(), postgreConnect);
 			}
 			break;
 		// No driver
@@ -201,12 +219,31 @@ public class CreateWindow extends JFrame {
 		}
 	}
 	
+	/**
+	 * will do something weather the connection was successful.
+	 * currently will close the window when the database is connected.
+	 * @param connected
+	 * 				boolean value set by setconnected 
+	 */
+	private void testConnection(boolean connected, DatabaseConnector connector) {
+		if (!connected) {
+			// generate error
+		} else {
+			//will close the window if the connection is successful.
+			getFrame().dispose();
+			final Querybuilder qbuilder = new Querybuilder(connector);
+//			qbuilder.setVisible(true);
+//			qbuilder.pack();
+//			qbuilder.setLocationRelativeTo(null);
+		}
+	}
+	
 	/** Handles all actions.
 	 * 
 	 * @author Nick
 	 *
 	 */
-	private static class ActionHandler implements ActionListener {
+	private class ActionHandler implements ActionListener {
 		@SuppressWarnings("unchecked")
 		@Override
 		public void actionPerformed(ActionEvent ae) {
@@ -296,4 +333,39 @@ public class CreateWindow extends JFrame {
 		// end of Main Method
 	}
 	// end of CreateWindow
+
+	/**
+	 * getter for frame.
+	 * @return the frame for the createwindow
+	 */
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	/**
+	 * setter for frame.
+	 * @param frame
+	 * 			this is the createwindow frame
+	 */
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
+	}
+
+	/**
+	 * getter for is connected.
+	 * @return boolean
+	 * 				returns weather or not that the database is connected
+	 */
+	public  boolean isConnected() {
+		return connected;
+	}
+
+	/**
+	 * set the connected variable.
+	 * @param connected
+	 * 				boolean to set if connected to a database
+	 */
+	public void setConnected(boolean connected) {
+		this.connected = connected;
+	}
 }
