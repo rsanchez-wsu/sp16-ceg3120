@@ -37,16 +37,16 @@ import java.sql.Statement;
  */
 public class SqlStatement {
 	
-	Connection conn;
-	Statement stat = null;
-	String query;
+	//Connection conn;
+//	Statement stat = null;
+	//String query;
 	
 	/**constructor built to take a SQL input.
 	 * 
 	 */
 	public SqlStatement(Connection conn, String enteredQuery) {
-		this.conn = conn;
-		this.query = enteredQuery;
+		//this.conn = conn;
+	//	this.query = enteredQuery;
 	}
 	
 	/*

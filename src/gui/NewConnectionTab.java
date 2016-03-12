@@ -43,7 +43,7 @@ import javax.swing.JTextField;
 public class NewConnectionTab extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private WinMain mainWinRef;
-	private DbConnection dbConn;
+	private transient DbConnection dbConn;
 	
 	private final JPanel connContentPanel = new JPanel();
 	private static final JLabel dburlLabel = new JLabel("Database URL: ");
