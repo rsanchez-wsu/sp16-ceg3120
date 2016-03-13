@@ -34,7 +34,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-
+import javax.swing.SwingUtilities;
 import javax.swing.text.DefaultEditorKit;
 
 /**
@@ -141,8 +141,7 @@ public class MainGui extends JFrame implements ActionListener {
 		
 		help.add(aboutMenuItem);
 		
-		
-		//TODO: Decide what to include in Help Menu
+
 
 		JMenuBar menuBar = new JMenuBar();
 
@@ -183,6 +182,7 @@ public class MainGui extends JFrame implements ActionListener {
 			}
 		} else if (actionEvent.getSource().equals(welcomeMenuItem)) {	
 			//create a new frame About and set its properties
+			/**
 			JFrame frameWelcome = new JFrame("Welcome"); 
 			makeDisabled();
 			JLabel labelName = new JLabel("SQLizard");
@@ -200,6 +200,16 @@ public class MainGui extends JFrame implements ActionListener {
 					makeEnabled();
 				}
 			});
+			*/
+			makeDisabled();
+			SwingUtilities.invokeLater(new Runnable()
+			{
+				public void run() {
+					new SlideShow();
+					makeEnabled();
+				}
+			});
+			
 		} else if (actionEvent.getSource().equals(aboutMenuItem)) {	
 			//create a new frame About and set its properties
 			JFrame frameAbout = new JFrame("About"); 
