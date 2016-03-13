@@ -62,7 +62,7 @@ public class CreateWindow extends JFrame {
 	// input fields
 	public JComponent[] inputFields = new JComponent[8];
 	static String[] driverNames = { "None Selected",
-			"MySQL Driver", "PostgreSQL Driver", "Demo Driver 3" };
+			"MySQL Driver", "PostgreSQL Driver", "Derby Driver" };
 	private JComboBox<String> aliases;
 
 	// creating panels to add labels and text boxes
@@ -213,6 +213,27 @@ public class CreateWindow extends JFrame {
 				testConnection(isConnected(), postgreConnect);
 			}
 			break;
+			
+			//derby driver
+			case 3:
+				DerbyConnect derbyConnect = new DerbyConnect( dbName);
+				
+				try {
+					derbyConnect.createConnection();
+					System.out.println(derbyConnect.dataEntry("SELECT actor.first_name,"
+							+ " actor.actor_id, actor.last_name, actor.last_update FROM "
+							+ "public.actor;"));
+					setConnected(true);
+										
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					testConnection(isConnected(), derbyConnect);
+				} 
+				break;
+	
+
+			
 		// No driver
 		default:
 			System.out.println("ERROR: Driver not found!");
