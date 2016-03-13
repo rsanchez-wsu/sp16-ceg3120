@@ -53,7 +53,7 @@ public class CreateWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	// input fields
-	public static JComponent[] inputFields = new JComponent[8];
+	public static final JComponent[] inputFields = new JComponent[8];
 	static String[] driverNames = { "Choose a Driver",
 			"MySQL Driver", "PostgreSQL Driver", "Demo Driver 3" };
 	private static JComboBox<String> aliases;
