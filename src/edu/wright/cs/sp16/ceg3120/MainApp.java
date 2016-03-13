@@ -114,9 +114,13 @@ public class MainApp {
 		
 		JMenuItem mntmPreferences = new JMenuItem("Preferences");
 		mntmPreferences.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent preferences) {
-				Preferences preferences1 = new Preferences();
-				tabbedPane.addTab("User Preferences", preferences1);
+				int index = tabbedPane.indexOfTab("User Preferences");
+				if (index == -1) {
+					Preferences preferences1 = new Preferences();
+					tabbedPane.addTab("User Preferences", preferences1);
+				}
 			}
 		});
 		mnEdit.add(mntmPreferences);
