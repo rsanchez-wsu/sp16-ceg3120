@@ -54,7 +54,7 @@ public class SettingsReader {
 	static final String DEFAULT_VIEW = "defaultView";
 	static final String DEFAULT_ENCODING = "defaultEncoding";
 	static final String MONOSPACED_FONT = "monospacedFont";
-	static final String VERTICAL_GRID_LINES = "verticleGridLines";
+	static final String VERTICAL_GRID_LINES = "verticalGridLines";
 	static final String REMEMBER_LAST_QUERIES = "rememberLastQueries";
 
 	// tags without relevant meaning
@@ -158,7 +158,8 @@ public class SettingsReader {
 		} catch (IOException ioe) {
 			System.err.println(ioe.getMessage());
 		}
-
+		
+		
 		return userSettings;
 	}
 
