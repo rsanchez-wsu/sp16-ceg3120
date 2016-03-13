@@ -22,6 +22,7 @@
 package edu.wright.cs.sp16.ceg3120.gui;
 
 import java.awt.Cursor;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,6 +32,7 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 
 import javax.swing.Action;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -54,8 +56,10 @@ public class MainGui extends JFrame implements ActionListener {
 	private JMenuItem exitItem = null;
 	private JMenuItem fullScreenItem = null;
 	private JMenuItem connect = null;
-	private JMenuItem openItem = null;
+	private JMenuItem openItem;
 	private MainTabPane tabPane = null;
+	private JMenuItem saveItem = null;
+	private JMenuItem newItem;
 	//private StartPageTab startPage = null;
 	private boolean isFullScreen = false;
 	
@@ -110,17 +114,34 @@ public class MainGui extends JFrame implements ActionListener {
 		JMenu file = new JMenu("File");
 		file.setMnemonic(KeyEvent.VK_F);
 		
-		openItem = new JMenuItem("Open");
-		openItem.setMnemonic(KeyEvent.VK_E);
+		ImageIcon icon =  new ImageIcon("img/Open File Icon.gif");
+		Image image = icon.getImage();
+		Image newImage = image.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+		icon = new ImageIcon(newImage);
+		openItem = new JMenuItem("Open", icon);
 		openItem.setToolTipText("Open SQL File");
 		openItem.addActionListener(this);
 		openItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
-		Action newAction = new DefaultEditorKit.CutAction();
-		newAction.putValue(Action.NAME, "New");
+		ImageIcon icon2 =  new ImageIcon("img/New File Icon.png");
+		Image image2 = icon2.getImage();
+		Image newImage2 = image2.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+		icon2 = new ImageIcon(newImage2);
+		newItem = new JMenuItem("New", icon2);
+		newItem.setToolTipText("New SQL File");
+		//newItem.addActionListener(this);
+		newItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
 		
-		Action saveAction = new DefaultEditorKit.CutAction();
-		saveAction.putValue(Action.NAME, "Save");
+		ImageIcon icon3 =  new ImageIcon("img/Save File Icon.png");
+		Image image3 = icon3.getImage();
+		Image newImage3 = image3.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+		icon3 = new ImageIcon(newImage3);
+		saveItem = new JMenuItem("Save", icon3);
+		saveItem.setToolTipText("Save SQL File");
+		saveItem.addActionListener(this);
+		saveItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
 		
 		Action printAction = new DefaultEditorKit.CutAction();
 		printAction.putValue(Action.NAME, "Print");
@@ -132,8 +153,8 @@ public class MainGui extends JFrame implements ActionListener {
 		exitItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 		file.add(openItem);
-		file.add(newAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
-		file.add(saveAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		file.add(newItem);
+		file.add(saveItem);
 		file.add(printAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		file.add(exitItem);
 		file.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -251,6 +272,8 @@ public class MainGui extends JFrame implements ActionListener {
 		// Help menu
 		final JMenu help = new JMenu("Help");
 		help.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
+		
 		help.add("Welcome").addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent event) {
@@ -339,6 +362,21 @@ public class MainGui extends JFrame implements ActionListener {
 			if (result == JFileChooser.APPROVE_OPTION) {
 				File openedFile = fileChooser.getSelectedFile();
 				System.out.println("Opened File: " + openedFile.getAbsolutePath());
+			}
+		} else if (actionEvent.getSource().equals(saveItem)) {
+			//@author: Devesh Amin
+			//Save the SQL File in the local system using JFileChooser
+
+			JFileChooser fileChooser = new JFileChooser();
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("SQL FILES", "sql");
+			fileChooser.setFileFilter(filter);
+			fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+			fileChooser.setDialogTitle("Save");
+			int selectFile = fileChooser.showSaveDialog(this);
+			
+			if (selectFile == JFileChooser.APPROVE_OPTION) {
+				File savedFile = fileChooser.getSelectedFile();
+				System.out.println("Save file: " + savedFile.getAbsolutePath());
 			}
 		}
 	}
