@@ -1,14 +1,40 @@
+/*
+ * Copyright (C) 2016
+ * 
+ * 
+ * 
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 package edu.wright.cs.sp16.ceg3120;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import javax.swing.JCheckBox;
-import javax.swing.JButton;
+
+/**
+ * This class contains the GUI for the Preferences tab.
+ *
+ */
 
 public class PreferenceGui {
 
@@ -50,9 +76,9 @@ public class PreferenceGui {
 		lblDefaultDatabase.setBounds(27, 21, 108, 19);
 		frame.getContentPane().add(lblDefaultDatabase);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(210, 20, 210, 20);
-		frame.getContentPane().add(comboBox);
+		JComboBox<String> defaultDatabaseBox = new JComboBox<String>();
+		defaultDatabaseBox.setBounds(210, 20, 210, 20);
+		frame.getContentPane().add(defaultDatabaseBox);
 		
 		JCheckBox chckbxConnectToDefault = new JCheckBox("Connect to default on Startup");
 		chckbxConnectToDefault.setBounds(210, 58, 210, 23);
@@ -66,17 +92,17 @@ public class PreferenceGui {
 		lblDefaultView.setBounds(27, 147, 90, 14);
 		frame.getContentPane().add(lblDefaultView);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(210, 144, 210, 20);
-		frame.getContentPane().add(comboBox_1);
+		JComboBox<String> defaultViewBox = new JComboBox<String>();
+		defaultViewBox.setBounds(210, 144, 210, 20);
+		frame.getContentPane().add(defaultViewBox);
 		
 		JLabel lblDefaultEncoding = new JLabel("Default Encoding");
 		lblDefaultEncoding.setBounds(27, 197, 90, 14);
 		frame.getContentPane().add(lblDefaultEncoding);
 		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setBounds(210, 194, 210, 20);
-		frame.getContentPane().add(comboBox_2);
+		JComboBox<String> defaultEncodingBox = new JComboBox<String>();
+		defaultEncodingBox.setBounds(210, 194, 210, 20);
+		frame.getContentPane().add(defaultEncodingBox);
 		
 		JLabel lblTableViews = new JLabel("Table Views :");
 		lblTableViews.setBounds(27, 244, 108, 14);
@@ -94,9 +120,9 @@ public class PreferenceGui {
 		lblRememberLast.setBounds(27, 329, 108, 14);
 		frame.getContentPane().add(lblRememberLast);
 		
-		JComboBox comboBox_3 = new JComboBox();
-		comboBox_3.setBounds(210, 326, 90, 20);
-		frame.getContentPane().add(comboBox_3);
+		JComboBox<NumberOfQueries> rememberLastBox = new JComboBox<NumberOfQueries>();
+		rememberLastBox.setBounds(210, 326, 90, 20);
+		frame.getContentPane().add(rememberLastBox);
 		
 		JLabel lblQueries = new JLabel("Queries");
 		lblQueries.setBounds(339, 329, 46, 14);
@@ -115,4 +141,4 @@ public class PreferenceGui {
 				}
 			});
 	}
-	}
+}
