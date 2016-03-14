@@ -54,6 +54,8 @@ public class PasswordEncryptionService {
 			System.out.println("encrypted string: " + Base64.encodeBase64String(encrypted));
 
 			return Base64.encodeBase64String(encrypted);
+		} catch (RuntimeException rEx) {
+			rEx.printStackTrace();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -77,6 +79,8 @@ public class PasswordEncryptionService {
 			byte[] original = cipher.doFinal(Base64.decodeBase64(encrypted));
 			System.out.println("Decrypted Password: " + new String(original));
 			return new String(original);
+		} catch (RuntimeException rEx) {
+			rEx.printStackTrace();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

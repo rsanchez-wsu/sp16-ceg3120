@@ -215,22 +215,22 @@ public class CreateWindow extends JFrame {
 			break;
 			
 			//derby driver
-			case 3:
-				DerbyConnect derbyConnect = new DerbyConnect( dbName);
+		case 3:
+			DerbyConnect derbyConnect = new DerbyConnect( dbName);
 				
-				try {
-					derbyConnect.createConnection();
-					System.out.println(derbyConnect.dataEntry("SELECT actor.first_name,"
+			try {
+				derbyConnect.createConnection();
+				System.out.println(derbyConnect.dataEntry("SELECT actor.first_name,"
 							+ " actor.actor_id, actor.last_name, actor.last_update FROM "
 							+ "public.actor;"));
-					setConnected(true);
+				setConnected(true);
 										
-				} catch (Exception e) {
-					e.printStackTrace();
-				} finally {
-					testConnection(isConnected(), derbyConnect);
-				} 
-				break;
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				testConnection(isConnected(), derbyConnect);
+			} 
+			break;
 	
 
 			
