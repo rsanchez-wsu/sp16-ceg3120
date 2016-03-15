@@ -236,7 +236,7 @@ public class XmlHandler {
 							.getTextContent());
 					username.setText(curElement.getElementsByTagName("userName").item(0)
 							.getTextContent());
-					driver.setSelectedIndex(Integer.valueOf(
+					driver.setSelectedIndex(Integer.parseInt(
 							curElement.getElementsByTagName("driver").item(0).getTextContent()));
 					curElement = (Element) curElement.getElementsByTagName("password").item(0);
 					String holdPass = curElement.getElementsByTagName("pass").item(0)
