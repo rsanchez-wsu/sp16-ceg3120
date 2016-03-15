@@ -295,8 +295,7 @@ public class CreateWindow extends JFrame {
 		cw.setSize(500, 500); // set size of cw frame
 		cw.setVisible(true);
 		cw.setLocationRelativeTo(null); // centered
-		cw.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // don't close
-																	// on "X"
+		cw.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		cw.pack();
 		cw.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent evt) {
@@ -305,11 +304,8 @@ public class CreateWindow extends JFrame {
 				if (answer == JOptionPane.YES_OPTION) {
 					System.exit(0);
 				}
-
+				
 			} // end of widowClosing
-
 		}); // end of WindowListener
-		// end of Main Method
-	}
-	// end of CreateWindow
-}
+	} // end of Main Method
+} // end of CreateWindow

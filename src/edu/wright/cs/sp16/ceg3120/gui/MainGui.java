@@ -57,6 +57,7 @@ public class MainGui extends JFrame implements ActionListener {
 	private JMenuItem fullScreenItem = null;
 	private JMenuItem connect = null;
 	private JMenuItem openItem;
+	private JMenuItem helpItem;
 	private MainTabPane tabPane = null;
 	private JMenuItem saveItem = null;
 	private JMenuItem newItem;
@@ -273,8 +274,15 @@ public class MainGui extends JFrame implements ActionListener {
 		final JMenu help = new JMenu("Help");
 		help.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
+		ImageIcon icon4 =  new ImageIcon("img/Welcome Icon.jpg");
+		Image image4 = icon4.getImage();
+		Image newImage4 = image4.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+		icon4 = new ImageIcon(newImage4);
+		helpItem = new JMenuItem("Welcome", icon4);
+		helpItem.setToolTipText("Welcome to SQLizard");
+		helpItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
-		help.add("Welcome").addActionListener(new ActionListener() {
+		helpItem.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent event) {
 				//disable the main window
@@ -298,15 +306,27 @@ public class MainGui extends JFrame implements ActionListener {
 				});
 			}
 		});
+		help.add(helpItem);
 		
 		help.addSeparator();
-		help.add("About SQLizard").addActionListener(new ActionListener() {
+		
+		ImageIcon icon5 =  new ImageIcon("img/SQLizard Icon.png");
+		Image image5 = icon5.getImage();
+		Image newImage5 = image5.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+		icon5 = new ImageIcon(newImage5);
+		helpItem = new JMenuItem("About SQLizard", icon5);
+		helpItem.setToolTipText("Welcome to SQLizard");
+		helpItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
+		helpItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				aboutSqliz();
 				
 			}
 		});
+		
+		help.add(helpItem);
 		//TODO: Decide what to include in Help Menu
 
 		JMenuBar menuBar = new JMenuBar();
@@ -380,8 +400,6 @@ public class MainGui extends JFrame implements ActionListener {
 			}
 		}
 	}
-	
-	
 	
 	/**
 	 * Disables the main window.
