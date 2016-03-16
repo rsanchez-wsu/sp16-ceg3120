@@ -53,6 +53,8 @@ public class DerbyConn {
 		String val = null;
 		int numVal = 0;
 		int choice = 0;
+		int sort = 0;
+		int sortChoice = 0;
 		try {
 			createTable();
 		} catch (SQLException e) {
@@ -66,7 +68,8 @@ public class DerbyConn {
 					.println("\nWelcome to the database \nTo view contents enter 1 \n"
 							+ "To insert a new item enter 2 \nTo delete an item from "
 							+ "the table enter 3 \nTo edit an item in the table enter 4 "
-							+ "\nTo edit a table enter 6 \nTo exit enter 7");
+							+ "\nTo create a new table enter 5 \nTo edit a table enter 6 "
+							+ "\n To sort table enter 7 \nTo exit enter 8");
 
 			Scanner keyboard = new Scanner(System.in);
 
@@ -127,17 +130,35 @@ public class DerbyConn {
 				lastName = keyboard.next();
 				editColumnName(val, firstName, lastName);
 				System.out.println("Table edited successfully");
-				break;
-				
+				break;	
 			case 7:
+				System.out.println("To order by ID enter 1 \nTo order by first name enter 2"
+						+ "\nTo order by last name enter 3");
+				try {
+					sortChoice = keyboard.nextInt();
+				} catch (InputMismatchException exception) {
+					System.out.println("Invalid Input");
+				}
+				
+				System.out.println("For descending order enter 1 \nFor ascending order enter 2");
+				try {
+					sort = keyboard.nextInt();
+				} catch (InputMismatchException exception) {
+					System.out.println("Invalid Input");
+				}
+				sortTable(sortChoice, sort);
+				System.out.println("Table sorted successfully");
+				printTable();
+				break;
+			case 8:
 				run = 0;
 				System.exit(0);
+				keyboard.close();
 				break;
 			default:
 				break;
 			}
 		} while (run != 0);
-
 	}
 
 	/**
@@ -292,7 +313,6 @@ public class DerbyConn {
 	private static void insertItem(String firstName, String lastName, int idNum) {
 		Connection conn = establishConn();
 		PreparedStatement pstmt = null;
-		PreparedStatement checkId = null;
 		try {
 			pstmt = conn.prepareStatement("INSERT INTO Test values (?,?,?)");
 			pstmt.setString(1, firstName);
@@ -360,13 +380,63 @@ public class DerbyConn {
 		Connection conn = establishConn();
 		PreparedStatement pstmt = null;
 		try {			
-                        pstmt = conn.prepareStatement("ALTER TABLE table_name = ? CHANGE COLUMN old_name= ? TO new_name = ?;");
+			pstmt = conn.prepareStatement("ALTER TABLE table_name = ? CHANGE COLUMN old_name= ? "
+					+ "TO new_name = ?;");
 			pstmt.setString(1, tableName);
 			pstmt.setString(2, oldColumn);
-                        pstmt.setString(3, newColumn);
+			pstmt.setString(3, newColumn);
 			pstmt.executeUpdate();
 			pstmt.close();
-			
+
+		} catch (SQLException sqlExcept) {
+			sqlExcept.printStackTrace();
+		}
+	}
+	
+	/**
+	 * This method sorts the database based on id number, first name, or last name, in ascending or 
+	 * descending order.
+	 * 
+	 * @param choice
+	 *            The column to sort the table by
+	 * @param order
+	 * 			  The type of order to sort the table by: ascending or descending 
+	 */
+	private static void sortTable(int choice, int sort) {
+		Connection conn = establishConn();
+		PreparedStatement pstmt = null;
+		String str = null;
+		try {
+
+			switch (choice) {
+			case 1:
+				if (sort == 1) {
+					str = ("ORDER BY ID DESC");
+				} else {
+					str = ("ORDER BY ID ASC");
+				}
+
+				break;
+			case 2:
+				if (sort== 1) {
+					str = ("ORDER BY FNAME DESC");
+				} else {
+					str = ("ORDER BY NAME ASC");
+				}
+				break;
+			case 3:
+				if (sort == 1) {
+					str = ("ORDER BY LNAME DESC");
+				} else {
+					str = ("ORDER BY LNAME ASC");
+				}
+				break;
+			default:
+				break;
+			}
+			pstmt = conn.prepareStatement(str);
+			pstmt.executeUpdate();
+			pstmt.close();
 		} catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
 		}
@@ -419,8 +489,8 @@ public class DerbyConn {
 				default:
 					break;
 				}
-
 			}
+			orbital.close();
 			String sql = "CREATE TABLE REGISTRATION "
 					+ "(id INTEGER not NULL, ";
 			for (int j = 0; j < location; j = j + 2) {
