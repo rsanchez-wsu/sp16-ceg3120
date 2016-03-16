@@ -49,7 +49,7 @@ public class DerbyConn {
 		int run = 1;
 		String id = null;
 		int idNum = 0;
-
+		PreparedStatement pstmt = null;
 		String val = null;
 		int numVal = 0;
 		int choice = 0;
@@ -69,7 +69,9 @@ public class DerbyConn {
 							+ "To insert a new item enter 2 \nTo delete an item from "
 							+ "the table enter 3 \nTo edit an item in the table enter 4 "
 							+ "\nTo create a new table enter 5 \nTo edit a table enter 6 "
-							+ "\n To sort table enter 7 \nTo exit enter 8");
+							+ "\nTo sort table enter 7 \nTo search table by ID enter 8"
+							+ "\nTo search table by first name enter 9 "
+							+ "\nTo search table by last name enter 10 \nTo exit enter 11");
 
 			Scanner keyboard = new Scanner(System.in);
 
@@ -140,7 +142,6 @@ public class DerbyConn {
 				} catch (InputMismatchException exception) {
 					System.out.println("Invalid Input");
 				}
-				
 				System.out.println("For descending order enter 1 \nFor ascending order enter 2");
 				try {
 					order = keyboard.nextInt();
@@ -151,6 +152,25 @@ public class DerbyConn {
 				printTable(orderChoice, order);
 				break;
 			case 8:
+				System.out.println("Enter ID number to search");
+				id = keyboard.next();
+				idNum = Integer.parseInt(id);
+				pstmt = createIdSearch(idNum);
+				searchTable(pstmt);
+				break;
+			case 9:
+				System.out.println("Enter first name to search");
+				firstName = keyboard.next();
+				pstmt = createFirstNameSearch(firstName);
+				searchTable(pstmt);
+				break;
+			case 10:
+				System.out.println("Enter last name to search");
+				lastName = keyboard.next();
+				pstmt = createLastNameSearch(lastName);
+				searchTable(pstmt);
+				break;
+			case 11:
 				run = 0;
 				System.exit(0);
 				keyboard.close();
@@ -315,8 +335,8 @@ public class DerbyConn {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement("INSERT INTO Test values (?,?,?)");
-			pstmt.setString(1, firstName);
-			pstmt.setString(2, lastName);
+			pstmt.setString(1, lastName);
+			pstmt.setString(2, firstName);
 			pstmt.setInt(3, idNum);
 			pstmt.executeUpdate();
 			pstmt.close();
@@ -391,6 +411,85 @@ public class DerbyConn {
 		} catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
 		}
+	}
+	
+	private static void searchTable(PreparedStatement pstmt) {
+		try{
+			ResultSet entries = pstmt.executeQuery();
+			ResultSetMetaData meta = entries.getMetaData();
+			int numberCols = meta.getColumnCount();
+			System.out.println("");
+			for (int i = 1; i <= numberCols; i++) {
+
+				System.out.print(meta.getColumnLabel(i) + "\t\t");
+			}
+
+			System.out
+			.println("\n-------------------------------------------------");
+
+			while (entries.next()) {
+				int idNum = entries.getInt(3);
+				String lastName = entries.getString(2);
+				String firstName = entries.getString(1);
+				System.out.println(firstName + "\t\t" + lastName + "\t\t"
+						+ idNum + "\t\t");
+			}
+			entries.close();
+			pstmt.close();
+		} catch (SQLException sqlExcept) {
+			sqlExcept.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Creates PreparedStatement for a table search of the specified ID.
+	 * @param id - ID number to search
+	 * @return sql query
+	 */
+	private static PreparedStatement createIdSearch(int id) {
+		Connection conn = establishConn();
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement("SELECT * FROM Test WHERE ID = ?");
+			pstmt.setInt(1, id);
+		} catch (SQLException sqlExcept) {
+			sqlExcept.printStackTrace();
+		}
+		return pstmt;
+	}
+	
+	/**
+	 * Creates PreparedStatement for a table search of the specified first name.
+	 * @param fname first name to search
+	 * @return sql query
+	 */
+	private static PreparedStatement createFirstNameSearch(String fname) {
+		Connection conn = establishConn();
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement("SELECT * FROM Test WHERE FNAME = ?");
+			pstmt.setString(1, fname);
+		} catch (SQLException sqlExcept) {
+			sqlExcept.printStackTrace();
+		}
+		return pstmt;
+	}
+	
+	/**
+	 * Creates PreparedStatement for a table search of the specified last name.
+	 * @param lname last name to search
+	 * @return sql query
+	 */
+	private static PreparedStatement createLastNameSearch(String lname) {
+		Connection conn = establishConn();
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement("SELECT * FROM Test WHERE LNAME = ?");
+			pstmt.setString(1, lname);
+		} catch (SQLException sqlExcept) {
+			sqlExcept.printStackTrace();
+		}
+		return pstmt;
 	}
 	
 
