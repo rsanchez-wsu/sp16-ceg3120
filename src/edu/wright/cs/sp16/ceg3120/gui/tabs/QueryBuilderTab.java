@@ -16,6 +16,12 @@ public class QueryBuilderTab extends Component{
 	 */
 	public QueryBuilderTab() {
 		super();
-		//initComponents();
+		initComponents();
+	}
+	/**
+	 * initialize components.
+	 */
+	private void initComponents() {
+		
 	}
 }
