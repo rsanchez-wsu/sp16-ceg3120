@@ -220,7 +220,7 @@ public class CreateWindow extends JFrame {
 				
 			try {
 				derbyConnect.createConnection();
-				System.out.println(derbyConnect.dataEntry("SELECT actor.first_name,"
+				System.out.println(derbyConnect.executeQuery("SELECT actor.first_name,"
 							+ " actor.actor_id, actor.last_name, actor.last_update FROM "
 							+ "public.actor;"));
 				setConnected(true);
