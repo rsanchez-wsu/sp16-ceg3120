@@ -53,8 +53,8 @@ public class DerbyConn {
 		String val = null;
 		int numVal = 0;
 		int choice = 0;
-		int sort = 0;
-		int sortChoice = 0;
+		int order = 1;
+		int orderChoice = 0;
 		try {
 			createTable();
 		} catch (SQLException e) {
@@ -81,7 +81,7 @@ public class DerbyConn {
 
 			switch (choice) {
 			case 1:
-				printTable();
+				printTable(orderChoice, order);
 				break;
 			case 2:
 				System.out.println("Enter first name");
@@ -93,14 +93,14 @@ public class DerbyConn {
 				idNum = Integer.parseInt(id);
 				insertItem(firstName, lastName, idNum);
 				System.out.println("Insertion Successful");
-				printTable();
+				printTable(orderChoice, order);
 				break;
 			case 3:
 				System.out.println("Enter ID number to delete");
 				id = keyboard.next();
 				deleteItem(id);
 				System.out.println("Deletion Successful");
-				printTable();
+				printTable(orderChoice, order);
 				break;
 			case 4:
 				System.out.println("Enter ID number to edit");
@@ -112,7 +112,7 @@ public class DerbyConn {
 				lastName = keyboard.next();
 				editItem(firstName, lastName, idNum);
 				System.out.println("Edit Successful");
-				printTable();
+				printTable(orderChoice, order);
 				break;
 			case 5:
 				System.out.println("Enter the number of columns for the table: ");
@@ -130,25 +130,25 @@ public class DerbyConn {
 				lastName = keyboard.next();
 				editColumnName(val, firstName, lastName);
 				System.out.println("Table edited successfully");
+				printTable(orderChoice, order);
 				break;	
 			case 7:
 				System.out.println("To order by ID enter 1 \nTo order by first name enter 2"
 						+ "\nTo order by last name enter 3");
 				try {
-					sortChoice = keyboard.nextInt();
+					orderChoice = keyboard.nextInt();
 				} catch (InputMismatchException exception) {
 					System.out.println("Invalid Input");
 				}
 				
 				System.out.println("For descending order enter 1 \nFor ascending order enter 2");
 				try {
-					sort = keyboard.nextInt();
+					order = keyboard.nextInt();
 				} catch (InputMismatchException exception) {
 					System.out.println("Invalid Input");
 				}
-				sortTable(sortChoice, sort);
 				System.out.println("Table sorted successfully");
-				printTable();
+				printTable(orderChoice, order);
 				break;
 			case 8:
 				run = 0;
@@ -393,54 +393,6 @@ public class DerbyConn {
 		}
 	}
 	
-	/**
-	 * This method sorts the database based on id number, first name, or last name, in ascending or 
-	 * descending order.
-	 * 
-	 * @param choice
-	 *            The column to sort the table by
-	 * @param order
-	 * 			  The type of order to sort the table by: ascending or descending 
-	 */
-	private static void sortTable(int choice, int sort) {
-		Connection conn = establishConn();
-		PreparedStatement pstmt = null;
-		String str = null;
-		try {
-
-			switch (choice) {
-			case 1:
-				if (sort == 1) {
-					str = ("ORDER BY ID DESC");
-				} else {
-					str = ("ORDER BY ID ASC");
-				}
-
-				break;
-			case 2:
-				if (sort== 1) {
-					str = ("ORDER BY FNAME DESC");
-				} else {
-					str = ("ORDER BY NAME ASC");
-				}
-				break;
-			case 3:
-				if (sort == 1) {
-					str = ("ORDER BY LNAME DESC");
-				} else {
-					str = ("ORDER BY LNAME ASC");
-				}
-				break;
-			default:
-				break;
-			}
-			pstmt = conn.prepareStatement(str);
-			pstmt.executeUpdate();
-			pstmt.close();
-		} catch (SQLException sqlExcept) {
-			sqlExcept.printStackTrace();
-		}
-	}
 
 	/**
 	 * This method creates a new table in the database.
@@ -508,15 +460,48 @@ public class DerbyConn {
 	}
 
 	/**
-	 * This method prints the current contents of the table.
+	 * This method prints the current contents of the table and sorts 
+	 * based on id number, first name, or last name, in ascending or 
+	 * descending order.
+	 * 
+	 * @param orderChoice
+	 *            The column to sort the table by
+	 * @param order
+	 * 			  The type of order to sort the table by: ascending or descending 
 	 */
-	private static void printTable() {
+	private static void printTable(int orderChoice, int order) {
 		Connection conn = establishConn();
 		PreparedStatement pstmt = null;
 		String sql = null;
-		sql = "SELECT * FROM Test";
+		sql = "SELECT * FROM Test ";
 
 		try {
+			switch (orderChoice) {
+			case 1:
+				if (order == 1) {
+					sql = sql + "ORDER BY ID DESC";
+				} else {
+					sql = sql + "ORDER BY ID ASC";
+				}
+
+				break;
+			case 2:
+				if (order == 1) {
+					sql = sql + "ORDER BY FNAME DESC";
+				} else {
+					sql = sql + "ORDER BY FNAME ASC";
+				}
+				break;
+			case 3:
+				if (order == 1) {
+					sql = sql + "ORDER BY LNAME DESC";
+				} else {
+					sql = sql + "ORDER BY LNAME ASC";
+				}
+				break;
+			default:
+				break;
+			}
 			pstmt = conn.prepareStatement(sql);
 			ResultSet entries = pstmt.executeQuery();
 			ResultSetMetaData meta = entries.getMetaData();
