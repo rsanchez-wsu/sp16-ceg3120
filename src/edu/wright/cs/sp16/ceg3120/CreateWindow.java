@@ -54,7 +54,8 @@ public class CreateWindow extends JFrame {
 
 	// input fields
 	static int numOfComponents = 8;
-	public static final JComponent[] inputFields = new JComponent[numOfComponents];
+	
+	private static final JComponent[] inputFields = new JComponent[numOfComponents];
 	static String[] driverNames = { "Choose a Driver",
 			"MySQL Driver", "PostgreSQL Driver", "Demo Driver 3" };
 	private static JComboBox<String> aliases;
