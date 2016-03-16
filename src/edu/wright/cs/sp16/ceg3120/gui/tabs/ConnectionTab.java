@@ -21,15 +21,18 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
-import java.awt.Component;
+import edu.wright.cs.sp16.ceg3120.gui.ConnectionTabPane;
 
+import java.awt.GridLayout;
+
+import javax.swing.JPanel;
 /**
  * The tab that contains all the components for the connection.
  * 
  * @author sam
  *
  */
-public class ConnectionTab extends Component {
+public class ConnectionTab extends JPanel {
 	
 	private static final long serialVersionUID = -9056641573923593935L;
 	
@@ -37,17 +40,18 @@ public class ConnectionTab extends Component {
 	 * Default constructor, initializes components.
 	 */
 	public ConnectionTab() {
-		super();
-		
+		super(new GridLayout(1,1));
+		setSize(960, 600);
 		initComponents();
 	}
 	
+	
 	/**
-	 * TODO: create all components for this window and
-	 * 		 initialize them here.
-	 * */
-	private void initComponents() {
+	 * Initalizes components.
+	 */
+	public void initComponents() {
+		ConnectionTabPane connectionTab = new ConnectionTabPane();
 		
-		
+		add(connectionTab);
 	}
 }
