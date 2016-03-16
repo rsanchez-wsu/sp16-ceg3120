@@ -23,6 +23,10 @@ package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
 import java.awt.Component;
 
+import javax.swing.JEditorPane;
+
+import javax.swing.JScrollPane;
+
 /**
  * This will be a tab for the query builder under the connection tab.
  * @author Bonnie
@@ -43,6 +47,13 @@ public class QueryBuilderTab extends Component{
 	 * initialize components.
 	 */
 	private void initComponents() {
+		JEditorPane editorPane = new JEditorPane();
 		
+		editorPane.setVisible(true);
+		editorPane.setSize(500, 500);
+		
+		JScrollPane scrollPane = new JScrollPane(editorPane);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);		
 	}
+	
 }
