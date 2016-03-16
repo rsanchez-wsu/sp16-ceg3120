@@ -146,6 +146,11 @@ public class CreateWindow extends JFrame {
 		connect.addActionListener(actionHandler);
 		jpanel.add(connect);
 		
+		JButton delete = new JButton("Delete");
+		delete.setActionCommand("Delete");
+		delete.addActionListener(actionHandler);
+		jpanel.add(delete);
+		
 		JButton clear = new JButton("Clear");
 		clear.setActionCommand("Clear");
 		clear.addActionListener(actionHandler);
@@ -179,8 +184,10 @@ public class CreateWindow extends JFrame {
 				pass = dbPassword;
 				pass = PasswordEncryptionService.encrypt(pass);
 			}
-			XmlHandler.writeAlias(alias, dbName, dbAddress, 
-						dbUsername, pass, svPass, dbDriver);
+			if (!XmlHandler.writeAlias(alias, dbName, dbAddress, 
+						dbUsername, pass, svPass, dbDriver)) {
+				aliases.addItem(alias);
+			}
 
 		} else if (sv == JOptionPane.CANCEL_OPTION) {
 			((JTextField) inputFields[Inputs.alias.getId()]).grabFocus();
@@ -213,6 +220,21 @@ public class CreateWindow extends JFrame {
 		default:
 			System.out.println("ERROR: Driver not found!");
 		}
+	}
+	
+	/** Clears all input boxes.
+	 * 
+	 * @author Nick Madden
+	 */
+	@SuppressWarnings("unchecked")
+	public static void clearInput() {
+		for (int i = 0; i <= 4; i++) {
+			((JTextField) inputFields[i]).setText("");
+		}
+		((JCheckBox) inputFields[Inputs.save.getId()]).setSelected(false);
+		((JCheckBox) inputFields[Inputs.autoCon.getId()]).setSelected(false);
+		((JComboBox<String>) inputFields[Inputs.driver.getId()]).setSelectedIndex(0);;
+		((JTextField) inputFields[0]).grabFocus();
 	}
 	
 	/** Handles all actions.
@@ -264,15 +286,17 @@ public class CreateWindow extends JFrame {
 				break;
 				
 			case "Clear": 
-				for (int i = 0; i <= 4; i++) {
-					((JTextField) inputFields[i]).setText("");
-				}
-				((JCheckBox) inputFields[Inputs.save.getId()]).setSelected(false);
-				((JCheckBox) inputFields[Inputs.autoCon.getId()]).setSelected(false);
-				((JComboBox<String>) inputFields[Inputs.driver.getId()]).setSelectedIndex(0);;
-				((JTextField) inputFields[0]).grabFocus();
+				clearInput();
 				break;
-				
+
+			case "Delete":
+				boolean deleted = XmlHandler.removeAlias(aliases.getSelectedItem().toString());
+				if (deleted) {
+					aliases.removeItem(aliases.getSelectedItem());
+					clearInput();
+				}
+				break;
+
 			case "Alias":
 				String toRead = aliases.getSelectedItem().toString();
 				if (!toRead.equals("Load an Alias")) {
