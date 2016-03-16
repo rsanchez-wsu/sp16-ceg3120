@@ -70,8 +70,8 @@ public class PreferenceGui {
 		comboBox_1.setBounds(210, 144, 210, 20);
 		frame.getContentPane().add(comboBox_1);
 		
-		JLabel lblDefaultEncoding = new JLabel("Default Encoding");
-		lblDefaultEncoding.setBounds(27, 197, 90, 14);
+		JLabel lblDefaultEncoding = new JLabel("Default Encoding: ");
+		lblDefaultEncoding.setBounds(27, 197, 118, 14);
 		frame.getContentPane().add(lblDefaultEncoding);
 		
 		JComboBox comboBox_2 = new JComboBox();
