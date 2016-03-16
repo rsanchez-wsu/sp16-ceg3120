@@ -33,8 +33,10 @@ import java.io.IOException;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
-
+import javax.swing.UIManager;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -52,6 +54,8 @@ import javax.xml.transform.stream.StreamResult;
  */
 public class XmlHandler {
 	
+	private static JPanel ovrAlias = new JPanel();
+	
 	/** Populates a list of aliases saved in the aliases.xml file.
 	 * @author Nick Madden
 	 * @return list of aliases
@@ -66,7 +70,6 @@ public class XmlHandler {
 				DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();
 				Document doc = docBuilder.parse(xmlFile);
 				doc.getDocumentElement().normalize();
-				System.out.println("reading");
 				NodeList aliasList = doc.getElementsByTagName("alias");
 				int length = aliasList.getLength();
 				listA = new String[length + 1];
@@ -115,6 +118,7 @@ public class XmlHandler {
 		try {
 			File file = new File("UserData/aliases.xml");
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			docFactory.setValidating(true);
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 			Element root;
 			Document doc;
@@ -124,6 +128,27 @@ public class XmlHandler {
 			if (file.exists()) {
 				doc = docBuilder.parse("UserData/aliases.xml");
 				root = doc.getDocumentElement();
+				NodeList aliasList = doc.getElementsByTagName("alias");
+				for (int i = 0; i < aliasList.getLength(); i++) {
+					Node currentNode = aliasList.item(i);
+					Element curElement = (Element) currentNode;
+					if (currentNode.getNodeType() == Node.ELEMENT_NODE
+							&& alias.equals(curElement.getAttribute("name"))) {
+						UIManager.put("OptionPane.yesButtonText", "Overwrite \"" + alias + "\"");
+						UIManager.put("OptionPane.noButtonText", "Cancel");
+						int sv = JOptionPane.showConfirmDialog(ovrAlias, "Alias \""
+								+ alias + "\" already exists, do you want to overwrite it?",
+								"Overwrite Alias?", JOptionPane.YES_NO_OPTION);
+						UIManager.put("OptionPane.yesButtonText", "Yes");
+						UIManager.put("OptionPane.noButtonText", "No");
+						if (sv == JOptionPane.YES_OPTION) {
+							curElement.getParentNode().removeChild(curElement);
+						} else if (sv == JOptionPane.CANCEL_OPTION) {
+							return;
+						}
+						
+					}
+				}
 			} else {
 				boolean fileStatus = false;
 				File userDir = new File("UserData");
@@ -221,7 +246,6 @@ public class XmlHandler {
 			DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();
 			Document doc = docBuilder.parse(xmlFile);
 			doc.getDocumentElement().normalize();
-			System.out.println("reading");
 			NodeList aliasList = doc.getElementsByTagName("alias");
 			for (int i = 0; i < aliasList.getLength(); i++) {
 				Node currentNode = aliasList.item(i);
