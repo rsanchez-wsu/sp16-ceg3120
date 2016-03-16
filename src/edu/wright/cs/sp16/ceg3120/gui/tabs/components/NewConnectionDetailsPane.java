@@ -21,7 +21,7 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs.components;
 
-import edu.wright.cs.sp16.ceg3120.PasswordEncryptionService;
+import edu.wright.cs.sp16.ceg3120.services.PasswordEncryptionService;
 import edu.wright.cs.sp16.ceg3120.sql.MySqlConnect;
 import edu.wright.cs.sp16.ceg3120.sql.PostgreConnect;
 
