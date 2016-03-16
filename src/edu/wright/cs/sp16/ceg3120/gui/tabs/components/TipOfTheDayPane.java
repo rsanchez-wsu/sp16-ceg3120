@@ -19,7 +19,7 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120.gui.tabs.startpagecomponents;
+package edu.wright.cs.sp16.ceg3120.gui.tabs.components;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -95,11 +95,13 @@ public class TipOfTheDayPane extends JPanel {
 		
 		add(learnDiscoverBtn, subConstraints);
 		
-		String dummyTipText = "";
+		String dummyTipText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+				+ " Suspendisse venenatis ut erat sed congue. Ut hendrerit, velit quis "
+				+ "ornare volutpat, diam velit volutpat dolor, dictum porttitor lacus "
+				+ "elit in ipsum. Nullam et enim sed elit mattis venenatis. Integer nec "
+				+ "hendrerit augue. ";
 		
-		for (int i = 0; i < 10; i++) {
-			dummyTipText += "alskdfjalsdfjalsdkfj\n";
-		}
+		
 		
 		tipOfTheDayTxt = new JTextArea(dummyTipText);
 		tipOfTheDayTxt.setFont(new Font("TimesRoman", Font.BOLD, 12));

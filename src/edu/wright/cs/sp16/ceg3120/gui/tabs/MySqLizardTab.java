@@ -63,8 +63,6 @@ public class MySqLizardTab extends JPanel {
 		
 		title.setVerticalAlignment(SwingConstants.TOP);
 		add(title);
-		
-		JTable connectionTable = new JTable();
 	}
 	
 	/**Draw components on.

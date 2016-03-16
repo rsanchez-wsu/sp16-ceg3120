@@ -19,7 +19,9 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120.gui;
+package edu.wright.cs.sp16.ceg3120.gui.other;
+
+import edu.wright.cs.sp16.ceg3120.gui.MainGui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,12 +36,13 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 
+
 /**
  * The Frame that holds different panels. Mainly created for the slideShow of images
  * 
  * @author kirillkultinov
  */
-public class SlideShow extends JPanel {
+public class SlideShow extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private int count = 0;
@@ -50,34 +53,7 @@ public class SlideShow extends JPanel {
 	private ImageIcon pictures2 = new ImageIcon("img/Relational.png");
 	private ImageIcon pictures3 = new ImageIcon("img/SQLizard.png");
 	private ImageIcon pictures4 = new ImageIcon("img/sqlSample.png");
-	/**
-     * The method used to change images inside of a panel depending on
-     * a value of counter.
-     */
-	private ActionListener action = new ActionListener() {
-		public void actionPerformed(ActionEvent ae) {                       
-			count++;
-
-			if (count == 1) {
-				images.setIcon(pictures1);
-
-			}
-			if (count == 2) {
-				images.setIcon(pictures2);   
-			}
-			if (count == 3) {
-				images.setIcon(pictures3);
-			}
-			if (count == 4) {
-				images.setIcon(pictures4);   
-			}
-			if (count == 5) {
-				count = 0;
-			}
-			revalidate();
-			repaint();
-		}
-	};
+	
 	
 	/**
 	 * The Frame that holds different panels. Mainly created for the slideShow of images
@@ -104,8 +80,34 @@ public class SlideShow extends JPanel {
 		images.setIcon(pictures1);
 		frame.setSize(500, 600);
 		frame.setVisible(true); 
-		timer = new Timer(1500, action);    
+		timer = new Timer(1500, this);    
 		timer.start();  
+	}
+	
+	/**
+	 * Action performed.
+	 */
+	public void actionPerformed(ActionEvent ae) {                       
+		count++;
+
+		if (count == 1) {
+			images.setIcon(pictures1);
+
+		}
+		if (count == 2) {
+			images.setIcon(pictures2);   
+		}
+		if (count == 3) {
+			images.setIcon(pictures3);
+		}
+		if (count == 4) {
+			images.setIcon(pictures4);   
+		}
+		if (count == 5) {
+			count = 0;
+		}
+		revalidate();
+		repaint();
 	}
 
 }

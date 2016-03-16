@@ -19,7 +19,7 @@
  *
  */
 
-package com.mysql.jdbc.jdbc2.optional;
+package edu.wright.cs.sp16.ceg3120.sql;
 
 import java.sql.Connection;
 

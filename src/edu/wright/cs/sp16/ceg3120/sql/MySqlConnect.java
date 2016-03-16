@@ -19,7 +19,7 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120;
+package edu.wright.cs.sp16.ceg3120.sql;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -28,6 +28,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 
 /**
  * @author rhys
@@ -46,8 +47,7 @@ public class MySqlConnect {
 	private String dbPassword;
 	private String dbName;
 	private JPanel successPanel = new JPanel();
-	private com.mysql.jdbc.jdbc2.optional.MysqlDataSource dataSource = 
-			new com.mysql.jdbc.jdbc2.optional.MysqlDataSource();
+	private MysqlDataSource dataSource = new MysqlDataSource();
 
 	/**
 	 * MySqlConnect is just a place holder constructor.

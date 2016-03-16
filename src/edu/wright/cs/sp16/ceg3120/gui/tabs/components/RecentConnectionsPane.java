@@ -19,7 +19,7 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120.gui.tabs.startpagecomponents;
+package edu.wright.cs.sp16.ceg3120.gui.tabs.components;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -110,25 +110,6 @@ public class RecentConnectionsPane extends JPanel {
 	 */
 	JLabel[] recentConnLinks;
 	
-	/* property access */
-	
-	/**
-	 * Get the recent connection links.
-	 * 
-	 * @return JLabel[] recentConnLinks: array of links to be displayed on the start page.
-	 */
-	public JLabel[] getRecentConnLinks() {
-		return recentConnLinks;
-	}
-	
-	/**
-	 * Set the new recent connection links.
-	 * 
-	 * @param newLinks what you want to replace the recent connection links with.
-	 */
-	public void setRecentConnLinks(JLabel[] newLinks) {
-		recentConnLinks = newLinks;
-	}
 	
 	/**
 	 * Get "Recent connections" label.

@@ -21,12 +21,16 @@
 
 package edu.wright.cs.sp16.ceg3120;
 
+import edu.wright.cs.sp16.ceg3120.sql.MySqlConnect;
+import edu.wright.cs.sp16.ceg3120.sql.PostgreConnect;
+
 //import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;

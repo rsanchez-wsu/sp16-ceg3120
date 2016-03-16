@@ -21,7 +21,7 @@
 
 package edu.wright.cs.sp16.ceg3120.gui;
 
-import edu.wright.cs.sp16.ceg3120.gui.tabs.BackupExportTab;
+import edu.wright.cs.sp16.ceg3120.gui.other.TabNames;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.ConnectionTab;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.StartPageTab;
 
@@ -64,16 +64,6 @@ public class MainTabPane extends JTabbedPane {
 
 		// TODO: add icon, add better tooltip
 		addTab(TabNames.Connection.toString(), null, connectionTab, "Make a connection here!!");
-	}
-	
-	/**
-	 * TODO: Add "Backup\Export" Tab.
-	 */
-	public void addBackupExportTab() {
-		BackupExportTab backupExport = new BackupExportTab();
-
-		// TODO: add icon, add better tooltip
-		addTab(TabNames.BackupExport.toString(), null, backupExport, "Export and backup");
 	}
 	
 	/**

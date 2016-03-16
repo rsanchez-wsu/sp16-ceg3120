@@ -21,7 +21,7 @@
 
 package edu.wright.cs.sp16.ceg3120;
 
-import edu.wright.cs.sp16.ceg3120.gui.SplashScreen;
+import edu.wright.cs.sp16.ceg3120.gui.other.SplashScreen;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -29,6 +29,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
 
 
 /**

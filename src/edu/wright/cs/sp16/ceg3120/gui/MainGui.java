@@ -21,6 +21,8 @@
 
 package edu.wright.cs.sp16.ceg3120.gui;
 
+import edu.wright.cs.sp16.ceg3120.gui.other.SlideShow;
+
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

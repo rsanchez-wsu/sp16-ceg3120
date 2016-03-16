@@ -21,21 +21,14 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-
-import javax.swing.Box;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
-
 import edu.wright.cs.sp16.ceg3120.gui.listeners.OpenUrlAction;
 
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
 /**Learn and Discover tab, providing resources for helpful info lookup.
  * 

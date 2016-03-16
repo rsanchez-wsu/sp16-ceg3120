@@ -21,8 +21,8 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
-import edu.wright.cs.sp16.ceg3120.gui.tabs.startpagecomponents.RecentConnectionsPane;
-import edu.wright.cs.sp16.ceg3120.gui.tabs.startpagecomponents.TipOfTheDayPane;
+import edu.wright.cs.sp16.ceg3120.gui.tabs.components.RecentConnectionsPane;
+import edu.wright.cs.sp16.ceg3120.gui.tabs.components.TipOfTheDayPane;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

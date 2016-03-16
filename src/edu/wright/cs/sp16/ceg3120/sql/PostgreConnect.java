@@ -19,7 +19,7 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120;
+package edu.wright.cs.sp16.ceg3120.sql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
