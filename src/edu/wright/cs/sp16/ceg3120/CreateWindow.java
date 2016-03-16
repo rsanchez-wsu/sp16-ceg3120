@@ -179,6 +179,8 @@ public class CreateWindow extends JFrame {
 		UIManager.put("OptionPane.noButtonText", "Connect");
 		int sv = JOptionPane.showConfirmDialog(svAlias, "Do you want to save the \""
 				+ alias + "\" alias?", "Save Alias?", JOptionPane.YES_NO_CANCEL_OPTION);
+		UIManager.put("OptionPane.yesButtonText", "Yes");
+		UIManager.put("OptionPane.noButtonText", "No");
 		if (sv == JOptionPane.YES_OPTION) {
 			String pass = "";
 			if (svPass) {
@@ -190,39 +192,35 @@ public class CreateWindow extends JFrame {
 				aliases.addItem(alias);
 			}
 
-		} else if (sv == JOptionPane.CANCEL_OPTION) {
-			((JTextField) inputFields[Inputs.alias.getId()]).grabFocus();
 		}
-		
-		UIManager.put("OptionPane.yesButtonText", "Yes");
-		UIManager.put("OptionPane.noButtonText", "No");
-		
-		switch (dbDriver) {
-		// MySQL Driver
-		case 1:
-			MySqlConnect connect = new MySqlConnect(dbAddress, dbUsername, dbPassword, dbName);
-			try {
-				connect.configure();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			break;
-		// PostgreSQL Driver
-		case 2:
-			PostgreConnect postgreConnect = 
+		if (sv != JOptionPane.CANCEL_OPTION) {
+			switch (dbDriver) {
+			// MySQL Driver
+			case 1:
+				MySqlConnect connect = new MySqlConnect(dbAddress, dbUsername, dbPassword, dbName);
+				try {
+					connect.configure();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				break;
+			// PostgreSQL Driver
+			case 2:
+				PostgreConnect postgreConnect = 
 					new PostgreConnect(dbAddress, dbUsername, dbPassword, dbName);
-			try {
-				postgreConnect.configure();
-			} catch (SQLException e) {
-				e.printStackTrace();
+				try {
+					postgreConnect.configure();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				break;
+			// No driver
+			default:
+				System.out.println("ERROR: Driver not found!");
 			}
-			break;
-		// No driver
-		default:
-			System.out.println("ERROR: Driver not found!");
 		}
 	}
-	
+
 	/** Clears all input boxes.
 	 * 
 	 * @author Nick Madden
