@@ -102,7 +102,7 @@ public class DerbyConnect extends DatabaseConnector{
 	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = 
 			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
 			"We specifically want to allow the user to execute arbitrary Derby")
-	public String dataEntry(String query) {
+	public String executeQuery(String query) {
 		String returning = "";
 		StringBuilder builder = new StringBuilder();
 		
