@@ -21,6 +21,8 @@
 
 package edu.wright.cs.sp16.ceg3120;
 
+import org.xml.sax.SAXException;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,13 +38,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.UIManager;
+import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
-import org.xml.sax.SAXException;
 
-import javax.swing.event.ChangeEvent;
+
+
 
 
 
@@ -83,7 +88,7 @@ public class Preferences extends JPanel {
 	private final UserSettings initSettings;
 //	private UserSettings changedSettings;
 
-	private static final String SETTINGS_FILE_NAME = "Profile.xml";
+	private static final String SETTINGS_FILE_NAME = "Preferences.xml";
 
 	/**
 	 * Constructor with zero-arguments to open the connection window.

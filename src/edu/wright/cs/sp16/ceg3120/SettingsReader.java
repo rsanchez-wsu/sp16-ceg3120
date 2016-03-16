@@ -75,7 +75,7 @@ public class SettingsReader {
 	 *            no args
 	 */
 	public static void main(String[] args) {
-		UserSettings us = readXml("Profile.xml");
+		UserSettings us = readXml("Preferences.xml");
 		System.out.printf("%s%n%s%n%s", us.getDefaultDatabase(), us.getDefaultEncoding(), 
 				us.getDefaultView());
 	}

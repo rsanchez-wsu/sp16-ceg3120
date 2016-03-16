@@ -43,7 +43,7 @@ import javax.swing.SwingUtilities;
 public class MainApp {
 	
 	static JTabbedPane tabbedPane = new JTabbedPane();
-	static UserSettings globalConfig = SettingsReader.readXml("Profile.xml");
+	static UserSettings globalConfig = SettingsReader.readXml("Preferences.xml");
 	
 	
 	/**
