@@ -182,36 +182,6 @@ public class MainGui extends JFrame implements ActionListener {
 				fullScreenItem.setToolTipText("Make application full screen");
 				setSize(960, 600);
 			}
-		} else if (actionEvent.getSource().equals(welcomeMenuItem)) {	
-			//create a new frame About and set its properties
-			/**
-			JFrame frameWelcome = new JFrame("Welcome"); 
-			makeDisabled();
-			JLabel labelName = new JLabel("SQLizard");
-			JLabel labelVersion = new JLabel("Welcome to the amazing application SQLizard");
-			
-			frameWelcome.getContentPane().add(labelName);
-			frameWelcome.getContentPane().add(labelVersion);
-			
-			frameWelcome.setSize(500, 600);
-			frameWelcome.setLocationRelativeTo(null);
-			frameWelcome.setVisible(true);
-			
-			frameWelcome.addWindowListener(new WindowAdapter() {
-				public void windowClosing(WindowEvent ev) {
-					makeEnabled();
-				}
-			});
-			*/
-			makeDisabled();
-			SwingUtilities.invokeLater(new Runnable()
-			{
-				public void run() {
-					new SlideShow();
-					makeEnabled();
-				}
-			});
-			
 		} else if (actionEvent.getSource().equals(aboutMenuItem)) {	
 			//create a new frame About and set its properties
 			JFrame frameAbout = new JFrame("About"); 

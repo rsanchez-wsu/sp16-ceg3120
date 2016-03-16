@@ -64,10 +64,9 @@ public class RecentConnectionsPane extends JPanel {
 	 * "Tip of the day" text
 	 */
 	public void initComponents() {
-		setBorder(BorderFactory.createLineBorder(Color.black, 5));
+		setBorder(BorderFactory.createLineBorder(Color.gray, 1));
 		
-		recentConn = new JLabel("Recent Connections");
-		recentConn.setFont(new Font("TimesRoman", Font.BOLD, 24));
+		recentConn = new JLabel("<html><h2>Recent Connections</h2></html>");
 		
 		// set size and positioning of components
 		GridBagConstraints subConstraints = new GridBagConstraints();

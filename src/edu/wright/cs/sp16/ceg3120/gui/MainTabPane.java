@@ -23,6 +23,7 @@ package edu.wright.cs.sp16.ceg3120.gui;
 
 import edu.wright.cs.sp16.ceg3120.gui.other.TabNames;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.ConnectionTab;
+import edu.wright.cs.sp16.ceg3120.gui.tabs.NewConnectionTab;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.StartPageTab;
 
 
@@ -47,13 +48,18 @@ public class MainTabPane extends JTabbedPane {
 		
 		addStartPageTab();
 		addConnectionTab();
+		addNewConnectionTab();
 	}
 
 	/**
 	 * TODO: Add "New Connection" Tab.
 	 */
 	public void addNewConnectionTab() {
-		
+
+		NewConnectionTab connectionTab = new NewConnectionTab();
+
+		// TODO: add icon, add better tooltip
+		addTab(TabNames.NewConnection.toString(), null, connectionTab, "Make a connection here!!");
 	}
 	
 	/**

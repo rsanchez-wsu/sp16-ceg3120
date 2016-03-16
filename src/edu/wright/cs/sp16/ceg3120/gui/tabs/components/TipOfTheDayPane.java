@@ -67,10 +67,9 @@ public class TipOfTheDayPane extends JPanel {
 	 */
 	public void initComponents() {
 		// setting border and background color for debug 
-		setBorder(BorderFactory.createLineBorder(Color.black, 5));
+		setBorder(BorderFactory.createLineBorder(Color.gray, 1));
 		
-		tipTitle = new JLabel("Tip of the day");
-		tipTitle.setFont(new Font("TimesRoman", Font.BOLD, 24));
+		tipTitle = new JLabel("<html><h2>Tip of the day</h2></html>");
 		
 		// set size and positioning of components
 		GridBagConstraints subConstraints = new GridBagConstraints();
@@ -84,7 +83,6 @@ public class TipOfTheDayPane extends JPanel {
 		add(tipTitle, subConstraints);
 		
 		learnDiscoverBtn = new JButton("Learn & Discover");
-		learnDiscoverBtn.setFont(new Font("TimesRoman", Font.BOLD, 12));
 		
 		subConstraints = new GridBagConstraints();
 		subConstraints.anchor = GridBagConstraints.PAGE_START;
@@ -95,22 +93,21 @@ public class TipOfTheDayPane extends JPanel {
 		
 		add(learnDiscoverBtn, subConstraints);
 		
-		String dummyTipText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-				+ " Suspendisse venenatis ut erat sed congue. Ut hendrerit, velit quis "
-				+ "ornare volutpat, diam velit volutpat dolor, dictum porttitor lacus "
-				+ "elit in ipsum. Nullam et enim sed elit mattis venenatis. Integer nec "
+		String dummyTipText = "Lorem ipsum dolor sit amet, \n consectetur adipiscing elit.\n"
+				+ " Suspendisse venenatis ut erat sed \ncongue. Ut hendrerit, velit quis \n"
+				+ "ornare volutpat, diam velit volutpat\n dolor, dictum porttitor lacus \n"
+				+ "elit in ipsum. Nullam et enim sed\n elit mattis venenatis. Integer nec \n"
 				+ "hendrerit augue. ";
 		
 		
 		
 		tipOfTheDayTxt = new JTextArea(dummyTipText);
-		tipOfTheDayTxt.setFont(new Font("TimesRoman", Font.BOLD, 12));
 		
 		subConstraints = new GridBagConstraints();
 		subConstraints.anchor = GridBagConstraints.PAGE_START;
 		subConstraints.gridx = 0;
 		subConstraints.gridy = 2;
-		subConstraints.weightx = 0.5;
+		subConstraints.weightx = 0.25;
 		subConstraints.weighty = 4.5;
 		
 		add(tipOfTheDayTxt, subConstraints);

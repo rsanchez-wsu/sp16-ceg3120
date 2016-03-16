@@ -19,12 +19,12 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120;
+package edu.wright.cs.sp16.ceg3120.gui.tabs.components;
 
+import edu.wright.cs.sp16.ceg3120.PasswordEncryptionService;
 import edu.wright.cs.sp16.ceg3120.sql.MySqlConnect;
 import edu.wright.cs.sp16.ceg3120.sql.PostgreConnect;
 
-//import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -36,18 +36,11 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.File;
-//import java.io.FileInputStream;
-//import java.io.FileNotFoundException;
-//import java.io.FileOutputStream;
 import java.io.IOException;
-//import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
-//import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -58,7 +51,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-//import java.io.File;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -68,13 +61,11 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-//import javafx.scene.control.ComboBox;
-
 /**
  * @author Devesh Amin The CreateWindow class.
  * 
  */
-public class CreateWindow extends JFrame {
+public class NewConnectionDetailsPane extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
@@ -135,44 +126,43 @@ public class CreateWindow extends JFrame {
 	/**
 	 * Constructor.
 	 */
-	public CreateWindow() {
-		super("Connect to Database");
+	public NewConnectionDetailsPane() {
 
 		// Title Panel and its position
 		createTitlePanel(title);
-		getContentPane().add(titlePanel, BorderLayout.NORTH);
+		add(titlePanel, BorderLayout.NORTH);
 
 		// input panel for Name and its position
 		createInput1Panel();
-		getContentPane().add(inputPanel1, BorderLayout.CENTER);
+		add(inputPanel1, BorderLayout.CENTER);
 
 		// input panel for databaseName and its position
 		createInput2a2Panel();
-		getContentPane().add(inputPanel2a2, BorderLayout.CENTER);
+		add(inputPanel2a2, BorderLayout.CENTER);
 
 		// input panel for databaseUrl and its position
 		createInput2Panel();
-		getContentPane().add(inputPanel2, BorderLayout.CENTER);
+		add(inputPanel2, BorderLayout.CENTER);
 
 		// input panel for Username and its position
 		createInput3Panel();
-		getContentPane().add(inputPanel3, BorderLayout.CENTER);
+		add(inputPanel3, BorderLayout.CENTER);
 
 		// input panel for password and its position
 		createInput4Panel();
-		getContentPane().add(inputPanel4, BorderLayout.CENTER);
+		add(inputPanel4, BorderLayout.CENTER);
 
 		// input panel for driver and its position
 		createInput5Panel();
-		getContentPane().add(inputPanel5, BorderLayout.CENTER);
+		add(inputPanel5, BorderLayout.CENTER);
 
 		// bigPanel for all the other panels
 		createBigPanel();
-		getContentPane().add(bigPanel, BorderLayout.CENTER);
+		add(bigPanel, BorderLayout.CENTER);
 
 		// control panel for buttons and its position
 		createControlPanel();
-		getContentPane().add(controlPanel, BorderLayout.SOUTH);
+		add(controlPanel, BorderLayout.SOUTH);
 	}
 
 	/**
@@ -630,31 +620,6 @@ public class CreateWindow extends JFrame {
 			alias.setText("");
 			alias.grabFocus();
 		}
-	}
-
-	/**
-	 * Main Method.
-	 */
-	public static void main(String[] args) {
-		final CreateWindow cw = new CreateWindow();
-		cw.setSize(500, 500); // set size of cw frame
-		cw.setVisible(true);
-		cw.setLocationRelativeTo(null); // centered
-		cw.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // don't close
-																	// on "X"
-		cw.pack();
-		cw.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent evt) {
-				int answer = JOptionPane.showConfirmDialog(cw, "Do you really want to quit?", 
-						"Quit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-				if (answer == JOptionPane.YES_OPTION) {
-					System.exit(0);
-				}
-
-			} // end of widowClosing
-
-		}); // end of WindowListener
-		// end of Main Method
 	}
 	// end of CreateWindow
 }
