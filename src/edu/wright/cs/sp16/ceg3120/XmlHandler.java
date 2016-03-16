@@ -56,6 +56,66 @@ public class XmlHandler {
 	
 	private static JPanel ovrAlias = new JPanel();
 	
+	/** The removeAlias method removes a given alias.
+	 * 
+	 * @param alias // Alias to remove
+	 */
+	public static boolean removeAlias(String alias) {
+		try {
+			File file = new File("UserData/aliases.xml");
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			docFactory.setValidating(true);
+			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+			Document doc;
+
+			if (file.exists()) {
+				doc = docBuilder.parse("UserData/aliases.xml");
+				NodeList aliasList = doc.getElementsByTagName("alias");
+				for (int i = 0; i < aliasList.getLength(); i++) {
+					Node currentNode = aliasList.item(i);
+					Element curElement = (Element) currentNode;
+					if (currentNode.getNodeType() == Node.ELEMENT_NODE
+							&& alias.equals(curElement.getAttribute("name"))) {
+						UIManager.put("OptionPane.yesButtonText", "Delete \"" + alias + "\"");
+						UIManager.put("OptionPane.noButtonText", "Cancel");
+						int sv = JOptionPane.showConfirmDialog(ovrAlias, 
+								"Are you sure you want to remove \"" + alias + "\"?",
+								"Overwrite Alias?", JOptionPane.YES_NO_OPTION);
+						UIManager.put("OptionPane.yesButtonText", "Yes");
+						UIManager.put("OptionPane.noButtonText", "No");
+						if (sv == JOptionPane.YES_OPTION) {
+							curElement.getParentNode().removeChild(curElement);
+							// write the content into xml file
+							TransformerFactory transformerFactory = 
+									TransformerFactory.newInstance();
+							Transformer transformer = transformerFactory.newTransformer();
+							DOMSource source = new DOMSource(doc);
+							transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+							transformer.setOutputProperty("{http://xml.apache.org/xalan}line-separator"," ");
+							transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+							transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,"aliases.dtd");
+							StreamResult result = 
+									new StreamResult(new File("UserData/aliases.xml"));
+							transformer.transform(source, result);
+							return true;
+						} else if (sv == JOptionPane.NO_OPTION) {
+							return false;
+						}	
+					}
+				}
+			}
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (TransformerException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 	/** Populates a list of aliases saved in the aliases.xml file.
 	 * @author Nick Madden
 	 * @return list of aliases
@@ -112,9 +172,8 @@ public class XmlHandler {
 	 * @throws SAXException
 	 *             Throws SAX exceptions
 	 */
-	public static void writeAlias(String alias, String dbName, String dbUrl, String userName, 
+	public static boolean writeAlias(String alias, String dbName, String dbUrl, String userName, 
 			String password, boolean savePass, int driver) {
-		System.out.println("writing");
 		try {
 			File file = new File("UserData/aliases.xml");
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -122,9 +181,9 @@ public class XmlHandler {
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 			Element root;
 			Document doc;
+			boolean overwrite = false;
 
 			// root elements
-
 			if (file.exists()) {
 				doc = docBuilder.parse("UserData/aliases.xml");
 				root = doc.getDocumentElement();
@@ -143,10 +202,10 @@ public class XmlHandler {
 						UIManager.put("OptionPane.noButtonText", "No");
 						if (sv == JOptionPane.YES_OPTION) {
 							curElement.getParentNode().removeChild(curElement);
-						} else if (sv == JOptionPane.CANCEL_OPTION) {
-							return;
-						}
-						
+							overwrite = true;
+						} else if (sv == JOptionPane.NO_OPTION) {
+							return true;
+						}	
 					}
 				}
 			} else {
@@ -169,6 +228,7 @@ public class XmlHandler {
 				root = doc.createElement("aliases");
 				doc.appendChild(root);
 			}
+			
 			Element al = doc.createElement("alias");
 			al.setAttribute("name", alias);
 			root.appendChild(al);
@@ -207,8 +267,7 @@ public class XmlHandler {
 			transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,"aliases.dtd");
 			StreamResult result = new StreamResult(new File("UserData/aliases.xml"));
 			transformer.transform(source, result);
-
-			System.out.println("File saved!");
+			return overwrite;
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		} catch (TransformerException e) {
@@ -218,7 +277,7 @@ public class XmlHandler {
 		} catch (SAXException e) {
 			e.printStackTrace();
 		}
-
+		return false;
 	}
 	
 	/**
