@@ -43,6 +43,7 @@ import javax.swing.SwingUtilities;
 public class MainApp {
 	
 	static JTabbedPane tabbedPane = new JTabbedPane();
+	static UserSettings globalConfig = SettingsReader.readXml("Profile.xml");
 	
 	
 	/**
@@ -163,7 +164,7 @@ public class MainApp {
 		// creating and showing this application's GUI.
 		SwingUtilities.invokeLater(new Runnable() {
 			
-			//UserSettings globalConfig = SettingsReader.readXml("Profile.xml");
+			
 			
 			@Override
 			public void run() {
