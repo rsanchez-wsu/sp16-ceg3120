@@ -206,10 +206,10 @@ public class CreateWindow extends JFrame {
 				break;
 			// PostgreSQL Driver
 			case 2:
-				PostgreConnect postgreConnect = 
-					new PostgreConnect(dbAddress, dbUsername, dbPassword, dbName);
+				PostgreConnect postConnect = 
+						new PostgreConnect(dbAddress, dbUsername, dbPassword, dbName);
 				try {
-					postgreConnect.configure();
+					postConnect.configure();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
