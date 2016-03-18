@@ -302,7 +302,7 @@ public class CreateWindow extends JFrame {
 	}
 	
 	/**
-	 * will do something weather the connection was successful.
+	 * will do something whether the connection was successful.
 	 * currently will close the window when the database is connected.
 	 * @param connected
 	 * 				boolean value set by setconnected 

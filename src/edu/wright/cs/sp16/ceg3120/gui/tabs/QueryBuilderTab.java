@@ -33,7 +33,7 @@ import javax.swing.JScrollPane;
  * @author Bonnie
  *
  */
-public class QueryBuilderTab extends JPanel{
+public class QueryBuilderTab extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -45,6 +45,7 @@ public class QueryBuilderTab extends JPanel{
 		JPanel queryBuilderPanel = initComponents();
 		//panel.add("Query Builder", queryBuilderPanel);
 	}
+	
 	/**
 	 * initialize components.
 	 */

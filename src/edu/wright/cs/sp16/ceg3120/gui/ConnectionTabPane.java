@@ -23,15 +23,15 @@ package edu.wright.cs.sp16.ceg3120.gui;
 
 import edu.wright.cs.sp16.ceg3120.gui.tabs.QueryBuilderTab;
 
-import java.awt.Component;
-
 import javax.swing.JTabbedPane;
+
+
 
 /**
  * Connection Tab.
  * @author Bonnie
  */
-public class ConnectionTabPane extends JTabbedPane{
+public class ConnectionTabPane extends JTabbedPane {
 
 	private static final long serialVersionUID = 8991726988535798603L;
 
@@ -43,6 +43,7 @@ public class ConnectionTabPane extends JTabbedPane{
 		initComponents();
 
 	}
+	
 	/**
 	 * Initialize components.
 	 */

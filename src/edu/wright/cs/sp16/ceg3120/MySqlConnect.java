@@ -37,7 +37,7 @@ import java.sql.Statement;
  *         values.
  */
 
-public class MySqlConnect extends DatabaseConnector{
+public class MySqlConnect extends DatabaseConnector {
 
 	private String dbAddress;
 	private String dbUsername;

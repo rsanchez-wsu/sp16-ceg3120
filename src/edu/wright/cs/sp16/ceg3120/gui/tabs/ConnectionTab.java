@@ -26,6 +26,7 @@ import edu.wright.cs.sp16.ceg3120.gui.ConnectionTabPane;
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
+
 /**
  * The tab that contains all the components for the connection.
  * 

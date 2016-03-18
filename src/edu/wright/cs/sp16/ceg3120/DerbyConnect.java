@@ -35,7 +35,7 @@ import java.sql.Statement;
  * @author Bonnie
  *
  */
-public class DerbyConnect extends DatabaseConnector{
+public class DerbyConnect extends DatabaseConnector {
 
 	private String dbName;
 	private String dbUrl = "jdbc:derby://localhost:1527/testDB;create=true;"
