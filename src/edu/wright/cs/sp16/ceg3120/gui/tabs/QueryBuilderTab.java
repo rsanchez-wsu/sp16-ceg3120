@@ -22,10 +22,12 @@
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
 import java.awt.Component;
+import java.awt.GridLayout;
 
 import javax.swing.JEditorPane;
-
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
 
 /**
  * This will be a tab for the query builder under the connection tab.
@@ -40,20 +42,26 @@ public class QueryBuilderTab extends Component{
 	 * Default constructor for the Query Builder tab.
 	 */
 	public QueryBuilderTab() {
-		super();
-		initComponents();
+		//JPanel panel = new JPanel();
+		JPanel queryBuilderPanel = initComponents();
+		//panel.add("Query Builder", queryBuilderPanel);
 	}
 	/**
 	 * initialize components.
 	 */
-	private void initComponents() {
-		JEditorPane editorPane = new JEditorPane();
+	protected JPanel initComponents() {
+		JPanel queryPanel = new JPanel();
+		queryPanel.setLayout(new GridLayout(1, 1));
 		
-		editorPane.setVisible(true);
+		JEditorPane editorPane = new JEditorPane();
 		editorPane.setSize(500, 500);
+		editorPane.setLocation(50, 50);
 		
 		JScrollPane scrollPane = new JScrollPane(editorPane);
-		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);		
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		
+		queryPanel.add(editorPane);
+		return queryPanel;
 	}
 	
 }
