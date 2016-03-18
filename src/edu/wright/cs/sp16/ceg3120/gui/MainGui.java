@@ -64,6 +64,10 @@ public class MainGui extends JFrame implements ActionListener {
 	private JMenuItem newItem;
 	private JMenuItem printItem;
 	private JMenuItem disconnectItem;
+	private JMenuItem topItem;
+	private JMenuItem bottomItem;
+	private JMenuItem findItem;
+	
 	//private StartPageTab startPage = null;
 	private boolean isFullScreen = false;
 	
@@ -161,7 +165,7 @@ public class MainGui extends JFrame implements ActionListener {
 		Image newPrintImage = printImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
 		printIcon = new ImageIcon(newPrintImage);
 		printItem = new JMenuItem("Print", printIcon);
-		printItem.setToolTipText("Print");
+		printItem.setToolTipText("Send file or code to printer");
 		printItem.addActionListener(this);
 		printItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
@@ -204,24 +208,42 @@ public class MainGui extends JFrame implements ActionListener {
 		Action topAction = new DefaultEditorKit.CutAction();
 		topAction.putValue(Action.NAME, "Top");
 		
-		Action bottomAction = new DefaultEditorKit.CopyAction();
-		bottomAction.putValue(Action.NAME, "Bottom");
+		ImageIcon topIcon =  new ImageIcon("img/Top Icon.png");
+		Image topImage = topIcon.getImage();
+		Image newTopImage = topImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		topIcon = new ImageIcon(newTopImage);		
+		topItem = new JMenuItem("Top", topIcon);
+		topItem.setToolTipText("Go to top of file");
+		topItem.addActionListener(this);
+		
+		ImageIcon bottomIcon =  new ImageIcon("img/Bottom Icon.png");
+		Image bottomImage = bottomIcon.getImage();
+		Image newBottomImage = bottomImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		bottomIcon = new ImageIcon(newBottomImage);		
+		bottomItem = new JMenuItem("Bottom", bottomIcon);
+		bottomItem.setToolTipText("Go to bottom of file");
+		bottomItem.addActionListener(this);
 		
 		Action goToLineAction = new DefaultEditorKit.PasteAction();
 		goToLineAction.putValue(Action.NAME, "Go To Line");
 		
-		Action findAction = new DefaultEditorKit.PasteAction();
-		findAction.putValue(Action.NAME, "Find");
+		ImageIcon findIcon =  new ImageIcon("img/Find Icon.png");
+		Image findImage = findIcon.getImage();
+		Image newFindImage = findImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		findIcon = new ImageIcon(newFindImage);		
+		findItem = new JMenuItem("Find", findIcon);
+		findItem.setToolTipText("Search for keyword in the file");
+		findItem.addActionListener(this);
 
 		Action replaceAction = new DefaultEditorKit.PasteAction();
 		replaceAction.putValue(Action.NAME, "Replace");
 
 		JMenu search = new JMenu("Search");
 		
-		search.add(topAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
-		search.add(bottomAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		search.add(topItem).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		search.add(bottomItem).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		search.add(goToLineAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
-		search.add(findAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		search.add(findItem).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		search.add(replaceAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		search.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
@@ -235,6 +257,7 @@ public class MainGui extends JFrame implements ActionListener {
 		Image newConnectImage = connectImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
 		connectIcon = new ImageIcon(newConnectImage);		
 		connect = new JMenuItem("Connect To Database", connectIcon);
+		disconnectItem.setToolTipText("Login and connect to a database");
 		ActionListener con = new ConWindow();
 		connect.addActionListener(con);
 		
@@ -243,7 +266,7 @@ public class MainGui extends JFrame implements ActionListener {
 		Image newDisconnectImage = disconnectImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
 		disconnectIcon = new ImageIcon(newDisconnectImage);		
 		disconnectItem = new JMenuItem("Disconnect From Database", disconnectIcon);
-		disconnectItem.setToolTipText("Disconnect From Database");
+		disconnectItem.setToolTipText("Close connection to the current database");
 		disconnectItem.addActionListener(this);
 		
 		Action disconnectAllAction = new DefaultEditorKit.PasteAction();
@@ -289,7 +312,11 @@ public class MainGui extends JFrame implements ActionListener {
 		
 		// Window menu
 
-		fullScreenItem = new JMenuItem("Full Screen");
+		ImageIcon fullscreenIcon =  new ImageIcon("img/Full Screen Icon.png");
+		Image fullscreenImage = fullscreenIcon.getImage();
+		Image newFullscreenImage = fullscreenImage.getScaledInstance(18, 18, Image.SCALE_SMOOTH);
+		fullscreenIcon = new ImageIcon(newFullscreenImage);	
+		fullScreenItem = new JMenuItem("Full Screen", fullscreenIcon);
 		fullScreenItem.setMnemonic(KeyEvent.VK_F);
 		fullScreenItem.setToolTipText("Make application full screen");
 		fullScreenItem.addActionListener(this);
