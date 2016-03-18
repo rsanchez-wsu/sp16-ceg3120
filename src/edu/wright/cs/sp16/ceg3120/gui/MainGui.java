@@ -67,6 +67,9 @@ public class MainGui extends JFrame implements ActionListener {
 	private JMenuItem topItem;
 	private JMenuItem bottomItem;
 	private JMenuItem findItem;
+	private JMenuItem cutItem;
+	private JMenuItem copyItem;
+	private JMenuItem pasteItem;
 	
 	//private StartPageTab startPage = null;
 	private boolean isFullScreen = false;
@@ -80,8 +83,6 @@ public class MainGui extends JFrame implements ActionListener {
 		setSize(960, 600);
 		setLocationRelativeTo(null);
 		initComponents();
-		
-		
 	}
 	
 	/**
@@ -101,17 +102,6 @@ public class MainGui extends JFrame implements ActionListener {
 		
 		add(tabPane);
 	}
-	
-//	/**
-//	 * FindBugs Error: 
-//	 * Private method edu.wright.cs.sp16.ceg3120.gui.MainGui.createStartPage() is never called
-//	 */
-//	@SuppressWarnings("unused")
-//	private void createStartPage() {
-//		startPage = new StartPageTab();
-//		
-//		add(startPage);
-//	}
 
 	/**
 	 * Creates the menu bar.
@@ -137,7 +127,6 @@ public class MainGui extends JFrame implements ActionListener {
 		newFileIcon = new ImageIcon(newFileImageTwo);
 		newItem = new JMenuItem("New", newFileIcon);
 		newItem.setToolTipText("New SQL File");
-		//newItem.addActionListener(this);
 		newItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 		
@@ -165,7 +154,7 @@ public class MainGui extends JFrame implements ActionListener {
 		Image newPrintImage = printImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
 		printIcon = new ImageIcon(newPrintImage);
 		printItem = new JMenuItem("Print", printIcon);
-		printItem.setToolTipText("Send file or code to printer");
+		printItem.setToolTipText("Send file/code to printer");
 		printItem.addActionListener(this);
 		printItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
@@ -180,27 +169,44 @@ public class MainGui extends JFrame implements ActionListener {
 		file.add(newItem);
 		file.add(saveItem);
 		file.add(saveAsItem);
-		file.add(printItem).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		file.add(printItem);
 		file.add(exitItem);
 		file.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 
 		// Edit menu
+		ImageIcon cutIcon =  new ImageIcon("img/Cut Icon.png");
+		Image cutImage = cutIcon.getImage();
+		Image newCutImage = cutImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		cutIcon = new ImageIcon(newCutImage);
+		cutItem = new JMenuItem("Cut", cutIcon);
+		cutItem.setToolTipText("Cut text");
+		cutItem.addActionListener(this);
+		cutItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
-		Action cutAction = new DefaultEditorKit.CutAction();
-		cutAction.putValue(Action.NAME, "Cut");
+		ImageIcon copyIcon =  new ImageIcon("img/Copy Icon.png");
+		Image copyImage = copyIcon.getImage();
+		Image newCopyImage = copyImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		copyIcon = new ImageIcon(newCopyImage);
+		copyItem = new JMenuItem("Copy", copyIcon);
+		copyItem.setToolTipText("Copy text");
+		copyItem.addActionListener(this);
+		copyItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
-		Action copyAction = new DefaultEditorKit.CopyAction();
-		copyAction.putValue(Action.NAME, "Copy");
-		
-		Action pasteAction = new DefaultEditorKit.PasteAction();
-		pasteAction.putValue(Action.NAME, "Paste");
+		ImageIcon pasteIcon =  new ImageIcon("img/Paste Icon.png");
+		Image pasteImage = pasteIcon.getImage();
+		Image newPasteImage = pasteImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		pasteIcon = new ImageIcon(newPasteImage);
+		pasteItem = new JMenuItem("Paste", pasteIcon);
+		pasteItem.setToolTipText("Paste text");
+		pasteItem.addActionListener(this);
+		pasteItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 		JMenu edit = new JMenu("Edit");
 		
-		edit.add(cutAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
-		edit.add(copyAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
-		edit.add(pasteAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		edit.add(cutItem);
+		edit.add(copyItem);
+		edit.add(pasteItem);
 		edit.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
 		// Search menu
@@ -383,7 +389,6 @@ public class MainGui extends JFrame implements ActionListener {
 		});
 		
 		help.add(helpItem);
-		//TODO: Decide what to include in Help Menu
 
 		JMenuBar menuBar = new JMenuBar();
 
