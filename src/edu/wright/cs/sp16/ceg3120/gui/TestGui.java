@@ -24,6 +24,7 @@ package edu.wright.cs.sp16.ceg3120.gui;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -50,6 +51,10 @@ public class TestGui {
 			screen.showSplashScreen();
 
 			final MainGui gui = new MainGui();
+			
+			ImageIcon icon =  new ImageIcon("img/SQLizard Icon.png");
+			gui.setIconImage(icon.getImage());
+			
 			gui.setVisible(true);
 			gui.addWindowListener(new WindowAdapter() {
 				public void windowClosing(WindowEvent evt) {
@@ -60,15 +65,12 @@ public class TestGui {
 					} else {
 						gui.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 					}
-
 				} // end of widowClosing
-
 			}); // end of WindowListener
+			
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
-		
 	}
-
 }

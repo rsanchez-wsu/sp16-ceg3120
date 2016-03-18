@@ -22,14 +22,18 @@
 package edu.wright.cs.sp16.ceg3120.gui;
 
 import java.awt.Cursor;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 
 import javax.swing.Action;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -37,6 +41,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.DefaultEditorKit;
 
 /**
@@ -51,7 +56,18 @@ public class MainGui extends JFrame implements ActionListener {
 	private JMenuItem exitItem = null;
 	private JMenuItem fullScreenItem = null;
 	private JMenuItem connect = null;
+	private JMenuItem openItem;
+	private JMenuItem helpItem;
 	private MainTabPane tabPane = null;
+	private JMenuItem saveItem = null;
+	private JMenuItem saveAsItem = null;
+	private JMenuItem newItem;
+	private JMenuItem printItem;
+	private JMenuItem disconnectItem;
+	private JMenuItem topItem;
+	private JMenuItem bottomItem;
+	private JMenuItem findItem;
+	
 	//private StartPageTab startPage = null;
 	private boolean isFullScreen = false;
 	
@@ -106,17 +122,53 @@ public class MainGui extends JFrame implements ActionListener {
 		JMenu file = new JMenu("File");
 		file.setMnemonic(KeyEvent.VK_F);
 		
-		Action openAction = new DefaultEditorKit.CutAction();
-		openAction.putValue(Action.NAME, "Open");
+		ImageIcon openIcon =  new ImageIcon("img/Open File Icon.png");
+		Image openImage = openIcon.getImage();
+		Image newOpenImage = openImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		openIcon = new ImageIcon(newOpenImage);
+		openItem = new JMenuItem("Open", openIcon);
+		openItem.setToolTipText("Open SQL File");
+		openItem.addActionListener(this);
+		openItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
-		Action newAction = new DefaultEditorKit.CutAction();
-		newAction.putValue(Action.NAME, "New");
+		ImageIcon newFileIcon =  new ImageIcon("img/New File Icon.png");
+		Image newFileImage = newFileIcon.getImage();
+		Image newFileImageTwo = newFileImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		newFileIcon = new ImageIcon(newFileImageTwo);
+		newItem = new JMenuItem("New", newFileIcon);
+		newItem.setToolTipText("New SQL File");
+		//newItem.addActionListener(this);
+		newItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
 		
-		Action saveAction = new DefaultEditorKit.CutAction();
-		saveAction.putValue(Action.NAME, "Save");
+		ImageIcon saveIcon =  new ImageIcon("img/Save File Icon.png");
+		Image saveImage = saveIcon.getImage();
+		Image newSaveImage = saveImage.getScaledInstance(18, 18, Image.SCALE_SMOOTH);
+		saveIcon = new ImageIcon(newSaveImage);
+		saveItem = new JMenuItem("Save", saveIcon);
+		saveItem.setToolTipText("Save SQL File");
+		saveItem.addActionListener(this);
+		saveItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
-		Action printAction = new DefaultEditorKit.CutAction();
-		printAction.putValue(Action.NAME, "Print");
+		ImageIcon saveAsIcon =  new ImageIcon("img/Save As Icon.png");
+		Image saveAsImage = saveAsIcon.getImage();
+		Image newSaveAsImage = saveAsImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		saveAsIcon = new ImageIcon(newSaveAsImage);
+		saveAsItem = new JMenuItem("Save As", saveAsIcon);
+		saveAsItem.setToolTipText("Save SQL File As");
+		saveAsItem.addActionListener(this);
+		saveAsItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
+		
+		ImageIcon printIcon =  new ImageIcon("img/Print Icon.png");
+		Image printImage = printIcon.getImage();
+		Image newPrintImage = printImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		printIcon = new ImageIcon(newPrintImage);
+		printItem = new JMenuItem("Print", printIcon);
+		printItem.setToolTipText("Send file or code to printer");
+		printItem.addActionListener(this);
+		printItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
 
 		exitItem = new JMenuItem("Exit");
 		exitItem.setMnemonic(KeyEvent.VK_E);
@@ -124,10 +176,11 @@ public class MainGui extends JFrame implements ActionListener {
 		exitItem.addActionListener(this);
 		exitItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-		file.add(openAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
-		file.add(newAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
-		file.add(saveAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
-		file.add(printAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		file.add(openItem);
+		file.add(newItem);
+		file.add(saveItem);
+		file.add(saveAsItem);
+		file.add(printItem).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		file.add(exitItem);
 		file.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
@@ -155,24 +208,42 @@ public class MainGui extends JFrame implements ActionListener {
 		Action topAction = new DefaultEditorKit.CutAction();
 		topAction.putValue(Action.NAME, "Top");
 		
-		Action bottomAction = new DefaultEditorKit.CopyAction();
-		bottomAction.putValue(Action.NAME, "Bottom");
+		ImageIcon topIcon =  new ImageIcon("img/Top Icon.png");
+		Image topImage = topIcon.getImage();
+		Image newTopImage = topImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		topIcon = new ImageIcon(newTopImage);		
+		topItem = new JMenuItem("Top", topIcon);
+		topItem.setToolTipText("Go to top of file");
+		topItem.addActionListener(this);
+		
+		ImageIcon bottomIcon =  new ImageIcon("img/Bottom Icon.png");
+		Image bottomImage = bottomIcon.getImage();
+		Image newBottomImage = bottomImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		bottomIcon = new ImageIcon(newBottomImage);		
+		bottomItem = new JMenuItem("Bottom", bottomIcon);
+		bottomItem.setToolTipText("Go to bottom of file");
+		bottomItem.addActionListener(this);
 		
 		Action goToLineAction = new DefaultEditorKit.PasteAction();
 		goToLineAction.putValue(Action.NAME, "Go To Line");
 		
-		Action findAction = new DefaultEditorKit.PasteAction();
-		findAction.putValue(Action.NAME, "Find");
+		ImageIcon findIcon =  new ImageIcon("img/Find Icon.png");
+		Image findImage = findIcon.getImage();
+		Image newFindImage = findImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		findIcon = new ImageIcon(newFindImage);		
+		findItem = new JMenuItem("Find", findIcon);
+		findItem.setToolTipText("Search for keyword in the file");
+		findItem.addActionListener(this);
 
 		Action replaceAction = new DefaultEditorKit.PasteAction();
 		replaceAction.putValue(Action.NAME, "Replace");
 
 		JMenu search = new JMenu("Search");
 		
-		search.add(topAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
-		search.add(bottomAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		search.add(topItem).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		search.add(bottomItem).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		search.add(goToLineAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
-		search.add(findAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		search.add(findItem).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		search.add(replaceAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		search.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
@@ -181,18 +252,25 @@ public class MainGui extends JFrame implements ActionListener {
 		Action newSessionAction = new DefaultEditorKit.CutAction();
 		newSessionAction.putValue(Action.NAME, "New Session");
 		
-		connect = new JMenuItem("Connect To Database");
+		ImageIcon connectIcon =  new ImageIcon("img/Connect Icon.png");
+		Image connectImage = connectIcon.getImage();
+		Image newConnectImage = connectImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		connectIcon = new ImageIcon(newConnectImage);		
+		connect = new JMenuItem("Connect To Database", connectIcon);
+		connect.setToolTipText("Login and connect to a database");
 		ActionListener con = new ConWindow();
 		connect.addActionListener(con);
 		
-		Action disconnectAction = new DefaultEditorKit.PasteAction();
-		disconnectAction.putValue(Action.NAME, "Disconnect From Database");
+		ImageIcon disconnectIcon =  new ImageIcon("img/Disconnect Icon.png");
+		Image disconnectImage = disconnectIcon.getImage();
+		Image newDisconnectImage = disconnectImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		disconnectIcon = new ImageIcon(newDisconnectImage);		
+		disconnectItem = new JMenuItem("Disconnect From Database", disconnectIcon);
+		disconnectItem.setToolTipText("Close connection to the current database");
+		disconnectItem.addActionListener(this);
 		
 		Action disconnectAllAction = new DefaultEditorKit.PasteAction();
 		disconnectAllAction.putValue(Action.NAME, "Disconnect From All");
-
-		Action createAliasAction = new DefaultEditorKit.PasteAction();
-		createAliasAction.putValue(Action.NAME, "Create Alias");
 		
 		Action driverAction = new DefaultEditorKit.PasteAction();
 		driverAction.putValue(Action.NAME, "New Driver");
@@ -201,9 +279,8 @@ public class MainGui extends JFrame implements ActionListener {
 		
 		session.add(newSessionAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		session.add(connect).setCursor(new Cursor(Cursor.HAND_CURSOR));
-		session.add(disconnectAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		session.add(disconnectItem).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		session.add(disconnectAllAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
-		session.add(createAliasAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		session.add(driverAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		session.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
@@ -235,7 +312,11 @@ public class MainGui extends JFrame implements ActionListener {
 		
 		// Window menu
 
-		fullScreenItem = new JMenuItem("Full Screen");
+		ImageIcon fullscreenIcon =  new ImageIcon("img/Full Screen Icon.png");
+		Image fullscreenImage = fullscreenIcon.getImage();
+		Image newFullscreenImage = fullscreenImage.getScaledInstance(18, 18, Image.SCALE_SMOOTH);
+		fullscreenIcon = new ImageIcon(newFullscreenImage);	
+		fullScreenItem = new JMenuItem("Full Screen", fullscreenIcon);
 		fullScreenItem.setMnemonic(KeyEvent.VK_F);
 		fullScreenItem.setToolTipText("Make application full screen");
 		fullScreenItem.addActionListener(this);
@@ -248,7 +329,16 @@ public class MainGui extends JFrame implements ActionListener {
 		// Help menu
 		final JMenu help = new JMenu("Help");
 		help.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		help.add("Welcome").addActionListener(new ActionListener() {
+		
+		ImageIcon welcomeIcon =  new ImageIcon("img/Welcome Icon.png");
+		Image welcomeImage = welcomeIcon.getImage();
+		Image newWelcomeImage = welcomeImage.getScaledInstance(18, 18, Image.SCALE_SMOOTH);
+		welcomeIcon = new ImageIcon(newWelcomeImage);
+		helpItem = new JMenuItem("Welcome", welcomeIcon);
+		helpItem.setToolTipText("Welcome to SQLizard");
+		helpItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
+		helpItem.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent event) {
 				//disable the main window
@@ -272,15 +362,27 @@ public class MainGui extends JFrame implements ActionListener {
 				});
 			}
 		});
+		help.add(helpItem);
 		
 		help.addSeparator();
-		help.add("About SQLizard").addActionListener(new ActionListener() {
+		
+		ImageIcon sqlizardIcon =  new ImageIcon("img/SQLizard Icon.png");
+		Image sqlizardImage = sqlizardIcon.getImage();
+		Image newSqlizardImage = sqlizardImage.getScaledInstance(18, 18, Image.SCALE_SMOOTH);
+		sqlizardIcon = new ImageIcon(newSqlizardImage);
+		helpItem = new JMenuItem("About SQLizard", sqlizardIcon);
+		helpItem.setToolTipText("Welcome to SQLizard");
+		helpItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
+		helpItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				aboutSqliz();
 				
 			}
 		});
+		
+		help.add(helpItem);
 		//TODO: Decide what to include in Help Menu
 
 		JMenuBar menuBar = new JMenuBar();
@@ -323,10 +425,37 @@ public class MainGui extends JFrame implements ActionListener {
 				fullScreenItem.setToolTipText("Make application full screen");
 				setSize(960, 600);
 			}
+		} else if (actionEvent.getSource().equals(openItem)) {
+			
+			// JFileChooser to browse and open the sql file
+			// Waiting on Team 3 to get the SQL code window implemented 
+			// so that we can actually write/read files (this isn't fully complete yet)
+			JFileChooser fileChooser = new JFileChooser();
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("SQL FILES", "sql");
+			fileChooser.setFileFilter(filter);
+			fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+			int result = fileChooser.showOpenDialog(this);
+			if (result == JFileChooser.APPROVE_OPTION) {
+				File openedFile = fileChooser.getSelectedFile();
+				System.out.println("Opened File: " + openedFile.getAbsolutePath());
+			}
+		} else if (actionEvent.getSource().equals(saveItem)) {
+			//@author: Devesh Amin
+			//Save the SQL File in the local system using JFileChooser
+
+			JFileChooser fileChooser = new JFileChooser();
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("SQL FILES", "sql");
+			fileChooser.setFileFilter(filter);
+			fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+			fileChooser.setDialogTitle("Save");
+			int selectFile = fileChooser.showSaveDialog(this);
+			
+			if (selectFile == JFileChooser.APPROVE_OPTION) {
+				File savedFile = fileChooser.getSelectedFile();
+				System.out.println("Save file: " + savedFile.getAbsolutePath());
+			}
 		}
 	}
-	
-	
 	
 	/**
 	 * Disables the main window.
