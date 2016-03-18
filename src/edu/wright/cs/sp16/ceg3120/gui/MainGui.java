@@ -60,7 +60,10 @@ public class MainGui extends JFrame implements ActionListener {
 	private JMenuItem helpItem;
 	private MainTabPane tabPane = null;
 	private JMenuItem saveItem = null;
+	private JMenuItem saveAsItem = null;
 	private JMenuItem newItem;
+	private JMenuItem printItem;
+	private JMenuItem disconnectItem;
 	//private StartPageTab startPage = null;
 	private boolean isFullScreen = false;
 	
@@ -115,37 +118,53 @@ public class MainGui extends JFrame implements ActionListener {
 		JMenu file = new JMenu("File");
 		file.setMnemonic(KeyEvent.VK_F);
 		
-		ImageIcon icon =  new ImageIcon("img/Open File Icon.gif");
-		Image image = icon.getImage();
-		Image newImage = image.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-		icon = new ImageIcon(newImage);
-		openItem = new JMenuItem("Open", icon);
+		ImageIcon openIcon =  new ImageIcon("img/Open File Icon.png");
+		Image openImage = openIcon.getImage();
+		Image newOpenImage = openImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		openIcon = new ImageIcon(newOpenImage);
+		openItem = new JMenuItem("Open", openIcon);
 		openItem.setToolTipText("Open SQL File");
 		openItem.addActionListener(this);
 		openItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
-		ImageIcon icon2 =  new ImageIcon("img/New File Icon.png");
-		Image image2 = icon2.getImage();
-		Image newImage2 = image2.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-		icon2 = new ImageIcon(newImage2);
-		newItem = new JMenuItem("New", icon2);
+		ImageIcon newFileIcon =  new ImageIcon("img/New File Icon.png");
+		Image newFileImage = newFileIcon.getImage();
+		Image newFileImageTwo = newFileImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		newFileIcon = new ImageIcon(newFileImageTwo);
+		newItem = new JMenuItem("New", newFileIcon);
 		newItem.setToolTipText("New SQL File");
 		//newItem.addActionListener(this);
 		newItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 		
-		ImageIcon icon3 =  new ImageIcon("img/Save File Icon.png");
-		Image image3 = icon3.getImage();
-		Image newImage3 = image3.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-		icon3 = new ImageIcon(newImage3);
-		saveItem = new JMenuItem("Save", icon3);
+		ImageIcon saveIcon =  new ImageIcon("img/Save File Icon.png");
+		Image saveImage = saveIcon.getImage();
+		Image newSaveImage = saveImage.getScaledInstance(18, 18, Image.SCALE_SMOOTH);
+		saveIcon = new ImageIcon(newSaveImage);
+		saveItem = new JMenuItem("Save", saveIcon);
 		saveItem.setToolTipText("Save SQL File");
 		saveItem.addActionListener(this);
 		saveItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
+		ImageIcon saveAsIcon =  new ImageIcon("img/Save As Icon.png");
+		Image saveAsImage = saveAsIcon.getImage();
+		Image newSaveAsImage = saveAsImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		saveAsIcon = new ImageIcon(newSaveAsImage);
+		saveAsItem = new JMenuItem("Save As", saveAsIcon);
+		saveAsItem.setToolTipText("Save SQL File As");
+		saveAsItem.addActionListener(this);
+		saveAsItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
-		Action printAction = new DefaultEditorKit.CutAction();
-		printAction.putValue(Action.NAME, "Print");
+		
+		ImageIcon printIcon =  new ImageIcon("img/Print Icon.png");
+		Image printImage = printIcon.getImage();
+		Image newPrintImage = printImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		printIcon = new ImageIcon(newPrintImage);
+		printItem = new JMenuItem("Print", printIcon);
+		printItem.setToolTipText("Print");
+		printItem.addActionListener(this);
+		printItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
 
 		exitItem = new JMenuItem("Exit");
 		exitItem.setMnemonic(KeyEvent.VK_E);
@@ -156,7 +175,8 @@ public class MainGui extends JFrame implements ActionListener {
 		file.add(openItem);
 		file.add(newItem);
 		file.add(saveItem);
-		file.add(printAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		file.add(saveAsItem);
+		file.add(printItem).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		file.add(exitItem);
 		file.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
@@ -210,12 +230,21 @@ public class MainGui extends JFrame implements ActionListener {
 		Action newSessionAction = new DefaultEditorKit.CutAction();
 		newSessionAction.putValue(Action.NAME, "New Session");
 		
-		connect = new JMenuItem("Connect To Database");
+		ImageIcon connectIcon =  new ImageIcon("img/Connect Icon.png");
+		Image connectImage = connectIcon.getImage();
+		Image newConnectImage = connectImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		connectIcon = new ImageIcon(newConnectImage);		
+		connect = new JMenuItem("Connect To Database", connectIcon);
 		ActionListener con = new ConWindow();
 		connect.addActionListener(con);
 		
-		Action disconnectAction = new DefaultEditorKit.PasteAction();
-		disconnectAction.putValue(Action.NAME, "Disconnect From Database");
+		ImageIcon disconnectIcon =  new ImageIcon("img/Disconnect Icon.png");
+		Image disconnectImage = disconnectIcon.getImage();
+		Image newDisconnectImage = disconnectImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		disconnectIcon = new ImageIcon(newDisconnectImage);		
+		disconnectItem = new JMenuItem("Disconnect From Database", disconnectIcon);
+		disconnectItem.setToolTipText("Disconnect From Database");
+		disconnectItem.addActionListener(this);
 		
 		Action disconnectAllAction = new DefaultEditorKit.PasteAction();
 		disconnectAllAction.putValue(Action.NAME, "Disconnect From All");
@@ -227,7 +256,7 @@ public class MainGui extends JFrame implements ActionListener {
 		
 		session.add(newSessionAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		session.add(connect).setCursor(new Cursor(Cursor.HAND_CURSOR));
-		session.add(disconnectAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		session.add(disconnectItem).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		session.add(disconnectAllAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		session.add(driverAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		session.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -274,11 +303,11 @@ public class MainGui extends JFrame implements ActionListener {
 		final JMenu help = new JMenu("Help");
 		help.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
-		ImageIcon icon4 =  new ImageIcon("img/Welcome Icon.jpg");
-		Image image4 = icon4.getImage();
-		Image newImage4 = image4.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-		icon4 = new ImageIcon(newImage4);
-		helpItem = new JMenuItem("Welcome", icon4);
+		ImageIcon welcomeIcon =  new ImageIcon("img/Welcome Icon.png");
+		Image welcomeImage = welcomeIcon.getImage();
+		Image newWelcomeImage = welcomeImage.getScaledInstance(18, 18, Image.SCALE_SMOOTH);
+		welcomeIcon = new ImageIcon(newWelcomeImage);
+		helpItem = new JMenuItem("Welcome", welcomeIcon);
 		helpItem.setToolTipText("Welcome to SQLizard");
 		helpItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
@@ -310,11 +339,11 @@ public class MainGui extends JFrame implements ActionListener {
 		
 		help.addSeparator();
 		
-		ImageIcon icon5 =  new ImageIcon("img/SQLizard Icon.png");
-		Image image5 = icon5.getImage();
-		Image newImage5 = image5.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-		icon5 = new ImageIcon(newImage5);
-		helpItem = new JMenuItem("About SQLizard", icon5);
+		ImageIcon sqlizardIcon =  new ImageIcon("img/SQLizard Icon.png");
+		Image sqlizardImage = sqlizardIcon.getImage();
+		Image newSqlizardImage = sqlizardImage.getScaledInstance(18, 18, Image.SCALE_SMOOTH);
+		sqlizardIcon = new ImageIcon(newSqlizardImage);
+		helpItem = new JMenuItem("About SQLizard", sqlizardIcon);
 		helpItem.setToolTipText("Welcome to SQLizard");
 		helpItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
