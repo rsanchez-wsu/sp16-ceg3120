@@ -257,7 +257,7 @@ public class MainGui extends JFrame implements ActionListener {
 		Image newConnectImage = connectImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
 		connectIcon = new ImageIcon(newConnectImage);		
 		connect = new JMenuItem("Connect To Database", connectIcon);
-		disconnectItem.setToolTipText("Login and connect to a database");
+		connect.setToolTipText("Login and connect to a database");
 		ActionListener con = new ConWindow();
 		connect.addActionListener(con);
 		
