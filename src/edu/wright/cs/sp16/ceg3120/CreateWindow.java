@@ -220,6 +220,11 @@ public class CreateWindow extends JFrame {
 			}
 
 		}
+		
+		//We will need to remove this once we are done using it for reference.
+		
+		
+		
 		// <<<<<<< HEAD
 		//
 		// switch (dbDriver) {
