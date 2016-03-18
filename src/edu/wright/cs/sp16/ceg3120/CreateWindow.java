@@ -52,40 +52,40 @@ public class CreateWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-
 	private JFrame frame;
-	
+
 	// variable to see if you are connected
 	private boolean connected = false;
-	
-//	// title label
-//	private JLabel title = new JLabel("Aliases");
-//
-//	// new buttons
-//	private JButton clear = new JButton("Clear");
-//	private JButton connect = new JButton("Connect");
+
+	// // title label
+	// private JLabel title = new JLabel("Aliases");
+	//
+	// // new buttons
+	// private JButton clear = new JButton("Clear");
+	// private JButton connect = new JButton("Connect");
 
 	// input fields
 	static int numOfComponents = 8;
-	
+
 	private static final JComponent[] inputFields = new JComponent[numOfComponents];
-	static String[] driverNames = { "Choose a Driver",
-			"MySQL Driver", "PostgreSQL Driver", "Demo Driver 3" };
+	static String[] driverNames = { "Choose a Driver", "MySQL Driver",
+			"PostgreSQL Driver", "Demo Driver 3" };
 	private static JComboBox<String> aliases;
 
 	// creating panels to add labels and text boxes
 
-//	private JPanel titlePanel = new JPanel();
-//	private JPanel controlPanel = new JPanel();
-//	private JPanel buttonPanel = new JPanel();
+	// private JPanel titlePanel = new JPanel();
+	// private JPanel controlPanel = new JPanel();
+	// private JPanel buttonPanel = new JPanel();
 
 	private static JPanel svAlias = new JPanel();
-
 
 	// ActionListener for buttons
 	private static ActionListener actionHandler = new ActionHandler();
 
-	/** Constructor for CreatWindow.
+	/**
+	 * Constructor for CreatWindow.
+	 * 
 	 * @author Devesh Amin, Nick Madden
 	 */
 	public CreateWindow() {
@@ -93,7 +93,7 @@ public class CreateWindow extends JFrame {
 
 		// Title Panel and its position
 		getContentPane().add(createTitlePanel(), BorderLayout.NORTH);
-		
+
 		// Create gui input fields
 		JPanel gui = new JPanel();
 		gui.setLayout(new GridLayout(8, 2, 30, 10));
@@ -129,13 +129,15 @@ public class CreateWindow extends JFrame {
 			gui.add(jpanel, BorderLayout.CENTER);
 			setFrame(this);
 		}
-		
+
 		// Add to panels
 		getContentPane().add(gui, BorderLayout.CENTER);
 		getContentPane().add(createControlPanel(), BorderLayout.SOUTH);
 	}
 
-	/** Adding title to panel.
+	/**
+	 * Adding title to panel.
+	 * 
 	 * @author Devesh Amin, Nick Madden
 	 */
 	private JPanel createTitlePanel() {
@@ -143,11 +145,11 @@ public class CreateWindow extends JFrame {
 		JPanel jpanel = new JPanel();
 		String[] listA = XmlHandler.populateAlias();
 		aliases = new JComboBox<String>(listA);
-		
+
 		JLabel title = new JLabel("Create an Alias", SwingConstants.CENTER);
 		jpanel.setLayout(new GridLayout(3, 1));
 		jpanel.add(title);
-		
+
 		aliases.setActionCommand("Alias");
 		aliases.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 		aliases.addActionListener(actionHandler);
@@ -155,23 +157,25 @@ public class CreateWindow extends JFrame {
 		return jpanel;
 	}
 
-	/** Adds buttons to window.
+	/**
+	 * Adds buttons to window.
+	 * 
 	 * @author Devesh Amin, Nick Madden
 	 */
 	private JPanel createControlPanel() {
 		JPanel jpanel = new JPanel();
 		jpanel.setLayout(new FlowLayout(FlowLayout.TRAILING, 10, 20));
-		
+
 		JButton connect = new JButton("Connect");
 		connect.setActionCommand("Connect");
 		connect.addActionListener(actionHandler);
 		jpanel.add(connect);
-		
+
 		JButton delete = new JButton("Delete");
 		delete.setActionCommand("Delete");
 		delete.addActionListener(actionHandler);
 		jpanel.add(delete);
-		
+
 		JButton clear = new JButton("Clear");
 		clear.setActionCommand("Clear");
 		clear.addActionListener(actionHandler);
@@ -180,7 +184,9 @@ public class CreateWindow extends JFrame {
 		return jpanel;
 	}
 
-	/** Save alias to file.
+	/**
+	 * Save alias to file.
+	 * 
 	 * @author Nick Madden
 	 */
 	public static void saveAndConnect() {
@@ -190,15 +196,16 @@ public class CreateWindow extends JFrame {
 		String dbUsername = ((JTextField) inputFields[Inputs.username.getId()]).getText();
 		String dbPassword = ((JTextField) inputFields[Inputs.password.getId()]).getText();
 		@SuppressWarnings("unchecked")
-		int dbDriver = 
-				((JComboBox<String>) inputFields[Inputs.driver.getId()]).getSelectedIndex();
+		int dbDriver = ((JComboBox<String>) inputFields[Inputs.driver.getId()]).getSelectedIndex();
 		boolean svPass = ((JCheckBox) inputFields[Inputs.save.getId()]).isSelected();
-		//Autoconnect not yet a feature.
-		//boolean autoCon = ((JCheckBox) inputFields[Inputs.autoCon.getId()]).isSelected();
+		// Autoconnect not yet a feature.
+		// boolean autoCon = ((JCheckBox)
+		// inputFields[Inputs.autoCon.getId()]).isSelected();
 		UIManager.put("OptionPane.yesButtonText", "Save and Connect");
 		UIManager.put("OptionPane.noButtonText", "Connect");
 		int sv = JOptionPane.showConfirmDialog(svAlias, "Do you want to save the \""
-				+ alias + "\" alias?", "Save Alias?", JOptionPane.YES_NO_CANCEL_OPTION);
+				+ alias + "\" alias?",
+				"Save Alias?", JOptionPane.YES_NO_CANCEL_OPTION);
 		UIManager.put("OptionPane.yesButtonText", "Yes");
 		UIManager.put("OptionPane.noButtonText", "No");
 		if (sv == JOptionPane.YES_OPTION) {
@@ -207,28 +214,73 @@ public class CreateWindow extends JFrame {
 				pass = dbPassword;
 				pass = PasswordEncryptionService.encrypt(pass);
 			}
-			if (!XmlHandler.writeAlias(alias, dbName, dbAddress, 
-						dbUsername, pass, svPass, dbDriver)) {
+			if (!XmlHandler.writeAlias(alias, dbName, dbAddress, dbUsername,
+					pass, svPass, dbDriver)) {
 				aliases.addItem(alias);
 			}
 
 		}
-//<<<<<<< HEAD
-//		
-//		switch (dbDriver) {
-//		// MySQL Driver
-//		case 1:
-//			MySqlConnect mysqlconnect = new MySqlConnect(dbAddress, dbUsername, dbPassword, dbName);
-//			try {
-//				mysqlconnect.configure();
-//				setConnected(true);
-//				//Test code to check the connection and query function.
-//				System.out.println(mysqlconnect.executeQuery("SELECT * FROM inventory;"));
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			} finally {
-//				testConnection(isConnected(), mysqlconnect);
-//=======
+		// <<<<<<< HEAD
+		//
+		// switch (dbDriver) {
+		// // MySQL Driver
+		// case 1:
+		// MySqlConnect mysqlconnect = new MySqlConnect(dbAddress, dbUsername,
+		// dbPassword, dbName);
+		// try {
+		// mysqlconnect.configure();
+		// setConnected(true);
+		// //Test code to check the connection and query function.
+		// System.out.println(mysqlconnect.executeQuery("SELECT * FROM
+		// inventory;"));
+		// } catch (SQLException e) {
+		// e.printStackTrace();
+		// } finally {
+		// testConnection(isConnected(), mysqlconnect);
+		// break;
+		// // PostgreSQL Driver
+		// case 2:
+		// PostgreConnect postgreConnect =
+		// new PostgreConnect(dbAddress, dbUsername, dbPassword, dbName);
+		// try {
+		// postgreConnect.configure();
+		// //test code to test the connection and query function
+		// System.out.println(postgreConnect.executeQuery("SELECT
+		// actor.first_name,"
+		// + " actor.actor_id, actor.last_name, actor.last_update FROM "
+		// + "public.actor;"));
+		// setConnected(true);
+		// } catch (SQLException e) {
+		// e.printStackTrace();
+		// } finally {
+		// testConnection(isConnected(), postgreConnect);
+		// }
+		// break;
+		//
+		// //derby driver
+		// case 3:
+		// DerbyConnect derbyConnect = new DerbyConnect( dbName);
+		//
+		// try {
+		// derbyConnect.createConnection();
+		// System.out.println(derbyConnect.executeQuery("SELECT
+		// actor.first_name,"
+		// + " actor.actor_id, actor.last_name, actor.last_update FROM "
+		// + "public.actor;"));
+		// setConnected(true);
+		//
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// } finally {
+		// testConnection(isConnected(), derbyConnect);
+		// }
+		// break;
+		//
+
+		// No driver
+		// //default:
+		// System.out.println("ERROR: Driver not found!");
+
 		if (sv != JOptionPane.CANCEL_OPTION) {
 			switch (dbDriver) {
 			// MySQL Driver
@@ -238,90 +290,61 @@ public class CreateWindow extends JFrame {
 					connect.configure();
 				} catch (SQLException e) {
 					e.printStackTrace();
-				}
+				} 
 				break;
 			// PostgreSQL Driver
 			case 2:
-				PostgreConnect postConnect = 
-						new PostgreConnect(dbAddress, dbUsername, dbPassword, dbName);
+				PostgreConnect postConnect = new PostgreConnect(dbAddress,
+						dbUsername, dbPassword, dbName);
 				try {
 					postConnect.configure();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 				break;
+			case 3:
+				DerbyConnect derbyConnect = new DerbyConnect(dbName);
+
+				try {
+					derbyConnect.createConnection();
+					System.out.println(derbyConnect.executeQuery("SELECT actor.first_name,"
+							+ " actor.actor_id, actor.last_name, actor.last_update FROM "
+							+ "public.actor;"));
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				break;
 			// No driver
 			default:
 				System.out.println("ERROR: Driver not found!");
-//>>>>>>> refs/heads/Team-5-Dev
 			}
-//<<<<<<< HEAD
-//			break;
-//		// PostgreSQL Driver
-//		case 2:
-//			PostgreConnect postgreConnect = 
-//					new PostgreConnect(dbAddress, dbUsername, dbPassword, dbName);
-//			try {
-//				postgreConnect.configure();
-//				//test code to test the connection and query function
-//				System.out.println(postgreConnect.executeQuery("SELECT actor.first_name,"
-//						+ " actor.actor_id, actor.last_name, actor.last_update FROM "
-//						+ "public.actor;"));
-//				setConnected(true);
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			} finally {
-//				testConnection(isConnected(), postgreConnect);
-//			}
-//			break;
-//			
-//			//derby driver
-//		case 3:
-//			DerbyConnect derbyConnect = new DerbyConnect( dbName);
-//				
-//			try {
-//				derbyConnect.createConnection();
-//				System.out.println(derbyConnect.executeQuery("SELECT actor.first_name,"
-//							+ " actor.actor_id, actor.last_name, actor.last_update FROM "
-//							+ "public.actor;"));
-//				setConnected(true);
-//										
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			} finally {
-//				testConnection(isConnected(), derbyConnect);
-//			} 
-//			break;
-//	
-
-			
-		// No driver
-	//	//default:
-		//	System.out.println("ERROR: Driver not found!");
 		}
 	}
-	
+
 	/**
-	 * will do something whether the connection was successful.
-	 * currently will close the window when the database is connected.
+	 * will do something whether the connection was successful. currently will
+	 * close the window when the database is connected.
+	 * 
 	 * @param connected
-	 * 				boolean value set by setconnected 
+	 *            boolean value set by setconnected
 	 */
-	private void testConnection(boolean connected, DatabaseConnector connector) {
-		if (!connected) {
-			// generate error
-		} else {
-			//will close the window if the connection is successful.
-			getFrame().dispose();
-			final Querybuilder qbuilder = new Querybuilder(connector);
-//			qbuilder.setVisible(true);
-//			qbuilder.pack();
-//			qbuilder.setLocationRelativeTo(null);
+//	private void testConnection(boolean connected, DatabaseConnector connector) {
+//		if (!connected) {
+//			// generate error
+//		} else {
+//			// will close the window if the connection is successful.
+//			getFrame().dispose();
+//			// final Querybuilder qbuilder = new Querybuilder(connector);
+//			// qbuilder.setVisible(true);
+//			// qbuilder.pack();
+//			// qbuilder.setLocationRelativeTo(null);
+//
+//		}
+//	}
 
-		}
-	}
-
-	/** Clears all input boxes.
+	/**
+	 * Clears all input boxes.
 	 * 
 	 * @author Nick Madden
 	 */
@@ -332,11 +355,13 @@ public class CreateWindow extends JFrame {
 		}
 		((JCheckBox) inputFields[Inputs.save.getId()]).setSelected(false);
 		((JCheckBox) inputFields[Inputs.autoCon.getId()]).setSelected(false);
-		((JComboBox<String>) inputFields[Inputs.driver.getId()]).setSelectedIndex(0);;
+		((JComboBox<String>) inputFields[Inputs.driver.getId()]).setSelectedIndex(0);
+		;
 		((JTextField) inputFields[0]).grabFocus();
 	}
-	
-	/** Handles all actions.
+
+	/**
+	 * Handles all actions.
 	 * 
 	 * @author Nick
 	 *
@@ -347,9 +372,9 @@ public class CreateWindow extends JFrame {
 		public void actionPerformed(ActionEvent ae) {
 			String action = ae.getActionCommand();
 			switch (action) {
-			case "Connect": 
-				int dbDriver = 
-						((JComboBox<String>) inputFields[Inputs.driver.getId()]).getSelectedIndex();
+			case "Connect":
+				int dbDriver = ((JComboBox<String>) 
+						inputFields[Inputs.driver.getId()]).getSelectedIndex();
 				int error = 0;
 
 				if (dbDriver == 0) {
@@ -367,24 +392,26 @@ public class CreateWindow extends JFrame {
 				// Empty text fields
 				case 1:
 					((JTextField) inputFields[Inputs.alias.getId()]).grabFocus();
-					JOptionPane.showMessageDialog(svAlias, "Can not proceed with empty fields!" 
-							+ " Try again.", "Failed", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(svAlias, "Can not proceed with empty fields!"
+							+ " Try again.",
+							"Failed", JOptionPane.ERROR_MESSAGE);
 					break;
-					
+
 				// No driver selected
 				case 2:
 					((JTextField) inputFields[Inputs.alias.getId()]).grabFocus();
-					JOptionPane.showMessageDialog(svAlias, "A driver must be selected!" 
-							+ " Try again.", "Failed", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(svAlias, "A driver must be selected!"
+							+ " Try again.", "Failed",
+							JOptionPane.ERROR_MESSAGE);
 					// No errors
 					break;
-					
+
 				default:
 					saveAndConnect();
-				}	
+				}
 				break;
-				
-			case "Clear": 
+
+			case "Clear":
 				clearInput();
 				break;
 
@@ -404,8 +431,9 @@ public class CreateWindow extends JFrame {
 					XmlHandler.readAlias(toRead, inputFields);
 				}
 				break;
-				
-			default: System.out.println("ERROR: Action not found!");
+
+			default:
+				System.out.println("ERROR: Action not found!");
 			}
 		}
 	}
@@ -422,12 +450,13 @@ public class CreateWindow extends JFrame {
 		cw.pack();
 		cw.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent evt) {
-				int answer = JOptionPane.showConfirmDialog(cw, "Do you really want to quit?", 
-						"Quit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+				int answer = JOptionPane.showConfirmDialog(cw, "Do you really want to quit?",
+						"Quit",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 				if (answer == JOptionPane.YES_OPTION) {
 					System.exit(0);
 				}
-				
+
 			} // end of widowClosing
 		}); // end of WindowListener
 
@@ -437,6 +466,7 @@ public class CreateWindow extends JFrame {
 
 	/**
 	 * getter for frame.
+	 * 
 	 * @return the frame for the createwindow
 	 */
 	public JFrame getFrame() {
@@ -445,8 +475,9 @@ public class CreateWindow extends JFrame {
 
 	/**
 	 * setter for frame.
+	 * 
 	 * @param frame
-	 * 			this is the createwindow frame
+	 *            this is the createwindow frame
 	 */
 	public void setFrame(JFrame frame) {
 		this.frame = frame;
@@ -454,17 +485,18 @@ public class CreateWindow extends JFrame {
 
 	/**
 	 * getter for is connected.
-	 * @return boolean
-	 * 				returns weather or not that the database is connected
+	 * 
+	 * @return boolean returns weather or not that the database is connected
 	 */
-	public  boolean isConnected() {
+	public boolean isConnected() {
 		return connected;
 	}
 
 	/**
 	 * set the connected variable.
+	 * 
 	 * @param connected
-	 * 				boolean to set if connected to a database
+	 *            boolean to set if connected to a database
 	 */
 	public void setConnected(boolean connected) {
 		this.connected = connected;

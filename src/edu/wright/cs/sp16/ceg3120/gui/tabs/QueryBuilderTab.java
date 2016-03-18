@@ -41,9 +41,9 @@ public class QueryBuilderTab extends JPanel {
 	 * Default constructor for the Query Builder tab.
 	 */
 	public QueryBuilderTab() {
-		//JPanel panel = new JPanel();
+		JPanel panel = new JPanel();
 		JPanel queryBuilderPanel = initComponents();
-		//panel.add("Query Builder", queryBuilderPanel);
+		panel.add("Query Builder", queryBuilderPanel);
 	}
 	
 	/**
