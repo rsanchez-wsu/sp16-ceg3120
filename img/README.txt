@@ -13,3 +13,6 @@ Find Icon: https://www.iconfinder.com/icons/3617/find_goggle_magnifying_glass_se
 Full Screen Icon: https://www.iconfinder.com/icons/61002/full_screen_maximize_icon#size=32
 Welcome Icon: http://www.iconarchive.com/show/oxygen-icons-by-oxygen-icons.org/Emotes-face-smile-icon.html
 SQLizard Icon: https://pixabay.com/en/gecko-lizard-reptile-dragon-animal-151203/
+Cut Icon: https://www.iconfinder.com/icons/27841/cut_scissors_icon#size=128
+Copy Icon: https://www.iconfinder.com/icons/118918/copy_edit_icon#size=128
+Paste Icon: https://www.iconfinder.com/icons/27862/paste_icon#size=128
