@@ -399,6 +399,25 @@ public class MainGui extends JFrame implements ActionListener {
 		});
 		
 		help.add(helpItem);
+		
+		help.addSeparator();
+		
+		
+		
+		
+		
+		helpItem = new JMenuItem("Connection Tutorial");
+		helpItem.setToolTipText("Connection Tutorial");
+		helpItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
+		helpItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				connectionTutorialSqliz();
+			}
+		});
+		
+		help.add(helpItem);
 
 		JMenuBar menuBar = new JMenuBar();
 
@@ -513,6 +532,66 @@ public class MainGui extends JFrame implements ActionListener {
 				+ "source projects including "
 				+ "the Apache Software Foundation, https://www.apache.org/.", 
 				"About SQLizard", 
+				JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	/**
+	 * connectionTutorialSqliz JMenuItem.
+	 */
+	public void connectionTutorialSqliz() {
+		
+		JPanel connectionTutorialPanel = new JPanel();
+		JOptionPane.showMessageDialog(connectionTutorialPanel, 
+				"How to Set up a connection to a database?"
+				+ "\n\n"
+				+ "Step One: \n"
+				+ "Click [Session] on the top menu bar"
+				+ "\n\n"
+				+ "Step Two: \n"
+				+ "Click [Connect To Database] in the Session drop down menu"
+				+ "\n"
+				+ "Step Three: \n"
+				+ "[Alias Name] is the name your database info will be saved under. \n"
+				+ "Type a name into the [Alias Name] text field. \n"
+				+ "\n"
+				+ "[Database Name] is the name of your actual database. \n"
+				+ "Type a name into the [Database Name] text field. \n"
+				+ "\n"
+				+ "[Database URL] is the URL of the data base you want to connect to. \n"
+				+ "Type a URL into the [Database URL] text field. \n"
+				+ "\n"
+				+ "[Username] is the name that is used to login to the database. \n"
+				+ "Type your database username into the [Username] text field. \n"
+				+ "\n"
+				+ "[Password] is the password that you use to connect to the database. \n"
+				+ "Type your database password into the [Password] text field. \n"
+				+ "\n"
+				+ "Step Four: \n"
+				+ "Click on the [Save Password] check box if you would like" 
+				+ " to store your password \n"
+				+ "If checked your password will be auto entered when you select this aliase. \n"
+				+ "\n"
+				+ "Step Five: \n"
+				+ "Click the [Choose a Driver] drop down menu and select" 
+				+ " the driver used by the database you want to connect to. \n"
+				+ "\n"
+				+ "Step Six: \n"
+				+ "Click on the [Auto Connect] check box if you would like to connect"
+				+ " to the database automatically from now on. \n"
+				+ "Click the [Connect] button to connect to the database. \n"
+				+ "The [Delete] button is used to delete a created alias. \n"
+				+ "The [Clear] button is used to clear all the text fields on the window. \n"
+				+ "\n"
+				+ "Step Seven: \n"
+				+ "After clicking [Connect] you will have three options. \n"
+				+ "The [Save and Connect] button will save your alias"
+				+ " and connect to the database \n"
+				+ "The [Connect] button will connect to the database but will not save your alias\n"
+				+ "The [Cancel] button will send you to the previous window. \n"
+				+ "Select the [Save and Connect] or the [Connect] button.\n"
+				+ "Congratulations you have successfully connected to the database!!"
+				+ "", 
+				"Connection Tutorial", 
 				JOptionPane.INFORMATION_MESSAGE);
 	}
 
