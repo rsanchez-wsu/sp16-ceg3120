@@ -6,34 +6,91 @@
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
+ * the Free Software Foundation\n either version 3 of the License\n or
  * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful,
+ * This program is distributed in the hope that it will be useful\n
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not\n see <http://www.gnu.org/licenses/>.
  *
  */
 
 package edu.wright.cs.sp16.ceg3120;
 
+import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.Serializable;
+
 /**
  * Representation of a user's settings.
  *
  */
-public class UserSettings {
+public class UserSettings implements Serializable{
+	
+	
+	private static final long serialVersionUID = 1L;
+	
 	private String defaultDatabase;
 	private boolean connectOnStartup;
 	private boolean messageOfTheDay;
 	private String defaultView;
 	private String defaultEncoding;
-	private boolean monspacedFonts;
+	private boolean monospacedFonts;
 	private boolean showGridLines;
-	private String numberOfQueries;
+	private NumberOfQueries numberOfQueries;
+	
+	/**
+	 * Saves the state of the UserSettings to an XML file.
+	 * 
+	 * @param xmlFileName
+	 *            Path to saved object
+	 * @return if the settings could be saved
+	 */
+	public boolean saveXmlEncodedBean(String xmlFileName) {
+		boolean succeeded = false;
+
+		try (XMLEncoder encoder = new XMLEncoder(
+				new BufferedOutputStream(new FileOutputStream(xmlFileName)))) {
+
+			encoder.writeObject(this);
+			succeeded = true;
+
+		} catch (FileNotFoundException e) {
+			System.err.println("Failed to write file " + xmlFileName + ".");
+		}
+
+		return succeeded;
+	}
+	
+	/**
+	 * Loads the state of the UserSettings from an XML file.
+	 * 
+	 * @param xmlFileName
+	 *            Path to saved object
+	 * @return UserSettings equal to the state of the XML file
+	 */
+	public static UserSettings loadXmlEncodedBean(String xmlFileName) {
+		UserSettings tmp;
+		try (XMLDecoder decoder = new XMLDecoder(
+				new BufferedInputStream(new FileInputStream(xmlFileName)))) {
+
+			tmp = (UserSettings) decoder.readObject();
+
+		} catch (FileNotFoundException e) {
+			tmp = new UserSettings();
+			System.err.println("Failed to read " + xmlFileName + ". Using defaults.");
+		}
+		return tmp;
+	}
 
 	/**
 	 * Returns the default database.
@@ -63,7 +120,7 @@ public class UserSettings {
 		messageOfTheDay = other.messageOfTheDay;
 		defaultView = other.defaultView;
 		defaultEncoding = other.defaultEncoding;
-		monspacedFonts = other.monspacedFonts;
+		monospacedFonts = other.monospacedFonts;
 		showGridLines = other.showGridLines;
 		numberOfQueries = other.numberOfQueries;
 	}
@@ -160,7 +217,7 @@ public class UserSettings {
 	 * @return monospacedFonts
 	 */
 	public boolean isMonspacedFonts() {
-		return monspacedFonts;
+		return monospacedFonts;
 	}
 
 	/**
@@ -170,7 +227,7 @@ public class UserSettings {
 	 *            monospaced fonts
 	 */
 	public void setMonspacedFonts(boolean monspacedFonts) {
-		this.monspacedFonts = monspacedFonts;
+		this.monospacedFonts = monspacedFonts;
 	}
 
 	/**
@@ -197,7 +254,7 @@ public class UserSettings {
 	 * 
 	 * @return numberOfQueries
 	 */
-	public String getNumberOfQueries() {
+	public NumberOfQueries getNumberOfQueries() {
 		return numberOfQueries;
 	}
 
@@ -207,7 +264,7 @@ public class UserSettings {
 	 * @param numberOfQueries
 	 *            number of queries
 	 */
-	public void setNumberOfQueries(String numberOfQueries) {
+	public void setNumberOfQueries(NumberOfQueries numberOfQueries) {
 		this.numberOfQueries = numberOfQueries;
 	}
 
@@ -221,7 +278,7 @@ public class UserSettings {
 		result = prime * result + ((defaultEncoding == null) ? 0 : defaultEncoding.hashCode());
 		result = prime * result + ((defaultView == null) ? 0 : defaultView.hashCode());
 		result = prime * result + (messageOfTheDay ? 1231 : 1237);
-		result = prime * result + (monspacedFonts ? 1231 : 1237);
+		result = prime * result + (monospacedFonts ? 1231 : 1237);
 		result = prime * result + ((numberOfQueries == null) ? 0 : numberOfQueries.hashCode());
 		result = prime * result + (showGridLines ? 1231 : 1237);
 		return result;
@@ -269,7 +326,7 @@ public class UserSettings {
 		if (messageOfTheDay != other.messageOfTheDay) {
 			return false;
 		}
-		if (monspacedFonts != other.monspacedFonts) {
+		if (monospacedFonts != other.monospacedFonts) {
 			return false;
 		}
 		if (numberOfQueries == null) {
@@ -283,6 +340,17 @@ public class UserSettings {
 			return false;
 		}
 		return true;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "UserSettings [defaultDatabase=" + defaultDatabase + "\n connectOnStartup=" + connectOnStartup
+				+ "\n messageOfTheDay=" + messageOfTheDay + "\n defaultView=" + defaultView + "\n defaultEncoding="
+				+ defaultEncoding + "\n monospacedFonts=" + monospacedFonts + "\n showGridLines=" + showGridLines
+				+ "\n numberOfQueries=" + numberOfQueries + "]";
 	}
 
 }

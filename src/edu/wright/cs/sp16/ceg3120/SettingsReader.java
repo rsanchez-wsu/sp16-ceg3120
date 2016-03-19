@@ -141,7 +141,7 @@ public class SettingsReader {
 					userSettings.setShowGridLines(vert);
 					break;
 				case REMEMBER_LAST_QUERIES:
-					userSettings.setNumberOfQueries(tagText);
+					userSettings.setNumberOfQueries(NumberOfQueries.valueOf(tagText));
 					break;
 				default:
 
