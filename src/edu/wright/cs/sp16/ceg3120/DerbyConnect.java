@@ -62,7 +62,7 @@ public class DerbyConnect extends DatabaseConnector {
 	/**
 	 * This will create the connection for the derby database.
 	 */
-	public void createConnection() {
+	public void configure() throws SQLException {
 		// Still working on creating the connection.
 		try {
 			Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();

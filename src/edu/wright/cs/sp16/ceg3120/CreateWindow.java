@@ -56,7 +56,7 @@ public class CreateWindow extends JFrame {
 
 	// variable to see if you are connected
 	private static boolean connected = false;
-	
+
 	// input fields
 	static int numOfComponents = 8;
 
@@ -240,11 +240,10 @@ public class CreateWindow extends JFrame {
 			// Derby Driver
 			case 3:
 				DerbyConnect derbyConnect = new DerbyConnect(dbName);
-
 				try {
-					derbyConnect.createConnection();
+					derbyConnect.configure();
 					setConnected(true);
-				} catch (Exception e) {
+				} catch (SQLException e) {
 					e.printStackTrace();
 				} finally {
 					testConnection(isConnected(), derbyConnect);
@@ -391,13 +390,9 @@ public class CreateWindow extends JFrame {
 				if (answer == JOptionPane.YES_OPTION) {
 					System.exit(0);
 				}
-
 			} // end of widowClosing
 		}); // end of WindowListener
-
-		// end of Main Method
-	}
-	// end of CreateWindow
+	} // end of Main Method
 
 	/**
 	 * getter for frame.
@@ -435,8 +430,5 @@ public class CreateWindow extends JFrame {
 	 */
 	public static void setConnected(boolean connected) {
 		CreateWindow.connected = connected;
-		// }
-		// }
-
-	} // end of Main Method
+	}
 } // end of CreateWindow
