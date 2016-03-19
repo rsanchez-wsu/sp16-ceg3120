@@ -21,6 +21,8 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs.startpagecomponents;
 
+import edu.wright.cs.sp16.ceg3120.ButtonClickAction;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -32,6 +34,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+
+
 
 /**
  * "Tip of the day" pane on the start page.
@@ -85,6 +89,7 @@ public class TipOfTheDayPane extends JPanel {
 		
 		learnDiscoverBtn = new JButton("Learn & Discover");
 		learnDiscoverBtn.setFont(new Font("TimesRoman", Font.BOLD, 12));
+		learnDiscoverBtn.addActionListener(new ButtonClickAction());
 		
 		subConstraints = new GridBagConstraints();
 		subConstraints.anchor = GridBagConstraints.PAGE_START;

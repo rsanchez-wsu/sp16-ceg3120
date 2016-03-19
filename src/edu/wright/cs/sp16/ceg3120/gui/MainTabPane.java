@@ -23,6 +23,7 @@ package edu.wright.cs.sp16.ceg3120.gui;
 
 import edu.wright.cs.sp16.ceg3120.gui.tabs.BackupExportTab;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.ConnectionTab;
+import edu.wright.cs.sp16.ceg3120.gui.tabs.LearnAndDiscoverTab;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.StartPageTab;
 
 
@@ -49,6 +50,15 @@ public class MainTabPane extends JTabbedPane {
 		addConnectionTab();
 	}
 
+	/**Initialize learn and discover tab.
+	 *@author Alex
+	 */
+	public void addLearnAndDiscoverTab() {
+		LearnAndDiscoverTab learnDiscoverTab = new LearnAndDiscoverTab();
+		
+		addTab("Learn and Discover", null, learnDiscoverTab, null);
+	}
+	
 	/**
 	 * TODO: Add "New Connection" Tab.
 	 */
