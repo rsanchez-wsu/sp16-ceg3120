@@ -21,7 +21,9 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
-import java.awt.Component;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 /**
  * The tab that contains all the components for the connection.
@@ -29,7 +31,7 @@ import java.awt.Component;
  * @author sam
  *
  */
-public class ConnectionTab extends Component {
+public class ConnectionTab extends JPanel {
 	
 	private static final long serialVersionUID = -9056641573923593935L;
 	
@@ -48,6 +50,14 @@ public class ConnectionTab extends Component {
 	 * */
 	private void initComponents() {
 		
-		
+		String text = "This is a fake text box where we can add fake "
+				+ "SQL queries. This is a temporary text box til we develop "
+				+ "actual SQL query builder. This text area is added so we can add "
+				+ "functionality for cut, copy, paste, find, and replace JMenuItems. ";
+		JTextArea textArea = new JTextArea(25,60);
+		textArea.setText(text);
+		textArea.setLineWrap(true);
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		add(scrollPane);
 	}
 }

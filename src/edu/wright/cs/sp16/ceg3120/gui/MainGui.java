@@ -239,8 +239,9 @@ public class MainGui extends JFrame implements ActionListener {
 		findIcon = new ImageIcon(newFindImage);		
 		findItem = new JMenuItem("Find", findIcon);
 		findItem.setToolTipText("Search for keyword in the file");
-		findItem.addActionListener(this);
-
+		ActionListener findA = new FindWindow();
+		findItem.addActionListener(findA);
+		
 		Action replaceAction = new DefaultEditorKit.PasteAction();
 		replaceAction.putValue(Action.NAME, "Replace");
 
@@ -384,7 +385,6 @@ public class MainGui extends JFrame implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				aboutSqliz();
-				
 			}
 		});
 		
