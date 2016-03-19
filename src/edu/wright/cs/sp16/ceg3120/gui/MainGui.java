@@ -399,13 +399,6 @@ public class MainGui extends JFrame implements ActionListener {
 		});
 		
 		help.add(helpItem);
-		
-		help.addSeparator();
-		
-		
-		
-		
-		
 		helpItem = new JMenuItem("Connection Tutorial");
 		helpItem.setToolTipText("Connection Tutorial");
 		helpItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
