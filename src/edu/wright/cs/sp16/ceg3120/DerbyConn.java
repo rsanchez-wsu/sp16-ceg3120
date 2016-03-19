@@ -124,6 +124,14 @@ public class DerbyConn {
 				System.out.println("Table created successfully");
 				break;
 			case 6:
+				System.out.println("Enter '1' to edit a column name, or enter '2' to add a "
+						+ "Column to a table?: ");
+				try {
+				editChoice = keyboard.nextInt();
+				} catch (InputMismatchException exception) {
+					System.out.println("Invalid Input");
+				}
+				if(editChoice == 1){
 				System.out.println("Enter the name of the table you wish to edit: ");
 				val = keyboard.next();
 				System.out.println("Enter the old name of the Column");
@@ -133,6 +141,25 @@ public class DerbyConn {
 				editColumnName(val, firstName, lastName);
 				System.out.println("Table edited successfully");
 				printTable(orderChoice, order);
+				}else if(editChoice == 2){
+				System.out.println("Enter the name of the table you wish to edit: ");
+				val = keyboard.next();
+				System.out.println("Enter the name of the new Column");
+				colName = keyboard.next();
+				System.out.println("Select the data type for the column. For an integer, enter 1; "
+						+ "for a string, enter 2; for a boolean, enter 3: ");
+				try{
+				colType = keyboard.nextInt();
+				} catch (InputMismatchException exception) {
+					System.out.println("Invalid Input");
+				}
+				addColumn(val, colName, colType);
+				System.out.println("Column added successfully");
+				printTable(orderChoice, order);
+				}else{
+					System.out.println("Please enter a valid choice. ");	
+				}
+				
 				break;	
 			case 7:
 				System.out.println("To order by ID enter 1 \nTo order by first name enter 2"
@@ -394,6 +421,14 @@ public class DerbyConn {
 	
 	/**
 	 * This method edits allows a user to rename a column in a table in the database.
+	 * @param tableName
+	 * 			This is the name of the table in which the column desired to be 
+	 * 			edited is located
+	 * @param oldColumn
+	 * 			This is the name of the column before the edit
+	 * @param newColumn
+	 * 			This is the desired name of the column after the edit
+	 * 
 	 * 
 	 */
 	private static void editColumnName(String tableName, String oldColumn, String newColumn) {
@@ -411,6 +446,48 @@ public class DerbyConn {
 		} catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
 		}
+	}
+	
+	/**
+	 * This method edits allows a user to add a column in a table in the database.
+	 * @param tableName
+	 * 			This is the name of the table in which the column desired to be 
+	 * 			edited is located
+	 *  @param newName
+	 * 			This is the desired name of the column that is being created
+	 * @param columnType
+	 * 			This is an integer that matches up with a choice to decide what type of 
+	 * 			data will be contained in the column: 1 for int, 2 for string, 3 for boolean
+	 */	
+	private static void addColumn(String tableName, String newName, int columnType) {
+		Connection conn = establishConn();
+		PreparedStatement pstmt = null;
+		try {
+			String colType = "";
+			pstmt = conn.prepareStatement("ALTER TABLE table_name = ? ADD name= ? "
+					+ "value = ?;");
+			pstmt.setString(1, tableName);
+			pstmt.setString(2, newName);
+			if(columnType==1){
+				colType = "INT(10)";
+				pstmt.setString(3, colType);	
+			}else if(columnType==2){
+				colType = "VARCHAR(100)";
+				pstmt.setString(3, colType);	
+			}else if(columnType==2){
+				colType = "BOOL DEFAULT '0'";
+				pstmt.setString(3, colType);
+			}else{
+				colType = "VARCHAR(100)";
+				pstmt.setString(3, colType);
+			}
+			pstmt.executeUpdate();
+			pstmt.close();
+
+		} catch (SQLException sqlExcept) {
+			sqlExcept.printStackTrace();
+		}
+	
 	}
 	
 	private static void searchTable(PreparedStatement pstmt) {
