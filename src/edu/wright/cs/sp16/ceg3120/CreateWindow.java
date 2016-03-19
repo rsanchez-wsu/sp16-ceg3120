@@ -52,18 +52,11 @@ public class CreateWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	private JFrame frame;
+	private static JFrame frame;
 
 	// variable to see if you are connected
-	private boolean connected = false;
-
-	// // title label
-	// private JLabel title = new JLabel("Aliases");
-	//
-	// // new buttons
-	// private JButton clear = new JButton("Clear");
-	// private JButton connect = new JButton("Connect");
-
+	private static boolean connected = false;
+	
 	// input fields
 	static int numOfComponents = 8;
 
@@ -73,10 +66,6 @@ public class CreateWindow extends JFrame {
 	private static JComboBox<String> aliases;
 
 	// creating panels to add labels and text boxes
-
-	// private JPanel titlePanel = new JPanel();
-	// private JPanel controlPanel = new JPanel();
-	// private JPanel buttonPanel = new JPanel();
 
 	private static JPanel svAlias = new JPanel();
 
@@ -220,77 +209,20 @@ public class CreateWindow extends JFrame {
 			}
 
 		}
-		// <<<<<<< HEAD
-		//
-		// switch (dbDriver) {
-		// // MySQL Driver
-		// case 1:
-		// MySqlConnect mysqlconnect = new MySqlConnect(dbAddress, dbUsername,
-		// dbPassword, dbName);
-		// try {
-		// mysqlconnect.configure();
-		// setConnected(true);
-		// //Test code to check the connection and query function.
-		// System.out.println(mysqlconnect.executeQuery("SELECT * FROM
-		// inventory;"));
-		// } catch (SQLException e) {
-		// e.printStackTrace();
-		// } finally {
-		// testConnection(isConnected(), mysqlconnect);
-		// break;
-		// // PostgreSQL Driver
-		// case 2:
-		// PostgreConnect postgreConnect =
-		// new PostgreConnect(dbAddress, dbUsername, dbPassword, dbName);
-		// try {
-		// postgreConnect.configure();
-		// //test code to test the connection and query function
-		// System.out.println(postgreConnect.executeQuery("SELECT
-		// actor.first_name,"
-		// + " actor.actor_id, actor.last_name, actor.last_update FROM "
-		// + "public.actor;"));
-		// setConnected(true);
-		// } catch (SQLException e) {
-		// e.printStackTrace();
-		// } finally {
-		// testConnection(isConnected(), postgreConnect);
-		// }
-		// break;
-		//
-		// //derby driver
-		// case 3:
-		// DerbyConnect derbyConnect = new DerbyConnect( dbName);
-		//
-		// try {
-		// derbyConnect.createConnection();
-		// System.out.println(derbyConnect.executeQuery("SELECT
-		// actor.first_name,"
-		// + " actor.actor_id, actor.last_name, actor.last_update FROM "
-		// + "public.actor;"));
-		// setConnected(true);
-		//
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// } finally {
-		// testConnection(isConnected(), derbyConnect);
-		// }
-		// break;
-		//
-
-		// No driver
-		// //default:
-		// System.out.println("ERROR: Driver not found!");
-
 		if (sv != JOptionPane.CANCEL_OPTION) {
 			switch (dbDriver) {
 			// MySQL Driver
 			case 1:
-				MySqlConnect connect = new MySqlConnect(dbAddress, dbUsername, dbPassword, dbName);
+				MySqlConnect mySqlConnect =
+						new MySqlConnect(dbAddress, dbUsername, dbPassword, dbName);
 				try {
-					connect.configure();
+					mySqlConnect.configure();
+					setConnected(true);
 				} catch (SQLException e) {
 					e.printStackTrace();
-				} 
+				} finally {
+					testConnection(isConnected(), mySqlConnect);
+				}
 				break;
 			// PostgreSQL Driver
 			case 2:
@@ -298,21 +230,24 @@ public class CreateWindow extends JFrame {
 						dbUsername, dbPassword, dbName);
 				try {
 					postConnect.configure();
+					setConnected(true);
 				} catch (SQLException e) {
 					e.printStackTrace();
+				} finally {
+					testConnection(isConnected(), postConnect);
 				}
 				break;
+			// Derby Driver
 			case 3:
 				DerbyConnect derbyConnect = new DerbyConnect(dbName);
 
 				try {
 					derbyConnect.createConnection();
-					System.out.println(derbyConnect.executeQuery("SELECT actor.first_name,"
-							+ " actor.actor_id, actor.last_name, actor.last_update FROM "
-							+ "public.actor;"));
-					
+					setConnected(true);
 				} catch (Exception e) {
 					e.printStackTrace();
+				} finally {
+					testConnection(isConnected(), derbyConnect);
 				}
 				break;
 			// No driver
@@ -329,19 +264,19 @@ public class CreateWindow extends JFrame {
 	 * @param connected
 	 *            boolean value set by setconnected
 	 */
-//	private void testConnection(boolean connected, DatabaseConnector connector) {
-//		if (!connected) {
-//			// generate error
-//		} else {
-//			// will close the window if the connection is successful.
-//			getFrame().dispose();
-//			// final Querybuilder qbuilder = new Querybuilder(connector);
-//			// qbuilder.setVisible(true);
-//			// qbuilder.pack();
-//			// qbuilder.setLocationRelativeTo(null);
-//
-//		}
-//	}
+	private static void testConnection(boolean connected, DatabaseConnector connector) {
+		if (!connected) {
+			// generate error
+		} else {
+			// will close the window if the connection is successful.
+			getFrame().dispose();
+			// final Querybuilder qbuilder = new Querybuilder(connector);
+			// qbuilder.setVisible(true);
+			// qbuilder.pack();
+			// qbuilder.setLocationRelativeTo(null);
+
+		}
+	}
 
 	/**
 	 * Clears all input boxes.
@@ -469,7 +404,7 @@ public class CreateWindow extends JFrame {
 	 * 
 	 * @return the frame for the createwindow
 	 */
-	public JFrame getFrame() {
+	public static JFrame getFrame() {
 		return frame;
 	}
 
@@ -479,8 +414,8 @@ public class CreateWindow extends JFrame {
 	 * @param frame
 	 *            this is the createwindow frame
 	 */
-	public void setFrame(JFrame frame) {
-		this.frame = frame;
+	public static void setFrame(JFrame frame) {
+		CreateWindow.frame = frame;
 	}
 
 	/**
@@ -488,7 +423,7 @@ public class CreateWindow extends JFrame {
 	 * 
 	 * @return boolean returns weather or not that the database is connected
 	 */
-	public boolean isConnected() {
+	public static boolean isConnected() {
 		return connected;
 	}
 
@@ -498,8 +433,8 @@ public class CreateWindow extends JFrame {
 	 * @param connected
 	 *            boolean to set if connected to a database
 	 */
-	public void setConnected(boolean connected) {
-		this.connected = connected;
+	public static void setConnected(boolean connected) {
+		CreateWindow.connected = connected;
 		// }
 		// }
 
