@@ -32,6 +32,7 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 
 import javax.swing.Action;
+import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -70,9 +71,12 @@ public class MainGui extends JFrame implements ActionListener {
 	private JMenuItem cutItem;
 	private JMenuItem copyItem;
 	private JMenuItem pasteItem;
+	private JMenuItem replaceItem;
 	
 	//private StartPageTab startPage = null;
 	private boolean isFullScreen = false;
+
+	
 	
 	/**
 	 * The constructor method that initializes the main application window.
@@ -242,8 +246,14 @@ public class MainGui extends JFrame implements ActionListener {
 		ActionListener findA = new FindWindow();
 		findItem.addActionListener(findA);
 		
-		Action replaceAction = new DefaultEditorKit.PasteAction();
-		replaceAction.putValue(Action.NAME, "Replace");
+		ImageIcon replaceIcon =  new ImageIcon("img/Replace Icon.png");
+		Image replaceImage = replaceIcon.getImage();
+		Image newReplaceImage = replaceImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		replaceIcon = new ImageIcon(newReplaceImage);	
+		replaceItem = new JMenuItem("Replace", replaceIcon);
+		replaceItem.setToolTipText("Replace characters or strings");
+		ActionListener replaceA = new ReplaceWindow();
+		replaceItem.addActionListener(replaceA);
 
 		JMenu search = new JMenu("Search");
 		
@@ -251,7 +261,7 @@ public class MainGui extends JFrame implements ActionListener {
 		search.add(bottomItem).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		search.add(goToLineAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		search.add(findItem).setCursor(new Cursor(Cursor.HAND_CURSOR));
-		search.add(replaceAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
+		search.add(replaceItem).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		search.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
 		// Session menu
@@ -399,6 +409,7 @@ public class MainGui extends JFrame implements ActionListener {
 		menuBar.add(sql);
 		menuBar.add(window);
 		menuBar.add(help);
+		menuBar.add(Box.createHorizontalGlue());
 		
 		setJMenuBar(menuBar);
 	}

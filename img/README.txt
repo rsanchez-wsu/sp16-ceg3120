@@ -16,3 +16,4 @@ SQLizard Icon: https://pixabay.com/en/gecko-lizard-reptile-dragon-animal-151203/
 Cut Icon: https://www.iconfinder.com/icons/27841/cut_scissors_icon#size=128
 Copy Icon: https://www.iconfinder.com/icons/118918/copy_edit_icon#size=128
 Paste Icon: https://www.iconfinder.com/icons/27862/paste_icon#size=128
+Replace Icon: https://www.iconfinder.com/icons/118921/edit_find_replace_icon#size=128

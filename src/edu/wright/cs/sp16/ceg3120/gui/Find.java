@@ -48,18 +48,21 @@ public class Find extends JDialog {
 	private JLabel lblFind = new JLabel("Find: ");
 	private static JFrame frame = null;
 	private static JTextField textField = new JTextField(10);
-	String str = "This is a temporary JTextArea. \nI like SQLizard.";
 	private static JTextArea text = new JTextArea(10,10);
 	private static boolean caseSensi;
 	private static JCheckBox checkBox = new JCheckBox("Match case");
 	private static JButton findButton = new JButton("Find");
 	private static JButton closeButton = new JButton("Close");
+	private JPanel tempTextPanel = new JPanel();
+	String str = "This is a temporary JTextArea. \nThis doesn't work completely.";
+
+	static int initial;
+	static int index;
 	
 	/**
 	 * Constructor for Find.
-	 * @author Devesh Patel
 	 */
-	public Find(JFrame frame, JTextArea textArea) {
+	public Find() {
 		super(frame, "Find");
 		
 		setLayout(new BorderLayout());
@@ -85,25 +88,28 @@ public class Find extends JDialog {
 		
 		getContentPane().add(buttonPanel, BorderLayout.CENTER);
 		
-		JPanel tempTextPanel = new JPanel();
-		tempTextPanel.setLayout(new GridLayout(1,1));
-		text.setLineWrap(true);
-		text.setText(str);
-		tempTextPanel.add(text);
+		createFakeText();
 		getContentPane().add(tempTextPanel, BorderLayout.SOUTH);
 		
 		buttonListener();
 		
 		setSize(400,150);
+	} // end Find constructor
+	
+	/**
+	 * Just a temp text panel and position.
+	 */
+	private void createFakeText() {
+		tempTextPanel.setLayout(new GridLayout(1,1));
+		text.setLineWrap(true);
+		text.setText(str);
+		tempTextPanel.add(text);
 	}
 	
 	/**
 	 * Find algorithm.
 	 */
-	public static void find() {
-		//Find text algorithm 
-		int index = 0;
-		int initial = 0;
+	private static void find() {
 		
 		try {
 			String string = textField.getText();
@@ -127,7 +133,7 @@ public class Find extends JDialog {
 						initial = text.getCaretPosition();
 					} else {
 						endSearch = true;
-						JOptionPane.showMessageDialog(frame, 
+						JOptionPane.showMessageDialog(null, 
 								"\"" + string + "\"" + " not found ");
 					}
 				}
@@ -136,7 +142,7 @@ public class Find extends JDialog {
 			System.out.println("No textfield found.");
 			e.printStackTrace();
 		}
-	}
+	} //end find algorithm
 
 	/**
 	 * All button listener.
@@ -153,7 +159,6 @@ public class Find extends JDialog {
 			}
 		});
 		
-		
 		//check box listener
 		checkBox.addActionListener(new ActionListener() {
 
@@ -166,5 +171,5 @@ public class Find extends JDialog {
 				}
 			}
 		});
-	}
-}	
+	} // end buttonListener
+} //end Find class	
