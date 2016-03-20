@@ -24,7 +24,7 @@ package edu.wright.cs.sp16.ceg3120;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.io.IOException;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -36,6 +36,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.UIManager;
+import javax.swing.event.ChangeListener;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+
+import org.xml.sax.SAXException;
+
+import javax.swing.event.ChangeEvent;
 
 
 
@@ -74,7 +81,7 @@ public class Preferences extends JPanel {
 	// End of variables declaration
 
 	private final UserSettings initSettings;
-	private UserSettings changedSettings;
+//	private UserSettings changedSettings;
 
 	private static final String SETTINGS_FILE_NAME = "Profile.xml";
 
@@ -124,7 +131,20 @@ public class Preferences extends JPanel {
 		choice2 = new JComboBox<String>();          //default view
 		choice3 = new JComboBox<String>();          //default encoding
 		startupConnect = new JCheckBox();   //connect on startup
+		startupConnect.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				if (initSettings.isConnectOnStartup() == true) {
+					initSettings.setConnectOnStartup(false);
+				} else {
+					initSettings.setConnectOnStartup(true);
+				}
+			}
+		});
 		startupMotd = new JCheckBox();      //show message of the day
+		startupMotd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent startUp) {
+			}
+		});
 		useMonospaced = new JCheckBox();    //use monospaced fonts
 		gridLines = new JCheckBox();        //show gridlines
 		pxQueries = new JComboBox<NumberOfQueries>();    //show queries
@@ -160,6 +180,40 @@ public class Preferences extends JPanel {
 		queries.setText("queries");
 		
 		JButton btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+//				if (changedSettings.getDefaultDatabase() != null ){
+//				initSettings.setDefaultDatabase(changedSettings.getDefaultDatabase());
+//				}
+//				initSettings.setDefaultView(changedSettings.getDefaultView());
+//				initSettings.setDefaultEncoding(changedSettings.getDefaultEncoding());
+//				initSettings.setConnectOnStartup(changedSettings.isConnectOnStartup());
+//				initSettings.setMessageOfTheDay(changedSettings.isMessageOfTheDay());
+//				initSettings.setMonspacedFonts( changedSettings.isMonspacedFonts());
+//				initSettings.setShowGridLines(changedSettings.isShowGridLines());
+//				initSettings.setNumberOfQueries(changedSettings.getNumberOfQueries());
+				MainApp.globalConfig = initSettings;
+				try {
+					XmlWrite.writeXml(initSettings);
+				} catch (TransformerException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ParserConfigurationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SAXException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		
+		
+		
 /* we have to work on the cancel button currently it will close the entire window 
   when it is hit. We have to reconfigure so it can just close the preference tab. **/		
 		JButton btnCancel = new JButton("Cancel");
@@ -263,35 +317,9 @@ public class Preferences extends JPanel {
 		);
 		this.setLayout(jpanel2Layout);
 
-//		otherConnection.addTab("User Preferences", jpanel2);
-
-//		GroupLayout layout = new GroupLayout(getContentPane());
-//		getContentPane().setLayout(layout);
-//		layout.setHorizontalGroup(layout.createParallelGroup(
-//				leading).addComponent(otherConnection));
-//		layout.setVerticalGroup(layout.createParallelGroup(
-//				leading).addGroup(
-//						GroupLayout.Alignment.TRAILING,
-//						layout.createSequentialGroup().addComponent(otherConnection)
-//						.addContainerGap()));
-
-		// This is to close the window when the 'X' button is clicked ,,,
-//		setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-		// This is to view the window after it is constructed ,,,
 		setVisible(true);
 
-		// This is to control the size and boundaries of the window after it is
-		// constructed ,,,
-		// pack();
 	} // End of initComponents method ,,,
-
-
-
-
-
-
-
 
 	/**
 	 * The method to run the profile window.

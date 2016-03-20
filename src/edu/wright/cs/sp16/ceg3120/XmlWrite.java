@@ -48,28 +48,27 @@ import javax.xml.transform.stream.StreamResult;
 public class XmlWrite {
 	/**
 	 * Unfinished method that will parse xml and save user preferences into Profile.xml
-	 * @param filename name of file for parsing xml information. Also stores the xml data (string)
 	 * @throws TransformerException exception handling for creating Transformer
 	 * @throws ParserConfigurationException exception handling for creating newDocumentBuilder
 	 * @throws SAXException exception handling for using docBuilder.parse
 	 * @throws IOException exception handling for using docBuilder.parse
 	 */
-	public static void writeXml(String filename) throws TransformerException, 
+	public static void writeXml(UserSettings settings) throws TransformerException, 
 	ParserConfigurationException, SAXException, IOException {		
-		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+		//DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+		//DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 		//I added a string passed to this method as the file
-		Document doc = docBuilder.parse(filename);
+		//Document doc = docBuilder.parse(settings);
 		//enter input source inside the brackets
 		//this is where we can add attributes and tags
 		//write xml document to a string
-		Transformer transformer = TransformerFactory.newInstance().newTransformer();
-		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-		StreamResult result = new StreamResult(new StringWriter());
-		DOMSource source = new DOMSource(doc);
-		transformer.transform(source,result);
+		//Transformer transformer = TransformerFactory.newInstance().newTransformer();
+		//transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+		//StreamResult result = new StreamResult(new StringWriter());
+		//DOMSource source = new DOMSource(doc);
+		//transformer.transform(source,result);
 				
-		String xmlString = result.getWriter().toString();
-		System.out.println(xmlString);
+		//String xmlString = result.getWriter().toString();
+		//System.out.println(xmlString);
 	}
 }
