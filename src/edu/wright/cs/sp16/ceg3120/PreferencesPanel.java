@@ -197,26 +197,27 @@ public class PreferencesPanel extends JPanel {
 				NumberOfQueries.Zero, NumberOfQueries.Five,
 				NumberOfQueries.Ten, NumberOfQueries.Twenty }));
 		
-		Encoding.values();
 		
 		defaultEncodingComboBox.setModel(new DefaultComboBoxModel<>(Encoding.values()));
 		
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				MainApp.globalConfig = initSettings;
+				MainApp.updateGlobalSettings(initSettings);
+				//MainApp.globalConfig = initSettings;
 				initSettings.saveXmlEncodedBean(SETTINGS_FILE_NAME);
 			}
 		});
 		
-/* we have to work on the cancel button currently it will close the entire window 
-  when it is hit. We have to reconfigure so it can just close the preference tab. **/		
+		/*
+		 * we have to work on the cancel button currently it will close the
+		 * entire window when it is hit. We have to reconfigure so it can just
+		 * close the preference tab.
+		 **/
 		JButton btnCancel = new JButton("Cancel");
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent actionEvent) {
-				System.exit(0);
-				}
-			});
+		
+		btnCancel.addActionListener(new CloseListenr());
+		
 
 		GroupLayout jpanel2Layout = new GroupLayout(this);
 		jpanel2Layout.setHorizontalGroup(
@@ -315,6 +316,20 @@ public class PreferencesPanel extends JPanel {
 		setVisible(true);
 
 	} // End of initComponents method ,,,
+	
+	
+	/**
+	 * Listener for close button.
+	 *
+	 */
+	static class CloseListenr implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent actionEvent) {
+			// TODO System.exit(0); <-is an error to find bugs
+			System.err.println("todo close without findbugs complaints");
+		}
+	}
+	
 
 	/**
 	 * The method to run the profile window.

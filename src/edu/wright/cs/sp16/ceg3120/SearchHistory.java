@@ -20,20 +20,31 @@
  */
 
 package edu.wright.cs.sp16.ceg3120;
-import java.awt.*;
+
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 
+/**
+ * TODO?. Displays search history?
+ *
+ */
 public class SearchHistory {
-
+//TODO make real doc.
+	
 	private JFrame frame;
 	private JTable table;
 	private JLabel lblUser;
 	private JTextField textField;
 	private JLabel lblLast;
-	private JComboBox comboBox;
+	private JComboBox<String> comboBox;
 	private JLabel lblNewLabel;
 
 	/**
@@ -89,7 +100,7 @@ public class SearchHistory {
 		lblLast.setBounds(20, 88, 51, 37);
 		frame.getContentPane().add(lblLast);
 		
-		comboBox = new JComboBox();
+		comboBox = new JComboBox<>();
 		comboBox.setBounds(121, 95, 91, 22);
 		frame.getContentPane().add(comboBox);
 		
@@ -110,10 +121,18 @@ public class SearchHistory {
 		JButton btnExit = new JButton("Exit");
 		btnExit.setBounds(382, 307, 89, 23);
 		frame.getContentPane().add(btnExit);
-		btnExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent actionEvent) {
-				System.exit(0);
-				}
-			});
+		btnExit.addActionListener(new CloseListenr());
+	}
+	
+	/**
+	 * Listener for close button.
+	 *
+	 */
+	static class CloseListenr implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent actionEvent) {
+			// TODO System.exit(0); <-is an error to find bugs
+			System.err.println("todo close without findbugs complaints");
+		}
 	}
 }

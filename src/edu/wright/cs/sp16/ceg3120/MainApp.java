@@ -53,6 +53,10 @@ public class MainApp {
 	 * 
 	 */
 	private static void createWindow() {
+		//TODO control real motd.
+		if (globalConfig.isMessageOfTheDay()) {
+			System.out.println("MOTD:");
+		}
 		
 		final JFrame frmSqlizard = new JFrame("SQLizard");
 		frmSqlizard.setTitle("SQLizard");
@@ -131,10 +135,13 @@ public class MainApp {
 		mntmQueries.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent queries) {
+				//TODO ??
+				System.err.println("TODO");
 				int index = tabbedPane.indexOfTab("Queries Panel");
 				if (index == -2) {
 					//Queries queries1 = new Queries();
 					//tabbedPane.addTab("Queries Panel", queries1);
+					System.err.println("TODO");
 				}
 			}
 		});
@@ -168,6 +175,16 @@ public class MainApp {
 	}
 	
 	/**
+	 * Updates global config to new settings.
+	 * 
+	 * @param settings
+	 *            config to change to
+	 */
+	static void updateGlobalSettings(UserSettings settings) {
+		globalConfig = settings;
+	}
+	
+	/**
 	 * The main method that displays the main application window.
 	 * 
 	 * @param args The command-line arguments
@@ -178,10 +195,9 @@ public class MainApp {
 		// creating and showing this application's GUI.
 		SwingUtilities.invokeLater(new Runnable() {
 			
-			
-			
 			@Override
 			public void run() {
+
 				createWindow();
 			}
 		});
