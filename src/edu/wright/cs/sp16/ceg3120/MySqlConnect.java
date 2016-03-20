@@ -110,28 +110,38 @@ public class MySqlConnect extends DatabaseConnector {
 			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
 			"We specifically want to allow the user to execute arbitrary SQL")
 	public String[][] executeQuery(String stringQuery) throws SQLException {
-		String[][] resultTable = null;
+		String[][] resultTable = null;  // create the array to return
+		// try to create the connection and resultset
 		try (Connection conn = dataSource.getConnection();
 				Statement inputStatement = conn.createStatement();
 				ResultSet rs = inputStatement.executeQuery(stringQuery);) {
-			// ResulSetMetaData does not implement AutoClosable() so it
+			// ResultSetMetaData does not implement AutoClosable() so it
 			// cannot be handled by try-with-resources.
 			ResultSetMetaData rsmd = null;
 			// Get the information required to make th array
 			rsmd = rs.getMetaData();
-			rs.last();
-			int numRows = rs.getRow();
-			rs.beforeFirst();
+			// this part of code gets how many rows there are
+			rs.last(); // moves the resultset cursor to the last row
+			int numRows = rs.getRow(); //sets the number of rows to the last row
+			rs.beforeFirst(); // moves the cursor to the beginning
+			//initialize the array with the [rows][columns]
 			resultTable = new String[numRows][rsmd.getColumnCount()];
 			// Iterate through all data returned and put it into a string array
+			// test to see if it does not get ot of index with i < numRows
+			// and that there is more data to grab with rs.next()
+			// first for loop is for rows
 			for (int i = 0; i < numRows && rs.next(); i++) {
+				// second for loop columns
 				for (int j = 0; j < rsmd.getColumnCount(); j++) {
+					// the resultset data starts at index of 1 so that's why there
+					// is an offset to get the string.
 					resultTable[i][j] = rs.getString(j + 1);
 				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		// return resultTable the 2d array
 		return resultTable;
 	}
 
