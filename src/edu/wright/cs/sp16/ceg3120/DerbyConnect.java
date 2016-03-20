@@ -103,41 +103,41 @@ public class DerbyConnect extends DatabaseConnector {
 			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
 			"We specifically want to allow the user to execute arbitrary Derby")
 	public String[][] executeQuery(String query) {
-		String returning = "";
-		StringBuilder builder = new StringBuilder();
+//		String returning = "";
+//		StringBuilder builder = new StringBuilder();
 		String [][] table = null;
-		try (
-				Statement input = conn.createStatement();
-				ResultSet rs = input.executeQuery(query)) {
-			int row = rs.getRow();
-			// ResulSetMetaData does not implement AutoClosable() so it
-			// cannot be handled by try-with-resources.
-			ResultSetMetaData rsmd = null;
-			// Try to read the result set and its meta data and print out to
-			// string.
-			rsmd = rs.getMetaData();
-			int columnsNumber = rsmd.getColumnCount();
-			table = new String[row][columnsNumber];
-			int rowCounter = 0;
-			// Iterate through all data returned and append to string
-			// result.
-			while (rs.next()) {
-				for (int i = 1; i <= columnsNumber; i++) {
-					if (i > 1) {
-						builder.append(",  ");
-						String columnValue = rs.getString(i);
-						table[rowCounter][i] = columnValue;
-						builder.append(columnValue + " " + rsmd.getColumnName(i));
-					}
-				}
-				System.out.println("");
-				rowCounter++;
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		returning = builder.toString();
+//		try (
+//				Statement input = conn.createStatement();
+//				ResultSet rs = input.executeQuery(query)) {
+//			int row = rs.getRow();
+//			// ResulSetMetaData does not implement AutoClosable() so it
+//			// cannot be handled by try-with-resources.
+//			ResultSetMetaData rsmd = null;
+//			// Try to read the result set and its meta data and print out to
+//			// string.
+//			rsmd = rs.getMetaData();
+//			int columnsNumber = rsmd.getColumnCount();
+//			table = new String[row][columnsNumber];
+//			int rowCounter = 0;
+//			// Iterate through all data returned and append to string
+//			// result.
+//			while (rs.next()) {
+//				for (int i = 1; i <= columnsNumber; i++) {
+//					if (i > 1) {
+//						builder.append(",  ");
+//						String columnValue = rs.getString(i);
+//						table[rowCounter][i] = columnValue;
+//						builder.append(columnValue + " " + rsmd.getColumnName(i));
+//					}
+//				}
+//				System.out.println("");
+//				rowCounter++;
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		returning = builder.toString();
 		return table;
 	}
 

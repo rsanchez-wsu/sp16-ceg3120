@@ -109,36 +109,30 @@ public class MySqlConnect extends DatabaseConnector {
 	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = 
 			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
 			"We specifically want to allow the user to execute arbitrary SQL")
-	public String executeQuery(String stringQuery) throws SQLException {
-		String returnString = "";
-		StringBuilder stringBuilder = new StringBuilder();
+	public String[][] executeQuery(String stringQuery) throws SQLException {
+		String[][] resultTable = null;
 		try (Connection conn = dataSource.getConnection();
 				Statement inputStatement = conn.createStatement();
 				ResultSet rs = inputStatement.executeQuery(stringQuery);) {
 			// ResulSetMetaData does not implement AutoClosable() so it
 			// cannot be handled by try-with-resources.
 			ResultSetMetaData rsmd = null;
-			// Try to read the result set and its meta data and print out to
-			// string.
+			// Get the information required to make th array
 			rsmd = rs.getMetaData();
-			int columnsNumber = rsmd.getColumnCount();
-			// Iterate through all data returned and append to string
-			// result.
-			while (rs.next()) {
-				for (int i = 1; i <= columnsNumber; i++) {
-					if (i > 1) {
-						stringBuilder.append(",  ");
-						String columnValue = rs.getString(i);
-						stringBuilder.append(columnValue + " " + rsmd.getColumnName(i));
-					}
+			rs.last();
+			int numRows = rs.getRow();
+			rs.beforeFirst();
+			resultTable = new String[numRows][rsmd.getColumnCount()];
+			// Iterate through all data returned and put it into a string array
+			for (int i = 0; i < numRows && rs.next(); i++) {
+				for (int j = 0; j < rsmd.getColumnCount(); j++) {
+					resultTable[i][j] = rs.getString(j + 1);
 				}
-				System.out.println("");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		returnString = stringBuilder.toString();
-		return returnString;
+		return resultTable;
 	}
 
 	/**
