@@ -42,8 +42,9 @@ import javax.swing.SwingUtilities;
  */
 public class MainApp {
 	
+	static final String PREFERENCES_PATH = "Preferences.xml";
 	static JTabbedPane tabbedPane = new JTabbedPane();
-	static UserSettings globalConfig = UserSettings.loadXmlEncodedBean("PreferencesPanel.xml");
+	static UserSettings globalConfig = UserSettings.loadXmlEncodedBean(PREFERENCES_PATH);
 	
 	
 	/**

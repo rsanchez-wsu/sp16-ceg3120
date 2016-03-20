@@ -36,12 +36,6 @@ import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.UIManager;
 
-
-
-
-
-
-
 /**
  * This class is created to display the preferences window which contains the
  * connections and the user preferences. The user will set the default database,
@@ -50,14 +44,10 @@ import javax.swing.UIManager;
  */
 public class PreferencesPanel extends JPanel {
 
-
-
 	/**
 	 * generic static final long serialVersionUID.
 	 */
 	private static final long serialVersionUID = 3936531799918625132L;
-
-
 
 	// Components of window declaration - do not modify
 	private JComboBox<String> defaultDatabaseComboBox;
@@ -67,7 +57,7 @@ public class PreferencesPanel extends JPanel {
 	private JLabel defaultFavoriteLabel;
 	private JLabel defaultViewLabel;
 	private JCheckBox gridLinesCheckBox;
-	private JComboBox<NumberOfQueries> pxQueriesCheckBox;
+	private JComboBox<NumberOfQueries> pxQueriesComboBox;
 	private JLabel queriesLabel;
 	private JLabel rememberLastLabel;
 	private JCheckBox startupConnectCheckBox;
@@ -88,30 +78,26 @@ public class PreferencesPanel extends JPanel {
 
 		initSettings = UserSettings.loadXmlEncodedBean(SETTINGS_FILE_NAME);
 
-
 		//changedSettings = new UserSettings(initSettings);
 		
 		// This method is created by GUI Builder to customize how the window
 		// will look like ,,,
 		initComponents();
 	
-		
 		//load settings into gui
+		
+		//TODO make view enum and get database list from profile
 		defaultDatabaseComboBox.addItem(initSettings.getDefaultDatabase());
 		defaultViewComboBox.addItem(initSettings.getDefaultView());
-		defaultEncodingComboBox.addItem(initSettings.getDefaultEncoding());
+		
+		
+		defaultEncodingComboBox.setSelectedItem(initSettings.getDefaultEncoding());
 		startupConnectCheckBox.setSelected(initSettings.isConnectOnStartup());
 		startupMotdCheckBox.setSelected(initSettings.isMessageOfTheDay());
 		useMonospacedCheckBox.setSelected( initSettings.isMonspacedFonts());
 		gridLinesCheckBox.setSelected(initSettings.isShowGridLines());
-		pxQueriesCheckBox.setSelectedItem(initSettings.getNumberOfQueries());
-		
-		
-		
-		
+		pxQueriesComboBox.setSelectedItem(initSettings.getNumberOfQueries());
 	} 
-
-
 
 	/**
 	 * This method is called from within the constructor to initialize the form.
@@ -129,6 +115,12 @@ public class PreferencesPanel extends JPanel {
 		rememberLastLabel = new JLabel();     //remember last
 		defaultDatabaseComboBox = new JComboBox<>();          //default database
 		defaultEncodingComboBox = new JComboBox<>();          //default view
+		defaultEncodingComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent encoding) {
+				initSettings.setDefaultEncoding((Encoding)
+						defaultEncodingComboBox.getSelectedItem());
+			}
+		});
 		defaultViewComboBox = new JComboBox<>();          //default encoding
 		startupConnectCheckBox = new JCheckBox();   //connect on startup
 		startupConnectCheckBox.addActionListener(new ActionListener() {
@@ -143,18 +135,41 @@ public class PreferencesPanel extends JPanel {
 		startupMotdCheckBox = new JCheckBox();      //show message of the day
 		startupMotdCheckBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent startUp) {
-				if (initSettings.isConnectOnStartup() == true) {
-					initSettings.setConnectOnStartup(false);
+				if (initSettings.isMessageOfTheDay() == true) {
+					initSettings.setMessageOfTheDay(false);
 				} else {
-					initSettings.setConnectOnStartup(true);
+					initSettings.setMessageOfTheDay(true);
 				}
 			}
 		});
 		useMonospacedCheckBox = new JCheckBox();    //use monospaced fonts
+		useMonospacedCheckBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent monoSpaced) {
+				if (initSettings.isMonspacedFonts() == true) {
+					initSettings.setMonspacedFonts(false);
+				} else {
+					initSettings.setMonspacedFonts(true);
+				}
+			}
+		});
 		gridLinesCheckBox = new JCheckBox();        //show gridlines
-		pxQueriesCheckBox = new JComboBox<NumberOfQueries>();    //show queriesLabel
+		gridLinesCheckBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent gridLine) {
+				if (initSettings.isShowGridLines() == true) {
+					initSettings.setShowGridLines(false);
+				} else {
+					initSettings.setShowGridLines(true);
+				}
+			}
+		});
+		pxQueriesComboBox = new JComboBox<NumberOfQueries>();    //show queriesLabel
+		pxQueriesComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent queries) {
+				initSettings.setNumberOfQueries((NumberOfQueries) 
+						pxQueriesComboBox.getSelectedItem());
+			}
+		});
 		queriesLabel = new JLabel();
-
 
 		defaultFavoriteLabel.setText("Default Database:");
 
@@ -178,32 +193,21 @@ public class PreferencesPanel extends JPanel {
 		gridLinesCheckBox.setFont(new Font("Lucida Grande", 0, 11)); // NOI18N
 		gridLinesCheckBox.setText("Display vertical grid lines");
 
-		pxQueriesCheckBox.setModel(new DefaultComboBoxModel<>(new NumberOfQueries[] {
+		pxQueriesComboBox.setModel(new DefaultComboBoxModel<>(new NumberOfQueries[] {
 				NumberOfQueries.Zero, NumberOfQueries.Five,
 				NumberOfQueries.Ten, NumberOfQueries.Twenty }));
-
-		queriesLabel.setText("queriesLabel");
+		
+		Encoding.values();
+		
+		defaultEncodingComboBox.setModel(new DefaultComboBoxModel<>(Encoding.values()));
 		
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-//				if (changedSettings.getDefaultDatabase() != null ){
-//				initSettings.setDefaultDatabase(changedSettings.getDefaultDatabase());
-//				}
-//				initSettings.setDefaultView(changedSettings.getDefaultView());
-//				initSettings.setDefaultEncoding(changedSettings.getDefaultEncoding());
-//				initSettings.setConnectOnStartup(changedSettings.isConnectOnStartup());
-//				initSettings.setMessageOfTheDay(changedSettings.isMessageOfTheDay());
-//				initSettings.setMonspacedFonts( changedSettings.isMonspacedFonts());
-//				initSettings.setShowGridLines(changedSettings.isShowGridLines());
-//				initSettings.setNumberOfQueries(changedSettings.getNumberOfQueries());
 				MainApp.globalConfig = initSettings;
 				initSettings.saveXmlEncodedBean(SETTINGS_FILE_NAME);
 			}
 		});
-		
-		
-		
 		
 /* we have to work on the cancel button currently it will close the entire window 
   when it is hit. We have to reconfigure so it can just close the preference tab. **/		
@@ -229,7 +233,7 @@ public class PreferencesPanel extends JPanel {
 					.addGroup(jpanel2Layout.createParallelGroup(Alignment.LEADING)
 						.addGroup(jpanel2Layout.createSequentialGroup()
 							.addComponent(
-									pxQueriesCheckBox, 
+									pxQueriesComboBox, 
 									GroupLayout.PREFERRED_SIZE, 
 									GroupLayout.DEFAULT_SIZE, 
 									GroupLayout.PREFERRED_SIZE)
@@ -293,7 +297,7 @@ public class PreferencesPanel extends JPanel {
 					.addGroup(jpanel2Layout.createParallelGroup(Alignment.LEADING)
 						.addComponent(rememberLastLabel)
 						.addGroup(jpanel2Layout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(pxQueriesCheckBox, 
+							.addComponent(pxQueriesComboBox, 
 									GroupLayout.PREFERRED_SIZE, 
 									GroupLayout.DEFAULT_SIZE, 
 									GroupLayout.PREFERRED_SIZE)
