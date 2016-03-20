@@ -21,19 +21,9 @@
 
 package edu.wright.cs.sp16.ceg3120;
 
-import org.xml.sax.SAXException;
-
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.XMLDecoder;
-import java.beans.XMLEncoder;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -45,12 +35,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.UIManager;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 
 
 

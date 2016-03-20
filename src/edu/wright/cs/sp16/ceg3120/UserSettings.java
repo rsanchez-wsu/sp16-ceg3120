@@ -34,7 +34,7 @@ import java.io.Serializable;
  * Representation of a user's settings.
  *
  */
-public class UserSettings implements Serializable{
+public class UserSettings implements Serializable {
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -213,7 +213,7 @@ public class UserSettings implements Serializable{
 	public void setDefaultEncoding(Encoding encoding) {
 		this.defaultEncoding = encoding;
 	}
-	//TODO
+	
 	
 	/**
 	 * Returns if font is monospaced.
