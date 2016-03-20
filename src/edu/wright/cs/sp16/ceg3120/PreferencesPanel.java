@@ -79,7 +79,7 @@ public class PreferencesPanel extends JPanel {
 	private final UserSettings initSettings;
 //	private UserSettings changedSettings;
 
-	private static final String SETTINGS_FILE_NAME = "PreferencesPanel.xml";
+	private static final String SETTINGS_FILE_NAME = "Preferences.xml";
 
 	/**
 	 * Constructor with zero-arguments to open the connection window.
@@ -143,6 +143,11 @@ public class PreferencesPanel extends JPanel {
 		startupMotdCheckBox = new JCheckBox();      //show message of the day
 		startupMotdCheckBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent startUp) {
+				if (initSettings.isConnectOnStartup() == true) {
+					initSettings.setConnectOnStartup(false);
+				} else {
+					initSettings.setConnectOnStartup(true);
+				}
 			}
 		});
 		useMonospacedCheckBox = new JCheckBox();    //use monospaced fonts
