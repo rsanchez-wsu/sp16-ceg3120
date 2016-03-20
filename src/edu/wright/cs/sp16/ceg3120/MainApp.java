@@ -21,90 +21,163 @@
 
 package edu.wright.cs.sp16.ceg3120;
 
-
-//import java.awt.Window;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ContainerEvent;
-import java.awt.event.ContainerListener;
-
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-//import javax.swing.JOptionPane;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
-
 
 
 /**
  * The application's main class.
  */
 public class MainApp {
+	
+	static final String PREFERENCES_PATH = "Preferences.xml";
+	static JTabbedPane tabbedPane = new JTabbedPane(); 
+	static UserSettings globalConfig = UserSettings.loadXmlEncodedBean(PREFERENCES_PATH);
+	
+	
 	/**
 	 * The main method that displays the main application window.
 	 * 
 	 * 
 	 */
 	private static void createWindow() {
+		//TODO control real motd.
+		if (globalConfig.isMessageOfTheDay()) {
+			System.out.println("MOTD:");
+		}
 		
-		final JFrame frame = new JFrame("Hello World");
-		JLabel label = new JLabel("Hello World");
-		JButton b1 = new JButton("Profile");
-		frame.getContentPane().add(label);
-		frame.getContentPane().add(b1);
-		b1.addActionListener(new ActionListener() {
-
+		final JFrame frmSqlizard = new JFrame("SQLizard");
+		frmSqlizard.setTitle("SQLizard");
+		
+		frmSqlizard.addWindowListener(new java.awt.event.WindowAdapter() {
+			
 			@Override
-			public void actionPerformed(ActionEvent ewa) {
-				if (ewa.getActionCommand().equals("Profile")) {
-					//Profile newProfile = new Profile();
-					System.out.println("Hi");
+			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+				int close = JOptionPane.showConfirmDialog(frmSqlizard, 
+						"Exit the application?", 
+						"Exit", 
+						JOptionPane.YES_NO_OPTION);
+				
+				if (close == JOptionPane.YES_OPTION) {
+					frmSqlizard.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				} else {
+					frmSqlizard.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 				}
-
-				
 			}
+
+			//@Override
+			//public void componentAdded(ContainerEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			//}
+
+			//@Override
+			//public void componentRemoved(ContainerEvent arg0) {
+				// TODO Auto-generated method stub
+				
+		//	}
 			
 			
 		});
-		
-		
-		frame.addContainerListener(new ContainerListener() {
-			
-//			@Override
-//			public void windowClosing(Window we) {
-//				int close = JOptionPane.showConfirmDialog(frame, 
-//						"Exit the application?", 
-//						"Exit", 
-//						JOptionPane.YES_NO_OPTION);
-//				
-//				if (close == JOptionPane.YES_OPTION) {
-//					
-//					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//				} else {
-//					frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-//				}
-//			}
 
-			@Override
-			public void componentAdded(ContainerEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
+		frmSqlizard.setSize(800, 600);
+		frmSqlizard.setLocationRelativeTo(null);
+		frmSqlizard.setVisible(true);
+		
+		final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		frmSqlizard.getContentPane().add(tabbedPane, BorderLayout.CENTER);
+		
 
-			@Override
-			public void componentRemoved(ContainerEvent arg0) {
-				// TODO Auto-generated method stub
-				
+		
+		JMenuBar menuBar = new JMenuBar();
+		frmSqlizard.setJMenuBar(menuBar);
+		
+		JMenu mnFile = new JMenu("File");
+		menuBar.add(mnFile);
+		
+		JMenuItem mntmExit = new JMenuItem("Exit");
+		mntmExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent exit) {
+				frmSqlizard.dispose();
 			}
-			
-			
 		});
+		mnFile.add(mntmExit);
+		
+		JMenu mnEdit = new JMenu("Edit");
+		menuBar.add(mnEdit);
+		
+		JMenuItem mntmPreferences = new JMenuItem("PreferencesPanel");
+		mntmPreferences.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent preferences) {
+				int index = tabbedPane.indexOfTab("User PreferencesPanel");
+				if (index == -1) {
+					PreferencesPanel preferences1 = new PreferencesPanel();
+					tabbedPane.addTab("User PreferencesPanel", preferences1);
+				}
+			}
+		});
+		mnEdit.add(mntmPreferences);
+		
+		JMenuItem mntmQueries = new JMenuItem("Queries Panel");
+		mntmQueries.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent queries) {
+				//TODO ??
+				System.err.println("TODO");
+				int index = tabbedPane.indexOfTab("Queries Panel");
+				if (index == -2) {
+					//Queries queries1 = new Queries();
+					//tabbedPane.addTab("Queries Panel", queries1);
+					System.err.println("TODO");
+				}
+			}
+		});
+		mnEdit.add(mntmQueries);
+		
+		JMenu mnWindow = new JMenu("Window");
+		menuBar.add(mnWindow);
+		
+		JMenu mnHelp = new JMenu("Help");
+		menuBar.add(mnHelp);
+		
+		JMenuItem mntmAbout = new JMenuItem("About");
+		mnHelp.add(mntmAbout);
+		
+
+		tabbedPane.setVisible(true);
 		
 		
 		
-		frame.setSize(300, 300);
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
+	}
+	
+	/**
+	 * This will remove tabs from the tabbed pane.
+	 * @param title A string containing the title of the tab to be closed.
+	 */
+	static void removeTab(String title) {
+		int index = tabbedPane.indexOfTab(title);
+		if ( index != -1) {
+			tabbedPane.removeTabAt(index);
+		}
+	}
+	
+	/**
+	 * Updates global config to new settings.
+	 * 
+	 * @param settings
+	 *            config to change to
+	 */
+	static void updateGlobalSettings(UserSettings settings) {
+		globalConfig = settings;
 	}
 	
 	/**
@@ -117,15 +190,12 @@ public class MainApp {
 		// Schedule a job for the event-dispatching thread:
 		// creating and showing this application's GUI.
 		SwingUtilities.invokeLater(new Runnable() {
+			
 			@Override
 			public void run() {
-				
-				
+
 				createWindow();
 			}
 		});
-		
-
-		
 	}
 }

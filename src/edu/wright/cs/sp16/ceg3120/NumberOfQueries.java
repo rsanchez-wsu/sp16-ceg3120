@@ -28,5 +28,7 @@ package edu.wright.cs.sp16.ceg3120;
  */
 
 public enum NumberOfQueries {
-		Zero, Five, Ten, Twenty
+		Zero, The_Golden_Ratio, E, Then_Shalt_Thou_Count_To_Three, 
+		Pi, Five,Ten, Twenty, Fourty_Two, Avogadros_Number, 
+		Googol, Googolplex, 
 }

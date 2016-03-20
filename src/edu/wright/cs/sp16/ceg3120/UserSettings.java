@@ -21,125 +21,331 @@
 
 package edu.wright.cs.sp16.ceg3120;
 
+import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.Serializable;
+
 /**
  * Representation of a user's settings.
  *
  */
-public class UserSettings {
-	private String database;
-	private String username;
-	// TODO password
-	private String firstName;
-	private String lastName;
-	private String department;
-	// enum?
-	private String accountType;
-
+public class UserSettings implements Serializable {
+	
+	
+	private static final long serialVersionUID = 1L;
+	
+	private String defaultDatabase;
+	private boolean connectOnStartup;
+	private boolean messageOfTheDay;
+	private String defaultView;
+	private Encoding defaultEncoding;
+	private boolean monospacedFonts;
+	private boolean showGridLines;
+	private NumberOfQueries numberOfQueries;
+	
 	/**
-	 * A getter/setter.
+	 * Saves the state of the UserSettings to an XML file.
 	 * 
-	 * @return the database
+	 * @param xmlFileName
+	 *            Path to saved object
+	 * @return if the settings could be saved
 	 */
-	public String getDatabase() {
-		return database;
+	public boolean saveXmlEncodedBean(String xmlFileName) {
+		boolean succeeded = false;
+
+		try (XMLEncoder encoder = new XMLEncoder(
+				new BufferedOutputStream(new FileOutputStream(xmlFileName)))) {
+
+			encoder.writeObject(this);
+			succeeded = true;
+
+		} catch (FileNotFoundException e) {
+			System.err.println("Failed to write file " + xmlFileName + ".");
+		}
+
+		return succeeded;
+	}
+	
+	/**
+	 * Loads the state of the UserSettings from an XML file.
+	 * 
+	 * @param xmlFileName
+	 *            Path to saved object
+	 * @return UserSettings equal to the state of the XML file
+	 */
+	public static UserSettings loadXmlEncodedBean(String xmlFileName) {
+		UserSettings tmp;
+		try (XMLDecoder decoder = new XMLDecoder(
+				new BufferedInputStream(new FileInputStream(xmlFileName)))) {
+
+			tmp = (UserSettings) decoder.readObject();
+
+		} catch (FileNotFoundException e) {
+			tmp = new UserSettings();
+			System.err.println("Failed to read " + xmlFileName + ". Using defaults.");
+		}
+		return tmp;
 	}
 
 	/**
-	 * A getter/setter.
+	 * Returns the default database.
 	 * 
-	 * @param database the database to set
+	 * @return defaultDatabase
 	 */
-	public void setDatabase(String database) {
-		this.database = database;
+	public String getDefaultDatabase() {
+		return defaultDatabase;
 	}
 
 	/**
-	 * A getter/setter.
-	 * 
-	 * @return the username
+	 * Default constructor.
 	 */
-	public String getUsername() {
-		return username;
+	public UserSettings() {
 	}
 
 	/**
-	 * A getter/setter.
+	 * Copy constructor.
 	 * 
-	 * @param username the username to set
+	 * @param other
+	 *            object to copy
 	 */
-	public void setUsername(String username) {
-		this.username = username;
+	public UserSettings(UserSettings other) {
+
+		defaultDatabase = other.defaultDatabase;
+		connectOnStartup = other.connectOnStartup;
+		messageOfTheDay = other.messageOfTheDay;
+		defaultView = other.defaultView;
+		defaultEncoding = other.defaultEncoding;
+		monospacedFonts = other.monospacedFonts;
+		showGridLines = other.showGridLines;
+		numberOfQueries = other.numberOfQueries;
 	}
 
 	/**
-	 * A getter/setter.
+	 * Sets the default database.
 	 * 
-	 * @return the firstName
+	 * @param defaultDatabase
+	 *            database returned
 	 */
-	public String getFirstName() {
-		return firstName;
+	public void setDefaultDatabase(String defaultDatabase) {
+		this.defaultDatabase = defaultDatabase;
 	}
 
 	/**
-	 * A getter/setter.
+	 * Returns if there's a connection on startup.
 	 * 
-	 * @param firstName the firstName to set
+	 * @return connectOnStartup
 	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public boolean isConnectOnStartup() {
+		return connectOnStartup;
 	}
 
 	/**
-	 * A getter/setter.
+	 * Sets if there's a connection on startup.
 	 * 
-	 * @return the lastName
+	 * @param connectOnStartup
+	 *            startup connection
 	 */
-	public String getLastName() {
-		return lastName;
+	public void setConnectOnStartup(boolean connectOnStartup) {
+		this.connectOnStartup = connectOnStartup;
 	}
 
 	/**
-	 * A getter/setter.
+	 * Returns if there's a message of the day.
 	 * 
-	 * @param lastName the lastName to set
+	 * @return messageOfTheDay
 	 */
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public boolean isMessageOfTheDay() {
+		return messageOfTheDay;
 	}
 
 	/**
-	 * A getter/setter.
+	 * Sets the message of the day.
 	 * 
-	 * @return the department
+	 * @param messageOfTheDay
+	 *            message of the day
 	 */
-	public String getDepartment() {
-		return department;
+	public void setMessageOfTheDay(boolean messageOfTheDay) {
+		this.messageOfTheDay = messageOfTheDay;
 	}
 
 	/**
-	 * A getter/setter.
+	 * Returns the default view.
 	 * 
-	 * @param department the department to set
+	 * @return defaultView
 	 */
-	public void setDepartment(String department) {
-		this.department = department;
+	public String getDefaultView() {
+		return defaultView;
 	}
 
 	/**
-	 * A getter/setter.
+	 * Sets the default view.
 	 * 
-	 * @return the accountType
+	 * @param defaultView
+	 *            default view
 	 */
-	public String getAccountType() {
-		return accountType;
+	public void setDefaultView(String defaultView) {
+		this.defaultView = defaultView;
+	}
+
+
+	//
+
+	/**
+	 * Returns the default encoding.
+	 * 
+	 * @return defaultEncoding
+	 */
+	public Encoding getDefaultEncoding() {
+		return defaultEncoding;
 	}
 
 	/**
-	 * A getter/setter.
+	 * Sets the default encoding.
 	 * 
-	 * @param accountType the accountType to set
+	 * @param encoding
+	 *            default encoding
 	 */
-	public void setAccountType(String accountType) {
-		this.accountType = accountType;
+	public void setDefaultEncoding(Encoding encoding) {
+		this.defaultEncoding = encoding;
 	}
+	
+	
+	/**
+	 * Returns if font is monospaced.
+	 * 
+	 * @return monospacedFonts
+	 */
+	public boolean isMonspacedFonts() {
+		return monospacedFonts;
+	}
+
+	/**
+	 * Sets if the font is monospaced.
+	 * 
+	 * @param monspacedFonts
+	 *            monospaced fonts
+	 */
+	public void setMonspacedFonts(boolean monspacedFonts) {
+		this.monospacedFonts = monspacedFonts;
+	}
+
+	/**
+	 * Returns if the grid lines are shown.
+	 * 
+	 * @return showGridLines
+	 */
+	public boolean isShowGridLines() {
+		return showGridLines;
+	}
+
+	/**
+	 * Sets if the grid lines are shown.
+	 * 
+	 * @param showGrinLines
+	 *            shows grid lines
+	 */
+	public void setShowGridLines(boolean showGrinLines) {
+		this.showGridLines = showGrinLines;
+	}
+
+	/**
+	 * Returns the number of queries.
+	 * 
+	 * @return numberOfQueries
+	 */
+	public NumberOfQueries getNumberOfQueries() {
+		return numberOfQueries;
+	}
+
+	/**
+	 * Sets the number of queries.
+	 * 
+	 * @param numberOfQueries
+	 *            number of queries
+	 */
+	public void setNumberOfQueries(NumberOfQueries numberOfQueries) {
+		this.numberOfQueries = numberOfQueries;
+	}
+
+	@Override
+	public int hashCode() {
+		// auto generated
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (connectOnStartup ? 1231 : 1237);
+		result = prime * result + ((defaultDatabase == null) ? 0 : defaultDatabase.hashCode());
+		result = prime * result + ((defaultEncoding == null) ? 0 : defaultEncoding.hashCode());
+		result = prime * result + ((defaultView == null) ? 0 : defaultView.hashCode());
+		result = prime * result + (messageOfTheDay ? 1231 : 1237);
+		result = prime * result + (monospacedFonts ? 1231 : 1237);
+		result = prime * result + ((numberOfQueries == null) ? 0 : numberOfQueries.hashCode());
+		result = prime * result + (showGridLines ? 1231 : 1237);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		// Auto generated
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+
+		UserSettings other = (UserSettings) obj;
+
+		if (connectOnStartup != other.connectOnStartup) {
+			return false;
+		}
+		if (defaultDatabase == null) {
+			if (other.defaultDatabase != null) {
+				return false;
+			}
+		} else if (!defaultDatabase.equals(other.defaultDatabase)) {
+			return false;
+		}
+		if (defaultEncoding == null) {
+			if (other.defaultEncoding != null) {
+				return false;
+			}
+		} else if (!defaultEncoding.equals(other.defaultEncoding)) {
+			return false;
+		}
+		if (defaultView == null) {
+			if (other.defaultView != null) {
+				return false;
+			}
+		} else if (!defaultView.equals(other.defaultView)) {
+			return false;
+		}
+		if (messageOfTheDay != other.messageOfTheDay) {
+			return false;
+		}
+		if (monospacedFonts != other.monospacedFonts) {
+			return false;
+		}
+		if (numberOfQueries == null) {
+			if (other.numberOfQueries != null) {
+				return false;
+			}
+		} else if (!numberOfQueries.equals(other.numberOfQueries)) {
+			return false;
+		}
+		if (showGridLines != other.showGridLines) {
+			return false;
+		}
+		return true;
+	}
+
+	
+
 }
