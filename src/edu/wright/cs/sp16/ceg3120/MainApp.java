@@ -126,6 +126,19 @@ public class MainApp {
 		});
 		mnEdit.add(mntmPreferences);
 		
+		JMenuItem mntmQueries = new JMenuItem("Queries Panel");
+		mntmQueries.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent queries) {
+				int index = tabbedPane.indexOfTab("Queries Panel");
+				if (index == -2) {
+					//Queries queries1 = new Queries();
+					//tabbedPane.addTab("Queries Panel", queries1);
+				}
+			}
+		});
+		mnEdit.add(mntmQueries);
+		
 		JMenu mnWindow = new JMenu("Window");
 		menuBar.add(mnWindow);
 		
