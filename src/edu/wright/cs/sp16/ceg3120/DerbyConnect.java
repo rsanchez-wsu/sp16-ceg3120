@@ -118,7 +118,7 @@ public class DerbyConnect extends DatabaseConnector {
 			rsmd = rs.getMetaData();
 			int columnsNumber = rsmd.getColumnCount();
 			table = new String[row][columnsNumber];
-			int row_counter = 0;
+			int rowCounter = 0;
 			// Iterate through all data returned and append to string
 			// result.
 			while (rs.next()) {
@@ -126,12 +126,12 @@ public class DerbyConnect extends DatabaseConnector {
 					if (i > 1) {
 						builder.append(",  ");
 						String columnValue = rs.getString(i);
-						table[row_counter][i] = columnValue;
+						table[rowCounter][i] = columnValue;
 						builder.append(columnValue + " " + rsmd.getColumnName(i));
 					}
 				}
 				System.out.println("");
-				row_counter++;
+				rowCounter++;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
