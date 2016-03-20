@@ -43,7 +43,7 @@ import javax.swing.SwingUtilities;
 public class MainApp {
 	
 	static JTabbedPane tabbedPane = new JTabbedPane();
-	static UserSettings globalConfig = UserSettings.loadXmlEncodedBean("Preferences.xml");
+	static UserSettings globalConfig = UserSettings.loadXmlEncodedBean("PreferencesPanel.xml");
 	
 	
 	/**
@@ -113,14 +113,14 @@ public class MainApp {
 		JMenu mnEdit = new JMenu("Edit");
 		menuBar.add(mnEdit);
 		
-		JMenuItem mntmPreferences = new JMenuItem("Preferences");
+		JMenuItem mntmPreferences = new JMenuItem("PreferencesPanel");
 		mntmPreferences.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent preferences) {
-				int index = tabbedPane.indexOfTab("User Preferences");
+				int index = tabbedPane.indexOfTab("User PreferencesPanel");
 				if (index == -1) {
-					Preferences preferences1 = new Preferences();
-					tabbedPane.addTab("User Preferences", preferences1);
+					PreferencesPanel preferences1 = new PreferencesPanel();
+					tabbedPane.addTab("User PreferencesPanel", preferences1);
 				}
 			}
 		});

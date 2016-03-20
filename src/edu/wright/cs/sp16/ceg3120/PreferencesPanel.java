@@ -62,9 +62,9 @@ import javax.xml.transform.TransformerException;
  * This class is created to display the preferences window which contains the
  * connections and the user preferences. The user will set the default database,
  * default view, default encoding, table view, and remember any few number of
- * last queries.
+ * last queriesLabel.
  */
-public class Preferences extends JPanel {
+public class PreferencesPanel extends JPanel {
 
 
 
@@ -76,31 +76,31 @@ public class Preferences extends JPanel {
 
 
 	// Components of window declaration - do not modify
-	private JComboBox<String> choice1;
-	private JComboBox<Encoding> choice2;
-	private JComboBox<String> choice3;
-	private JLabel defaultEncoding;
-	private JLabel defaultFavorite;
-	private JLabel defaultView;
-	private JCheckBox gridLines;
-	private JComboBox<NumberOfQueries> pxQueries;
-	private JLabel queries;
-	private JLabel rememberLast;
-	private JCheckBox startupConnect;
-	private JCheckBox startupMotd;
-	private JLabel tableViews;
-	private JCheckBox useMonospaced;
+	private JComboBox<String> defaultDatabaseComboBox;
+	private JComboBox<Encoding> defaultEncodingComboBox;
+	private JComboBox<String> defaultViewComboBox;
+	private JLabel defaultEncodingLabel;
+	private JLabel defaultFavoriteLabel;
+	private JLabel defaultViewLabel;
+	private JCheckBox gridLinesCheckBox;
+	private JComboBox<NumberOfQueries> pxQueriesCheckBox;
+	private JLabel queriesLabel;
+	private JLabel rememberLastLabel;
+	private JCheckBox startupConnectCheckBox;
+	private JCheckBox startupMotdCheckBox;
+	private JLabel tableViewsLabel;
+	private JCheckBox useMonospacedCheckBox;
 	// End of variables declaration
 
 	private final UserSettings initSettings;
 //	private UserSettings changedSettings;
 
-	private static final String SETTINGS_FILE_NAME = "Preferences.xml";
+	private static final String SETTINGS_FILE_NAME = "PreferencesPanel.xml";
 
 	/**
 	 * Constructor with zero-arguments to open the connection window.
 	 */
-	public Preferences() {
+	public PreferencesPanel() {
 
 		initSettings = UserSettings.loadXmlEncodedBean(SETTINGS_FILE_NAME);
 
@@ -113,14 +113,14 @@ public class Preferences extends JPanel {
 	
 		
 		//load settings into gui
-		choice1.addItem(initSettings.getDefaultDatabase());
-		choice3.addItem(initSettings.getDefaultView());
-		choice2.addItem(initSettings.getDefaultEncoding());
-		startupConnect.setSelected(initSettings.isConnectOnStartup());
-		startupMotd.setSelected(initSettings.isMessageOfTheDay());
-		useMonospaced.setSelected( initSettings.isMonspacedFonts());
-		gridLines.setSelected(initSettings.isShowGridLines());
-		pxQueries.setSelectedItem(initSettings.getNumberOfQueries());
+		defaultDatabaseComboBox.addItem(initSettings.getDefaultDatabase());
+		defaultViewComboBox.addItem(initSettings.getDefaultView());
+		defaultEncodingComboBox.addItem(initSettings.getDefaultEncoding());
+		startupConnectCheckBox.setSelected(initSettings.isConnectOnStartup());
+		startupMotdCheckBox.setSelected(initSettings.isMessageOfTheDay());
+		useMonospacedCheckBox.setSelected( initSettings.isMonspacedFonts());
+		gridLinesCheckBox.setSelected(initSettings.isShowGridLines());
+		pxQueriesCheckBox.setSelectedItem(initSettings.getNumberOfQueries());
 		
 		
 		
@@ -138,16 +138,16 @@ public class Preferences extends JPanel {
 
 		// Initializing components of the window ,,,
 
-		defaultFavorite = new JLabel();   //default database
-		defaultView = new JLabel();       //default view
-		defaultEncoding = new JLabel();   //default encoding
-		tableViews = new JLabel();        //table views
-		rememberLast = new JLabel();     //remember last
-		choice1 = new JComboBox<>();          //default database
-		choice2 = new JComboBox<>();          //default view
-		choice3 = new JComboBox<>();          //default encoding
-		startupConnect = new JCheckBox();   //connect on startup
-		startupConnect.addActionListener(new ActionListener() {
+		defaultFavoriteLabel = new JLabel();   //default database
+		defaultViewLabel = new JLabel();       //default view
+		defaultEncodingLabel = new JLabel();   //default encoding
+		tableViewsLabel = new JLabel();        //table views
+		rememberLastLabel = new JLabel();     //remember last
+		defaultDatabaseComboBox = new JComboBox<>();          //default database
+		defaultEncodingComboBox = new JComboBox<>();          //default view
+		defaultViewComboBox = new JComboBox<>();          //default encoding
+		startupConnectCheckBox = new JCheckBox();   //connect on startup
+		startupConnectCheckBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (initSettings.isConnectOnStartup() == true) {
 					initSettings.setConnectOnStartup(false);
@@ -156,44 +156,44 @@ public class Preferences extends JPanel {
 				}
 			}
 		});
-		startupMotd = new JCheckBox();      //show message of the day
-		startupMotd.addActionListener(new ActionListener() {
+		startupMotdCheckBox = new JCheckBox();      //show message of the day
+		startupMotdCheckBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent startUp) {
 			}
 		});
-		useMonospaced = new JCheckBox();    //use monospaced fonts
-		gridLines = new JCheckBox();        //show gridlines
-		pxQueries = new JComboBox<NumberOfQueries>();    //show queries
-		queries = new JLabel();
+		useMonospacedCheckBox = new JCheckBox();    //use monospaced fonts
+		gridLinesCheckBox = new JCheckBox();        //show gridlines
+		pxQueriesCheckBox = new JComboBox<NumberOfQueries>();    //show queriesLabel
+		queriesLabel = new JLabel();
 
 
-		defaultFavorite.setText("Default Database:");
+		defaultFavoriteLabel.setText("Default Database:");
 
-		defaultView.setText("Default View:");
+		defaultViewLabel.setText("Default View:");
 
-		defaultEncoding.setText("Default Encoding:");
+		defaultEncodingLabel.setText("Default Encoding:");
 
-		tableViews.setText("Table Views:");
+		tableViewsLabel.setText("Table Views:");
 
-		rememberLast.setText("Remember Last:");
+		rememberLastLabel.setText("Remember Last:");
 
-		startupConnect.setFont(new Font("Lucida Grande", 0, 11)); // NOI18N
-		startupConnect.setText("Connect to Default on Startup");
+		startupConnectCheckBox.setFont(new Font("Lucida Grande", 0, 11)); // NOI18N
+		startupConnectCheckBox.setText("Connect to Default on Startup");
 
-		startupMotd.setFont(new Font("Lucida Grande", 0, 11)); // NOI18N
-		startupMotd.setText("\"Message of the Day\" on Startup");
+		startupMotdCheckBox.setFont(new Font("Lucida Grande", 0, 11)); // NOI18N
+		startupMotdCheckBox.setText("\"Message of the Day\" on Startup");
 
-		useMonospaced.setFont(new Font("Lucida Grande", 0, 11)); // NOI18N
-		useMonospaced.setText("Use monospaced fonts");
+		useMonospacedCheckBox.setFont(new Font("Lucida Grande", 0, 11)); // NOI18N
+		useMonospacedCheckBox.setText("Use monospaced fonts");
 
-		gridLines.setFont(new Font("Lucida Grande", 0, 11)); // NOI18N
-		gridLines.setText("Display vertical grid lines");
+		gridLinesCheckBox.setFont(new Font("Lucida Grande", 0, 11)); // NOI18N
+		gridLinesCheckBox.setText("Display vertical grid lines");
 
-		pxQueries.setModel(new DefaultComboBoxModel<>(new NumberOfQueries[] {
+		pxQueriesCheckBox.setModel(new DefaultComboBoxModel<>(new NumberOfQueries[] {
 				NumberOfQueries.Zero, NumberOfQueries.Five,
 				NumberOfQueries.Ten, NumberOfQueries.Twenty }));
 
-		queries.setText("queries");
+		queriesLabel.setText("queriesLabel");
 		
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
@@ -231,38 +231,38 @@ public class Preferences extends JPanel {
 				.addGroup(jpanel2Layout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(jpanel2Layout.createParallelGroup(Alignment.LEADING)
-						.addComponent(defaultFavorite)
-						.addComponent(defaultEncoding)
-						.addComponent(defaultView)
-						.addComponent(tableViews)
-						.addComponent(rememberLast))
+						.addComponent(defaultFavoriteLabel)
+						.addComponent(defaultEncodingLabel)
+						.addComponent(defaultViewLabel)
+						.addComponent(tableViewsLabel)
+						.addComponent(rememberLastLabel))
 					.addGap(59)
 					.addGroup(jpanel2Layout.createParallelGroup(Alignment.LEADING)
 						.addGroup(jpanel2Layout.createSequentialGroup()
 							.addComponent(
-									pxQueries, 
+									pxQueriesCheckBox, 
 									GroupLayout.PREFERRED_SIZE, 
 									GroupLayout.DEFAULT_SIZE, 
 									GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
-							.addComponent(queries)
+							.addComponent(queriesLabel)
 							.addPreferredGap(ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
 							.addComponent(btnSave)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnCancel))
-						.addComponent(useMonospaced)
-						.addComponent(choice3, 
+						.addComponent(useMonospacedCheckBox)
+						.addComponent(defaultViewComboBox, 
 								GroupLayout.PREFERRED_SIZE, 166, 
 								GroupLayout.PREFERRED_SIZE)
-						.addComponent(choice2, 
+						.addComponent(defaultEncodingComboBox, 
 								GroupLayout.PREFERRED_SIZE, 166, 
 								GroupLayout.PREFERRED_SIZE)
-						.addComponent(choice1, 
+						.addComponent(defaultDatabaseComboBox, 
 								GroupLayout.PREFERRED_SIZE, 166, 
 								GroupLayout.PREFERRED_SIZE)
-						.addComponent(startupConnect)
-						.addComponent(startupMotd)
-						.addComponent(gridLines))
+						.addComponent(startupConnectCheckBox)
+						.addComponent(startupMotdCheckBox)
+						.addComponent(gridLinesCheckBox))
 					.addContainerGap())
 		);
 		jpanel2Layout.setVerticalGroup(
@@ -270,45 +270,45 @@ public class Preferences extends JPanel {
 				.addGroup(jpanel2Layout.createSequentialGroup()
 					.addGap(20)
 					.addGroup(jpanel2Layout.createParallelGroup(Alignment.LEADING)
-						.addComponent(defaultFavorite)
-						.addComponent(choice1, 
+						.addComponent(defaultFavoriteLabel)
+						.addComponent(defaultDatabaseComboBox, 
 								GroupLayout.PREFERRED_SIZE, 
 								GroupLayout.DEFAULT_SIZE, 
 								GroupLayout.PREFERRED_SIZE))
 					.addGap(2)
-					.addComponent(startupConnect)
+					.addComponent(startupConnectCheckBox)
 					.addGap(3)
-					.addComponent(startupMotd)
+					.addComponent(startupMotdCheckBox)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(jpanel2Layout.createParallelGroup(Alignment.LEADING)
-						.addComponent(defaultView)
-						.addComponent(choice3, 
+						.addComponent(defaultViewLabel)
+						.addComponent(defaultViewComboBox, 
 								GroupLayout.PREFERRED_SIZE, 
 								GroupLayout.DEFAULT_SIZE, 
 								GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(jpanel2Layout.createParallelGroup(Alignment.LEADING)
-						.addComponent(defaultEncoding)
-						.addComponent(choice2, 
+						.addComponent(defaultEncodingLabel)
+						.addComponent(defaultEncodingComboBox, 
 								GroupLayout.PREFERRED_SIZE, 
 								GroupLayout.DEFAULT_SIZE, 
 								GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(jpanel2Layout.createParallelGroup(Alignment.LEADING)
 						.addGroup(jpanel2Layout.createSequentialGroup()
-							.addComponent(useMonospaced)
+							.addComponent(useMonospacedCheckBox)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(gridLines))
-						.addComponent(tableViews))
+							.addComponent(gridLinesCheckBox))
+						.addComponent(tableViewsLabel))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(jpanel2Layout.createParallelGroup(Alignment.LEADING)
-						.addComponent(rememberLast)
+						.addComponent(rememberLastLabel)
 						.addGroup(jpanel2Layout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(pxQueries, 
+							.addComponent(pxQueriesCheckBox, 
 									GroupLayout.PREFERRED_SIZE, 
 									GroupLayout.DEFAULT_SIZE, 
 									GroupLayout.PREFERRED_SIZE)
-							.addComponent(queries)))
+							.addComponent(queriesLabel)))
 					.addContainerGap(33, Short.MAX_VALUE))
 				.addGroup(Alignment.TRAILING, jpanel2Layout.createSequentialGroup()
 					.addContainerGap(236, Short.MAX_VALUE)
@@ -346,16 +346,16 @@ public class Preferences extends JPanel {
 				}
 			}
 		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(Preferences.class.getName()).log(
+			java.util.logging.Logger.getLogger(PreferencesPanel.class.getName()).log(
 					java.util.logging.Level.SEVERE, null, ex);
 		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(Preferences.class.getName()).log(
+			java.util.logging.Logger.getLogger(PreferencesPanel.class.getName()).log(
 					java.util.logging.Level.SEVERE, null, ex);
 		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(Preferences.class.getName()).log(
+			java.util.logging.Logger.getLogger(PreferencesPanel.class.getName()).log(
 					java.util.logging.Level.SEVERE, null, ex);
 		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(Preferences.class.getName()).log(
+			java.util.logging.Logger.getLogger(PreferencesPanel.class.getName()).log(
 					java.util.logging.Level.SEVERE, null, ex);
 		}
 		// </editor-fold>
@@ -363,7 +363,7 @@ public class Preferences extends JPanel {
 		/* Create and display the form */
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new Preferences().setVisible(true);
+				new PreferencesPanel().setVisible(true);
 			}
 		});
 	}
