@@ -39,7 +39,7 @@ import javax.swing.SwingUtilities;
 public class MainApp {
 	
 	static final String PREFERENCES_PATH = "Preferences.xml";
-	static final JTabbedPane tabbedPane = new JTabbedPane(); //fix linux problem?
+	static JTabbedPane tabbedPane = new JTabbedPane(); 
 	static UserSettings globalConfig = UserSettings.loadXmlEncodedBean(PREFERENCES_PATH);
 	
 	
@@ -92,7 +92,7 @@ public class MainApp {
 		frmSqlizard.setLocationRelativeTo(null);
 		frmSqlizard.setVisible(true);
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		frmSqlizard.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		
 
