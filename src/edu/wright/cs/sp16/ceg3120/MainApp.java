@@ -33,17 +33,13 @@ import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
 
-
-
-
-
 /**
  * The application's main class.
  */
 public class MainApp {
 	
 	static final String PREFERENCES_PATH = "Preferences.xml";
-	static JTabbedPane tabbedPane = new JTabbedPane();
+	static final JTabbedPane tabbedPane = new JTabbedPane(); //fix linux problem?
 	static UserSettings globalConfig = UserSettings.loadXmlEncodedBean(PREFERENCES_PATH);
 	
 	
