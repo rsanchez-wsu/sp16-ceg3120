@@ -1,22 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!ELEMENT queries(query, query, query, query, query, query, query, query, query, query, query, query, query, query, query, query, query, query, query, query)>
-<!ELEMENT query(#PCDATA)>
-<!ELEMENT query(#PCDATA)>
-<!ELEMENT query(#PCDATA)>
-<!ELEMENT query(#PCDATA)>
-<!ELEMENT query(#PCDATA)>
-<!ELEMENT query(#PCDATA)>
-<!ELEMENT query(#PCDATA)>
-<!ELEMENT query(#PCDATA)>
-<!ELEMENT query(#PCDATA)>
-<!ELEMENT query(#PCDATA)>
-<!ELEMENT query(#PCDATA)>
-<!ELEMENT query(#PCDATA)>
-<!ELEMENT query(#PCDATA)>
-<!ELEMENT query(#PCDATA)>
-<!ELEMENT query(#PCDATA)>
-<!ELEMENT query(#PCDATA)>
-<!ELEMENT query(#PCDATA)>
-<!ELEMENT query(#PCDATA)>
-<!ELEMENT query(#PCDATA)>
+<!ELEMENT queries(query*)>
 <!ELEMENT query(#PCDATA)>

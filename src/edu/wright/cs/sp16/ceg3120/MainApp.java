@@ -43,7 +43,7 @@ import javax.swing.SwingUtilities;
 public class MainApp {
 	
 	static JTabbedPane tabbedPane = new JTabbedPane();
-	static UserSettings globalConfig = SettingsReader.readXml("Profile.xml");
+	static UserSettings globalConfig = UserSettings.loadXmlEncodedBean("PreferencesPanel.xml");
 	
 	
 	/**
@@ -113,18 +113,31 @@ public class MainApp {
 		JMenu mnEdit = new JMenu("Edit");
 		menuBar.add(mnEdit);
 		
-		JMenuItem mntmPreferences = new JMenuItem("Preferences");
+		JMenuItem mntmPreferences = new JMenuItem("PreferencesPanel");
 		mntmPreferences.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent preferences) {
-				int index = tabbedPane.indexOfTab("User Preferences");
+				int index = tabbedPane.indexOfTab("User PreferencesPanel");
 				if (index == -1) {
-					Preferences preferences1 = new Preferences();
-					tabbedPane.addTab("User Preferences", preferences1);
+					PreferencesPanel preferences1 = new PreferencesPanel();
+					tabbedPane.addTab("User PreferencesPanel", preferences1);
 				}
 			}
 		});
 		mnEdit.add(mntmPreferences);
+		
+		JMenuItem mntmQueries = new JMenuItem("Queries Panel");
+		mntmQueries.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent queries) {
+				int index = tabbedPane.indexOfTab("Queries Panel");
+				if (index == -2) {
+					//Queries queries1 = new Queries();
+					//tabbedPane.addTab("Queries Panel", queries1);
+				}
+			}
+		});
+		mnEdit.add(mntmQueries);
 		
 		JMenu mnWindow = new JMenu("Window");
 		menuBar.add(mnWindow);
