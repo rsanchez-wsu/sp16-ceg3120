@@ -8,7 +8,10 @@
    <string>rhyspowell.info:3306</string>
   </void>
   <void property="defaultEncoding">
-   <string>UTF-8</string>
+   <object class="java.lang.Enum" method="valueOf">
+    <class>edu.wright.cs.sp16.ceg3120.Encoding</class>
+    <string>UTF8</string>
+   </object>
   </void>
   <void property="defaultView">
    <string>read-only</string>

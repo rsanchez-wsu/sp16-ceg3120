@@ -77,7 +77,7 @@ public class Preferences extends JPanel {
 
 	// Components of window declaration - do not modify
 	private JComboBox<String> choice1;
-	private JComboBox<String> choice2;
+	private JComboBox<Encoding> choice2;
 	private JComboBox<String> choice3;
 	private JLabel defaultEncoding;
 	private JLabel defaultFavorite;
@@ -111,6 +111,7 @@ public class Preferences extends JPanel {
 		// will look like ,,,
 		initComponents();
 	
+		
 		//load settings into gui
 		choice1.addItem(initSettings.getDefaultDatabase());
 		choice3.addItem(initSettings.getDefaultView());
@@ -120,6 +121,7 @@ public class Preferences extends JPanel {
 		useMonospaced.setSelected( initSettings.isMonspacedFonts());
 		gridLines.setSelected(initSettings.isShowGridLines());
 		pxQueries.setSelectedItem(initSettings.getNumberOfQueries());
+		
 		
 		
 		
@@ -141,9 +143,9 @@ public class Preferences extends JPanel {
 		defaultEncoding = new JLabel();   //default encoding
 		tableViews = new JLabel();        //table views
 		rememberLast = new JLabel();     //remember last
-		choice1 = new JComboBox<String>();          //default database
-		choice2 = new JComboBox<String>();          //default view
-		choice3 = new JComboBox<String>();          //default encoding
+		choice1 = new JComboBox<>();          //default database
+		choice2 = new JComboBox<>();          //default view
+		choice3 = new JComboBox<>();          //default encoding
 		startupConnect = new JCheckBox();   //connect on startup
 		startupConnect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

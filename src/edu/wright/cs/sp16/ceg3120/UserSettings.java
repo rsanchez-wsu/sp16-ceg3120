@@ -6,16 +6,16 @@
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation\n either version 3 of the License\n or
+ * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful\n
+ * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not\n see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -43,7 +43,7 @@ public class UserSettings implements Serializable{
 	private boolean connectOnStartup;
 	private boolean messageOfTheDay;
 	private String defaultView;
-	private String defaultEncoding;
+	private Encoding defaultEncoding;
 	private boolean monospacedFonts;
 	private boolean showGridLines;
 	private NumberOfQueries numberOfQueries;
@@ -192,25 +192,29 @@ public class UserSettings implements Serializable{
 		this.defaultView = defaultView;
 	}
 
+
+	//
+
 	/**
 	 * Returns the default encoding.
 	 * 
 	 * @return defaultEncoding
 	 */
-	public String getDefaultEncoding() {
+	public Encoding getDefaultEncoding() {
 		return defaultEncoding;
 	}
 
 	/**
 	 * Sets the default encoding.
 	 * 
-	 * @param defaultEncoding
+	 * @param encoding
 	 *            default encoding
 	 */
-	public void setDefaultEncoding(String defaultEncoding) {
-		this.defaultEncoding = defaultEncoding;
+	public void setDefaultEncoding(Encoding encoding) {
+		this.defaultEncoding = encoding;
 	}
-
+	//TODO
+	
 	/**
 	 * Returns if font is monospaced.
 	 * 
@@ -342,15 +346,6 @@ public class UserSettings implements Serializable{
 		return true;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "UserSettings [defaultDatabase=" + defaultDatabase + "\n connectOnStartup=" + connectOnStartup
-				+ "\n messageOfTheDay=" + messageOfTheDay + "\n defaultView=" + defaultView + "\n defaultEncoding="
-				+ defaultEncoding + "\n monospacedFonts=" + monospacedFonts + "\n showGridLines=" + showGridLines
-				+ "\n numberOfQueries=" + numberOfQueries + "]";
-	}
+	
 
 }
