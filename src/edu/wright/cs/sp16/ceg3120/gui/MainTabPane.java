@@ -83,7 +83,7 @@ public class MainTabPane extends JTabbedPane {
 	 * Creates a start page tab and adds it to the tab pane.
 	 */
 	public void addStartPageTab() {
-		StartPageTab startPageTab = new StartPageTab();
+		StartPageTab startPageTab = new StartPageTab(this);
 
 		// TODO: add icon, add better tooltip
 		addTab(TabNames.Start.toString(), null, startPageTab, null);

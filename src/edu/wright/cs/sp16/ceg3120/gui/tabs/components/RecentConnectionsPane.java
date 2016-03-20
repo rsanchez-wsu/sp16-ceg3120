@@ -21,13 +21,17 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs.components;
 
+import edu.wright.cs.sp16.ceg3120.gui.MainTabPane;
+
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -48,10 +52,27 @@ public class RecentConnectionsPane extends JPanel {
 	private static final long serialVersionUID = -3169614508873955055L;
 	
 	/**
+	 * Default constructor.
 	 * Initialize "Recent Connections" panel.
+	 * Note: if you need a reference of another GUI class then you
+	 * need to add a new constructor and add it as an argument
 	 */
 	public RecentConnectionsPane() {
 		super(new GridBagLayout());
+		
+		initComponents();
+	}
+	
+	/**
+	 * Initialize "Recent Connections" panel with reference to 
+	 * MainTabPane.java
+	 * @param mainTabPane the reference to the MainGui's tabbed pane.
+	 */
+	public RecentConnectionsPane(MainTabPane mainTabPane) {
+		super(new GridBagLayout());
+		
+		// set mainTab property to main tab pane reference
+		mainTab = mainTabPane;
 		
 		initComponents();
 	}
@@ -79,11 +100,18 @@ public class RecentConnectionsPane extends JPanel {
 		
 		add(recentConn, subConstraints);
 		
-		recentConnLinks = new JLabel[10];
+		recentConnLinks = new JButton[10];
+		
+		ButtonHandler recentConnClickEvent = new ButtonHandler();
 		
 		// initialize dummy values for recent connection links
 		for (int i = 0; i < recentConnLinks.length; i++) {
-			recentConnLinks[i] = new JLabel("Recent connection " + i);
+			recentConnLinks[i] = new JButton();
+			recentConnLinks[i].setText("<HTML><U>Recent connection " + i + "</U></HTML>");
+			recentConnLinks[i].setBorderPainted(false);
+			recentConnLinks[i].setOpaque(false);
+			recentConnLinks[i].setBackground(Color.white);
+			recentConnLinks[i].addActionListener(recentConnClickEvent);
 			
 			subConstraints = new GridBagConstraints();
 			subConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
@@ -96,8 +124,26 @@ public class RecentConnectionsPane extends JPanel {
 			add(recentConnLinks[i], subConstraints);
 		}
 	}
+	
+	/**
+	 * Button handler class, this class holds our "onclick" events.
+	 * @author Sam
+	 */
+	class ButtonHandler implements ActionListener {
+		/**
+		 * The button handler code that makes the handler "do stuff".
+		 */
+		public void actionPerformed(ActionEvent event) {
+			/* currently this causes the "Connection" tab to be opened as it is the second
+			 * tab in MainTabPane 3/19/2016. 
+			 */
+			mainTab.setSelectedIndex(1);
+		}
+	}
 
 	/* properties */
+	
+	MainTabPane mainTab;
 	
 	/**
 	 * "Recent connections" label.
@@ -107,7 +153,7 @@ public class RecentConnectionsPane extends JPanel {
 	/**
 	 * "Recent connection x" link array.
 	 */
-	JLabel[] recentConnLinks;
+	JButton[] recentConnLinks;
 	
 	
 	/**

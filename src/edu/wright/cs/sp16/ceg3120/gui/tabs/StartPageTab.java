@@ -21,6 +21,7 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
+import edu.wright.cs.sp16.ceg3120.gui.MainTabPane;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.components.RecentConnectionsPane;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.components.TipOfTheDayPane;
 
@@ -54,6 +55,19 @@ public class StartPageTab extends JPanel {
 		initComponents();
 	}
 	
+	/**
+	 * Initializes Start Page Tab, pulls recent connections, adds components to GUI.
+	 * TODO: Pull recent connections, initialize components.
+	 */
+	public StartPageTab(MainTabPane mainTabPane) {
+		super(new GridBagLayout());
+		
+		mainTab = mainTabPane;
+		
+		setSize(960, 600);
+		initComponents();
+	}
+	
 	/**Initialize components in the start tab pane.
 	 * @author Sam
 	 */
@@ -68,7 +82,7 @@ public class StartPageTab extends JPanel {
 		constraints.weighty = 1.0;
 
 		//add "Recent Connections" pane with constraints
-		JPanel recentConnsPane = new RecentConnectionsPane();
+		recentConnsPane = new RecentConnectionsPane(mainTab);
 		add(recentConnsPane, constraints);
 		
 		// specify constraints for "Tip of the day" pane
@@ -80,8 +94,27 @@ public class StartPageTab extends JPanel {
 		constraints.weighty = 1.0;
 
 		//add "Tip of the day" pane with constraints
-		JPanel tipOfTheDayPane = new TipOfTheDayPane();
+		tipOfTheDayPane = new TipOfTheDayPane();
 		add(tipOfTheDayPane, constraints);
 	}
+	
+	// properties
+	
+	/**
+	 * Holds main Gui's tabs.
+	 */
+	MainTabPane mainTab;
+	
+	/**
+	 * Holds recent connection pane.
+	 */
+	JPanel recentConnsPane;
+	
+	/**
+	 * Holds tip of the day pane.
+	 */
+	JPanel tipOfTheDayPane;
+	
+	
 
 }
