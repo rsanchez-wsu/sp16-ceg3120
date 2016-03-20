@@ -187,7 +187,7 @@ public class Preferences extends JPanel {
 		gridLines.setFont(new Font("Lucida Grande", 0, 11)); // NOI18N
 		gridLines.setText("Display vertical grid lines");
 
-		pxQueries.setModel(new DefaultComboBoxModel(new NumberOfQueries[] {
+		pxQueries.setModel(new DefaultComboBoxModel<>(new NumberOfQueries[] {
 				NumberOfQueries.Zero, NumberOfQueries.Five,
 				NumberOfQueries.Ten, NumberOfQueries.Twenty }));
 
@@ -207,21 +207,7 @@ public class Preferences extends JPanel {
 //				initSettings.setShowGridLines(changedSettings.isShowGridLines());
 //				initSettings.setNumberOfQueries(changedSettings.getNumberOfQueries());
 				MainApp.globalConfig = initSettings;
-				try {
-					XmlWrite.writeXml(initSettings);
-				} catch (TransformerException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ParserConfigurationException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SAXException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				initSettings.saveXmlEncodedBean(SETTINGS_FILE_NAME);
 			}
 		});
 		
