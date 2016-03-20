@@ -102,13 +102,14 @@ public class DerbyConnect extends DatabaseConnector {
 	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = 
 			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
 			"We specifically want to allow the user to execute arbitrary Derby")
-	public String executeQuery(String query) {
+	public String[][] executeQuery(String query) {
 		String returning = "";
 		StringBuilder builder = new StringBuilder();
 		
 		try (
 				Statement input = conn.createStatement();
 				ResultSet rs = input.executeQuery(query)) {
+				int row=rs.getRow();
 			// ResulSetMetaData does not implement AutoClosable() so it
 			// cannot be handled by try-with-resources.
 			ResultSetMetaData rsmd = null;
@@ -116,6 +117,8 @@ public class DerbyConnect extends DatabaseConnector {
 			// string.
 			rsmd = rs.getMetaData();
 			int columnsNumber = rsmd.getColumnCount();
+			String [][] table = new String[row][columnsNumber];
+			int row_counter = 0;
 			// Iterate through all data returned and append to string
 			// result.
 			while (rs.next()) {
@@ -123,17 +126,19 @@ public class DerbyConnect extends DatabaseConnector {
 					if (i > 1) {
 						builder.append(",  ");
 						String columnValue = rs.getString(i);
+						table[row_counter][i] = columnValue;
 						builder.append(columnValue + " " + rsmd.getColumnName(i));
 					}
 				}
 				System.out.println("");
+				row_counter++;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		returning = builder.toString();
-		return returning;
+		return table;
 	}
 
 }
