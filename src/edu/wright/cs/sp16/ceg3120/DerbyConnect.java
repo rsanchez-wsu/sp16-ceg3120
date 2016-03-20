@@ -109,7 +109,7 @@ public class DerbyConnect extends DatabaseConnector {
 		try (
 				Statement input = conn.createStatement();
 				ResultSet rs = input.executeQuery(query)) {
-				int row = rs.getRow();
+			int row = rs.getRow();
 			// ResulSetMetaData does not implement AutoClosable() so it
 			// cannot be handled by try-with-resources.
 			ResultSetMetaData rsmd = null;
