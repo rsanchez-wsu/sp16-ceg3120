@@ -25,8 +25,6 @@ import edu.wright.cs.sp16.ceg3120.gui.tabs.BackupExportTab;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.ConnectionTab;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.StartPageTab;
 
-import java.awt.GridLayout;
-
 import javax.swing.JTabbedPane;
 
 /**

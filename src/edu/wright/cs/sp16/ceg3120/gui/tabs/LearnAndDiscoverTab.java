@@ -22,9 +22,9 @@
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.GridBagLayout;
-import java.awt.Component;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -39,7 +39,7 @@ import javax.swing.JFrame;
 public class LearnAndDiscoverTab extends Component {
 
 	/**
-	 * idk what this is honestly
+	 * idk what this is honestly.
 	 */
 	private static final long serialVersionUID = -6246927473993559297L;
 
