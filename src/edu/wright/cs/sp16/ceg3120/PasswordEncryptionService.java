@@ -50,12 +50,12 @@ public class PasswordEncryptionService {
 			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
 			cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
 
-			byte[] encrypted = cipher.doFinal(value.getBytes());
+			byte[] encrypted = cipher.doFinal(value.getBytes("UTF-8"));
 			System.out.println("encrypted string: " + Base64.encodeBase64String(encrypted));
 
 			return Base64.encodeBase64String(encrypted);
-		} catch (RuntimeException rEx) {
-			rEx.printStackTrace();
+		} catch (RuntimeException e) {
+			throw e;
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -77,10 +77,10 @@ public class PasswordEncryptionService {
 			cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
 
 			byte[] original = cipher.doFinal(Base64.decodeBase64(encrypted));
-			System.out.println("Decrypted Password: " + new String(original));
-			return new String(original);
-		} catch (RuntimeException rEx) {
-			rEx.printStackTrace();
+			System.out.println("Decrypted Password: " + new String(original, "UTF-8"));
+			return new String(original, "UTF-8");
+		} catch (RuntimeException e) {
+			throw e;
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

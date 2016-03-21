@@ -35,7 +35,7 @@ import java.sql.Statement;
  * @author Bonnie
  *
  */
-public class DerbyConnect extends DatabaseConnector{
+public class DerbyConnect extends DatabaseConnector {
 
 	private String dbName;
 	private String dbUrl = "jdbc:derby://localhost:1527/testDB;create=true;"
@@ -62,7 +62,7 @@ public class DerbyConnect extends DatabaseConnector{
 	/**
 	 * This will create the connection for the derby database.
 	 */
-	public void createConnection() {
+	public void configure() throws SQLException {
 		// Still working on creating the connection.
 		try {
 			Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
@@ -102,38 +102,43 @@ public class DerbyConnect extends DatabaseConnector{
 	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = 
 			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
 			"We specifically want to allow the user to execute arbitrary Derby")
-	public String executeQuery(String query) {
-		String returning = "";
-		StringBuilder builder = new StringBuilder();
-		
-		try (
-				Statement input = conn.createStatement();
-				ResultSet rs = input.executeQuery(query)) {
-			// ResulSetMetaData does not implement AutoClosable() so it
-			// cannot be handled by try-with-resources.
-			ResultSetMetaData rsmd = null;
-			// Try to read the result set and its meta data and print out to
-			// string.
-			rsmd = rs.getMetaData();
-			int columnsNumber = rsmd.getColumnCount();
-			// Iterate through all data returned and append to string
-			// result.
-			while (rs.next()) {
-				for (int i = 1; i <= columnsNumber; i++) {
-					if (i > 1) {
-						builder.append(",  ");
-						String columnValue = rs.getString(i);
-						builder.append(columnValue + " " + rsmd.getColumnName(i));
-					}
-				}
-				System.out.println("");
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		returning = builder.toString();
-		return returning;
+	public String[][] executeQuery(String query) {
+//		String returning = "";
+//		StringBuilder builder = new StringBuilder();
+		String [][] table = null;
+//		try (
+//				Statement input = conn.createStatement();
+//				ResultSet rs = input.executeQuery(query)) {
+//			int row = rs.getRow();
+//			// ResulSetMetaData does not implement AutoClosable() so it
+//			// cannot be handled by try-with-resources.
+//			ResultSetMetaData rsmd = null;
+//			// Try to read the result set and its meta data and print out to
+//			// string.
+//			rsmd = rs.getMetaData();
+//			int columnsNumber = rsmd.getColumnCount();
+//			table = new String[row][columnsNumber];
+//			int rowCounter = 0;
+//			// Iterate through all data returned and append to string
+//			// result.
+//			while (rs.next()) {
+//				for (int i = 1; i <= columnsNumber; i++) {
+//					if (i > 1) {
+//						builder.append(",  ");
+//						String columnValue = rs.getString(i);
+//						table[rowCounter][i] = columnValue;
+//						builder.append(columnValue + " " + rsmd.getColumnName(i));
+//					}
+//				}
+//				System.out.println("");
+//				rowCounter++;
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		returning = builder.toString();
+		return table;
 	}
 
 }
