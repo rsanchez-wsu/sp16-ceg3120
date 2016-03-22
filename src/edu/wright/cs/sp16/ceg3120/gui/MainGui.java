@@ -34,7 +34,6 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.SwingUtilities;
 import javax.swing.text.DefaultEditorKit;
 
 /**
@@ -192,8 +191,7 @@ public class MainGui extends JFrame implements ActionListener {
 			});
 		}
 	}
-	
-	// enable and disable window
+
 	/**
 	 * Disables the main window.
 	 */

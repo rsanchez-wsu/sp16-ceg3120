@@ -22,7 +22,6 @@
 package edu.wright.cs.sp16.ceg3120.gui.tabs.components;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
