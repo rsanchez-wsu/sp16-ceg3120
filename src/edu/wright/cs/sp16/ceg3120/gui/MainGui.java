@@ -21,8 +21,6 @@
 
 package edu.wright.cs.sp16.ceg3120.gui;
 
-import edu.wright.cs.sp16.ceg3120.gui.other.SlideShow;
-
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,14 +45,6 @@ import javax.swing.text.DefaultEditorKit;
 public class MainGui extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = -24143968339746394L;
-	
-	private JMenuItem exitItem = null;
-	private JMenuItem fullScreenItem = null;
-	private MainTabPane tabPane = null;
-	private boolean isFullScreen = false;
-
-	private JMenuItem aboutMenuItem;
-	private JMenuItem welcomeMenuItem;
 	
 	/**
 	 * The constructor method that initializes the main application window.
@@ -210,12 +200,20 @@ public class MainGui extends JFrame implements ActionListener {
 	public void makeDisabled() {
 		setEnabled(false);
 	}
+	
 	/**
 	 * Enables the main window.
 	 */
 	public void makeEnabled() {
 		setEnabled(true);
 	}
+	
+	// properties
+	private JMenuItem exitItem = null;
+	private JMenuItem fullScreenItem = null;
+	private MainTabPane tabPane = null;
+	private boolean isFullScreen = false;
 
-
+	private JMenuItem aboutMenuItem;
+	private JMenuItem welcomeMenuItem;
 }

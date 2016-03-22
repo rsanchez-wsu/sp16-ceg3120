@@ -52,6 +52,5 @@ public class MainApp{
 				| UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
-		
 	}
 }

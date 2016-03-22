@@ -56,19 +56,19 @@ public class MainTabPane extends JTabbedPane {
 	 */
 	public void addNewConnectionTab() {
 
-		NewConnectionTab connectionTab = new NewConnectionTab();
+		newConnectionTab = new NewConnectionTab();
 
-		// TODO: add icon, add better tooltip
-		addTab(TabNames.NewConnection.toString(), null, connectionTab, "Make a connection here!!");
+		// TODO: add icon, add better tool tip
+		addTab(TabNames.NewConnection.toString(), null, newConnectionTab, "Make a connection here!!");
 	}
 	
 	/**
 	 * TODO: Creates a new connection tab and adds it to the tab pane.
 	 */
 	public void addConnectionTab() {
-		ConnectionTab connectionTab = new ConnectionTab();
+		connectionTab = new ConnectionTab();
 
-		// TODO: add icon, add better tooltip
+		// TODO: add icon, add better tool tip
 		addTab(TabNames.Connection.toString(), null, connectionTab, "Make a connection here!!");
 	}
 	
@@ -85,7 +85,48 @@ public class MainTabPane extends JTabbedPane {
 	public void addStartPageTab() {
 		StartPageTab startPageTab = new StartPageTab(this);
 
-		// TODO: add icon, add better tooltip
+		// TODO: add icon, add better tool tip
 		addTab(TabNames.Start.toString(), null, startPageTab, null);
+	}
+	
+	// properties
+	private NewConnectionTab newConnectionTab;
+	
+	private ConnectionTab connectionTab;
+	
+	// property getters
+	
+	/**
+	 * "New connection tab" property getter.
+	 * @return 
+	 */
+	public NewConnectionTab getNewConnectionTab() {
+		return newConnectionTab;
+	}
+	
+	/**
+	 * "Connection tab" property setter.
+	 * @return 
+	 */
+	public ConnectionTab getConnectionTab() {
+		return connectionTab;
+	}
+	
+	// property setters
+	
+	/**
+	 * "New connection tab" property setter.
+	 * @param nct what you want to replace the "New connection tab" with.s
+	 */
+	public void setNewConnectionTab(NewConnectionTab nct) {
+		newConnectionTab = nct;
+	}
+	
+	/**
+	 * "Connection Tab" property setter.
+	 * @param ct what you want to replace the "Connection Tab" with.
+	 */
+	public void setConnectionTab(ConnectionTab ct) {
+		connectionTab = ct;
 	}
 }

@@ -114,7 +114,4 @@ public class StartPageTab extends JPanel {
 	 * Holds tip of the day pane.
 	 */
 	JPanel tipOfTheDayPane;
-	
-	
-
 }
