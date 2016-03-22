@@ -404,9 +404,9 @@ public class MainGui extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent actionEvent) {
 		if (actionEvent.getSource().equals(exitItem)) {
 			// Close application
-			
 			setVisible(false);
 			dispose();
+			Runtime.getRuntime().exit(0);
 		} else if (actionEvent.getSource().equals(fullScreenItem)) {
 			
 			// Make application fullscreen.
