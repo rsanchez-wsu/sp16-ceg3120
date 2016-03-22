@@ -21,7 +21,13 @@
 
 package edu.wright.cs.sp16.ceg3120.gui;
 
+import java.awt.BorderLayout;
+
+import javax.swing.JButton;
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTable;
 
 /**
  * This is the GUI for the Query Builder.
@@ -35,12 +41,32 @@ public class QueryBuilderWindow {
 	 * default constructor to build the query builder window.
 	 */
 	public QueryBuilderWindow() {
+	}
+	/**
+	 * create the query builder window.
+	 */
+	public static void createQueryBuilder() {
+		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout(5,10));
+		JButton run = new JButton("Run");
+		JEditorPane input = new JEditorPane();
+		JTable output = new JTable();
+		
+		panel.add(input, BorderLayout.NORTH);
+		panel.add(run, BorderLayout.WEST);
+		panel.add(output, BorderLayout.SOUTH);
+		
 		JFrame frame = new JFrame("Query Builder");
+		frame.add(panel);
+		
 		frame.setSize(600, 500);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		
-		
+			
+	}
+	
+	public static void main(String[] args){
+		createQueryBuilder();
 	}
 }
