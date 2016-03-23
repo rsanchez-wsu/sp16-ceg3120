@@ -27,6 +27,9 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 
 
@@ -44,29 +47,58 @@ public class Queries extends JPanel {
 	/**
 	 * Create the application.
 	 */
-	public Queries() {
+	public Queries(JButton btnCancel) {
 		
-		initialize();
+		initialize(btnCancel);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
-		JComboBox<String> recentQueryBox = new JComboBox<String>();
-		//TODO create something that adds the recent queries to the recentQueryBox
-		recentQueryBox.addItem(null);
-		recentQueryBox.setBounds(59, 89, 152, 30);
-		add(recentQueryBox);
+	private void initialize(JButton btnCancel) {
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{28, 139, 125, 89, 0, 0};
+		gridBagLayout.rowHeights = new int[]{23, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		setLayout(gridBagLayout);
 		
 		JLabel lblRecentQueries = new JLabel("Recent Queries");
 		lblRecentQueries.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblRecentQueries.setBounds(59, 42, 160, 35);
-		add(lblRecentQueries);
+		GridBagConstraints gbc_lblRecentQueries = new GridBagConstraints();
+		gbc_lblRecentQueries.anchor = GridBagConstraints.NORTHWEST;
+		gbc_lblRecentQueries.insets = new Insets(0, 0, 5, 5);
+		gbc_lblRecentQueries.gridx = 1;
+		gbc_lblRecentQueries.gridy = 0;
+		add(lblRecentQueries, gbc_lblRecentQueries);
+		JComboBox<String> recentQueryBox = new JComboBox<String>();
+		//TODO create something that adds the recent queries to the recentQueryBox
+		recentQueryBox.addItem(null);
+		recentQueryBox.setBounds(59, 89, 152, 30);
+		GridBagConstraints gbc_recentQueryBox = new GridBagConstraints();
+		gbc_recentQueryBox.anchor = GridBagConstraints.WEST;
+		gbc_recentQueryBox.insets = new Insets(0, 0, 5, 5);
+		gbc_recentQueryBox.gridx = 1;
+		gbc_recentQueryBox.gridy = 4;
+		add(recentQueryBox, gbc_recentQueryBox);
 		
 		JButton btnRunSelectedQuery = new JButton("Run selected query");
 		btnRunSelectedQuery.setBounds(59, 360, 152, 23);
-		add(btnRunSelectedQuery);
+		GridBagConstraints gbc_btnRunSelectedQuery = new GridBagConstraints();
+		gbc_btnRunSelectedQuery.anchor = GridBagConstraints.NORTHWEST;
+		gbc_btnRunSelectedQuery.insets = new Insets(0, 0, 5, 5);
+		gbc_btnRunSelectedQuery.gridx = 2;
+		gbc_btnRunSelectedQuery.gridy = 4;
+		add(btnRunSelectedQuery, gbc_btnRunSelectedQuery);
+		
+		JButton btnNewButton = btnCancel;
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
+		gbc_btnNewButton.anchor = GridBagConstraints.NORTHWEST;
+		gbc_btnNewButton.gridx = 3;
+		gbc_btnNewButton.gridy = 8;
+		add(btnNewButton, gbc_btnNewButton);
 		
 	}
 }
