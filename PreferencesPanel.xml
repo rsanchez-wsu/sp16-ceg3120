@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_73" class="java.beans.XMLDecoder">
+ <object class="edu.wright.cs.sp16.ceg3120.UserSettings"/>
+</java>

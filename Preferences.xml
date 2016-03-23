@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <java version="1.8.0_73" class="java.beans.XMLDecoder">
  <object class="edu.wright.cs.sp16.ceg3120.UserSettings">
+  <void property="connectOnStartup">
+   <boolean>true</boolean>
+  </void>
   <void property="defaultDatabase">
    <string>rhyspowell.info:3306</string>
   </void>
   <void property="defaultEncoding">
    <object class="java.lang.Enum" method="valueOf">
     <class>edu.wright.cs.sp16.ceg3120.Encoding</class>
-    <string>UTF8</string>
+    <string>ASCII</string>
    </object>
   </void>
   <void property="defaultView">
@@ -16,11 +19,17 @@
   <void property="messageOfTheDay">
    <boolean>true</boolean>
   </void>
+  <void property="monspacedFonts">
+   <boolean>true</boolean>
+  </void>
   <void property="numberOfQueries">
    <object class="java.lang.Enum" method="valueOf">
     <class>edu.wright.cs.sp16.ceg3120.NumberOfQueries</class>
-    <string>Five</string>
+    <string>Ten</string>
    </object>
+  </void>
+  <void property="showGridLines">
+   <boolean>true</boolean>
   </void>
  </object>
 </java>
