@@ -22,6 +22,7 @@
 package edu.wright.cs.sp16.ceg3120.gui.tabs.startpagecomponents;
 
 import edu.wright.cs.sp16.ceg3120.ButtonClickAction;
+import edu.wright.cs.sp16.ceg3120.gui.MainTabPane;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -56,8 +57,10 @@ public class TipOfTheDayPane extends JPanel {
 	/**
 	 * Initialize "Tip of the Day" panel.
 	 */
-	public TipOfTheDayPane() {
+	public TipOfTheDayPane(MainTabPane mtp) {
 		super(new GridBagLayout());
+		
+		mainTabPane = mtp;
 		
 		initComponents();
 	}
@@ -89,7 +92,7 @@ public class TipOfTheDayPane extends JPanel {
 		
 		learnDiscoverBtn = new JButton("Learn & Discover");
 		learnDiscoverBtn.setFont(new Font("TimesRoman", Font.BOLD, 12));
-		learnDiscoverBtn.addActionListener(new ButtonClickAction());
+		learnDiscoverBtn.addActionListener(new ButtonClickAction(mainTabPane));
 		
 		subConstraints = new GridBagConstraints();
 		subConstraints.anchor = GridBagConstraints.PAGE_START;
@@ -131,6 +134,9 @@ public class TipOfTheDayPane extends JPanel {
 	
 	// tip of the day text
 	JTextArea tipOfTheDayTxt;
+	
+	// main tab pane reference
+	MainTabPane mainTabPane;
 	
 	/* property access */
 	

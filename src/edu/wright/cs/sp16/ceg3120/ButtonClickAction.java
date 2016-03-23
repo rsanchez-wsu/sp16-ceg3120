@@ -30,14 +30,18 @@ import java.awt.event.ActionListener;
  * @author Alex
  *
  */
-public class ButtonClickAction extends MainTabPane implements ActionListener  {
+public class ButtonClickAction implements ActionListener  {
 	
-	private static final long serialVersionUID = -62464645889297L;
+	public ButtonClickAction(MainTabPane mtp) {
+		mainTabPane = mtp;
+	}
 	
-	//action event for clicking on a url.
 	@Override
 	public void actionPerformed(ActionEvent evt) {
-		this.addLearnAndDiscoverTab();
+		mainTabPane.addLearnAndDiscoverTab();
 
 	}
+	
+	// properties 
+	MainTabPane mainTabPane;
 }
