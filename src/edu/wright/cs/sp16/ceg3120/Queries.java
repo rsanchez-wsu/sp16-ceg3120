@@ -21,39 +21,31 @@
 
 package edu.wright.cs.sp16.ceg3120;
 
-import java.awt.EventQueue;
+import java.awt.Font;
 
-import javax.swing.JFrame;
-import javax.swing.JTextPane;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+
+
 
 /**
  * This is the GUI for the recent queries.
  * @author Megan
  *
  */
-public class Queries {
-	private JFrame frame;
+public class Queries extends JPanel {
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Queries window = new Queries();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private static final long serialVersionUID = 1L;
+
 
 	/**
 	 * Create the application.
 	 */
 	public Queries() {
+		
 		initialize();
 	}
 
@@ -61,16 +53,20 @@ public class Queries {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 684, 455);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		JComboBox<String> recentQueryBox = new JComboBox<String>();
+		//TODO create something that adds the recent queries to the recentQueryBox
+		recentQueryBox.addItem(null);
+		recentQueryBox.setBounds(59, 89, 152, 30);
+		add(recentQueryBox);
 		
-		JTextPane txtpnQuery = new JTextPane();
-		txtpnQuery.setText("Query 1 \nQuery 2 \nQuery 3 \nQuery 4 \nQuery 5 \nQuery 6 \nQuery 7 "
-				+ "\nQuery 8 \nQuery 9 \nQuery 10 \nQuery 11 \nQuery 12 \nQuery 13 \nQuery 14"
-				+ " \nQuery 15 \nQuery 16 \nQuery 17 \nQuery 18 \nQuery 19 \nQuery 20");
-		txtpnQuery.setBounds(23, 24, 376, 381);
-		frame.getContentPane().add(txtpnQuery);
+		JLabel lblRecentQueries = new JLabel("Recent Queries");
+		lblRecentQueries.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblRecentQueries.setBounds(59, 42, 160, 35);
+		add(lblRecentQueries);
+		
+		JButton btnRunSelectedQuery = new JButton("Run selected query");
+		btnRunSelectedQuery.setBounds(59, 360, 152, 23);
+		add(btnRunSelectedQuery);
+		
 	}
 }

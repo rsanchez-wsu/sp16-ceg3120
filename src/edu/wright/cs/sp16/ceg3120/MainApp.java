@@ -132,12 +132,10 @@ public class MainApp {
 			
 			public void actionPerformed(ActionEvent queries) {
 				//TODO ??
-				System.err.println("TODO");
 				int index = tabbedPane.indexOfTab("Queries Panel");
-				if (index == -2) {
-					//Queries queries1 = new Queries();
-					//tabbedPane.addTab("Queries Panel", queries1);
-					System.err.println("TODO");
+				if (index == -1) {
+					Queries queries1 = new Queries();
+					tabbedPane.addTab("Queries Panel", queries1);
 				}
 			}
 		});
