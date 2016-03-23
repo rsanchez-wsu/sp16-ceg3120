@@ -22,6 +22,7 @@
 package edu.wright.cs.sp16.ceg3120.gui.tabs.components;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -31,6 +32,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+
+import edu.wright.cs.sp16.ceg3120.gui.MainTabPane;
+import edu.wright.cs.sp16.ceg3120.gui.listeners.ButtonClickAction;
 
 /**
  * "Tip of the day" pane on the start page.
@@ -47,12 +51,14 @@ import javax.swing.JTextArea;
 public class TipOfTheDayPane extends JPanel {
 
 	private static final long serialVersionUID = -8610458384089735858L;
-	
+	MainTabPane mainTabPane;
 	/**
 	 * Initialize "Tip of the Day" panel.
 	 */
-	public TipOfTheDayPane() {
+	public TipOfTheDayPane(MainTabPane mtp) {
 		super(new GridBagLayout());
+		
+		mainTabPane = mtp;
 		
 		initComponents();
 	}
@@ -81,8 +87,10 @@ public class TipOfTheDayPane extends JPanel {
 		
 		add(tipTitle, subConstraints);
 		
-		learnDiscoverBtn = new JButton("Learn & Discover");
-		
+		JButton learnDiscoverBtn = new JButton("Learn & Discover");
+		learnDiscoverBtn.setFont(new Font("TimesRoman", Font.BOLD, 12));
+		learnDiscoverBtn.addActionListener(new ButtonClickAction(mainTabPane));
+
 		subConstraints = new GridBagConstraints();
 		subConstraints.anchor = GridBagConstraints.PAGE_START;
 		subConstraints.gridx = 0;

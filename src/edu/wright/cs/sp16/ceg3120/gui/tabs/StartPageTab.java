@@ -94,7 +94,7 @@ public class StartPageTab extends JPanel {
 		constraints.weighty = 1.0;
 
 		//add "Tip of the day" pane with constraints
-		tipOfTheDayPane = new TipOfTheDayPane();
+		tipOfTheDayPane = new TipOfTheDayPane(this.mainTab);
 		add(tipOfTheDayPane, constraints);
 	}
 	
