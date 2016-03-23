@@ -50,7 +50,6 @@ public class StartPageTab extends JPanel {
 	public StartPageTab() {
 		super(new GridBagLayout());
 
-		
 		setSize(960, 600);
 		initComponents();
 	}

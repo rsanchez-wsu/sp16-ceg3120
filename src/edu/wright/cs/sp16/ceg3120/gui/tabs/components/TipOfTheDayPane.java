@@ -21,6 +21,10 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs.components;
 
+import edu.wright.cs.sp16.ceg3120.gui.MainTabPane;
+
+import edu.wright.cs.sp16.ceg3120.gui.listeners.ButtonClickAction;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -32,9 +36,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-
-import edu.wright.cs.sp16.ceg3120.gui.MainTabPane;
-import edu.wright.cs.sp16.ceg3120.gui.listeners.ButtonClickAction;
 
 /**
  * "Tip of the day" pane on the start page.

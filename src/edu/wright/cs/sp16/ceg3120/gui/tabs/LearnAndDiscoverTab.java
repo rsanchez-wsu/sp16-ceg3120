@@ -26,8 +26,10 @@ import edu.wright.cs.sp16.ceg3120.gui.listeners.OpenUrlAction;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**Learn and Discover tab, providing resources for helpful info lookup.
@@ -45,10 +47,8 @@ public class LearnAndDiscoverTab extends JPanel {
 	 * @author Alex
 	 */
 	public LearnAndDiscoverTab() {
-		super();
-		
+		super(new GridBagLayout());
 		initComponents();
-
 	}
 	
 	/**Create the Learn and Discover tab.
@@ -61,29 +61,63 @@ public class LearnAndDiscoverTab extends JPanel {
 		this.setLayout(layout);
 		gbc.fill = GridBagConstraints.VERTICAL;
 		
+		// set size and positioning of components
+		GridBagConstraints subConstraints = new GridBagConstraints();
+		subConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
+		subConstraints.gridx = 0;
+		subConstraints.gridy = 0;
+		subConstraints.weightx = 0.5;
+		subConstraints.weighty = 0.5;
+		subConstraints.insets = new Insets(0, 10, 0, 0);
+		JLabel titleLabel = new JLabel("<html><h2>Learn and Discover</h2></html>");
+		add(titleLabel, subConstraints);
+		
 		//initialization of buttons, url links, add to page
 		String githubUrl = "https://github.com/rsanchez-wsu/sp16-ceg3120";		
 		JButton gitButton = createTabButton("Git", githubUrl);
-
-		add(gitButton);
+		gitButton.setBorderPainted(false);
+		gitButton.setOpaque(false);
+		gitButton.setBackground(Color.white);
+		subConstraints.gridx = 0;
+		subConstraints.gridy = 1;
+		add(gitButton, subConstraints);
 		
 		//add(new JSeparator(SwingConstants.HORIZONTAL));
 		String sqlUrl = "http://www.w3schools.com/sql/";
 		JButton sqlButton = createTabButton("Sql", sqlUrl);
-
-		add(sqlButton);
+		sqlButton.setBorderPainted(false);
+		sqlButton.setOpaque(false);
+		sqlButton.setBackground(Color.white);
+		subConstraints.gridx = 0;
+		subConstraints.gridy = 2;
+		add(sqlButton, subConstraints);
 		
 		String driverInfoUrl = "http://www.google.com";
 		JButton driverButton = createTabButton("Driver", driverInfoUrl);
-		add(driverButton);
+		driverButton.setBorderPainted(false);
+		driverButton.setOpaque(false);
+		driverButton.setBackground(Color.white);
+		subConstraints.gridx = 0;
+		subConstraints.gridy = 3;
+		add(driverButton, subConstraints);
 		
 		String derbyUrl = "https://db.apache.org/derby/";
 		JButton derbyButton = createTabButton("Derby", derbyUrl);
-		add(derbyButton);
+		derbyButton.setBorderPainted(false);
+		derbyButton.setOpaque(false);
+		derbyButton.setBackground(Color.white);
+		subConstraints.gridx = 0;
+		subConstraints.gridy = 4;
+		add(derbyButton, subConstraints);
 		
 		String jenkinsUrl = "https://jenkins-ci.org/";
 		JButton jenkinsButton = createTabButton("Jenkins", jenkinsUrl);
-		add(jenkinsButton);
+		jenkinsButton.setBorderPainted(false);
+		jenkinsButton.setOpaque(false);
+		jenkinsButton.setBackground(Color.white);
+		subConstraints.gridx = 0;
+		subConstraints.gridy = 5;
+		add(jenkinsButton, subConstraints);
 		
 		//TODO: add links to preferences page as well as help within app
 	}
