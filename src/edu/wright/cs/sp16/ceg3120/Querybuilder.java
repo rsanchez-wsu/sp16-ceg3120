@@ -131,8 +131,10 @@ public class Querybuilder {
 			frame.repaint();
 			for (int i = 0; i < out.length; i++) {
 				for (int j = 0; j < out[0].length; j++) {
-					System.out.println(out[i][j]);
+					System.out.print(out[i][j]);
+					System.out.print(",");
 				}
+				System.out.println("");
 			}
 		}
 	}
