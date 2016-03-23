@@ -42,7 +42,9 @@ public class QueryBuilderWindow {
 	 * default constructor to build the query builder window.
 	 */
 	public QueryBuilderWindow() {
+		createQueryBuilder();
 	}
+	
 	/**
 	 * create the query builder window.
 	 */
