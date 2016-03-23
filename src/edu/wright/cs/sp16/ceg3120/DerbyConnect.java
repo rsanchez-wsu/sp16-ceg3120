@@ -108,8 +108,8 @@ public class DerbyConnect extends DatabaseConnector {
 	public String[][] executeQuery(String query) {
 		String [][] table = null;
 		StringBuilder builder = new StringBuilder();
-		JTable T1 = new JTable();
-		DefaultTableModel dT = new DefaultTableModel();
+		JTable tOne = new JTable();
+		DefaultTableModel dt = new DefaultTableModel();
 		try (
 				Statement input = conn.createStatement();
 				ResultSet rs = input.executeQuery(query)) {
@@ -127,23 +127,28 @@ public class DerbyConnect extends DatabaseConnector {
 			int rowCounter = 0;
 			// Iterate through all data returned and append to string
 			// result.
+			dt.setColumnCount(columnsNumber);
+			dt.setRowCount(row);
 			while (rs.next()) {
-				for (int i = 1; i <= columnsNumber; i++) {
+				for (int i = 0; i < columnsNumber; i++) {
 					if (i > 1) {
 						builder.append(",  ");
 						String columnValue = rs.getString(i);
 						table[rowCounter][i] = columnValue;
+						//possible fix
+						dt.setValueAt(columnValue,rowCounter,i);
+						
 						builder.append(columnValue + " " + rsmd.getColumnName(i));
 					}
 				}
 				System.out.println("");
 				rowCounter++;
 			}
-			//dT.setValueAt(Object aValue,int row,int column);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		tOne.setModel(dt);
 		return table;
 	}
 
