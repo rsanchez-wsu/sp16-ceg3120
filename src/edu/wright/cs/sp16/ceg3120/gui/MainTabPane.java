@@ -59,7 +59,8 @@ public class MainTabPane extends JTabbedPane {
 		newConnectionTab = new NewConnectionTab();
 
 		// TODO: add icon, add better tool tip
-		addTab(TabNames.NewConnection.toString(), null, newConnectionTab, "Make a connection here!!");
+		addTab(TabNames.NewConnection.toString(), null, newConnectionTab,
+				"Make a connection here!!");
 	}
 	
 	/**
@@ -97,16 +98,16 @@ public class MainTabPane extends JTabbedPane {
 	// property getters
 	
 	/**
-	 * "New connection tab" property getter.
-	 * @return 
+	 * "New connection" property getter.
+	 * @return "New connection" tab.
 	 */
 	public NewConnectionTab getNewConnectionTab() {
 		return newConnectionTab;
 	}
 	
 	/**
-	 * "Connection tab" property setter.
-	 * @return 
+	 * "Connection" tab property setter.
+	 * @return "Connection" tab.
 	 */
 	public ConnectionTab getConnectionTab() {
 		return connectionTab;
@@ -116,7 +117,7 @@ public class MainTabPane extends JTabbedPane {
 	
 	/**
 	 * "New connection tab" property setter.
-	 * @param nct what you want to replace the "New connection tab" with.s
+	 * @param nct what you want to replace the "New connection tab" with.
 	 */
 	public void setNewConnectionTab(NewConnectionTab nct) {
 		newConnectionTab = nct;

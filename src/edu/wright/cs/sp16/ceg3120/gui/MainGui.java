@@ -66,7 +66,8 @@ public class MainGui extends JFrame implements ActionListener {
 	}
 	
 	/**
-	 * Creates the tab pane that holds all the tabs for the application.
+	 * Creates the tab pane that holds all the tabs for the
+	 * application.
 	 */
 	private void createTabPane() {
 		tabPane = new MainTabPane();
@@ -150,12 +151,11 @@ public class MainGui extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent actionEvent) {
 		if (actionEvent.getSource().equals(exitItem)) {
 			// Close application
-			
 			setVisible(false);
 			dispose();
 		} else if (actionEvent.getSource().equals(fullScreenItem)) {
 			
-			// Make application fullscreen
+			// Make application full screen
 			if (isFullScreen == false) {
 				isFullScreen = true;
 				fullScreenItem.setText("Undo Full Screen");
@@ -214,4 +214,6 @@ public class MainGui extends JFrame implements ActionListener {
 
 	private JMenuItem aboutMenuItem;
 	private JMenuItem welcomeMenuItem;
+	
+	
 }

@@ -82,10 +82,8 @@ public class NewConnectionDetailsPane extends JPanel {
 	private JLabel inputLabel8 = new JLabel("Alias Name");
 
 	// new buttons
-	// private JButton save = new JButton("Save");
 	private JButton clear = new JButton("Clear");
 	private JButton connect = new JButton("Connect");
-	// private JButton exit = new JButton("Exit");
 
 	// input fields for the labels
 	private static JTextField name = new JTextField(10);
@@ -111,16 +109,13 @@ public class NewConnectionDetailsPane extends JPanel {
 	private JPanel inputPanel4 = new JPanel();
 	private JPanel inputPanel5 = new JPanel();
 	private JPanel inputPanel6 = new JPanel();
-	// private JPanel connectPanel = new JPanel();
 	private JPanel bigPanel = new JPanel();
 	private static JPanel svAlias = new JPanel();
 
 	// ActionListener for clear button
 	private static ActionListener clearListener = new ClearListener();
 	private static ActionListener aliasListener = new AliasListener();
-	// private static ActionListener saveListener = new SaveListener();
 	private static ActionListener connectListener = new ConnectListener();
-	// private ActionListener exitListener = new ExitListener();
 
 	/**
 	 * Constructor.
@@ -272,19 +267,33 @@ public class NewConnectionDetailsPane extends JPanel {
 	 */
 	private void createBigPanel() {
 		bigPanel.setLayout(new GridLayout(7, 1));
+		
 		createInput1Panel();
+		
 		bigPanel.add(inputPanel1);
+		
 		createInput2a2Panel();
+		
 		bigPanel.add(inputPanel2a2);
+		
 		createInput2Panel();
+		
 		bigPanel.add(inputPanel2);
+		
 		createInput3Panel();
+		
 		bigPanel.add(inputPanel3);
+		
 		createInput4Panel();
+		
 		bigPanel.add(inputPanel4);
+		
 		createInput5Panel();
+		
 		bigPanel.add(inputPanel5);
+		
 		createInput6Panel();
+		
 		bigPanel.add(inputPanel6);
 	}
 
@@ -293,17 +302,15 @@ public class NewConnectionDetailsPane extends JPanel {
 	 */
 	private void createControlPanel() {
 		controlPanel.setLayout(new GridLayout(1, 2));
-		// connectPanel.setLayout(new GridLayout(1, 2));
-		// connectPanel.add(connect);
+		
 		buttonPanel.setLayout(new GridLayout(1, 2));
-		// buttonPanel.add(save);
 		buttonPanel.add(connect);
 		buttonPanel.add(clear);
+		
 		clear.addActionListener(clearListener);
-		// save.addActionListener(saveListener);
+		
 		connect.addActionListener(connectListener);
-		// exit.addActionListener(exitListener);
-		// controlPanel.add(connectPanel);
+		
 		controlPanel.add(buttonPanel);
 	}
 	
@@ -353,12 +360,8 @@ public class NewConnectionDetailsPane extends JPanel {
 						username.setText(curElement.getElementsByTagName("userName").item(0)
 								.getTextContent());
 						curElement = (Element) curElement.getElementsByTagName("password").item(0);
-						//String holdPass = curElement.getTextContent();
-						//String holdSalt = curElement.getElementsByTagName("salt").item(0)
-						//		.getTextContent();
-						// final PasswordEncryptionService pes = new
-						// PasswordEncryptionService();
-						// password.setText(pes.deCrypt(holdPass, holdSalt));
+						
+						
 						password.setText("this is broken right now");
 						driver.setSelectedIndex(1);
 						savePassword.setSelected(Boolean.valueOf(curElement.getAttribute("saved")));
@@ -374,6 +377,8 @@ public class NewConnectionDetailsPane extends JPanel {
 
 		}
 	}
+	
+	/* TODO move listeners to GUI listeners */
 
 	/**
 	 * make connect button work.
@@ -501,9 +506,11 @@ public class NewConnectionDetailsPane extends JPanel {
 			String dbUsername = username.getText();
 			String dbPassword = password.getText();
 			String dbDriver = driver.getSelectedItem().toString();
+			
 			int sv = JOptionPane.showConfirmDialog(svAlias, 
 					"Do you want to save " + alias.getText() + " alias?", 
 					"Save Alias?", JOptionPane.YES_NO_CANCEL_OPTION);
+			
 			if (sv == JOptionPane.YES_OPTION) {
 				String passA = "";
 				String saltA = "";
@@ -620,5 +627,4 @@ public class NewConnectionDetailsPane extends JPanel {
 			alias.grabFocus();
 		}
 	}
-	// end of CreateWindow
 }
