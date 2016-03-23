@@ -31,17 +31,22 @@ import java.awt.event.ActionListener;
  *
  */
 public class ButtonClickAction implements ActionListener  {
+	private MainTabPane parentPane;
 	
-	public ButtonClickAction(MainTabPane mtp) {
-		mainTabPane = mtp;
+	/**Initial constructor to bring in parent pane instance.
+	 * @author Alex
+	 * 
+	 */
+	public ButtonClickAction(MainTabPane pane) {
+		parentPane = pane;
 	}
-	
+	//action event for clicking on a url.
 	@Override
 	public void actionPerformed(ActionEvent evt) {
-		mainTabPane.addLearnAndDiscoverTab();
-
+		MainTabPane mainPane = parentPane;
+		
+		if (!mainPane.checkLearnDiscoverStatus()) {
+			mainPane.addLearnAndDiscoverTab();
+		}
 	}
-	
-	// properties 
-	MainTabPane mainTabPane;
 }

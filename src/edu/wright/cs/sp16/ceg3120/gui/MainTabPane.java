@@ -38,7 +38,7 @@ import javax.swing.JTabbedPane;
 public class MainTabPane extends JTabbedPane {
 	
 	private static final long serialVersionUID = 1147338263638840061L;
-
+	boolean isLearnDiscoverOpen = false;
 
 	/**
 	 * Creates the MainTabPane and starts up a "Start Page" tab.
@@ -50,12 +50,19 @@ public class MainTabPane extends JTabbedPane {
 		addConnectionTab();
 	}
 
+	/** Check if Learn and Discover tab is already created.
+	 * @author Alex
+	 */
+	public boolean checkLearnDiscoverStatus() {
+		return isLearnDiscoverOpen;
+	}
+	
 	/**Initialize learn and discover tab.
 	 *@author Alex
 	 */
 	public void addLearnAndDiscoverTab() {
 		LearnAndDiscoverTab learnDiscoverTab = new LearnAndDiscoverTab();
-		
+		isLearnDiscoverOpen = true;
 		addTab("Learn and Discover", null, learnDiscoverTab, null);
 	}
 	
