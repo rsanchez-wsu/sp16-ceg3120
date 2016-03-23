@@ -19,7 +19,7 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120;
+package edu.wright.cs.sp16.ceg3120.gui.listeners;
 
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
@@ -30,19 +30,25 @@ import java.net.URI;
 
 import java.net.URISyntaxException;
 
+import javax.swing.JButton;
+
 /**Action event to handle clicking on a url in the interface.
- * @author Blizzri
+ * @author Alex
  *
  */
-class OpenUrlAction implements ActionListener  {
+public class OpenUrlAction implements ActionListener  {
 	
 	//action event for clicking on a url.
 	@Override
 	public void actionPerformed(ActionEvent evt) {
 		
+		//gather url from click event source
+		JButton tempLabel = (JButton) evt.getSource();
+		
 		URI uri;
+		
 		try {
-			uri = new URI("www.google.com");
+			uri = new URI(tempLabel.getToolTipText());
 			open(uri);
 		} catch (URISyntaxException e1) {
 			e1.printStackTrace();
@@ -50,7 +56,7 @@ class OpenUrlAction implements ActionListener  {
 	}
 	
 	/**Check if supported, open associated uri for user.
-	 * @author Blizzri
+	 * @author Alex
 	 *
 	 */
 	private static void open(URI uri) {

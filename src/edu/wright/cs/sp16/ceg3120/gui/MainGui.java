@@ -43,6 +43,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
 import javax.swing.text.DefaultEditorKit;
 
 /**
@@ -58,7 +59,6 @@ public class MainGui extends JFrame implements ActionListener {
 	private JMenuItem fullScreenItem = null;
 	private JMenuItem connect = null;
 	private JMenuItem openItem;
-	private JMenuItem helpItem;
 	private MainTabPane tabPane = null;
 	private JMenuItem saveItem = null;
 	private JMenuItem saveAsItem = null;
@@ -72,11 +72,6 @@ public class MainGui extends JFrame implements ActionListener {
 	private JMenuItem copyItem;
 	private JMenuItem pasteItem;
 	private JMenuItem replaceItem;
-	
-	//private StartPageTab startPage = null;
-	private boolean isFullScreen = false;
-
-	
 	
 	/**
 	 * The constructor method that initializes the main application window.
@@ -99,7 +94,8 @@ public class MainGui extends JFrame implements ActionListener {
 	}
 	
 	/**
-	 * Creates the tab pane that holds all the tabs for the application.
+	 * Creates the tab pane that holds all the tabs for the
+	 * application.
 	 */
 	private void createTabPane() {
 		tabPane = new MainTabPane();
@@ -344,6 +340,8 @@ public class MainGui extends JFrame implements ActionListener {
 		
 		
 		// Help menu
+		/*
+<<<<<<< HEAD
 		final JMenu help = new JMenu("Help");
 		help.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
@@ -411,6 +409,23 @@ public class MainGui extends JFrame implements ActionListener {
 		});
 		
 		help.add(helpItem);
+=======*/
+		JMenu help = new JMenu("Help");
+		
+		welcomeMenuItem = new JMenuItem("Welcome");
+		welcomeMenuItem.addActionListener(this);
+		
+		help.add(welcomeMenuItem);
+		
+		help.addSeparator();
+		
+		aboutMenuItem = new JMenuItem("About");
+		aboutMenuItem.addActionListener(this);
+		
+		help.add(aboutMenuItem);
+		
+
+//>>>>>>> fc4ff12e2a0f8d6a84f7f5a572205343703e800a
 
 		JMenuBar menuBar = new JMenuBar();
 
@@ -432,12 +447,11 @@ public class MainGui extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent actionEvent) {
 		if (actionEvent.getSource().equals(exitItem)) {
 			// Close application
-			
 			setVisible(false);
 			dispose();
 		} else if (actionEvent.getSource().equals(fullScreenItem)) {
 			
-			// Make application fullscreen.
+			// Make application full screen
 			if (isFullScreen == false) {
 				isFullScreen = true;
 				fullScreenItem.setText("Undo Full Screen");
@@ -453,6 +467,7 @@ public class MainGui extends JFrame implements ActionListener {
 				fullScreenItem.setToolTipText("Make application full screen");
 				setSize(960, 600);
 			}
+//<<<<<<< HEAD
 		} else if (actionEvent.getSource().equals(openItem)) {
 			
 			// JFileChooser to browse and open the sql file
@@ -482,9 +497,29 @@ public class MainGui extends JFrame implements ActionListener {
 				File savedFile = fileChooser.getSelectedFile();
 				System.out.println("Save file: " + savedFile.getAbsolutePath());
 			}
+//==z=====
+		} else if (actionEvent.getSource().equals(aboutMenuItem)) {	
+			//create a new frame About and set its properties
+			JFrame frameAbout = new JFrame("About"); 
+			makeDisabled();
+			JLabel labelName = new JLabel("About");
+			JLabel labelVersion = new JLabel("Version 0.0.0.0");
+
+			frameAbout.getContentPane().add(labelName);
+			frameAbout.getContentPane().add(labelVersion);
+			
+			frameAbout.setSize(300, 300);
+			frameAbout.setLocationRelativeTo(null);
+			frameAbout.setVisible(true);
+			frameAbout.addWindowListener(new WindowAdapter() {
+				public void windowClosing(WindowEvent ev) {
+					makeEnabled();
+				}
+			});
+//>>>>>>> fc4ff12e2a0f8d6a84f7f5a572205343703e800a
 		}
 	}
-	
+
 	/**
 	 * Disables the main window.
 	 */
@@ -499,6 +534,7 @@ public class MainGui extends JFrame implements ActionListener {
 		setEnabled(true);
 	}
 	
+//<<<<<<< HEAD
 	/**
 	 * AboutSQLizard JMenuItem.
 	 */
@@ -587,5 +623,16 @@ public class MainGui extends JFrame implements ActionListener {
 				"Connection Tutorial", 
 				JOptionPane.INFORMATION_MESSAGE);
 	}
+//=======
+	// properties
+	//private JMenuItem exitItem = null;
+	//private JMenuItem fullScreenItem = null;
+	//private MainTabPane tabPane = null;
+	private boolean isFullScreen = false;
+//>>>>>>> fc4ff12e2a0f8d6a84f7f5a572205343703e800a
 
+	private JMenuItem aboutMenuItem;
+	private JMenuItem welcomeMenuItem;
+	
+	
 }

@@ -19,7 +19,7 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120.gui;
+package edu.wright.cs.sp16.ceg3120.gui.other;
 
 import java.awt.Toolkit;
 
@@ -54,7 +54,7 @@ public class SplashScreen {
 		
 		//provide splash screen loading effect
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

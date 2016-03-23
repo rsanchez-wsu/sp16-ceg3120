@@ -21,6 +21,8 @@
 
 package edu.wright.cs.sp16.ceg3120.gui;
 
+import edu.wright.cs.sp16.ceg3120.gui.other.SplashScreen;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 

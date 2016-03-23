@@ -19,42 +19,38 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120.gui;
+package edu.wright.cs.sp16.ceg3120.gui.tabs;
+
+import edu.wright.cs.sp16.ceg3120.gui.tabs.components.NewConnectionDetailsPane;
+
+import javax.swing.JPanel;
 
 /**
- * Created by Sam on 2/13/2016.'
- * Enums for our Tab Names for clarity in code
+ * The tab that contains all the components for creating a new connection.
+ * 
+ * @author cody
+ *
  */
-public enum TabNames {
+public class NewConnectionTab extends JPanel {
 
-	Connection {
-		@Override
-		public String toString() {
-			return "Connection";
-		}
-	},
-	Help {
-		@Override
-		public String toString() {
-			return "Help Page";
-		}
-	},
-	NewConnection {
-		@Override
-		public String toString() {
-			return "New Connection";
-		}
-	},
-	BackupExport {
-		@Override
-		public String toString() {
-			return "Backup/Export";
-		}
-	},
-	Start {
-		@Override
-		public String toString() {
-			return "Start Page";
-		}
+	private static final long serialVersionUID = -2518312376192094011L;
+
+	/**
+	 * Default constructor, initializes components.
+	 */
+	public NewConnectionTab() {
+		super();
+
+		initComponents();
+	}
+
+	/**
+	 * TODO: create all components for this window and initialize them here.
+	 */
+	private void initComponents() {
+
+		NewConnectionDetailsPane pane = new NewConnectionDetailsPane();
+		
+		add(pane);
 	}
 }
