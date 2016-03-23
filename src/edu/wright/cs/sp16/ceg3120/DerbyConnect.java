@@ -29,6 +29,9 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.*;
+import javax.swing.table.*;
+
 /**
  * This will create a derby database to connect to within the application.
  * 
@@ -104,39 +107,43 @@ public class DerbyConnect extends DatabaseConnector {
 			"We specifically want to allow the user to execute arbitrary Derby")
 	public String[][] executeQuery(String query) {
 		String [][] table = null;
-//		try (
-//				Statement input = conn.createStatement();
-//				ResultSet rs = input.executeQuery(query)) {
-//			// ResulSetMetaData does not implement AutoClosable() so it
-//			// cannot be handled by try-with-resources.
-//			ResultSetMetaData rsmd = null;
-//			// Try to read the result set and its meta data and print out to
-//			// string.
-//			rsmd = rs.getMetaData();
-//			rs.last();
-//			int row = rs.getRow();
-//			rs.beforeFirst();
-//			int columnsNumber = rsmd.getColumnCount();
-//			table = new String[row][columnsNumber];
-//			int rowCounter = 0;
-//			// Iterate through all data returned and append to string
-//			// result.
-//			while (rs.next()) {
-//				for (int i = 1; i <= columnsNumber; i++) {
-//					if (i > 1) {
-//						builder.append(",  ");
-//						String columnValue = rs.getString(i);
-//						table[rowCounter][i] = columnValue;
-//						builder.append(columnValue + " " + rsmd.getColumnName(i));
-//					}
-//				}
-//				System.out.println("");
-//				rowCounter++;
-//			}
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		StringBuilder builder = new StringBuilder();
+		JTable T1 = new JTable();
+		DefaultTableModel dT = new DefaultTableModel();
+		try (
+				Statement input = conn.createStatement();
+				ResultSet rs = input.executeQuery(query)) {
+			// ResulSetMetaData does not implement AutoClosable() so it
+			// cannot be handled by try-with-resources.
+			ResultSetMetaData rsmd = null;
+			// Try to read the result set and its meta data and print out to
+			// string.
+			rsmd = rs.getMetaData();
+			rs.last();
+			int row = rs.getRow();
+			rs.beforeFirst();
+			int columnsNumber = rsmd.getColumnCount();
+			table = new String[row][columnsNumber];
+			int rowCounter = 0;
+			// Iterate through all data returned and append to string
+			// result.
+			while (rs.next()) {
+				for (int i = 1; i <= columnsNumber; i++) {
+					if (i > 1) {
+						builder.append(",  ");
+						String columnValue = rs.getString(i);
+						table[rowCounter][i] = columnValue;
+						builder.append(columnValue + " " + rsmd.getColumnName(i));
+					}
+				}
+				System.out.println("");
+				rowCounter++;
+			}
+			//dT.setValueAt(Object aValue,int row,int column);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return table;
 	}
 
