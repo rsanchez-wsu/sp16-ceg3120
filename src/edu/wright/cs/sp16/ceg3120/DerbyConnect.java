@@ -108,7 +108,7 @@ public class DerbyConnect extends DatabaseConnector {
 	public String[][] executeQuery(String query) {
 		String [][] table = null;
 		StringBuilder builder = new StringBuilder();
-		JTable tOne = new JTable();
+		JTable t1 = new JTable();
 		DefaultTableModel dt = new DefaultTableModel();
 		try (
 				Statement input = conn.createStatement();
@@ -133,7 +133,7 @@ public class DerbyConnect extends DatabaseConnector {
 				for (int i = 0; i < columnsNumber; i++) {
 					if (i > 1) {
 						builder.append(",  ");
-						String columnValue = rs.getString(i);
+						String columnValue = rs.getString(i + 1);
 						table[rowCounter][i] = columnValue;
 						//possible fix
 						dt.setValueAt(columnValue,rowCounter,i);
@@ -148,7 +148,7 @@ public class DerbyConnect extends DatabaseConnector {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		tOne.setModel(dt);
+		t1.setModel(dt);
 		return table;
 	}
 
