@@ -22,6 +22,7 @@
 package edu.wright.cs.sp16.ceg3120.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
@@ -48,13 +49,23 @@ public class QueryBuilderWindow {
 	public static void createQueryBuilder() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout(5,10));
-		JButton run = new JButton("Run");
-		JEditorPane input = new JEditorPane();
-		JTable output = new JTable();
 		
+		JEditorPane input = new JEditorPane();
 		panel.add(input, BorderLayout.NORTH);
+		
+		JButton run = new JButton("Run");
 		panel.add(run, BorderLayout.WEST);
+		
+		JButton clear = new JButton("Clear");
+		panel.add(clear, BorderLayout.EAST);
+		
+		JTable output = new JTable();
 		panel.add(output, BorderLayout.SOUTH);
+			
+		input.setPreferredSize(new Dimension(500, 200));
+		run.setPreferredSize(new Dimension(100, 100));
+		clear.setPreferredSize(new Dimension(100, 100));
+		output.setPreferredSize(new Dimension(500, 200));
 		
 		JFrame frame = new JFrame("Query Builder");
 		frame.add(panel);
