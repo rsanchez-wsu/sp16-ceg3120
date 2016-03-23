@@ -22,8 +22,10 @@
 package edu.wright.cs.sp16.ceg3120;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -95,7 +97,7 @@ public class MainApp {
 		final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		frmSqlizard.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		
-
+		
 		
 		JMenuBar menuBar = new JMenuBar();
 		frmSqlizard.setJMenuBar(menuBar);
@@ -114,14 +116,27 @@ public class MainApp {
 		JMenu mnEdit = new JMenu("Edit");
 		menuBar.add(mnEdit);
 		
-		JMenuItem mntmPreferences = new JMenuItem("PreferencesPanel");
+		JMenuItem mntmPreferences = new JMenuItem("Preferences");
 		mntmPreferences.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent preferences) {
-				int index = tabbedPane.indexOfTab("User PreferencesPanel");
+				String paneTitle = "User Preferences";
+				int index = tabbedPane.indexOfTab(paneTitle);
 				if (index == -1) {
-					PreferencesPanel preferences1 = new PreferencesPanel();
-					tabbedPane.addTab("User PreferencesPanel", preferences1);
+					JButton btnClose = new JButton("Close");
+					btnClose.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							Component selected = tabbedPane.getSelectedComponent();
+								if (selected != null) {
+									tabbedPane.remove(selected);
+								}
+							}
+					});
+					btnClose.setVisible(true);
+					PreferencesPanel preferences1 = new PreferencesPanel(btnClose);
+					preferences1.add(btnClose);
+					
+					tabbedPane.addTab(paneTitle, preferences1);
 				}
 			}
 		});
@@ -134,8 +149,21 @@ public class MainApp {
 				//TODO ??
 				int index = tabbedPane.indexOfTab("Queries Panel");
 				if (index == -1) {
-					Queries queries1 = new Queries();
+					JButton btnClose = new JButton("Close");
+					btnClose.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							Component selected = tabbedPane.getSelectedComponent();
+								if (selected != null) {
+									tabbedPane.remove(selected);
+								}
+							}
+					});
+					btnClose.setVisible(true);
+
+					Queries queries1 = new Queries(btnClose);
+					queries1.add(btnClose);
 					tabbedPane.addTab("Queries Panel", queries1);
+
 				}
 			}
 		});
@@ -155,17 +183,6 @@ public class MainApp {
 		
 		
 		
-	}
-	
-	/**
-	 * This will remove tabs from the tabbed pane.
-	 * @param title A string containing the title of the tab to be closed.
-	 */
-	static void removeTab(String title) {
-		int index = tabbedPane.indexOfTab(title);
-		if ( index != -1) {
-			tabbedPane.removeTabAt(index);
-		}
 	}
 	
 	/**
