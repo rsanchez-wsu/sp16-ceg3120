@@ -76,8 +76,12 @@ public class QueryBuilderWindow {
 		frame.setVisible(true);
 			
 	}
-	
-	public static void main(String[] args){
+	/**
+	 * Created a main method to test the query builder window for now.
+	 * Will eventually incorporate into a tab within the Connection tab.
+	 * @param args.
+	 */
+	public static void main(String[] args) {
 		createQueryBuilder();
 	}
 }
