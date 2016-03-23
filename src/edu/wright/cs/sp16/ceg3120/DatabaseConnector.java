@@ -21,6 +21,8 @@
 
 package edu.wright.cs.sp16.ceg3120;
 
+import java.sql.SQLException;
+
 /**
  * 
  * @author Kenton Dover.
@@ -31,7 +33,8 @@ public abstract class DatabaseConnector {
 	 * Generic class to provide interface for all the different drivers.
 	 * 
 	 */
-	public void executeQuery() {
+	public String[][] executeQuery(String in) throws SQLException {
+		return null;
 	}
 
 }

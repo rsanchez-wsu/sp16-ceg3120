@@ -234,7 +234,7 @@ public class CreateWindow extends JFrame {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				} finally {
-					testConnection(isConnected(), postConnect);
+					//testConnection(isConnected(), postConnect);
 				}
 				break;
 			// Derby Driver
@@ -269,7 +269,7 @@ public class CreateWindow extends JFrame {
 		} else {
 			// will close the window if the connection is successful.
 			getFrame().dispose();
-			// final Querybuilder qbuilder = new Querybuilder(connector);
+			final Querybuilder qbuilder = new Querybuilder(connector);
 			// qbuilder.setVisible(true);
 			// qbuilder.pack();
 			// qbuilder.setLocationRelativeTo(null);
