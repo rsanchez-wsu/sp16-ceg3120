@@ -21,6 +21,8 @@
 
 package edu.wright.cs.sp16.ceg3120.sql;
 
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -28,7 +30,6 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
 
 // import com.puppycrawl.tools.checkstyle.api.Configurable;
 
@@ -38,7 +39,7 @@ import javax.swing.JPanel;
  */
 
 public class DbConnect {
-	
+
 	private JPanel successPanel = new JPanel();
 
 	private String dbAddress;
@@ -46,22 +47,26 @@ public class DbConnect {
 	private String dbPassword;
 	private String dbName;
 	private MysqlDataSource dataSource = new MysqlDataSource();
-	
+
 	/**
 	 * DbConnect is just a place holder constructor.
 	 */
 	public DbConnect() {
-		
+
 	}
-	
+
 	/**
-	 * DbConnect is the default constructor that the DbConnect class has.
-	 * after this is done call the configure method to set up the db
-	 * connection.
-	 * @param dbAddress database address
-	 * @param dbUsername database username
-	 * @param dbPassword database password
-	 * @param dbName database name
+	 * DbConnect is the default constructor that the DbConnect class has. after
+	 * this is done call the configure method to set up the db connection.
+	 * 
+	 * @param dbAddress
+	 *            database address
+	 * @param dbUsername
+	 *            database username
+	 * @param dbPassword
+	 *            database password
+	 * @param dbName
+	 *            database name
 	 */
 	public DbConnect(String dbAddress, String dbUsername, String dbPassword, String dbName) {
 		setDbAddress(dbAddress);
@@ -69,10 +74,12 @@ public class DbConnect {
 		setDbPassword(dbPassword);
 		setDbName(dbName);
 	}
-	
+
 	/**
 	 * sets up the database connection.
-	 * @throws SQLException when sql conncetion cant be made 
+	 * 
+	 * @throws SQLException
+	 *             when sql conncetion cant be made
 	 */
 	public void configure() throws SQLException {
 		dataSource.setUser(getDbUsername());
@@ -85,7 +92,7 @@ public class DbConnect {
 			try {
 
 				ResultSet rs = stmt.executeQuery("SELECT * FROM inventory");
-			
+
 				ResultSetMetaData rsmd = rs.getMetaData();
 				int columnsNumber = rsmd.getColumnCount();
 				while (rs.next()) {
@@ -99,7 +106,7 @@ public class DbConnect {
 					System.out.println("");
 				}
 				JOptionPane.showMessageDialog(successPanel, "Connection successful");
-			
+
 				rs.close();
 				stmt.close();
 				conn.close();
@@ -109,7 +116,7 @@ public class DbConnect {
 				conn.close();
 				System.out.println("If you see this, you failed to connect!");
 				System.out.println(SqlEx.getMessage());
-				
+
 			} finally {
 				stmt.close();
 				conn.close();
@@ -121,9 +128,10 @@ public class DbConnect {
 			conn.close();
 		}
 	}
-	
+
 	/**
 	 * returns dbadrress.
+	 * 
 	 * @return string
 	 */
 	public String getDbAddress() {
@@ -132,14 +140,17 @@ public class DbConnect {
 
 	/**
 	 * sets dbaddress.
-	 * @param dbAddress database address
+	 * 
+	 * @param dbAddress
+	 *            database address
 	 */
 	public void setDbAddress(String dbAddress) {
 		this.dbAddress = dbAddress;
 	}
-	
+
 	/**
 	 * returns dbusername.
+	 * 
 	 * @return string
 	 */
 	public String getDbUsername() {
@@ -148,7 +159,9 @@ public class DbConnect {
 
 	/**
 	 * sets dbusername.
-	 * @param dbUsername database username
+	 * 
+	 * @param dbUsername
+	 *            database username
 	 */
 	public void setDbUsername(String dbUsername) {
 		this.dbUsername = dbUsername;
@@ -156,6 +169,7 @@ public class DbConnect {
 
 	/**
 	 * returns dbpassword.
+	 * 
 	 * @return string
 	 */
 	public String getDbPassword() {
@@ -164,7 +178,9 @@ public class DbConnect {
 
 	/**
 	 * sets dbpassword.
-	 * @param dbPassword database password
+	 * 
+	 * @param dbPassword
+	 *            database password
 	 */
 	public void setDbPassword(String dbPassword) {
 		this.dbPassword = dbPassword;
@@ -172,6 +188,7 @@ public class DbConnect {
 
 	/**
 	 * returns dbname.
+	 * 
 	 * @return string
 	 */
 	public String getDbName() {
@@ -180,85 +197,86 @@ public class DbConnect {
 
 	/**
 	 * sets dbname.
-	 * @param dbName database name
+	 * 
+	 * @param dbName
+	 *            database name
 	 */
 	public void setDbName(String dbName) {
 		this.dbName = dbName;
 	}
 
-	
-//	/**
-//	 * main method contains the code to connect to the test database.
-//	 * 
-//	 * 
-//	 * @param args
-//	 *            default arguments
-//	 * @throws SQLException
-//	 *             Checkstyle satisfaction
-//	 */
-//	public static void main(String[] args) throws SQLException {
-//		Scanner input = new Scanner(System.in, "UTF-8");
-//		System.out.println("Welcome to the database connector!");
-//		System.out.print("Please enter the address of the database you wish to connect to: ");
-//		final String dbAddress = input.nextLine();
-//		System.out.print("\nPlease enter the username you wish to use: ");
-//		String dbUsername = input.nextLine();
-//		System.out.print("\nPlease enter the password for your username: ");
-//		String dbPassword = input.nextLine();
-//		System.out.print("\nPlease enter the database name: ");
-//		String dbName = input.nextLine();
-//		// Test output to make sure variables are correct
-//		// System.out.println(db_address + db_username + db_password);
-//
-//		com.mysql.jdbc.jdbc2.optional.MysqlDataSource dataSource =
-//				new com.mysql.jdbc.jdbc2.optional.MysqlDataSource();
-//		dataSource.setUser(dbUsername);
-//		dataSource.setPassword(dbPassword);
-//		dataSource.setServerName(dbAddress);
-//		dataSource.setDatabaseName(dbName);
-//		Connection conn = dataSource.getConnection();
-//		try {
-//			java.sql.Statement stmt = conn.createStatement();
-//			try {
-//
-//				ResultSet rs = stmt.executeQuery("SELECT * FROM inventory");
-//
-//				System.out.println("If you see this you connected!");
-//
-//				ResultSetMetaData rsmd = rs.getMetaData();
-//				int columnsNumber = rsmd.getColumnCount();
-//				while (rs.next()) {
-//					for (int i = 1; i <= columnsNumber; i++) {
-//						if (i > 1) {
-//							System.out.print(",  ");
-//							String columnValue = rs.getString(i);
-//							System.out.print(columnValue + " " + rsmd.getColumnName(i));
-//						}
-//					}
-//					System.out.println("");
-//				}
-//
-//				rs.close();
-//				stmt.close();
-//				conn.close();
-//
-//			} catch (SQLException SqlEx) {
-//				stmt.close();
-//				conn.close();
-//				System.out.println("If you see this, you failed to connect!");
-//				System.out.println(SqlEx.getMessage());
-//
-//			} finally {
-//				stmt.close();
-//				conn.close();
-//			}
-//			stmt.close();
-//			conn.close();
-//
-//		} finally {
-//			conn.close();
-//		}
-//
-//	}
+	// /**
+	// * main method contains the code to connect to the test database.
+	// *
+	// *
+	// * @param args
+	// * default arguments
+	// * @throws SQLException
+	// * Checkstyle satisfaction
+	// */
+	// public static void main(String[] args) throws SQLException {
+	// Scanner input = new Scanner(System.in, "UTF-8");
+	// System.out.println("Welcome to the database connector!");
+	// System.out.print("Please enter the address of the database you wish to
+	// connect to: ");
+	// final String dbAddress = input.nextLine();
+	// System.out.print("\nPlease enter the username you wish to use: ");
+	// String dbUsername = input.nextLine();
+	// System.out.print("\nPlease enter the password for your username: ");
+	// String dbPassword = input.nextLine();
+	// System.out.print("\nPlease enter the database name: ");
+	// String dbName = input.nextLine();
+	// // Test output to make sure variables are correct
+	// // System.out.println(db_address + db_username + db_password);
+	//
+	// com.mysql.jdbc.jdbc2.optional.MysqlDataSource dataSource =
+	// new com.mysql.jdbc.jdbc2.optional.MysqlDataSource();
+	// dataSource.setUser(dbUsername);
+	// dataSource.setPassword(dbPassword);
+	// dataSource.setServerName(dbAddress);
+	// dataSource.setDatabaseName(dbName);
+	// Connection conn = dataSource.getConnection();
+	// try {
+	// java.sql.Statement stmt = conn.createStatement();
+	// try {
+	//
+	// ResultSet rs = stmt.executeQuery("SELECT * FROM inventory");
+	//
+	// System.out.println("If you see this you connected!");
+	//
+	// ResultSetMetaData rsmd = rs.getMetaData();
+	// int columnsNumber = rsmd.getColumnCount();
+	// while (rs.next()) {
+	// for (int i = 1; i <= columnsNumber; i++) {
+	// if (i > 1) {
+	// System.out.print(", ");
+	// String columnValue = rs.getString(i);
+	// System.out.print(columnValue + " " + rsmd.getColumnName(i));
+	// }
+	// }
+	// System.out.println("");
+	// }
+	//
+	// rs.close();
+	// stmt.close();
+	// conn.close();
+	//
+	// } catch (SQLException SqlEx) {
+	// stmt.close();
+	// conn.close();
+	// System.out.println("If you see this, you failed to connect!");
+	// System.out.println(SqlEx.getMessage());
+	//
+	// } finally {
+	// stmt.close();
+	// conn.close();
+	// }
+	// stmt.close();
+	// conn.close();
+	//
+	// } finally {
+	// conn.close();
+	// }
+	//
+	// }
 }
-

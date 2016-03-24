@@ -19,8 +19,7 @@
  *
  */
 
-
-package edu.wright.cs.sp16.ceg3120.gui;
+package edu.wright.cs.sp16.ceg3120.gui.other;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -40,6 +39,7 @@ import javax.swing.JTextField;
 
 /**
  * Replace JDialog implementation.
+ * 
  * @author Devesh Amin
  *
  */
@@ -52,85 +52,85 @@ public class Replace extends JDialog {
 	private JLabel replacelbl = new JLabel("Replace: ");
 	private static JTextField wordToFind = new JTextField(10);
 	private static JTextField wordToReplace = new JTextField(10);
-	private static JTextArea textArea = new JTextArea(10,10);
+	private static JTextArea textArea = new JTextArea(10, 10);
 	private static JCheckBox caseSensitiveBox = new JCheckBox("Case Sensitive");
 	private static JButton findBtn = new JButton("Find Next");
 	private static JButton replaceBtn = new JButton("Replace");
 	private static JButton replaceAllBtn = new JButton("Relpace All");
 	private static JButton closeBtn = new JButton("Close");
-	
+
 	private JPanel tempTextPanel = new JPanel();
 	String str = "This is a temporary JTextArea. \nThis doesn't work completely.";
-	
+
 	static int initial;
 	static int index;
-	
+
 	/**
 	 * Constructor for Replace.
 	 */
 	public Replace() {
 		super(frame, "Replace");
-		
-		//panel to add all the labels and textfields and their position
+
+		// panel to add all the labels and textfields and their position
 		JPanel textPanel = new JPanel();
-		textPanel.setLayout(new GridLayout(3,2));
+		textPanel.setLayout(new GridLayout(3, 2));
 		textPanel.add(findlbl);
 		textPanel.add(wordToFind);
 		textPanel.add(replacelbl);
 		textPanel.add(wordToReplace);
 		textPanel.add(caseSensitiveBox);
 		getContentPane().add(textPanel, BorderLayout.NORTH);
-		
-		//panel to add all the button and their position
+
+		// panel to add all the button and their position
 		JPanel buttonPanel = new JPanel();
-		buttonPanel.setLayout(new GridLayout(1,4));
-		buttonPanel.add(findBtn);	
-		buttonPanel.add(replaceBtn);	
-		buttonPanel.add(replaceAllBtn);	
+		buttonPanel.setLayout(new GridLayout(1, 4));
+		buttonPanel.add(findBtn);
+		buttonPanel.add(replaceBtn);
+		buttonPanel.add(replaceAllBtn);
 		buttonPanel.add(closeBtn);
-		//close button listener - can't have this static
+		// close button listener - can't have this static
 		closeBtn.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				setVisible(false);	
+				setVisible(false);
 			}
 		});
-		
+
 		getContentPane().add(buttonPanel, BorderLayout.CENTER);
 
 		createFakeText();
 		getContentPane().add(tempTextPanel, BorderLayout.SOUTH);
-				
-		//size of entire frame
-		setSize(400,150);
-		
-		//call button listener to make button work
+
+		// size of entire frame
+		setSize(400, 150);
+
+		// call button listener to make button work
 		buttonListener();
 	} // end Replace constructor
-	
+
 	/**
 	 * Just a temp text panel and position.
 	 */
 	private void createFakeText() {
-		tempTextPanel.setLayout(new GridLayout(1,1));
+		tempTextPanel.setLayout(new GridLayout(1, 1));
 		textArea.setLineWrap(true);
 		textArea.setText(str);
 		tempTextPanel.add(textArea);
 	}
-	
+
 	/**
 	 * Find algorithm.
 	 */
 	private static void find() {
 		try {
 			String string = wordToFind.getText();
-			
+
 			if (string != null) {
 				String search = textArea.getText();
-				
+
 				boolean endSearch = false;
-				
+
 				while (!endSearch) {
 					if (caseSensi) {
 						index = search.indexOf(string, initial);
@@ -138,15 +138,14 @@ public class Replace extends JDialog {
 						index = search.toLowerCase(Locale.US)
 								.indexOf(string.toLowerCase(Locale.US), initial);
 					}
-					
+
 					if (index != -1) {
 						endSearch = true;
 						textArea.select(index, index + string.length());
 						initial = textArea.getCaretPosition();
 					} else {
 						endSearch = true;
-						JOptionPane.showMessageDialog(null, 
-								"\"" + string + "\"" + " not found ");
+						JOptionPane.showMessageDialog(null, "\"" + string + "\"" + " not found ");
 					}
 				}
 			}
@@ -155,7 +154,7 @@ public class Replace extends JDialog {
 			e.printStackTrace();
 		}
 	} // end find
-	
+
 	/**
 	 * ReplaceAll algorithm.
 	 */
@@ -168,7 +167,7 @@ public class Replace extends JDialog {
 			if (replacing.length() > 0) {
 				if (caseSensi) {
 					index = search.indexOf(string, initial);
-				} else { 
+				} else {
 					index = search.toLowerCase(Locale.US)
 							.indexOf(string.toLowerCase(Locale.US), initial);
 				}
@@ -181,17 +180,17 @@ public class Replace extends JDialog {
 						initial = initial + replacing.length() + 1;
 						search = textArea.getText();
 						index = search.indexOf(string, initial);
-					} //end while
+					} // end while
 				}
 			} // end first inner if
 		} // end most outer if
-	} //end replaceAll
-	
+	} // end replaceAll
+
 	/**
 	 * Replace algorithm.
 	 */
 	private static void replace() {
-		
+
 		String string = wordToFind.getText();
 		if (string != null) {
 			String replacer = wordToReplace.getText();
@@ -202,40 +201,40 @@ public class Replace extends JDialog {
 			}
 		}
 	} // end replace
-	
+
 	/**
 	 * Make all the button listen and work.
 	 */
 	private static void buttonListener() {
-		//find button listener
+		// find button listener
 		findBtn.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				find();
 			}
 		});
-		
-		//replaceAll button listener
+
+		// replaceAll button listener
 		replaceAllBtn.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				replaceAll();
 			}
 		});
-		
-		//replace button Listener
+
+		// replace button Listener
 		replaceBtn.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				replace();
-				
+
 			}
 		});
-		
-		//case sensitive combo box listener
+
+		// case sensitive combo box listener
 		caseSensitiveBox.addActionListener(new ActionListener() {
 
 			@Override
@@ -248,5 +247,5 @@ public class Replace extends JDialog {
 			}
 		});
 	} // end buttonListener;
-	
-} //end Replace class
+
+} // end Replace class

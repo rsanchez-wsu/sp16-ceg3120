@@ -27,11 +27,13 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-/**Learn and Discover tab, providing resources for helpful info lookup.
+/**
+ * Learn and Discover tab, providing resources for helpful info lookup.
  * 
  * @author Alex, sam
  */
@@ -40,8 +42,9 @@ public class LearnAndDiscoverTab extends JPanel {
 	private static final long serialVersionUID = -6246927473993559297L;
 	private GridBagLayout layout;
 	private GridBagConstraints gbc = new GridBagConstraints();
-	
-	/**Initialize the Learn and Discover tab.
+
+	/**
+	 * Initialize the Learn and Discover tab.
 	 * 
 	 * @author Alex
 	 */
@@ -49,17 +52,18 @@ public class LearnAndDiscoverTab extends JPanel {
 		super(new GridBagLayout());
 		initComponents();
 	}
-	
-	/**Create the Learn and Discover tab.
+
+	/**
+	 * Create the Learn and Discover tab.
 	 * 
 	 * @author Alex
 	 */
 	private void initComponents() {
-		
+
 		layout = new GridBagLayout();
 		this.setLayout(layout);
 		gbc.fill = GridBagConstraints.VERTICAL;
-		
+
 		// set size and positioning of components
 		GridBagConstraints subConstraints = new GridBagConstraints();
 		subConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
@@ -70,9 +74,9 @@ public class LearnAndDiscoverTab extends JPanel {
 		subConstraints.insets = new Insets(0, 10, 0, 0);
 		JLabel titleLabel = new JLabel("<html><h2>Learn and Discover</h2></html>");
 		add(titleLabel, subConstraints);
-		
-		//initialization of buttons, url links, add to page
-		String githubUrl = "https://github.com/rsanchez-wsu/sp16-ceg3120";		
+
+		// initialization of buttons, url links, add to page
+		String githubUrl = "https://github.com/rsanchez-wsu/sp16-ceg3120";
 		JButton gitButton = createTabButton("Git", githubUrl);
 		gitButton.setBorderPainted(false);
 		gitButton.setOpaque(false);
@@ -80,8 +84,8 @@ public class LearnAndDiscoverTab extends JPanel {
 		subConstraints.gridx = 0;
 		subConstraints.gridy = 1;
 		add(gitButton, subConstraints);
-		
-		//add(new JSeparator(SwingConstants.HORIZONTAL));
+
+		// add(new JSeparator(SwingConstants.HORIZONTAL));
 		String sqlUrl = "http://www.w3schools.com/sql/";
 		JButton sqlButton = createTabButton("Sql", sqlUrl);
 		sqlButton.setBorderPainted(false);
@@ -90,7 +94,7 @@ public class LearnAndDiscoverTab extends JPanel {
 		subConstraints.gridx = 0;
 		subConstraints.gridy = 2;
 		add(sqlButton, subConstraints);
-		
+
 		String driverInfoUrl = "http://www.google.com";
 		JButton driverButton = createTabButton("Driver", driverInfoUrl);
 		driverButton.setBorderPainted(false);
@@ -99,7 +103,7 @@ public class LearnAndDiscoverTab extends JPanel {
 		subConstraints.gridx = 0;
 		subConstraints.gridy = 3;
 		add(driverButton, subConstraints);
-		
+
 		String derbyUrl = "https://db.apache.org/derby/";
 		JButton derbyButton = createTabButton("Derby", derbyUrl);
 		derbyButton.setBorderPainted(false);
@@ -108,7 +112,7 @@ public class LearnAndDiscoverTab extends JPanel {
 		subConstraints.gridx = 0;
 		subConstraints.gridy = 4;
 		add(derbyButton, subConstraints);
-		
+
 		String jenkinsUrl = "https://jenkins-ci.org/";
 		JButton jenkinsButton = createTabButton("Jenkins", jenkinsUrl);
 		jenkinsButton.setBorderPainted(false);
@@ -117,11 +121,13 @@ public class LearnAndDiscoverTab extends JPanel {
 		subConstraints.gridx = 0;
 		subConstraints.gridy = 5;
 		add(jenkinsButton, subConstraints);
-		
-		//TODO: add links to preferences page as well as help within app
+
+		// TODO: add links to preferences page as well as help within app
 	}
-	
-	/**Dynamically create buttons for URL links.
+
+	/**
+	 * Dynamically create buttons for URL links.
+	 * 
 	 * @author Alex
 	 */
 	JButton createTabButton(String text, String url) {

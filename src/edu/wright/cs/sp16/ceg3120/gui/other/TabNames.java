@@ -22,8 +22,7 @@
 package edu.wright.cs.sp16.ceg3120.gui.other;
 
 /**
- * Created by Sam on 2/13/2016.'
- * Enums for our Tab Names for clarity in code
+ * Created by Sam on 2/13/2016.' Enums for our Tab Names for clarity in code
  */
 public enum TabNames {
 

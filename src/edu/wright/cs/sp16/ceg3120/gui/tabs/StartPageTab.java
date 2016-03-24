@@ -27,13 +27,12 @@ import edu.wright.cs.sp16.ceg3120.gui.tabs.components.TipOfTheDayPane;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+
 import javax.swing.JPanel;
 
 /**
- * A Start Page Tab that contains items such as:
- * - Recent Connections
- * - Tip of the Day
- * - etc.
+ * A Start Page Tab that contains items such as: - Recent Connections - Tip of
+ * the Day - etc.
  * 
  * @author codybutz, alyssa, sam
  *
@@ -41,10 +40,10 @@ import javax.swing.JPanel;
 public class StartPageTab extends JPanel {
 
 	private static final long serialVersionUID = 8991726988535798603L;
-	
+
 	/**
-	 * Initializes Start Page Tab, pulls recent connections, adds components to GUI.
-	 * TODO: Pull recent connections, initialize components.
+	 * Initializes Start Page Tab, pulls recent connections, adds components to
+	 * GUI. TODO: Pull recent connections, initialize components.
 	 */
 	public StartPageTab() {
 		super(new GridBagLayout());
@@ -52,24 +51,26 @@ public class StartPageTab extends JPanel {
 		setSize(960, 600);
 		initComponents();
 	}
-	
+
 	/**
-	 * Initializes Start Page Tab, pulls recent connections, adds components to GUI.
-	 * TODO: Pull recent connections, initialize components.
+	 * Initializes Start Page Tab, pulls recent connections, adds components to
+	 * GUI. TODO: Pull recent connections, initialize components.
 	 */
 	public StartPageTab(MainTabPane mainTabPane) {
 		super(new GridBagLayout());
-		
+
 		mainTab = mainTabPane;
-		
+
 		setSize(960, 600);
 		initComponents();
 	}
 
-	/**Initialize components in the start tab pane.
+	/**
+	 * Initialize components in the start tab pane.
+	 * 
 	 * @author Sam
 	 */
-	public void initComponents() {		
+	public void initComponents() {
 		// specify constraints for "Recent Connections" pane
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.gridx = 0;
@@ -79,10 +80,10 @@ public class StartPageTab extends JPanel {
 		constraints.weightx = 1.0;
 		constraints.weighty = 1.0;
 
-		//add "Recent Connections" pane with constraints
+		// add "Recent Connections" pane with constraints
 		recentConnsPane = new RecentConnectionsPane(mainTab);
 		add(recentConnsPane, constraints);
-		
+
 		// specify constraints for "Tip of the day" pane
 		constraints.gridx = 2;
 		constraints.gridy = 0;
@@ -91,23 +92,23 @@ public class StartPageTab extends JPanel {
 		constraints.weightx = 0.5;
 		constraints.weighty = 1.0;
 
-		//add "Tip of the day" pane with constraints
+		// add "Tip of the day" pane with constraints
 		tipOfTheDayPane = new TipOfTheDayPane(this.mainTab);
 		add(tipOfTheDayPane, constraints);
 	}
-	
+
 	// properties
-	
+
 	/**
 	 * Holds main Gui's tabs.
 	 */
 	MainTabPane mainTab;
-	
+
 	/**
 	 * Holds recent connection pane.
 	 */
 	JPanel recentConnsPane;
-	
+
 	/**
 	 * Holds tip of the day pane.
 	 */

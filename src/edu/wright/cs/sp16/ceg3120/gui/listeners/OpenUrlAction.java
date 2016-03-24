@@ -25,28 +25,28 @@ import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-
 import java.net.URI;
-
 import java.net.URISyntaxException;
 
 import javax.swing.JButton;
 
-/**Action event to handle clicking on a url in the interface.
+/**
+ * Action event to handle clicking on a url in the interface.
+ * 
  * @author Alex
  *
  */
-public class OpenUrlAction implements ActionListener  {
-	
-	//action event for clicking on a url.
+public class OpenUrlAction implements ActionListener {
+
+	// action event for clicking on a url.
 	@Override
 	public void actionPerformed(ActionEvent evt) {
-		
-		//gather url from click event source
+
+		// gather url from click event source
 		JButton tempLabel = (JButton) evt.getSource();
-		
+
 		URI uri;
-		
+
 		try {
 			uri = new URI(tempLabel.getToolTipText());
 			open(uri);
@@ -54,8 +54,10 @@ public class OpenUrlAction implements ActionListener  {
 			e1.printStackTrace();
 		}
 	}
-	
-	/**Check if supported, open associated uri for user.
+
+	/**
+	 * Check if supported, open associated uri for user.
+	 * 
 	 * @author Alex
 	 *
 	 */
@@ -65,9 +67,9 @@ public class OpenUrlAction implements ActionListener  {
 				Desktop.getDesktop().browse(uri);
 			} catch (IOException e) {
 				e.printStackTrace();
-			}		
+			}
 		} else {
-			//TODO: what if it isn't supported?
+			// TODO: what if it isn't supported?
 		}
 	}
 }

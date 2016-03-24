@@ -50,7 +50,7 @@ public class NewConnectionTab extends JPanel {
 	private void initComponents() {
 
 		NewConnectionDetailsPane pane = new NewConnectionDetailsPane();
-		
+
 		add(pane);
 	}
 }
