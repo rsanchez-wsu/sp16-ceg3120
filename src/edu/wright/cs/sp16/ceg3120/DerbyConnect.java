@@ -22,15 +22,16 @@
 package edu.wright.cs.sp16.ceg3120;
 
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
-import javax.swing.*;
-import javax.swing.table.*;
 
 /**
  * This will create a derby database to connect to within the application.
@@ -107,7 +108,6 @@ public class DerbyConnect extends DatabaseConnector {
 			"We specifically want to allow the user to execute arbitrary Derby")
 	public String[][] executeQuery(String query) {
 		String [][] table = null;
-		StringBuilder builder = new StringBuilder();
 		JTable t1 = new JTable();
 		DefaultTableModel dt = new DefaultTableModel();
 		try (
@@ -132,13 +132,10 @@ public class DerbyConnect extends DatabaseConnector {
 			while (rs.next()) {
 				for (int i = 0; i < columnsNumber; i++) {
 					if (i > 1) {
-						builder.append(",  ");
 						String columnValue = rs.getString(i + 1);
 						table[rowCounter][i] = columnValue;
 						//possible fix
 						dt.setValueAt(columnValue,rowCounter,i);
-						
-						builder.append(columnValue + " " + rsmd.getColumnName(i));
 					}
 				}
 				System.out.println("");
