@@ -62,7 +62,7 @@ public class CreateWindow extends JFrame {
 
 	private static final JComponent[] inputFields = new JComponent[numOfComponents];
 	static String[] driverNames = { "Choose a Driver", "MySQL Driver",
-			"PostgreSQL Driver", "Demo Driver 3" };
+			"PostgreSQL Driver", "Derby Driver" };
 	private static JComboBox<String> aliases;
 
 	// creating panels to add labels and text boxes
