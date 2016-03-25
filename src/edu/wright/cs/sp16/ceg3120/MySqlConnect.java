@@ -111,8 +111,8 @@ public class MySqlConnect extends DatabaseConnector {
 	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = 
 			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
 			"We specifically want to allow the user to execute arbitrary SQL")
-	public JTable executeQuery(String stringQuery) throws SQLException {
-		JTable t1 = new JTable();
+	public String[][] executeQuery(String stringQuery) throws SQLException {
+		//JTable t1 = new JTable();
 		String[][] resultTable = null;  // create the array to return
 		// try to create the connection and resultset
 		try (Connection conn = dataSource.getConnection();
@@ -145,7 +145,7 @@ public class MySqlConnect extends DatabaseConnector {
 			e.printStackTrace();
 		}
 		// return resultTable the 2d array
-		return t1;
+		return resultTable;
 	}
 
 	/**

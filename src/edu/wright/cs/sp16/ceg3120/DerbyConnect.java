@@ -106,8 +106,8 @@ public class DerbyConnect extends DatabaseConnector {
 	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = 
 			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
 			"We specifically want to allow the user to execute arbitrary Derby")
-	public JTable executeQuery(String query) {
-		//String [][] table = null;
+	public String[][] executeQuery(String query) {
+		String [][] table = null;
 		JTable t1 = new JTable();
 		DefaultTableModel dt = new DefaultTableModel();
 		try (
@@ -146,7 +146,7 @@ public class DerbyConnect extends DatabaseConnector {
 			e.printStackTrace();
 		}
 		t1.setModel(dt);
-		return t1;
+		return table;
 	}
 
 }

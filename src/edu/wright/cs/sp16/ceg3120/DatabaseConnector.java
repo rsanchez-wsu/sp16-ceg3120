@@ -35,7 +35,7 @@ public abstract class DatabaseConnector {
 	 * Generic class to provide interface for all the different drivers.
 	 * 
 	 */
-	public JTable executeQuery(String in) throws SQLException {
+	public String[][] executeQuery(String in) throws SQLException {
 		return null;
 	}
 
