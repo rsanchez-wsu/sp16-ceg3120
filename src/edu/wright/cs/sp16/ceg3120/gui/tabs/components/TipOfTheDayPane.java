@@ -30,6 +30,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -101,15 +102,39 @@ public class TipOfTheDayPane extends JPanel {
 		
 		add(learnDiscoverBtn, subConstraints);
 		
-		String dummyTipText = "Lorem ipsum dolor sit amet, \n consectetur adipiscing elit.\n"
+		//array of dummy text for the tip of the day window
+		String[] dummyTipText = new String[4];
+		
+		dummyTipText[0] = "Lorem ipsum dolor sit amet, \n consectetur adipiscing elit.\n"
 				+ " Suspendisse venenatis ut erat sed \ncongue. Ut hendrerit, velit quis \n"
 				+ "ornare volutpat, diam velit volutpat\n dolor, dictum porttitor lacus \n"
 				+ "elit in ipsum. Nullam et enim sed\n elit mattis venenatis. Integer nec \n"
 				+ "hendrerit augue. ";
 		
+		dummyTipText[1] = "Far far away, behind the word mountains,\n"
+				+ " far from the countries Vokalia and Consonantia,\n there live the blind texts."
+				+ " Separated they live in Bookmarksgrove right\n at the coast of the Semantics, a "
+				+ "large language ocean. A small river named Duden\n flows by their place and "
+				+ "it with the necessary regelialia. It is a paradisematic\n country, in which "
+				+ "parts of sentences fly into your mouth. Even the \nall-powerful Pointing has n "
+				+ "about the blind texts it is an almost unorthographic life. ";
 		
+		dummyTipText[2] = "The Big Oxmox advised her not to do so, because there were thousands \n"
+				+ "of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind \n"
+				+ " didn’t listen. She packed her seven versalia, put her initial into the belt \n"
+				+ " herself on the way. When she reached the first hills of the Italic Mountain \n"
+				+ " a last view back on the skyline of her hometown Bookmarksgrove";
 		
-		tipOfTheDayTxt = new JTextArea(dummyTipText);
+		dummyTipText[3] = "One morning, when Gregor Samsa woke from troubled dreams, he found \n"
+				+ "himself transformed in his bed into a horrible vermin. He lay on his \n"
+				+ " back, and if he lifted his head a little he could see his brown belly, \n"
+				+ "slightly domed and divided by arches into stiff sections.";
+		
+		//select a random string from the array for display
+		Random rand = new Random();
+		int randNum = rand.nextInt(3 - 0 + 1) + 0;
+		
+		tipOfTheDayTxt = new JTextArea(dummyTipText[randNum]);
 		
 		subConstraints = new GridBagConstraints();
 		subConstraints.anchor = GridBagConstraints.PAGE_START;
