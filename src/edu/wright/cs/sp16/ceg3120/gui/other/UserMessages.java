@@ -19,7 +19,7 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120;
+package edu.wright.cs.sp16.ceg3120.gui.other;
 
 /**
  * This would be the class to handle errors. This has not been implemented yet.
