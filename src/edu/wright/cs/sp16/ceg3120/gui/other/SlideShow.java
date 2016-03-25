@@ -32,13 +32,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import javax.swing.Timer;
 
-
-
 /**
- * The Frame that holds different panels. Mainly created for the slideShow of images
+ * The Frame that holds different panels. Mainly created for the slideShow of
+ * images
  * 
  * @author kirillkultinov
  */
@@ -53,10 +51,10 @@ public class SlideShow extends JPanel implements ActionListener {
 	private ImageIcon pictures2 = new ImageIcon("img/Relational.png");
 	private ImageIcon pictures3 = new ImageIcon("img/SQLizard.png");
 	private ImageIcon pictures4 = new ImageIcon("img/sqlSample.png");
-	
-	
+
 	/**
-	 * The Frame that holds different panels. Mainly created for the slideShow of images
+	 * The Frame that holds different panels. Mainly created for the slideShow
+	 * of images
 	 * 
 	 */
 	public SlideShow() {
@@ -79,15 +77,15 @@ public class SlideShow extends JPanel implements ActionListener {
 		add(images);
 		images.setIcon(pictures1);
 		frame.setSize(500, 600);
-		frame.setVisible(true); 
-		timer = new Timer(1500, this);    
-		timer.start();  
+		frame.setVisible(true);
+		timer = new Timer(1500, this);
+		timer.start();
 	}
-	
+
 	/**
 	 * Action performed.
 	 */
-	public void actionPerformed(ActionEvent ae) {                       
+	public void actionPerformed(ActionEvent ae) {
 		count++;
 
 		if (count == 1) {
@@ -95,13 +93,13 @@ public class SlideShow extends JPanel implements ActionListener {
 
 		}
 		if (count == 2) {
-			images.setIcon(pictures2);   
+			images.setIcon(pictures2);
 		}
 		if (count == 3) {
 			images.setIcon(pictures3);
 		}
 		if (count == 4) {
-			images.setIcon(pictures4);   
+			images.setIcon(pictures4);
 		}
 		if (count == 5) {
 			count = 0;

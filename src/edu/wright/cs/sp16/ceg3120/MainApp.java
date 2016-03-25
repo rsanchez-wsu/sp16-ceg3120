@@ -29,20 +29,23 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * The main application starting point.
+ * 
  * @author sam
  *
  */
-public class MainApp{
+public class MainApp {
 
 	/**
 	 * Driver method that sets the system look and feel.
-	 * @param args Arguments from command line.
+	 * 
+	 * @param args
+	 *            Arguments from command line.
 	 */
 	public static void main(String[] args) {
 		try {
 
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			
+
 			SplashScreen screen = new SplashScreen();
 			screen.showSplashScreen();
 

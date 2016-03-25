@@ -19,13 +19,14 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120;
+package edu.wright.cs.sp16.ceg3120.gui.other;
 
 import java.util.EnumSet;
 import java.util.HashMap;
 
 /**
  * Enums to keep track of input variables more easily.
+ * 
  * @author Nick Madden
  *
  */
@@ -78,13 +79,15 @@ public enum Inputs {
 			return "Connect on Startup?";
 		}
 	},;
-	
+
 	private int id;
 	private static final HashMap<Integer, Inputs> lookup = new HashMap<Integer, Inputs>();
-	
-	/** Constructor for enum.
+
+	/**
+	 * Constructor for enum.
 	 * 
-	 * @param nid // ID of enum.
+	 * @param nid
+	 *            // ID of enum.
 	 */
 	private Inputs(int nid) {
 		this.id = nid;
@@ -96,7 +99,8 @@ public enum Inputs {
 		}
 	}
 
-	/** Gets the id of an enum.
+	/**
+	 * Gets the id of an enum.
 	 * 
 	 * @return // Id of enum.
 	 */
@@ -104,9 +108,11 @@ public enum Inputs {
 		return id;
 	}
 
-	/** Looks for value of enum by id.
+	/**
+	 * Looks for value of enum by id.
 	 * 
-	 * @param id // Id to lookup.
+	 * @param id
+	 *            // Id to lookup.
 	 * @return // Value of enum.
 	 */
 	public static Inputs get(int id) {

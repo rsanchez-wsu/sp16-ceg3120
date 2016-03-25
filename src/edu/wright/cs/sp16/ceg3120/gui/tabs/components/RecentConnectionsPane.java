@@ -36,13 +36,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * "Recent Connections" pane on start page.
- * This pane will be used to hold all recent 
- * connections for the user
- * TODO: 
- * -Create links for recent the users recent connections
- * -Need to pull actual recent connections from user, and
- *  connect them to link
+ * "Recent Connections" pane on start page. This pane will be used to hold all
+ * recent connections for the user TODO: -Create links for recent the users
+ * recent connections -Need to pull actual recent connections from user, and
+ * connect them to link
  * 
  * @author Sam
  *
@@ -50,45 +47,42 @@ import javax.swing.JPanel;
 public class RecentConnectionsPane extends JPanel {
 
 	private static final long serialVersionUID = -3169614508873955055L;
-	
+
 	/**
-	 * Default constructor.
-	 * Initialize "Recent Connections" panel.
-	 * Note: if you need a reference of another GUI class then you
-	 * need to add a new constructor and add it as an argument
+	 * Default constructor. Initialize "Recent Connections" panel. Note: if you
+	 * need a reference of another GUI class then you need to add a new
+	 * constructor and add it as an argument
 	 */
 	public RecentConnectionsPane() {
 		super(new GridBagLayout());
-		
+
 		initComponents();
 	}
-	
+
 	/**
-	 * Initialize "Recent Connections" panel with reference to 
-	 * MainTabPane.java
-	 * @param mainTabPane the reference to the MainGui's tabbed pane.
+	 * Initialize "Recent Connections" panel with reference to MainTabPane.java
+	 * 
+	 * @param mainTabPane
+	 *            the reference to the MainGui's tabbed pane.
 	 */
 	public RecentConnectionsPane(MainTabPane mainTabPane) {
 		super(new GridBagLayout());
-		
+
 		// set mainTab property to main tab pane reference
 		mainTab = mainTabPane;
-		
+
 		initComponents();
 	}
-	
+
 	/**
-	 * Initialize this panes components.
-	 * Components:
-	 * "Learn and Discover" button
-	 * "Tip of the Day" label
-	 * "Tip of the day" text
+	 * Initialize this panes components. Components: "Learn and Discover" button
+	 * "Tip of the Day" label "Tip of the day" text
 	 */
 	public void initComponents() {
 		setBorder(BorderFactory.createLineBorder(Color.gray, 1));
-		
+
 		recentConn = new JLabel("<html><h2>Recent Connections</h2></html>");
-		
+
 		// set size and positioning of components
 		GridBagConstraints subConstraints = new GridBagConstraints();
 		subConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
@@ -97,13 +91,13 @@ public class RecentConnectionsPane extends JPanel {
 		subConstraints.weightx = 0.5;
 		subConstraints.weighty = 0.5;
 		subConstraints.insets = new Insets(0, 10, 0, 0);
-		
+
 		add(recentConn, subConstraints);
-		
+
 		recentConnLinks = new JButton[10];
-		
+
 		ButtonHandler recentConnClickEvent = new ButtonHandler();
-		
+
 		// initialize dummy values for recent connection links
 		for (int i = 0; i < recentConnLinks.length; i++) {
 			recentConnLinks[i] = new JButton();
@@ -112,7 +106,7 @@ public class RecentConnectionsPane extends JPanel {
 			recentConnLinks[i].setOpaque(false);
 			recentConnLinks[i].setBackground(Color.white);
 			recentConnLinks[i].addActionListener(recentConnClickEvent);
-			
+
 			subConstraints = new GridBagConstraints();
 			subConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
 			subConstraints.gridx = 0;
@@ -124,9 +118,10 @@ public class RecentConnectionsPane extends JPanel {
 			add(recentConnLinks[i], subConstraints);
 		}
 	}
-	
+
 	/**
 	 * Button handler class, this class holds our "onclick" events.
+	 * 
 	 * @author Sam
 	 */
 	class ButtonHandler implements ActionListener {
@@ -134,39 +129,40 @@ public class RecentConnectionsPane extends JPanel {
 		 * The button handler code that makes the handler "do stuff".
 		 */
 		public void actionPerformed(ActionEvent event) {
-			/* currently this causes the "Connection" tab to be opened as it is the second
-			 * tab in MainTabPane 3/19/2016. 
+			/*
+			 * currently this causes the "Connection" tab to be opened as it is
+			 * the second tab in MainTabPane 3/19/2016.
 			 */
 			mainTab.setSelectedIndex(1);
 		}
 	}
 
 	/* properties */
-	
+
 	MainTabPane mainTab;
-	
+
 	/**
 	 * "Recent connections" label.
 	 */
 	JLabel recentConn;
-	
+
 	/**
 	 * "Recent connection x" link array.
 	 */
 	JButton[] recentConnLinks;
-	
-	
+
 	/**
 	 * Get "Recent connections" label.
 	 */
 	public JLabel getRecentConnLabel() {
 		return recentConn;
 	}
-	
+
 	/**
 	 * Set "Recent connections" label.
 	 * 
-	 * @param label JLabel to replace "Recent Connections" label.
+	 * @param label
+	 *            JLabel to replace "Recent Connections" label.
 	 */
 	public void setRecentConnLabel(JLabel label) {
 		recentConn = label;

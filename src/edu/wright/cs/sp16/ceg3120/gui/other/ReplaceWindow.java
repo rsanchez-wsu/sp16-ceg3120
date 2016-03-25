@@ -19,24 +19,23 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120.gui;
+package edu.wright.cs.sp16.ceg3120.gui.other;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * @author Devesh Patel
- *     New FindWindow to call the Find class.
+ * @author Devesh Patel New ReplaceWindow to call the Replace class.
  */
-public class FindWindow implements ActionListener {
+public class ReplaceWindow implements ActionListener {
 
 	/**
-	 * Perform action to the Find.
+	 * Perform action to the Replace.
 	 */
 	public void actionPerformed(ActionEvent arg0) {
-		final Find popthis = new Find();
+		final Replace popthis = new Replace();
 		popthis.setVisible(true);
 		popthis.pack();
 		popthis.setLocationRelativeTo(null);
-	} 
+	}
 }

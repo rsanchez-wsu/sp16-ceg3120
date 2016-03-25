@@ -19,7 +19,7 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120.gui;
+package edu.wright.cs.sp16.ceg3120.gui.other;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -39,6 +39,7 @@ import javax.swing.JTextField;
 
 /**
  * This is a Find window implementation.
+ * 
  * @author Devesh Patel
  */
 public class Find extends JDialog {
@@ -48,7 +49,7 @@ public class Find extends JDialog {
 	private JLabel lblFind = new JLabel("Find: ");
 	private static JFrame frame = null;
 	private static JTextField textField = new JTextField(10);
-	private static JTextArea text = new JTextArea(10,10);
+	private static JTextArea text = new JTextArea(10, 10);
 	private static boolean caseSensi;
 	private static JCheckBox checkBox = new JCheckBox("Match case");
 	private static JButton findButton = new JButton("Find");
@@ -58,67 +59,67 @@ public class Find extends JDialog {
 
 	static int initial;
 	static int index;
-	
+
 	/**
 	 * Constructor for Find.
 	 */
 	public Find() {
 		super(frame, "Find");
-		
+
 		setLayout(new BorderLayout());
-		
+
 		mainPanel.add(lblFind);
 		mainPanel.add(textField);
 		mainPanel.add(checkBox);
 		getContentPane().add(mainPanel, BorderLayout.NORTH);
-		
+
 		JPanel buttonPanel = new JPanel();
-		buttonPanel.setLayout(new GridLayout(1,2));
+		buttonPanel.setLayout(new GridLayout(1, 2));
 		buttonPanel.add(findButton);
 		buttonPanel.add(closeButton);
-		
-		//close button listener
+
+		// close button listener
 		closeButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				setVisible(false);	
+				setVisible(false);
 			}
 		});
-		
+
 		getContentPane().add(buttonPanel, BorderLayout.CENTER);
-		
+
 		createFakeText();
 		getContentPane().add(tempTextPanel, BorderLayout.SOUTH);
-		
+
 		buttonListener();
-		
-		setSize(400,150);
+
+		setSize(400, 150);
 	} // end Find constructor
-	
+
 	/**
 	 * Just a temp text panel and position.
 	 */
 	private void createFakeText() {
-		tempTextPanel.setLayout(new GridLayout(1,1));
+		tempTextPanel.setLayout(new GridLayout(1, 1));
 		text.setLineWrap(true);
 		text.setText(str);
 		tempTextPanel.add(text);
 	}
-	
+
 	/**
 	 * Find algorithm.
 	 */
 	private static void find() {
-		
+
 		try {
 			String string = textField.getText();
-			
+
 			if (string != null) {
 				String search = text.getText();
-				
+
 				boolean endSearch = false;
-				
+
 				while (!endSearch) {
 					if (caseSensi) {
 						index = search.indexOf(string, initial);
@@ -126,15 +127,14 @@ public class Find extends JDialog {
 						index = search.toLowerCase(Locale.US)
 								.indexOf(string.toLowerCase(Locale.US), initial);
 					}
-					
+
 					if (index != -1) {
 						endSearch = true;
 						text.select(index, index + string.length());
 						initial = text.getCaretPosition();
 					} else {
 						endSearch = true;
-						JOptionPane.showMessageDialog(null, 
-								"\"" + string + "\"" + " not found ");
+						JOptionPane.showMessageDialog(null, "\"" + string + "\"" + " not found ");
 					}
 				}
 			}
@@ -142,24 +142,24 @@ public class Find extends JDialog {
 			System.out.println("No textfield found.");
 			e.printStackTrace();
 		}
-	} //end find algorithm
+	} // end find algorithm
 
 	/**
 	 * All button listener.
 	 */
 	private static void buttonListener() {
-		
-		//find button listener
+
+		// find button listener
 		findButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				find();
-				
+
 			}
 		});
-		
-		//check box listener
+
+		// check box listener
 		checkBox.addActionListener(new ActionListener() {
 
 			@Override
@@ -172,4 +172,4 @@ public class Find extends JDialog {
 			}
 		});
 	} // end buttonListener
-} //end Find class	
+} // end Find class

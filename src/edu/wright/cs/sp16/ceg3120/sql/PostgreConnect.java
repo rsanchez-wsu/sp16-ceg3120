@@ -89,14 +89,14 @@ public class PostgreConnect {
 			Class.forName("org.postgresql.Driver");
 			Connection conn = null;
 			try {
-				conn = DriverManager.getConnection("jdbc:postgresql://" + dbAddress
-						+ ":5432/" + dbName, dbUsername,
+				conn = DriverManager.getConnection(
+						"jdbc:postgresql://" + dbAddress + ":5432/" + dbName, dbUsername,
 						dbPassword);
 				System.out.println(conn.toString());
 				conn.close();
 
 			} catch (SQLException SqlEx) {
-				//conn.close();
+				// conn.close();
 				System.out.println("If you see this, you failed to connect!");
 				System.out.println(SqlEx.getMessage());
 

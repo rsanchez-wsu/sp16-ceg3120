@@ -26,25 +26,29 @@ import edu.wright.cs.sp16.ceg3120.gui.MainTabPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**Class to handle button click events.
+/**
+ * Class to handle button click events.
+ * 
  * @author Alex
- * */
-public class ButtonClickAction implements ActionListener  {
+ */
+public class ButtonClickAction implements ActionListener {
 	private MainTabPane parentPane;
-	
-	/**Initial constructor to bring in parent pane instance.
+
+	/**
+	 * Initial constructor to bring in parent pane instance.
+	 * 
 	 * @author Alex
 	 * 
 	 */
 	public ButtonClickAction(MainTabPane pane) {
 		parentPane = pane;
 	}
-	
-	//action event for clicking on a url.
+
+	// action event for clicking on a url.
 	@Override
 	public void actionPerformed(ActionEvent evt) {
 		MainTabPane mainPane = parentPane;
-		
+
 		if (!mainPane.checkLearnDiscoverStatus()) {
 			mainPane.addLearnAndDiscoverTab();
 		}

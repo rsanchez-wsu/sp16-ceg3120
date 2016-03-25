@@ -22,7 +22,6 @@
 package edu.wright.cs.sp16.ceg3120.gui.tabs.components;
 
 import edu.wright.cs.sp16.ceg3120.gui.MainTabPane;
-
 import edu.wright.cs.sp16.ceg3120.gui.listeners.ButtonClickAction;
 
 import java.awt.Color;
@@ -39,14 +38,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 /**
- * "Tip of the day" pane on the start page.
- * This pane will be used to hold:
- * -Learn and Discover button
- * -"Tip of the day" label
- * -"Tip of the day" text
- * TODO:
- * -Create link for "Learn and Discover" button
- * -Update "Tip of the day" text to be something real
+ * "Tip of the day" pane on the start page. This pane will be used to hold:
+ * -Learn and Discover button -"Tip of the day" label -"Tip of the day" text
+ * TODO: -Create link for "Learn and Discover" button -Update "Tip of the day"
+ * text to be something real
+ * 
  * @author Sam
  *
  */
@@ -54,30 +50,28 @@ public class TipOfTheDayPane extends JPanel {
 
 	private static final long serialVersionUID = -8610458384089735858L;
 	MainTabPane mainTabPane;
+
 	/**
 	 * Initialize "Tip of the Day" panel.
 	 */
 	public TipOfTheDayPane(MainTabPane mtp) {
 		super(new GridBagLayout());
-		
+
 		mainTabPane = mtp;
-		
+
 		initComponents();
 	}
-	
+
 	/**
-	 * Initialize this panes components.
-	 * Components:
-	 * "Learn and Discover" button
-	 * "Tip of the Day" label
-	 * "Tip of the day" text
+	 * Initialize this panes components. Components: "Learn and Discover" button
+	 * "Tip of the Day" label "Tip of the day" text
 	 */
 	public void initComponents() {
-		// setting border and background color for debug 
+		// setting border and background color for debug
 		setBorder(BorderFactory.createLineBorder(Color.gray, 1));
-		
+
 		tipTitle = new JLabel("<html><h2>Tip of the day</h2></html>");
-		
+
 		// set size and positioning of components
 		GridBagConstraints subConstraints = new GridBagConstraints();
 		subConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
@@ -86,9 +80,9 @@ public class TipOfTheDayPane extends JPanel {
 		subConstraints.weightx = 0.5;
 		subConstraints.weighty = 0.5;
 		subConstraints.insets = new Insets(0, 10, 0, 0);
-		
+
 		add(tipTitle, subConstraints);
-		
+
 		JButton learnDiscoverBtn = new JButton("Learn & Discover");
 		learnDiscoverBtn.setFont(new Font("TimesRoman", Font.BOLD, 12));
 		learnDiscoverBtn.addActionListener(new ButtonClickAction(mainTabPane));
@@ -99,16 +93,17 @@ public class TipOfTheDayPane extends JPanel {
 		subConstraints.gridy = 1;
 		subConstraints.weightx = 0.5;
 		subConstraints.weighty = 5.5;
-		
+
 		add(learnDiscoverBtn, subConstraints);
 		
 		//array of dummy text for the tip of the day window
 		String[] dummyTipText = new String[4];
 		
 		dummyTipText[0] = "Lorem ipsum dolor sit amet, \n consectetur adipiscing elit.\n"
+
 				+ " Suspendisse venenatis ut erat sed \ncongue. Ut hendrerit, velit quis \n"
 				+ "ornare volutpat, diam velit volutpat\n dolor, dictum porttitor lacus \n"
-				+ "elit in ipsum. Nullam et enim sed\n elit mattis venenatis. Integer nec \n"
+				+ "elit in ipsum. Nullam et enim sed\n elit mattis venenatis. Integer nec \n" 
 				+ "hendrerit augue. ";
 		
 		dummyTipText[1] = "Far far away, behind the word mountains,\n"
@@ -142,25 +137,25 @@ public class TipOfTheDayPane extends JPanel {
 		subConstraints.gridy = 2;
 		subConstraints.weightx = 0.25;
 		subConstraints.weighty = 4.5;
-		
+
 		add(tipOfTheDayTxt, subConstraints);
 	}
-	
+
 	/* properties */
-	
+
 	String tipText;
-	
+
 	// tip of the day label
 	JLabel tipTitle;
-	
+
 	// learn and discover button
 	JButton learnDiscoverBtn;
-	
+
 	// tip of the day text
 	JTextArea tipOfTheDayTxt;
-	
+
 	/* property access */
-	
+
 	/**
 	 * Get "tip of the day" text.
 	 * 
@@ -169,16 +164,17 @@ public class TipOfTheDayPane extends JPanel {
 	public String getTipText() {
 		return tipText;
 	}
-	
+
 	/**
 	 * Sets the text for tip of the day.
 	 * 
-	 * @param str String you would like to set the tip of the day too.
+	 * @param str
+	 *            String you would like to set the tip of the day too.
 	 */
 	public void setTipText(String str) {
 		tipText = str;
 	}
-	
+
 	/**
 	 * @return "Tip of the day" label.
 	 */
@@ -189,12 +185,13 @@ public class TipOfTheDayPane extends JPanel {
 	/**
 	 * Set "Tip of the Day" label.
 	 * 
-	 * @param label JLabel to replace "Tip of the day" label.
+	 * @param label
+	 *            JLabel to replace "Tip of the day" label.
 	 */
 	public void setTipTitle(JLabel label) {
 		tipTitle = label;
 	}
-	
+
 	/**
 	 * @return "Learn And Discover" button.
 	 */
@@ -205,12 +202,13 @@ public class TipOfTheDayPane extends JPanel {
 	/**
 	 * Set "Learn And Discover" button.
 	 * 
-	 * @param btn JButton to replace "Learn And Discover" button.
+	 * @param btn
+	 *            JButton to replace "Learn And Discover" button.
 	 */
 	public void setLearnDiscoverBtn(JButton btn) {
 		learnDiscoverBtn = btn;
 	}
-	
+
 	/**
 	 * Gets the "Tip of the day" text area component.
 	 * 
@@ -219,13 +217,14 @@ public class TipOfTheDayPane extends JPanel {
 	public JTextArea getTipOfTheDayTxt() {
 		return tipOfTheDayTxt;
 	}
-	
+
 	/**
 	 * 
-	 * @param txt JTextArea to replace "Tip of the day" text.
+	 * @param txt
+	 *            JTextArea to replace "Tip of the day" text.
 	 */
 	public void setTipOfTheDayTxt(JTextArea txt) {
 		tipOfTheDayTxt = txt;
 	}
-	
+
 }
