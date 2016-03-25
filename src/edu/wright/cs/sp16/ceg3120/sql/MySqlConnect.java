@@ -21,18 +21,14 @@
 
 package edu.wright.cs.sp16.ceg3120.sql;
 
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import java.sql.Statement;
 
 /**
- * @author rhys
+ * @author Rhys
  * 
  *         MySqlConnect is a class to run basic connection to MySQL test
  *         database. This class is capable of receiving a database address, user
@@ -41,14 +37,14 @@ import javax.swing.JPanel;
  *         values.
  */
 
-public class MySqlConnect {
+public class MySqlConnect extends DatabaseConnector {
 
 	private String dbAddress;
 	private String dbUsername;
 	private String dbPassword;
 	private String dbName;
-	private JPanel successPanel = new JPanel();
-	private MysqlDataSource dataSource = new MysqlDataSource();
+	private com.mysql.jdbc.jdbc2.optional.MysqlDataSource dataSource = 
+			new com.mysql.jdbc.jdbc2.optional.MysqlDataSource();
 
 	/**
 	 * MySqlConnect is just a place holder constructor.
@@ -96,52 +92,58 @@ public class MySqlConnect {
 		dataSource.setPassword(getDbPassword());
 		dataSource.setServerName(getDbAddress());
 		dataSource.setDatabaseName(getDbName());
-		Connection conn = dataSource.getConnection();
-		try {
-			java.sql.Statement stmt = conn.createStatement();
-			try {
+	}
 
-				ResultSet rs = stmt.executeQuery("SELECT * FROM inventory");
-
-				// System.out.println("If you see this you connected!");
-
-				ResultSetMetaData rsmd = rs.getMetaData();
-				int columnsNumber = rsmd.getColumnCount();
-				while (rs.next()) {
-					for (int i = 1; i <= columnsNumber; i++) {
-						if (i > 1) {
-							System.out.print(",  ");
-							String columnValue = rs.getString(i);
-							System.out.print(columnValue + " " + rsmd.getColumnName(i));
-						}
-					}
-					System.out.println("");
+	/**
+	 * This function accepts a String variable that is a SQL query, executes the
+	 * query, iterates through the resulting data, and concatenates a string of
+	 * the results from the query. It should be noted that FindBugs flagged this
+	 * approach as unsafe and required a Suppression on the warning. We want to
+	 * be able to execute arbitrary code, so there is no need to protect against
+	 * SQL injection.
+	 * 
+	 * @return String variable containing the results of the query executed.
+	 * @throws SQLException
+	 *             when there is an issue connection to the database.
+	 */
+	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = 
+			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
+			"We specifically want to allow the user to execute arbitrary SQL")
+	public String[][] executeQuery(String stringQuery) throws SQLException {
+		//JTable t1 = new JTable();
+		String[][] resultTable = null;  // create the array to return
+		// try to create the connection and resultset
+		try (Connection conn = dataSource.getConnection();
+				Statement inputStatement = conn.createStatement();
+				ResultSet rs = inputStatement.executeQuery(stringQuery);) {
+			// ResultSetMetaData does not implement AutoClosable() so it
+			// cannot be handled by try-with-resources.
+			ResultSetMetaData rsmd = null;
+			// Get the information required to make th array
+			rsmd = rs.getMetaData();
+			// this part of code gets how many rows there are
+			rs.last(); // moves the resultset cursor to the last row
+			int numRows = rs.getRow(); //sets the number of rows to the last row
+			rs.beforeFirst(); // moves the cursor to the beginning
+			//initialize the array with the [rows][columns]
+			resultTable = new String[numRows][rsmd.getColumnCount()];
+			// Iterate through all data returned and put it into a string array
+			// test to see if it does not get ot of index with i < numRows
+			// and that there is more data to grab with rs.next()
+			// first for loop is for rows
+			for (int i = 0; i < numRows && rs.next(); i++) {
+				// second for loop columns
+				for (int j = 0; j < rsmd.getColumnCount(); j++) {
+					// the resultset data starts at index of 1 so that's why there
+					// is an offset to get the string.
+					resultTable[i][j] = rs.getString(j + 1);
 				}
-				JOptionPane.showMessageDialog(successPanel, "Connection successful", "Success",
-						JOptionPane.PLAIN_MESSAGE);
-
-				rs.close();
-				stmt.close();
-				conn.close();
-
-			} catch (SQLException SqlEx) {
-				stmt.close();
-				conn.close();
-				System.out.println("If you see this, you failed to connect!");
-				JOptionPane.showMessageDialog(
-						successPanel, "Connection failed", "Failed", JOptionPane.ERROR_MESSAGE);
-				System.out.println(SqlEx.getMessage());
-
-			} finally {
-				stmt.close();
-				conn.close();
 			}
-			stmt.close();
-			conn.close();
-
-		} finally {
-			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
+		// return resultTable the 2d array
+		return resultTable;
 	}
 
 	/**
@@ -200,11 +202,11 @@ public class MySqlConnect {
 	 * Sets the database password as a String value. It is case sensitive, and
 	 * is verified against the database.
 	 * 
-	 * @param dbPassword2
+	 * @param dbPassword
 	 *            database password
 	 */
-	public void setDbPassword(String dbPassword2) {
-		this.dbPassword = dbPassword2;
+	public void setDbPassword(String dbPassword) {
+		this.dbPassword = dbPassword;
 	}
 
 	/**

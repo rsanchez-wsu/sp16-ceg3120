@@ -22,6 +22,9 @@
 package edu.wright.cs.sp16.ceg3120;
 
 import edu.wright.cs.sp16.ceg3120.gui.other.Inputs;
+import edu.wright.cs.sp16.ceg3120.sql.DerbyConnect;
+import edu.wright.cs.sp16.ceg3120.sql.MySqlConnect;
+import edu.wright.cs.sp16.ceg3120.sql.PostgreConnect;
 import edu.wright.cs.sp16.ceg3120.util.XmlUtil;
 
 import java.awt.BorderLayout;
@@ -46,6 +49,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+
 
 
 
@@ -226,7 +230,7 @@ public class CreateWindow extends JFrame {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				} finally {
-					testConnection(isConnected(), mySqlConnect);
+					//testConnection(isConnected(), mySqlConnect);
 				}
 				break;
 			// PostgreSQL Driver
@@ -251,7 +255,7 @@ public class CreateWindow extends JFrame {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				} finally {
-					testConnection(isConnected(), derbyConnect);
+					//testConnection(isConnected(), derbyConnect);
 				}
 				break;
 			// No driver
@@ -260,27 +264,27 @@ public class CreateWindow extends JFrame {
 			}
 		}
 	}
-
-	/**
-	 * will do something whether the connection was successful. currently will
-	 * close the window when the database is connected.
-	 * 
-	 * @param connected
-	 *            boolean value set by setconnected
-	 */
-	private static void testConnection(boolean connected, DatabaseConnector connector) {
-		if (!connected) {
-			// generate error
-		} else {
-			// will close the window if the connection is successful.
-			getFrame().dispose();
-		//	final Querybuilder qbuilder = new Querybuilder(connector);
-			// qbuilder.setVisible(true);
-			// qbuilder.pack();
-			// qbuilder.setLocationRelativeTo(null);
-
-		}
-	}
+//
+//	/**
+//	 * will do something whether the connection was successful. currently will
+//	 * close the window when the database is connected.
+//	 * 
+//	 * @param connected
+//	 *            boolean value set by setconnected
+//	 */
+//	private static void testConnection(boolean connected, DbConnect sqlConnect) {
+//		if (!connected) {
+//			// generate error
+//		} else {
+//			// will close the window if the connection is successful.
+//			getFrame().dispose();
+//			final Querybuilder qbuilder = new Querybuilder(connector);
+//			 qbuilder.setVisible(true);
+//			 qbuilder.pack();
+//			 qbuilder.setLocationRelativeTo(null);
+//
+//		}
+//	}
 
 	/**
 	 * Clears all input boxes.
