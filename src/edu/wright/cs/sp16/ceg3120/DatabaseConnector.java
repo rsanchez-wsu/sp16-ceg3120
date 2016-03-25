@@ -23,6 +23,8 @@ package edu.wright.cs.sp16.ceg3120;
 
 import java.sql.SQLException;
 
+import javax.swing.JTable;
+
 /**
  * 
  * @author Kenton Dover.
@@ -33,7 +35,7 @@ public abstract class DatabaseConnector {
 	 * Generic class to provide interface for all the different drivers.
 	 * 
 	 */
-	public String[][] executeQuery(String in) throws SQLException {
+	public JTable executeQuery(String in) throws SQLException {
 		return null;
 	}
 

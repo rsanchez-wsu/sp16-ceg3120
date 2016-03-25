@@ -106,8 +106,8 @@ public class DerbyConnect extends DatabaseConnector {
 	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = 
 			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
 			"We specifically want to allow the user to execute arbitrary Derby")
-	public String[][] executeQuery(String query) {
-		String [][] table = null;
+	public JTable executeQuery(String query) {
+		//String [][] table = null;
 		JTable t1 = new JTable();
 		DefaultTableModel dt = new DefaultTableModel();
 		try (
@@ -123,7 +123,7 @@ public class DerbyConnect extends DatabaseConnector {
 			int row = rs.getRow();
 			rs.beforeFirst();
 			int columnsNumber = rsmd.getColumnCount();
-			table = new String[row][columnsNumber];
+			//table = new String[row][columnsNumber];
 			int rowCounter = 0;
 			// Iterate through all data returned and append to string
 			// result.
@@ -133,7 +133,7 @@ public class DerbyConnect extends DatabaseConnector {
 				for (int i = 0; i < columnsNumber; i++) {
 					if (i > 1) {
 						String columnValue = rs.getString(i + 1);
-						table[rowCounter][i] = columnValue;
+						//table[rowCounter][i] = columnValue;
 						//possible fix
 						dt.setValueAt(columnValue,rowCounter,i);
 					}
@@ -146,7 +146,7 @@ public class DerbyConnect extends DatabaseConnector {
 			e.printStackTrace();
 		}
 		t1.setModel(dt);
-		return table;
+		return t1;
 	}
 
 }
