@@ -43,6 +43,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -211,6 +212,11 @@ public class NewConnectionDetailsPane extends JPanel {
 				MySqlConnect connect = new MySqlConnect(dbAddress, dbUsername, dbPassword, dbName);
 				try {
 					connect.configure();
+					//simple test code to be removed later.
+					//JTable newTable = connect.getTable("SELECT * FROM INVENTORY;");
+					//This test succeeded, I was able to return the populated JTable 
+					//object verified through the debugger. We just have to get it to 
+					//display in the GUI now.
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}

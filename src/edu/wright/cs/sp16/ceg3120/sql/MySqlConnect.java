@@ -27,6 +27,9 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  * @author Rhys
  * 
@@ -144,6 +147,49 @@ public class MySqlConnect extends DatabaseConnector {
 		}
 		// return resultTable the 2d array
 		return resultTable;
+	}
+
+	
+	/**
+	 * This method returns a populated JTable element that is filled with data
+	 * from a SQL Query.
+	 * 
+	 * @param query
+	 *            String Format of the table to convert.
+	 * 
+	 * @return Populated JTAble element from the SQL query.
+	 */
+	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = 
+			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
+			"We specifically want to allow the user to execute arbitrary SQL")
+	public JTable getTable(String query) {
+		JTable tableOne = new JTable();
+		DefaultTableModel dtm = new DefaultTableModel();
+		try (Connection conn = dataSource.getConnection();
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(query);) {
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int cols = rsmd.getColumnCount();
+			String[] col = new String[cols];
+			for (int i = 0; i < cols; i++) {
+				col[i] = rsmd.getColumnName(i + 1);
+				dtm.addColumn(col[i]);
+			}
+
+			Object[] row = new Object[cols];
+			while (rs.next()) {
+				for (int i = 0; i < cols; i++) {
+					row[i] = rs.getString(i + 1);
+				}
+				dtm.addRow(row);
+			}
+			tableOne.setModel(dtm);
+			return tableOne;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return tableOne;
 	}
 
 	/**
