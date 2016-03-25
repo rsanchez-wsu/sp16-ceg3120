@@ -19,7 +19,7 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120.gui;
+package edu.wright.cs.sp16.ceg3120.gui.other;
 
 import java.awt.Toolkit;
 
@@ -28,37 +28,37 @@ import javax.swing.JLabel;
 import javax.swing.JWindow;
 
 /**
- * This is the splash screen class for the application. It simply loads the 
- * splash screen image onto a window for a small amount of time before 
+ * This is the splash screen class for the application. It simply loads the
+ * splash screen image onto a window for a small amount of time before
  * displaying the main screen of the application.
  *
  * @author Alex Vance
  */
 public class SplashScreen {
 
-	/**Construct a splash screen.*/
+	/** Construct a splash screen. */
 	public void showSplashScreen() {
 		// create window, apply image
 		JWindow window = new JWindow();
 		ImageIcon icon = new ImageIcon("img/SQLizard.jpg");
 		JLabel label = new JLabel(icon);
-		
+
 		window.add(label);
-		
+
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		int width = ((int) tk.getScreenSize().getWidth());
 		int height = ((int) tk.getScreenSize().getHeight());
-		
+
 		window.setBounds((width / 2) - 440, (height / 2) - 245, 880, 495);
 		window.setVisible(true);
-		
-		//provide splash screen loading effect
+
+		// provide splash screen loading effect
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
+
 		window.setVisible(false);
 	}
 }

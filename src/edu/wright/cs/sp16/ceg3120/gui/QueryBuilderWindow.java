@@ -78,6 +78,7 @@ public class QueryBuilderWindow {
 		frame.setVisible(true);
 			
 	}
+
 	/**
 	 * Created a main method to test the query builder window for now.
 	 * Will eventually incorporate into a tab within the Connection tab.

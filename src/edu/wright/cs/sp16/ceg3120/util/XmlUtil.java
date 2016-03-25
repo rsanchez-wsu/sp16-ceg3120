@@ -19,7 +19,9 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120;
+package edu.wright.cs.sp16.ceg3120.util;
+
+import edu.wright.cs.sp16.ceg3120.gui.other.Inputs;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -47,18 +49,21 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-
-/** Handles all XML for aliases.
+/**
+ * Handles all XML for aliases.
+ * 
  * @author Nick Madden
  * 
  */
-public class XmlHandler {
-	
+public class XmlUtil {
+
 	private static JPanel ovrAlias = new JPanel();
-	
-	/** The removeAlias method removes a given alias.
+
+	/**
+	 * The removeAlias method removes a given alias.
 	 * 
-	 * @param alias // Alias to remove
+	 * @param alias
+	 *            // Alias to remove
 	 */
 	public static boolean removeAlias(String alias) {
 		try {
@@ -78,9 +83,10 @@ public class XmlHandler {
 							&& alias.equals(curElement.getAttribute("name"))) {
 						UIManager.put("OptionPane.yesButtonText", "Delete \"" + alias + "\"");
 						UIManager.put("OptionPane.noButtonText", "Cancel");
-						int sv = JOptionPane.showConfirmDialog(ovrAlias, 
-								"Are you sure you want to remove \"" + alias + "\"?",
-								"Overwrite Alias?", JOptionPane.YES_NO_OPTION);
+						int sv = JOptionPane.showConfirmDialog(ovrAlias,
+								"Are you sure you want to remove \"" + alias 
+								+ "\"?", "Overwrite Alias?",
+								JOptionPane.YES_NO_OPTION);
 						UIManager.put("OptionPane.yesButtonText", "Yes");
 						UIManager.put("OptionPane.noButtonText", "No");
 						if (sv == JOptionPane.YES_OPTION) {
@@ -91,16 +97,17 @@ public class XmlHandler {
 							Transformer transformer = transformerFactory.newTransformer();
 							DOMSource source = new DOMSource(doc);
 							transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-							transformer.setOutputProperty("{http://xml.apache.org/xalan}line-separator"," ");
+							transformer.setOutputProperty("{http://xml.apache.org/xalan}line-separator", " ");
 							transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-							transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,"aliases.dtd");
-							StreamResult result = 
-									new StreamResult(new File("UserData/aliases.xml"));
+							transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "aliases.dtd");
+							StreamResult result = new StreamResult(
+									new File("UserData/aliases.xml")
+									);
 							transformer.transform(source, result);
 							return true;
 						} else if (sv == JOptionPane.NO_OPTION) {
 							return false;
-						}	
+						}
 					}
 				}
 			}
@@ -115,8 +122,10 @@ public class XmlHandler {
 		}
 		return false;
 	}
-	
-	/** Populates a list of aliases saved in the aliases.xml file.
+
+	/**
+	 * Populates a list of aliases saved in the aliases.xml file.
+	 * 
 	 * @author Nick Madden
 	 * @return list of aliases
 	 */
@@ -149,7 +158,7 @@ public class XmlHandler {
 		}
 		return listA;
 	}
-	
+
 	/**
 	 * Writes Alias to File.
 	 * 
@@ -195,8 +204,9 @@ public class XmlHandler {
 							&& alias.equals(curElement.getAttribute("name"))) {
 						UIManager.put("OptionPane.yesButtonText", "Overwrite \"" + alias + "\"");
 						UIManager.put("OptionPane.noButtonText", "Cancel");
-						int sv = JOptionPane.showConfirmDialog(ovrAlias, "Alias \""
-								+ alias + "\" already exists, do you want to overwrite it?",
+						int sv = JOptionPane.showConfirmDialog(ovrAlias,
+								"Alias \"" + alias 
+								+ "\" already exists, do you want to overwrite it?",
 								"Overwrite Alias?", JOptionPane.YES_NO_OPTION);
 						UIManager.put("OptionPane.yesButtonText", "Yes");
 						UIManager.put("OptionPane.noButtonText", "No");
@@ -205,7 +215,7 @@ public class XmlHandler {
 							overwrite = true;
 						} else if (sv == JOptionPane.NO_OPTION) {
 							return true;
-						}	
+						}
 					}
 				}
 			} else {
@@ -228,7 +238,7 @@ public class XmlHandler {
 				root = doc.createElement("aliases");
 				doc.appendChild(root);
 			}
-			
+
 			Element al = doc.createElement("alias");
 			al.setAttribute("name", alias);
 			root.appendChild(al);
@@ -248,13 +258,13 @@ public class XmlHandler {
 			Element dv = doc.createElement("driver");
 			dv.appendChild(doc.createTextNode(Integer.toString(driver)));
 			al.appendChild(dv);
-			
+
 			Element ps = doc.createElement("password");
 			ps.setAttribute("saved", (savePass ? "true" : "false"));
 			al.appendChild(ps);
 
 			Element sps = doc.createElement("pass");
-			sps.appendChild(doc.createTextNode((savePass ? password : "" )));
+			sps.appendChild(doc.createTextNode((savePass ? password : "")));
 			ps.appendChild(sps);
 
 			// write the content into xml file
@@ -262,9 +272,9 @@ public class XmlHandler {
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(doc);
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			transformer.setOutputProperty("{http://xml.apache.org/xalan}line-separator"," ");
+			transformer.setOutputProperty("{http://xml.apache.org/xalan}line-separator", " ");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-			transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,"aliases.dtd");
+			transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "aliases.dtd");
 			StreamResult result = new StreamResult(new File("UserData/aliases.xml"));
 			transformer.transform(source, result);
 			return overwrite;
@@ -279,25 +289,20 @@ public class XmlHandler {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Reads an alias based on name.
+	 * 
 	 * @author Nick Madden
 	 * @param alias
 	 *            Alias name to read
-	 * @param inputFields 
+	 * @param inputFields
 	 *            Input fields from gui
 	 */
-	
+
 	public static void readAlias(String alias, JComponent[] inputFields) {
-		JTextField name = ((JTextField) inputFields[Inputs.dbName.getId()]);
-		JTextField databaseUrl = ((JTextField) inputFields[Inputs.dbUrl.getId()]);
-		JTextField username = ((JTextField) inputFields[Inputs.username.getId()]);
-		@SuppressWarnings("unchecked")
-		JComboBox<String> driver = ((JComboBox<String>) inputFields[Inputs.driver.getId()]);
-		JTextField password = ((JTextField) inputFields[Inputs.password.getId()]);
-		JCheckBox savePassword = ((JCheckBox) inputFields[Inputs.save.getId()]);
 		
+
 		try {
 			File xmlFile = new File("UserData/aliases.xml");
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -309,23 +314,9 @@ public class XmlHandler {
 			for (int i = 0; i < aliasList.getLength(); i++) {
 				Node currentNode = aliasList.item(i);
 				Element curElement = (Element) currentNode;
-				if (currentNode.getNodeType() == Node.ELEMENT_NODE
+				if (currentNode.getNodeType() == Node.ELEMENT_NODE 
 						&& alias.equals(curElement.getAttribute("name"))) {
-					System.out.println(curElement.getElementsByTagName("dbName").item(0)
-							.getTextContent());
-					name.setText(curElement.getElementsByTagName("dbName").item(0)
-							.getTextContent());
-					databaseUrl.setText(curElement.getElementsByTagName("dbURL").item(0)
-							.getTextContent());
-					username.setText(curElement.getElementsByTagName("userName").item(0)
-							.getTextContent());
-					driver.setSelectedIndex(Integer.parseInt(
-							curElement.getElementsByTagName("driver").item(0).getTextContent()));
-					curElement = (Element) curElement.getElementsByTagName("password").item(0);
-					String holdPass = curElement.getElementsByTagName("pass").item(0)
-							.getTextContent();
-					password.setText(PasswordEncryptionService.decrypt(holdPass));
-					savePassword.setSelected(Boolean.valueOf(curElement.getAttribute("saved")));
+					setCurrentAlias(curElement, inputFields);
 				}
 			}
 		} catch (IOException e) {
@@ -336,5 +327,37 @@ public class XmlHandler {
 			e.printStackTrace();
 		}
 
+	}
+
+	/**
+	 * Puts all the alias information in the form.
+	 * 
+	 * @param curElement the alias element
+	 * @param inputFields the fields of input from the database
+	 */
+	private static void setCurrentAlias(Element curElement, JComponent[] inputFields) {
+		JTextField name = ((JTextField) inputFields[Inputs.dbName.getId()]);
+		
+		name.setText(curElement.getElementsByTagName("dbName").item(0).getTextContent());
+
+		JTextField databaseUrl = ((JTextField) inputFields[Inputs.dbUrl.getId()]);
+		databaseUrl.setText(curElement.getElementsByTagName("dbURL").item(0).getTextContent());
+
+		JTextField username = ((JTextField) inputFields[Inputs.username.getId()]);
+		username.setText(curElement.getElementsByTagName("userName").item(0).getTextContent());
+
+		@SuppressWarnings("unchecked")
+		JComboBox<String> driver = ((JComboBox<String>) inputFields[Inputs.driver.getId()]);
+		driver.setSelectedIndex(Integer.parseInt(
+				curElement.getElementsByTagName("driver").item(0).getTextContent()
+				));
+		curElement = (Element) curElement.getElementsByTagName("password").item(0);
+		String holdPass = curElement.getElementsByTagName("pass").item(0).getTextContent();
+
+		JTextField password = ((JTextField) inputFields[Inputs.password.getId()]);
+		password.setText(PasswordEncryptionUtility.decrypt(holdPass));
+		
+		JCheckBox savePassword = ((JCheckBox) inputFields[Inputs.save.getId()]);
+		savePassword.setSelected(Boolean.valueOf(curElement.getAttribute("saved")));
 	}
 }

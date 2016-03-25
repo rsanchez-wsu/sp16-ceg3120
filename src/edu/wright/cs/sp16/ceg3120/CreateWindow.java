@@ -21,6 +21,9 @@
 
 package edu.wright.cs.sp16.ceg3120;
 
+import edu.wright.cs.sp16.ceg3120.gui.other.Inputs;
+import edu.wright.cs.sp16.ceg3120.util.XmlUtil;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -43,6 +46,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+
+
 
 /**
  * @author Devesh Amin, Nick Madden.
@@ -132,7 +137,7 @@ public class CreateWindow extends JFrame {
 	private JPanel createTitlePanel() {
 		// Get list of saved aliases for combobox
 		JPanel jpanel = new JPanel();
-		String[] listA = XmlHandler.populateAlias();
+		String[] listA = XmlUtil.populateAlias();
 		aliases = new JComboBox<String>(listA);
 
 		JLabel title = new JLabel("Create an Alias", SwingConstants.CENTER);
@@ -203,7 +208,7 @@ public class CreateWindow extends JFrame {
 				pass = dbPassword;
 				pass = PasswordEncryptionService.encrypt(pass);
 			}
-			if (!XmlHandler.writeAlias(alias, dbName, dbAddress, dbUsername,
+			if (!XmlUtil.writeAlias(alias, dbName, dbAddress, dbUsername,
 					pass, svPass, dbDriver)) {
 				aliases.addItem(alias);
 			}
@@ -269,7 +274,7 @@ public class CreateWindow extends JFrame {
 		} else {
 			// will close the window if the connection is successful.
 			getFrame().dispose();
-			final Querybuilder qbuilder = new Querybuilder(connector);
+		//	final Querybuilder qbuilder = new Querybuilder(connector);
 			// qbuilder.setVisible(true);
 			// qbuilder.pack();
 			// qbuilder.setLocationRelativeTo(null);
@@ -350,7 +355,7 @@ public class CreateWindow extends JFrame {
 				break;
 
 			case "Delete":
-				boolean deleted = XmlHandler.removeAlias(aliases.getSelectedItem().toString());
+				boolean deleted = XmlUtil.removeAlias(aliases.getSelectedItem().toString());
 				if (deleted) {
 					aliases.removeItem(aliases.getSelectedItem());
 					clearInput();
@@ -362,7 +367,7 @@ public class CreateWindow extends JFrame {
 				if (!toRead.equals("Load an Alias")) {
 					((JTextField) inputFields[Inputs.alias.getId()]).setText(toRead);
 					((JTextField) inputFields[Inputs.alias.getId()]).grabFocus();
-					XmlHandler.readAlias(toRead, inputFields);
+					XmlUtil.readAlias(toRead, inputFields);
 				}
 				break;
 

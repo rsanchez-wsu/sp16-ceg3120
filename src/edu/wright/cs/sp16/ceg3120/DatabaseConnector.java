@@ -23,8 +23,6 @@ package edu.wright.cs.sp16.ceg3120;
 
 import java.sql.SQLException;
 
-import javax.swing.JTable;
-
 /**
  * 
  * @author Kenton Dover.
