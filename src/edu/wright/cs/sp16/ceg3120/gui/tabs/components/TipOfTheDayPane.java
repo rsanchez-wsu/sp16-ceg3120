@@ -100,7 +100,6 @@ public class TipOfTheDayPane extends JPanel {
 		String[] dummyTipText = new String[4];
 		
 		dummyTipText[0] = "Lorem ipsum dolor sit amet, \n consectetur adipiscing elit.\n"
-
 				+ " Suspendisse venenatis ut erat sed \ncongue. Ut hendrerit, velit quis \n"
 				+ "ornare volutpat, diam velit volutpat\n dolor, dictum porttitor lacus \n"
 				+ "elit in ipsum. Nullam et enim sed\n elit mattis venenatis. Integer nec \n" 
@@ -130,7 +129,7 @@ public class TipOfTheDayPane extends JPanel {
 		int randNum = rand.nextInt(3 - 0 + 1) + 0;
 		
 		tipOfTheDayTxt = new JTextArea(dummyTipText[randNum]);
-		
+
 		subConstraints = new GridBagConstraints();
 		subConstraints.anchor = GridBagConstraints.PAGE_START;
 		subConstraints.gridx = 0;
