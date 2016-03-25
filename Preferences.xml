@@ -26,6 +26,7 @@
    <object class="java.lang.Enum" method="valueOf">
     <class>edu.wright.cs.sp16.ceg3120.NumberOfQueries</class>
     <string>Ten</string>
+
    </object>
   </void>
   <void property="showGridLines">
