@@ -24,12 +24,17 @@ package edu.wright.cs.sp16.ceg3120.gui;
 import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.Action;
 import javax.swing.Box;
@@ -482,6 +487,42 @@ public class MainGui extends JFrame implements ActionListener {
 				File savedFile = fileChooser.getSelectedFile();
 				System.out.println("Save file: " + savedFile.getAbsolutePath());
 			}
+		}	else if (actionEvent.getSource().equals(copyItem)) {
+			// Copy the selected text
+			// textArea = name of SQL Builder window from Team 3
+			// Uncomment once we have SQL Builder (code window) from Team 3
+			/*
+		      Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		      String text = textArea.getSelectedText();
+		      if (text == null) text = textArea.getText();
+		      StringSelection selection = new StringSelection(text);
+		      clipboard.setContents(selection, null);
+			}
+			*/
+		} else if (actionEvent.getSource().equals(pasteItem)) {
+			// Paste the selected text
+			// textArea = name of SQL Builder window from Team 3
+			// Uncomment once we have SQL Builder (code window) from Team 3
+			/*
+		      Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		      DataFlavor flavor = DataFlavor.stringFlavor;
+		      if (clipboard.isDataFlavorAvailable(flavor))
+		      {
+		         try
+		         {
+		            String copiedText = (String) clipboard.getData(flavor);
+		            textArea.replaceSelection(text);
+		         }
+		         catch (UnsupportedFlavorException e)
+		         {
+		            JOptionPane.showMessageDialog(this, e);
+		         }
+		         catch (IOException e)
+		         {
+		            JOptionPane.showMessageDialog(this, e);
+		         }
+		     }
+		     */
 		}
 	}
 	
