@@ -119,24 +119,24 @@ public class Querybuilder {
 		@Override
 		public void actionPerformed(ActionEvent ae) {
 			String in = input.getText();
-			//String[][] out = new String[0][0];
-			JTable output = new JTable();
+			String[][] out = new String[0][0];
+			//JTable output = new JTable();
 			
 			try {
-				output =  Querybuilder.getConnector().executeQuery(in);
+				out =  Querybuilder.getConnector().executeQuery(in);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 			//Object[] names = {"test"};
 			panel.add(output, BorderLayout.SOUTH);
 			frame.repaint();
-			//for (int i = 0; i < out.length; i++) {
-			//	for (int j = 0; j < out[0].length; j++) {
-			//		System.out.print(out[i][j]);
-			//		System.out.print(",");
-			//	}
-			//	System.out.println("");
-			//}
+			for (int i = 0; i < out.length; i++) {
+				for (int j = 0; j < out[0].length; j++) {
+					System.out.print(out[i][j]);
+					System.out.print(",");
+				}
+				System.out.println("");
+			}
 		}
 	}
 }
