@@ -151,13 +151,14 @@ public class MySqlConnect extends DatabaseConnector {
 
 	
 	/**
-	 * This method returns a populated JTable element that is filled with data
-	 * from a SQL Query.
+	 * This method accepts a properly structured SELECT statement and processes
+	 * it against the properly configured database connection. The method then
+	 * parses the returned ResultSet and converts it into a populated JTable
+	 * element.
 	 * 
 	 * @param query
-	 *            String Format of the table to convert.
-	 * 
-	 * @return Populated JTAble element from the SQL query.
+	 *            properly structured SELECT statement to process.
+	 * @return Populated JTable object with results of the SELECT statement.
 	 */
 	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = 
 			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
