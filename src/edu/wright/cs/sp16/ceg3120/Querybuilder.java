@@ -115,20 +115,19 @@ public class Querybuilder {
 	 * Handles the actions.
 	 */
 	private static class ActionHandler implements ActionListener {
-		@SuppressWarnings("unchecked")
+		//@SuppressWarnings("unchecked")
 		@Override
 		public void actionPerformed(ActionEvent ae) {
 			String in = input.getText();
 			//String[][] out = new String[0][0];
-			JTable out = new JTable();
+			JTable output = new JTable();
 			
 			try {
-				out =  Querybuilder.getConnector().executeQuery(in);
+				output =  Querybuilder.getConnector().executeQuery(in);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 			//Object[] names = {"test"};
-			output = out;  //new JTable(out, names);
 			panel.add(output, BorderLayout.SOUTH);
 			frame.repaint();
 			//for (int i = 0; i < out.length; i++) {
