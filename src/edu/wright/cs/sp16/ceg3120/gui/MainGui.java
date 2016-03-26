@@ -24,17 +24,17 @@ package edu.wright.cs.sp16.ceg3120.gui;
 import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.StringSelection;
-import java.awt.datatransfer.UnsupportedFlavorException;
+//import java.awt.datatransfer.Clipboard;
+//import java.awt.datatransfer.DataFlavor;
+//import java.awt.datatransfer.StringSelection;
+//import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.IOException;
+//import java.io.IOException;
 
 import javax.swing.Action;
 import javax.swing.Box;
@@ -489,6 +489,8 @@ public class MainGui extends JFrame implements ActionListener {
 			}
 		}	else if (actionEvent.getSource().equals(copyItem)) {
 			// Copy the selected text
+			JOptionPane.showMessageDialog(copyItem, 
+					"Wait for Team-3's SQL builder and added this to avoid findbug error.");
 			// textArea = name of SQL Builder window from Team 3
 			// Uncomment once we have SQL Builder (code window) from Team 3
 			/*
@@ -500,6 +502,8 @@ public class MainGui extends JFrame implements ActionListener {
 			}
 			*/
 		} else if (actionEvent.getSource().equals(pasteItem)) {
+			JOptionPane.showMessageDialog(pasteItem, 
+					"Wait for Team-3's SQL builder and added this to avoid findbug error.");
 			// Paste the selected text
 			// textArea = name of SQL Builder window from Team 3
 			// Uncomment once we have SQL Builder (code window) from Team 3
