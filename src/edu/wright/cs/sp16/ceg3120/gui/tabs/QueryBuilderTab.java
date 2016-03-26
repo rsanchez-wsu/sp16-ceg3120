@@ -21,9 +21,17 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
-import java.awt.GridLayout;
 
+import java.awt.Dimension;
+import java.awt.GridBagLayout;
+
+import javax.swing.JButton;
+import javax.swing.JEditorPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
+
+
+
 
 
 
@@ -40,19 +48,34 @@ public class QueryBuilderTab extends JPanel {
 	 * Default constructor for the Query Builder tab.
 	 */
 	public QueryBuilderTab() {
-		JPanel panel = new JPanel();
-		JPanel queryBuilderPanel = initComponents();
-		panel.add("Query Builder", queryBuilderPanel);
+		super(new GridBagLayout());
+		initComponents();
 	}
 	
 	/**
 	 * initialize components.
 	 */
-	protected JPanel initComponents() {
-		JPanel queryPanel = new JPanel();
-		queryPanel.setLayout(new GridLayout(1, 1));
-	
-		return queryPanel;
+	private void initComponents() {
+
+
+
+		JEditorPane input = new JEditorPane();
+		add(input);
+
+		JButton run = new JButton("Run");
+		add(run);
+
+		JButton clear = new JButton("Clear");
+		add(clear);
+
+		JTable output = new JTable();
+		add(output);
+
+		input.setPreferredSize(new Dimension(500, 200));
+		run.setPreferredSize(new Dimension(100, 100));
+		clear.setPreferredSize(new Dimension(100, 100));
+		output.setPreferredSize(new Dimension(500, 200));
+
 	}
 	
 }

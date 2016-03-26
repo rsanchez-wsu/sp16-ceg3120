@@ -25,6 +25,7 @@ import edu.wright.cs.sp16.ceg3120.gui.other.TabNames;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.ConnectionTab;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.LearnAndDiscoverTab;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.NewConnectionTab;
+import edu.wright.cs.sp16.ceg3120.gui.tabs.QueryBuilderTab;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.StartPageTab;
 
 import javax.swing.JTabbedPane;
@@ -72,11 +73,19 @@ public class MainTabPane extends JTabbedPane {
 	}
 
 	/**
+	 * Initialize the query builder tab.
+	 */
+	public void addQuerybuilderTab() {
+		QueryBuilderTab queryBuilderTab = new QueryBuilderTab();
+		addTab("Query Builder", null, queryBuilderTab, null);
+	}
+
+	/**
 	 * TODO: Add "New Connection" Tab.
 	 */
 	public void addNewConnectionTab() {
 
-		newConnectionTab = new NewConnectionTab();
+		newConnectionTab = new NewConnectionTab(this);
 
 		// TODO: add icon, add better tool tip
 		addTab(TabNames.NewConnection.toString(), null, newConnectionTab);

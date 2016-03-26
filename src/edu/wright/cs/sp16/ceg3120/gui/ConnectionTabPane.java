@@ -48,16 +48,16 @@ public class ConnectionTabPane extends JTabbedPane {
 	 * Initialize components.
 	 */
 	public void initComponents() {
-		addQueryBuilderTab();
+		//addQueryBuilderTab();
 	}
-	
-	/**
-	 * Initialize query builder tab.
-	 */
-	public void addQueryBuilderTab() {
-		QueryBuilderTab queryBuilderTab = new QueryBuilderTab();
-		
-		addTab("Query builder", null, queryBuilderTab, null);
-		
-	}
+//
+//	/**
+//	 * Initialize query builder tab.
+//	 */
+//	public void addQueryBuilderTab() {
+//		QueryBuilderTab queryBuilderTab = new QueryBuilderTab();
+//
+//		addTab("Query builder", null, queryBuilderTab, null);
+//
+//	}
 }
