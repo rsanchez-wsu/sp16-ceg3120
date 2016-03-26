@@ -164,7 +164,7 @@ public class PostgreConnect {
 		JTable tableOne = new JTable();
 		DefaultTableModel dtm = new DefaultTableModel();
 		try (Statement stmt = conn.createStatement(); 
-				ResultSet rs = stmt.executeQuery(query);) {
+				ResultSet rs = stmt.executeQuery(query)) {
 			ResultSetMetaData rsmd = rs.getMetaData();
 			int cols = rsmd.getColumnCount();
 			String[] col = new String[cols];
