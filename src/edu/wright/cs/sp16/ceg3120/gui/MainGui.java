@@ -21,8 +21,10 @@
 
 package edu.wright.cs.sp16.ceg3120.gui;
 
+import edu.wright.cs.sp16.ceg3120.gui.other.AboutWindow;
 import edu.wright.cs.sp16.ceg3120.gui.other.FindWindow;
 import edu.wright.cs.sp16.ceg3120.gui.other.ReplaceWindow;
+import edu.wright.cs.sp16.ceg3120.gui.other.WelcomeWindow;
 
 import java.awt.Cursor;
 import java.awt.Image;
@@ -30,8 +32,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+//import java.awt.event.WindowAdapter;
+//import java.awt.event.WindowEvent;
 import java.io.File;
 
 import javax.swing.Action;
@@ -39,12 +41,13 @@ import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+//import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.DefaultEditorKit;
 
@@ -422,8 +425,26 @@ public class MainGui extends JFrame implements ActionListener {
 				System.out.println("Save file: " + savedFile.getAbsolutePath());
 			}
 			// ==z=====
+		} else if (actionEvent.getSource().equals(welcomeMenuItem)) {	
+			//create a new frame About and set its properties
+
+			
+			SwingUtilities.invokeLater(new Runnable()
+			{
+				public void run() {
+					new WelcomeWindow();
+					
+				}
+			});
+			
+
+		
 		} else if (actionEvent.getSource().equals(aboutMenuItem)) {
 			// create a new frame About and set its properties
+			// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			//Commented this piece of code just for now.
+			// may be used later
+			/*
 			JFrame frameAbout = new JFrame("About");
 			makeDisabled();
 			JLabel labelName = new JLabel("About");
@@ -438,6 +459,14 @@ public class MainGui extends JFrame implements ActionListener {
 			frameAbout.addWindowListener(new WindowAdapter() {
 				public void windowClosing(WindowEvent ev) {
 					makeEnabled();
+				}
+			});
+			*/
+			SwingUtilities.invokeLater(new Runnable()
+			{
+				public void run() {
+					new AboutWindow();
+					
 				}
 			});
 
