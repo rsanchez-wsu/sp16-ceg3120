@@ -72,11 +72,11 @@ public class MainGui extends JFrame implements ActionListener {
 	private JMenuItem disconnectItem;
 	private JMenuItem topItem;
 	private JMenuItem bottomItem;
-	private JMenuItem findItem;
 	private JMenuItem cutItem;
 	private JMenuItem copyItem;
 	private JMenuItem pasteItem;
 	private JMenuItem replaceItem;
+	private Replace popthis;
 	
 	//private StartPageTab startPage = null;
 	private boolean isFullScreen = false;
@@ -242,30 +242,18 @@ public class MainGui extends JFrame implements ActionListener {
 		Action goToLineAction = new DefaultEditorKit.PasteAction();
 		goToLineAction.putValue(Action.NAME, "Go To Line");
 		
-		ImageIcon findIcon =  new ImageIcon("img/Find Icon.png");
-		Image findImage = findIcon.getImage();
-		Image newFindImage = findImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
-		findIcon = new ImageIcon(newFindImage);		
-		findItem = new JMenuItem("Find", findIcon);
-		findItem.setToolTipText("Search for keyword in the file");
-		ActionListener findA = new FindWindow();
-		findItem.addActionListener(findA);
-		
 		ImageIcon replaceIcon =  new ImageIcon("img/Replace Icon.png");
 		Image replaceImage = replaceIcon.getImage();
 		Image newReplaceImage = replaceImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
 		replaceIcon = new ImageIcon(newReplaceImage);	
-		replaceItem = new JMenuItem("Replace", replaceIcon);
-		replaceItem.setToolTipText("Replace characters or strings");
-		ActionListener replaceA = new ReplaceWindow();
-		replaceItem.addActionListener(replaceA);
-
+		replaceItem = new JMenuItem("Find & Replace", replaceIcon);
+		replaceItem.setToolTipText("Find and/or Replace word");
+		replaceItem.addActionListener(this);	
 		JMenu search = new JMenu("Search");
 		
 		search.add(topItem).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		search.add(bottomItem).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		search.add(goToLineAction).setCursor(new Cursor(Cursor.HAND_CURSOR));
-		search.add(findItem).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		search.add(replaceItem).setCursor(new Cursor(Cursor.HAND_CURSOR));
 		search.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
@@ -527,6 +515,11 @@ public class MainGui extends JFrame implements ActionListener {
 		         }
 		     }
 		     */
+		} else if (actionEvent.getSource().equals(replaceItem)) {
+			popthis = new Replace();
+			popthis.setVisible(true);
+			popthis.pack();
+			popthis.setLocationRelativeTo(null);
 		}
 	}
 	

@@ -27,10 +27,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Locale;
-
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -38,23 +36,24 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+
+
 /**
  * Replace JDialog implementation.
- * @author Devesh Amin
+ * @author Devesh Patel
  *
  */
-public class Replace extends JDialog {
+public class Replace extends JFrame {
 
 	private static final long serialVersionUID = 355739661658564404L;
 	private static boolean caseSensi;
-	private static JFrame frame = null;
 	private JLabel findlbl = new JLabel("Find: ");
 	private JLabel replacelbl = new JLabel("Replace: ");
 	private static JTextField wordToFind = new JTextField(10);
 	private static JTextField wordToReplace = new JTextField(10);
 	private static JTextArea textArea = new JTextArea(10,10);
 	private static JCheckBox caseSensitiveBox = new JCheckBox("Case Sensitive");
-	private static JButton findBtn = new JButton("Find Next");
+	private static JButton findnextBtn = new JButton("Find/Find Next");
 	private static JButton replaceBtn = new JButton("Replace");
 	private static JButton replaceAllBtn = new JButton("Relpace All");
 	private static JButton closeBtn = new JButton("Close");
@@ -69,7 +68,7 @@ public class Replace extends JDialog {
 	 * Constructor for Replace.
 	 */
 	public Replace() {
-		super(frame, "Replace");
+		super("Replace");
 		
 		//panel to add all the labels and textfields and their position
 		JPanel textPanel = new JPanel();
@@ -84,7 +83,7 @@ public class Replace extends JDialog {
 		//panel to add all the button and their position
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridLayout(1,4));
-		buttonPanel.add(findBtn);	
+		buttonPanel.add(findnextBtn);
 		buttonPanel.add(replaceBtn);	
 		buttonPanel.add(replaceAllBtn);	
 		buttonPanel.add(closeBtn);
@@ -93,7 +92,8 @@ public class Replace extends JDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				setVisible(false);	
+				setVisible(false);
+				dispose();
 			}
 		});
 		
@@ -120,7 +120,7 @@ public class Replace extends JDialog {
 	}
 	
 	/**
-	 * Find algorithm.
+	 * Find/Find Next algorithm.
 	 */
 	private static void find() {
 		try {
@@ -132,6 +132,7 @@ public class Replace extends JDialog {
 				boolean endSearch = false;
 				
 				while (!endSearch) {
+					index = 0;
 					if (caseSensi) {
 						index = search.indexOf(string, initial);
 					} else {
@@ -155,6 +156,7 @@ public class Replace extends JDialog {
 			e.printStackTrace();
 		}
 	} // end find
+	
 	
 	/**
 	 * ReplaceAll algorithm.
@@ -208,13 +210,14 @@ public class Replace extends JDialog {
 	 */
 	private static void buttonListener() {
 		//find button listener
-		findBtn.addActionListener(new ActionListener() {
+		findnextBtn.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				find();
 			}
 		});
+		
 		
 		//replaceAll button listener
 		replaceAllBtn.addActionListener(new ActionListener() {
