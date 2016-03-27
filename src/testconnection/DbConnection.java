@@ -22,9 +22,17 @@
 package testconnection;
 
 import java.io.File;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import javax.swing.JList;
+
+import gui.TablesList;
 
 /**
  * 
@@ -39,11 +47,13 @@ public class DbConnection {
 	//private String username = "";
 	//private String password = "";
 	private boolean isConnected = false;
+	private TablesList dbTables;
 
 	/**
 	 * Default constructor for a DBconnection.
 	 */
 	public DbConnection() {
+		
 			//path may vary per user because it is an Embedded Driver
 		url = "jdbc:derby:/Users/AlisonGuyton/.ivy2/cache/org.apache.derby/derby/jars/newDB;"
 				+ "create=true";
@@ -138,5 +148,25 @@ public class DbConnection {
 	 */
 	public Connection getConnection() {
 		return conn;
+	}
+	
+	public ArrayList<String> sendQuery(String query) throws SQLException{
+		
+		 Statement stmt=null;
+		 ResultSet result=null;
+		try {
+			stmt = conn.createStatement();
+			result = stmt.executeQuery(query);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 ArrayList<String> resultArr = new ArrayList<String>();
+		 JList<String> list = new JList<String>();
+		 while(result.next()) {
+			 resultArr.add(result.getString(2));
+			 System.out.println(resultArr.get(resultArr.size()-1));
+		 }
+		 return resultArr;
 	}
 }
