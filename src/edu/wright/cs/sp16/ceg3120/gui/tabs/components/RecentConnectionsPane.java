@@ -22,6 +22,7 @@
 package edu.wright.cs.sp16.ceg3120.gui.tabs.components;
 
 import edu.wright.cs.sp16.ceg3120.gui.MainTabPane;
+import edu.wright.cs.sp16.ceg3120.util.XmlUtil;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -94,12 +95,16 @@ public class RecentConnectionsPane extends JPanel {
 
 		add(recentConn, subConstraints);
 
-		recentConnLinks = new JButton[10];
-
 		ButtonHandler recentConnClickEvent = new ButtonHandler();
+		
+		// get alias's
+		aliass = XmlUtil.populateAlias();
+		
+		// initialize recent connection links
+		recentConnLinks = new JButton[aliass.length];
 
 		// initialize dummy values for recent connection links
-		for (int i = 0; i < recentConnLinks.length; i++) {
+		for (int i = 0; i < aliass.length; i++) {
 			recentConnLinks[i] = new JButton();
 			recentConnLinks[i].setText("<HTML><U>Recent connection " + i + "</U></HTML>");
 			recentConnLinks[i].setBorderPainted(false);
@@ -152,12 +157,17 @@ public class RecentConnectionsPane extends JPanel {
 	JButton[] recentConnLinks;
 
 	/**
+	 * List of alias's
+	 */
+	String[] aliass;
+	
+	/**
 	 * Get "Recent connections" label.
 	 */
 	public JLabel getRecentConnLabel() {
 		return recentConn;
 	}
-
+	
 	/**
 	 * Set "Recent connections" label.
 	 * 
