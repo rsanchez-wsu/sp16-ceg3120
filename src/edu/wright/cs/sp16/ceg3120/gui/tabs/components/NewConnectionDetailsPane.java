@@ -24,6 +24,7 @@ package edu.wright.cs.sp16.ceg3120.gui.tabs.components;
 import edu.wright.cs.sp16.ceg3120.gui.MainTabPane;
 import edu.wright.cs.sp16.ceg3120.gui.other.Inputs;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.QueryBuilderTab;
+import edu.wright.cs.sp16.ceg3120.sql.DatabaseConnector;
 import edu.wright.cs.sp16.ceg3120.sql.MySqlConnect;
 import edu.wright.cs.sp16.ceg3120.sql.PostgreConnect;
 import edu.wright.cs.sp16.ceg3120.util.PasswordEncryptionUtility;
@@ -230,7 +231,7 @@ public class NewConnectionDetailsPane extends JPanel {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				} finally {
-					testConnection(getConnected());
+					testConnection(getConnected(), connect);
 				}
 				break;
 			// PostgreSQL Driver
@@ -243,7 +244,7 @@ public class NewConnectionDetailsPane extends JPanel {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				} finally {
-					testConnection(getConnected());
+					//testConnection(getConnected(), postConnect);
 				}
 				break;
 			// No driver
@@ -258,11 +259,11 @@ public class NewConnectionDetailsPane extends JPanel {
 	 * open the querybuildertab when the database is connected.
 	 * @param connected set if the database is connected
      */
-	private static void testConnection(boolean connected) {
+	private static void testConnection(boolean connected, DatabaseConnector connector) {
 		if (!connected) {
 			//generate error
 		} else {
-			getMainTab().addQuerybuilderTab();
+			getMainTab().addQuerybuilderTab(connector);
 			getMainTab().setSelectedIndex(getMainTab().getTabCount() - 1);
 		}
 	}

@@ -22,6 +22,7 @@
 package edu.wright.cs.sp16.ceg3120.sql;
 
 import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * 
@@ -33,7 +34,7 @@ public abstract class DatabaseConnector {
 	 * Generic class to provide interface for all the different drivers.
 	 * 
 	 */
-	public String[][] executeQuery(String in) throws SQLException {
+	public DefaultTableModel executeQuery(String in) throws SQLException {
 		return null;
 	}
 

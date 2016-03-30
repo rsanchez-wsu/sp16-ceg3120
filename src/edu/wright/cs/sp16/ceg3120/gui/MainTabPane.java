@@ -27,6 +27,7 @@ import edu.wright.cs.sp16.ceg3120.gui.tabs.LearnAndDiscoverTab;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.NewConnectionTab;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.QueryBuilderTab;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.StartPageTab;
+import edu.wright.cs.sp16.ceg3120.sql.DatabaseConnector;
 
 import javax.swing.JTabbedPane;
 
@@ -75,8 +76,8 @@ public class MainTabPane extends JTabbedPane {
 	/**
 	 * Initialize the query builder tab.
 	 */
-	public void addQuerybuilderTab() {
-		QueryBuilderTab queryBuilderTab = new QueryBuilderTab();
+	public void addQuerybuilderTab(DatabaseConnector connector) {
+		QueryBuilderTab queryBuilderTab = new QueryBuilderTab(connector);
 		addTab("Query Builder", null, queryBuilderTab, null);
 	}
 

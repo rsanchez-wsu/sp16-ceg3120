@@ -97,59 +97,59 @@ public class MySqlConnect extends DatabaseConnector {
 		dataSource.setDatabaseName(getDbName());
 	}
 
-	/**
-	 * This function accepts a String variable that is a SQL query, executes the
-	 * query, iterates through the resulting data, and concatenates a string of
-	 * the results from the query. It should be noted that FindBugs flagged this
-	 * approach as unsafe and required a Suppression on the warning. We want to
-	 * be able to execute arbitrary code, so there is no need to protect against
-	 * SQL injection.
-	 * 
-	 * @return String variable containing the results of the query executed.
-	 * @throws SQLException
-	 *             when there is an issue connection to the database.
-	 */
-	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = 
-			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
-			"We specifically want to allow the user to execute arbitrary SQL")
-	public String[][] executeQuery(String stringQuery) throws SQLException {
-		//JTable t1 = new JTable();
-		String[][] resultTable = null;  // create the array to return
-		// try to create the connection and resultset
-		try (Connection conn = dataSource.getConnection();
-				Statement inputStatement = conn.createStatement();
-				ResultSet rs = inputStatement.executeQuery(stringQuery);) {
-			// ResultSetMetaData does not implement AutoClosable() so it
-			// cannot be handled by try-with-resources.
-			ResultSetMetaData rsmd = null;
-			// Get the information required to make th array
-			rsmd = rs.getMetaData();
-			// this part of code gets how many rows there are
-			rs.last(); // moves the resultset cursor to the last row
-			int numRows = rs.getRow(); //sets the number of rows to the last row
-			rs.beforeFirst(); // moves the cursor to the beginning
-			//initialize the array with the [rows][columns]
-			resultTable = new String[numRows][rsmd.getColumnCount()];
-			// Iterate through all data returned and put it into a string array
-			// test to see if it does not get ot of index with i < numRows
-			// and that there is more data to grab with rs.next()
-			// first for loop is for rows
-			for (int i = 0; i < numRows && rs.next(); i++) {
-				// second for loop columns
-				for (int j = 0; j < rsmd.getColumnCount(); j++) {
-					// the resultset data starts at index of 1 so that's why there
-					// is an offset to get the string.
-					resultTable[i][j] = rs.getString(j + 1);
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		// return resultTable the 2d array
-		return resultTable;
-	}
-
-	
+//	/**
+//	 * This function accepts a String variable that is a SQL query, executes the
+//	 * query, iterates through the resulting data, and concatenates a string of
+//	 * the results from the query. It should be noted that FindBugs flagged this
+//	 * approach as unsafe and required a Suppression on the warning. We want to
+//	 * be able to execute arbitrary code, so there is no need to protect against
+//	 * SQL injection.
+//	 *
+//	 * @return String variable containing the results of the query executed.
+//	 * @throws SQLException
+//	 *             when there is an issue connection to the database.
+//	 */
+//	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value =
+//			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification =
+//			"We specifically want to allow the user to execute arbitrary SQL")
+//	public JTable executeQuery(String stringQuery) throws SQLException {
+//		//JTable t1 = new JTable();
+//		String[][] resultTable = null;  // create the array to return
+//		// try to create the connection and resultset
+//		try (Connection conn = dataSource.getConnection();
+//				Statement inputStatement = conn.createStatement();
+//				ResultSet rs = inputStatement.executeQuery(stringQuery);) {
+//			// ResultSetMetaData does not implement AutoClosable() so it
+//			// cannot be handled by try-with-resources.
+//			ResultSetMetaData rsmd = null;
+//			// Get the information required to make th array
+//			rsmd = rs.getMetaData();
+//			// this part of code gets how many rows there are
+//			rs.last(); // moves the resultset cursor to the last row
+//			int numRows = rs.getRow(); //sets the number of rows to the last row
+//			rs.beforeFirst(); // moves the cursor to the beginning
+//			//initialize the array with the [rows][columns]
+//			resultTable = new String[numRows][rsmd.getColumnCount()];
+//			// Iterate through all data returned and put it into a string array
+//			// test to see if it does not get ot of index with i < numRows
+//			// and that there is more data to grab with rs.next()
+//			// first for loop is for rows
+//			for (int i = 0; i < numRows && rs.next(); i++) {
+//				// second for loop columns
+//				for (int j = 0; j < rsmd.getColumnCount(); j++) {
+//					// the resultset data starts at index of 1 so that's why there
+//					// is an offset to get the string.
+//					resultTable[i][j] = rs.getString(j + 1);
+//				}
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		// return resultTable the 2d array
+//		return resultTable;
+//	}
+//
+//
 	/**
 	 * This method accepts a properly structured SELECT statement and processes
 	 * it against the properly configured database connection. The method then
@@ -163,7 +163,7 @@ public class MySqlConnect extends DatabaseConnector {
 	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = 
 			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
 			"We specifically want to allow the user to execute arbitrary SQL")
-	public JTable getTable(String query) {
+	public DefaultTableModel executeQuery(String query) {
 		JTable tableOne = new JTable();
 		DefaultTableModel dtm = new DefaultTableModel();
 		try (Connection conn = dataSource.getConnection();
@@ -184,13 +184,12 @@ public class MySqlConnect extends DatabaseConnector {
 				}
 				dtm.addRow(row);
 			}
-			tableOne.setModel(dtm);
-			return tableOne;
+			return dtm;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return tableOne;
+		return dtm;
 	}
 
 	/**

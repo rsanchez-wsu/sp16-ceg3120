@@ -39,7 +39,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Bonnie
  *
  */
-public class DerbyConnect extends DatabaseConnector {
+public class DerbyConnect  {
 
 	private String dbName;
 	private String dbUrl = "jdbc:derby://localhost:1527/testDB;create=true;"
