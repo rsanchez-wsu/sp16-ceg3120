@@ -21,10 +21,10 @@
 
 package edu.wright.cs.sp16.ceg3120.gui;
 
-import edu.wright.cs.sp16.ceg3120.gui.tabs.PreferencesPanel;
-import edu.wright.cs.sp16.ceg3120.gui.tabs.Queries;
 import edu.wright.cs.sp16.ceg3120.gui.other.FindWindow;
 import edu.wright.cs.sp16.ceg3120.gui.other.ReplaceWindow;
+import edu.wright.cs.sp16.ceg3120.gui.tabs.PreferencesPanel;
+import edu.wright.cs.sp16.ceg3120.gui.tabs.Queries;
 
 import java.awt.Component;
 import java.awt.Cursor;
@@ -78,8 +78,9 @@ public class MainGui extends JFrame implements ActionListener {
 	private JMenuItem copyItem;
 	private JMenuItem pasteItem;
 	private JMenuItem replaceItem;
-	private JMenuItem mntmPreferences;
-	private JMenuItem mntmQueries;
+	//TODO decide if this is important
+	//private JMenuItem mntmPreferences;
+	//private JMenuItem mntmQueries;
 
 	/**
 	 * The constructor method that initializes the main application window.

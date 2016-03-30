@@ -22,15 +22,11 @@
 package edu.wright.cs.sp16.ceg3120;
 
 
-
-import javax.swing.JTabbedPane;
-
-
-
 import edu.wright.cs.sp16.ceg3120.gui.MainGui;
 import edu.wright.cs.sp16.ceg3120.gui.other.SplashScreen;
 import edu.wright.cs.sp16.ceg3120.util.UserSettings;
 
+import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
