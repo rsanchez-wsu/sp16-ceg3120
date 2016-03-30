@@ -19,7 +19,7 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120;
+package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
 import java.awt.Font;
 import java.awt.GridBagConstraints;

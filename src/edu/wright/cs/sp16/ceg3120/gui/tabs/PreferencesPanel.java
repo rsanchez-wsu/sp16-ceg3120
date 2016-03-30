@@ -19,7 +19,7 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120;
+package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -35,6 +35,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.UIManager;
+
+import edu.wright.cs.sp16.ceg3120.MainApp;
+import edu.wright.cs.sp16.ceg3120.util.Encoding;
+import edu.wright.cs.sp16.ceg3120.util.NumberOfQueries;
+import edu.wright.cs.sp16.ceg3120.util.UserSettings;
 
 /**
  * This class is created to display the preferences window which contains the

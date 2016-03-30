@@ -21,9 +21,12 @@
 
 package edu.wright.cs.sp16.ceg3120.gui;
 
+import edu.wright.cs.sp16.ceg3120.gui.tabs.PreferencesPanel;
+import edu.wright.cs.sp16.ceg3120.gui.tabs.Queries;
 import edu.wright.cs.sp16.ceg3120.gui.other.FindWindow;
 import edu.wright.cs.sp16.ceg3120.gui.other.ReplaceWindow;
 
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -37,6 +40,7 @@ import java.io.File;
 import javax.swing.Action;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -74,6 +78,8 @@ public class MainGui extends JFrame implements ActionListener {
 	private JMenuItem copyItem;
 	private JMenuItem pasteItem;
 	private JMenuItem replaceItem;
+	private JMenuItem mntmPreferences;
+	private JMenuItem mntmQueries;
 
 	/**
 	 * The constructor method that initializes the main application window.
@@ -205,6 +211,59 @@ public class MainGui extends JFrame implements ActionListener {
 		edit.add(copyItem);
 		edit.add(pasteItem);
 		edit.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
+		//Preferences Panel
+		JMenuItem mntmPreferences = new JMenuItem("Preferences");
+		mntmPreferences.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent preferences) {
+				String paneTitle = "User Preferences";
+				int index = tabPane.indexOfTab(paneTitle);
+				if (index == -1) {
+					JButton btnClose = new JButton("Close");
+					btnClose.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							Component selected = tabPane.getSelectedComponent();
+								if (selected != null) {
+									tabPane.remove(selected);
+								}
+							}
+					});
+					btnClose.setVisible(true);
+					PreferencesPanel preferences1 = new PreferencesPanel(btnClose);
+					preferences1.add(btnClose);
+					
+					tabPane.addTab(paneTitle, preferences1);
+				}
+			}
+		});
+		edit.add(mntmPreferences);
+		
+		//Queries History panel
+		JMenuItem mntmQueries = new JMenuItem("Queries");
+		mntmQueries.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent queries) {
+				//TODO ??
+				int index = tabPane.indexOfTab("Queries Panel");
+				if (index == -1) {
+					JButton btnClose = new JButton("Close");
+					btnClose.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							Component selected = tabPane.getSelectedComponent();
+								if (selected != null) {
+									tabPane.remove(selected);
+								}
+							}
+					});
+					btnClose.setVisible(true);
+
+					Queries queries1 = new Queries(btnClose);
+					queries1.add(btnClose);
+					tabPane.addTab("Queries Panel", queries1);
+
+				}
+			}
+		});
+		edit.add(mntmQueries);
 
 		// Search menu
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <java version="1.8.0_73" class="java.beans.XMLDecoder">
- <object class="edu.wright.cs.sp16.ceg3120.UserSettings">
+ <object class="edu.wright.cs.sp16.ceg3120.util.UserSettings">
   <void property="connectOnStartup">
    <boolean>true</boolean>
   </void>
@@ -9,7 +9,7 @@
   </void>
   <void property="defaultEncoding">
    <object class="java.lang.Enum" method="valueOf">
-    <class>edu.wright.cs.sp16.ceg3120.Encoding</class>
+    <class>edu.wright.cs.sp16.ceg3120.util.Encoding</class>
     <string>ASCII</string>
    </object>
   </void>
@@ -24,7 +24,7 @@
   </void>
   <void property="numberOfQueries">
    <object class="java.lang.Enum" method="valueOf">
-    <class>edu.wright.cs.sp16.ceg3120.NumberOfQueries</class>
+    <class>edu.wright.cs.sp16.ceg3120.util.NumberOfQueries</class>
     <string>Ten</string>
 
    </object>

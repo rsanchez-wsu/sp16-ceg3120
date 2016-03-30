@@ -19,7 +19,7 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120;
+package edu.wright.cs.sp16.ceg3120.util;
 
 /**
  * Enum used for the JComboBox in Profile.java to hold the number of saved queries
