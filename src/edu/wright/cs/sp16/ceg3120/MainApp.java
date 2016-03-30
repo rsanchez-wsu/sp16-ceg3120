@@ -42,7 +42,7 @@ public class MainApp {
 	 */
 	
 	public static void main(String[] args) {
-		WinMain programWindow = new WinMain();
+		final WinMain programWindow = new WinMain();
 		programWindow.addWindowListener(new WindowAdapter() {
 			
 			@Override

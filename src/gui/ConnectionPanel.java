@@ -38,7 +38,7 @@ public class ConnectionPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private final JPanel dbDetails = new JPanel();
 	private final DbViewer dbViews = new DbViewer();
-	private DbConnection dbConn;
+	private transient DbConnection dbConn;
 	
 	/**Constructor for the ConnectionPanel class.
 	 * @param newConnection a successful connection to a DB

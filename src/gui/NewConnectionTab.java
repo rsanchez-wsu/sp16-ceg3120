@@ -51,9 +51,10 @@ import javax.swing.UIManager;
 public class NewConnectionTab extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private WinMain mainWinRef;
-	private DbConnection dbConn;
+	private transient DbConnection dbConn;
 	private final JLabel favLabel = new JLabel("Favorites");
 	private final DefaultListModel<String> favListData = new DefaultListModel<String>();
+
 	
 	private final JPanel connContentPanel = new JPanel();
 	private static final JLabel dburlLabel = new JLabel("Database URL: ");
