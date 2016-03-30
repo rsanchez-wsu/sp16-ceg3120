@@ -157,7 +157,7 @@ public class RecentConnectionsPane extends JPanel {
 	JButton[] recentConnLinks;
 
 	/**
-	 * List of alias's
+	 * List of alias's.
 	 */
 	String[] aliass;
 	

@@ -115,7 +115,7 @@ public class TipOfTheDayPane extends JPanel {
 		
 		dummyTipText[2] = "The Big Oxmox advised her not to do so, because there were thousands \n"
 				+ "of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind \n"
-				+ " didn’t listen. She packed her seven versalia, put her initial into the belt \n"
+				+ " didn't listen. She packed her seven versalia, put her initial into the belt \n"
 				+ " herself on the way. When she reached the first hills of the Italic Mountain \n"
 				+ " a last view back on the skyline of her hometown Bookmarksgrove";
 		

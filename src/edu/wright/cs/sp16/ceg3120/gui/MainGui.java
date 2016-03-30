@@ -427,49 +427,9 @@ public class MainGui extends JFrame implements ActionListener {
 			// ==z=====
 		} else if (actionEvent.getSource().equals(welcomeMenuItem)) {	
 			//create a new frame About and set its properties
-
-			
-			SwingUtilities.invokeLater(new Runnable()
-			{
-				public void run() {
-					new WelcomeWindow();
-					
-				}
-			});
-			
-
-		
+			new WelcomeWindow();
 		} else if (actionEvent.getSource().equals(aboutMenuItem)) {
-			// create a new frame About and set its properties
-			// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			//Commented this piece of code just for now.
-			// may be used later
-			/*
-			JFrame frameAbout = new JFrame("About");
-			makeDisabled();
-			JLabel labelName = new JLabel("About");
-			JLabel labelVersion = new JLabel("Version 0.0.0.0");
-
-			frameAbout.getContentPane().add(labelName);
-			frameAbout.getContentPane().add(labelVersion);
-
-			frameAbout.setSize(300, 300);
-			frameAbout.setLocationRelativeTo(null);
-			frameAbout.setVisible(true);
-			frameAbout.addWindowListener(new WindowAdapter() {
-				public void windowClosing(WindowEvent ev) {
-					makeEnabled();
-				}
-			});
-			*/
-			SwingUtilities.invokeLater(new Runnable()
-			{
-				public void run() {
-					new AboutWindow();
-					
-				}
-			});
-
+			new AboutWindow();
 		} else if (actionEvent.getSource().equals(connect)) {
 			tabPane.addNewConnectionTab();
 		}
@@ -489,7 +449,6 @@ public class MainGui extends JFrame implements ActionListener {
 		setEnabled(true);
 	}
 
-	// <<<<<<< HEAD
 	/**
 	 * AboutSQLizard JMenuItem.
 	 */

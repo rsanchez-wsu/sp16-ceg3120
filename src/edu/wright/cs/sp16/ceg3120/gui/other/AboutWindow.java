@@ -37,16 +37,12 @@ import javax.swing.JPanel;
 
 import javax.swing.Timer;
 
-
-
-
-
 /**
  * The Frame that holds different panels. Mainly created for the slideShow of images
  * 
  * @author kirill kultinov
  */
-public class AboutWindow extends JPanel {
+public class AboutWindow extends JPanel implements ActionListener{
 
 	private static final long serialVersionUID = -24143968339746394L;
 	private int count = 1;
@@ -61,39 +57,7 @@ public class AboutWindow extends JPanel {
 	private ImageIcon pictures2 = new ImageIcon("img/LizardSample2.jpg");
 	private ImageIcon pictures3 = new ImageIcon("img/LizardSample3.jpg");
 	private ImageIcon pictures4 = new ImageIcon("img/LizardSample4.jpg");
-	/**
-     * The method used to change images inside of a panel depending on
-     * a value of counter.
-     */
-	private ActionListener action = new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent ae) {                       
-			count++;
-
-			if (count == 1) {
-				images.setIcon(pictures1);
-				description.setText("So Just enjoy Lizardzzzz");
-			}
-			if (count == 2) {
-				images.setIcon(pictures2);  
-				description.setText("So Just enjoy Lizardzzzz");
-			}
-			if (count == 3) {
-				images.setIcon(pictures3);
-				description.setText("zoooo cool");
-			}
-			if (count == 4) {
-				images.setIcon(pictures4); 
-				description.setText("izn't it?");
-			}
-			if (count == 5) {
-				count = 0;
-				description.setText("zzz");
-			}
-			revalidate();
-			repaint();
-		}
-	};
+	
 	
 	/**
 	 * The Frame that holds different panels. Mainly created for the slideShow of images
@@ -120,7 +84,38 @@ public class AboutWindow extends JPanel {
 		images.setIcon(pictures1);
 		frame.setSize(500, 400);
 		frame.setVisible(true); 
-		timer = new Timer(1500, action);    
+		timer = new Timer(1500, this);    
 		timer.start();  
+	}
+	
+	/**
+     * The method used to change images inside of a panel depending on
+     * a value of counter.
+     */
+	public void actionPerformed(ActionEvent ae) {                       
+		count++;
+
+		if (count == 1) {
+			images.setIcon(pictures1);
+			description.setText("So Just enjoy Lizardzzzz");
+		}
+		if (count == 2) {
+			images.setIcon(pictures2);  
+			description.setText("So Just enjoy Lizardzzzz");
+		}
+		if (count == 3) {
+			images.setIcon(pictures3);
+			description.setText("zoooo cool");
+		}
+		if (count == 4) {
+			images.setIcon(pictures4); 
+			description.setText("izn't it?");
+		}
+		if (count == 5) {
+			count = 0;
+			description.setText("zzz");
+		}
+		revalidate();
+		repaint();
 	}
 }
