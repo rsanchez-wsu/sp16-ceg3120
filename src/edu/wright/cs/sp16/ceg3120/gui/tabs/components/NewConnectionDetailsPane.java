@@ -23,7 +23,6 @@ package edu.wright.cs.sp16.ceg3120.gui.tabs.components;
 
 import edu.wright.cs.sp16.ceg3120.gui.MainTabPane;
 import edu.wright.cs.sp16.ceg3120.gui.other.Inputs;
-import edu.wright.cs.sp16.ceg3120.gui.tabs.QueryBuilderTab;
 import edu.wright.cs.sp16.ceg3120.sql.DatabaseConnector;
 import edu.wright.cs.sp16.ceg3120.sql.MySqlConnect;
 import edu.wright.cs.sp16.ceg3120.sql.PostgreConnect;
@@ -46,7 +45,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;

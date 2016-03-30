@@ -21,8 +21,6 @@
 
 package edu.wright.cs.sp16.ceg3120.gui;
 
-import edu.wright.cs.sp16.ceg3120.gui.tabs.QueryBuilderTab;
-
 import javax.swing.JTabbedPane;
 
 

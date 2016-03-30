@@ -47,7 +47,7 @@ public class QueryBuilderTab extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private GridBagLayout layout;
-	private ActionListener actionHandler = new ActionHandler();
+	private transient ActionListener actionHandler = new ActionHandler();
 	private JEditorPane input;
 	private JTable output;
 	private DatabaseConnector connector;

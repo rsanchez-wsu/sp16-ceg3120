@@ -27,7 +27,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -42,6 +41,11 @@ import javax.swing.table.DefaultTableModel;
 
 public class MySqlConnect extends DatabaseConnector {
 
+	/** serial id.
+	 * 
+	 */
+	private static final long serialVersionUID = 13L;
+	
 	private String dbAddress;
 	private String dbUsername;
 	private String dbPassword;
@@ -164,7 +168,6 @@ public class MySqlConnect extends DatabaseConnector {
 			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
 			"We specifically want to allow the user to execute arbitrary SQL")
 	public DefaultTableModel executeQuery(String query) {
-		JTable tableOne = new JTable();
 		DefaultTableModel dtm = new DefaultTableModel();
 		try (Connection conn = dataSource.getConnection();
 				Statement stmt = conn.createStatement();
