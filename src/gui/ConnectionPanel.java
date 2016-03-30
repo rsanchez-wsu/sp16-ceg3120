@@ -53,11 +53,12 @@ public class ConnectionPanel extends JPanel {
 	private transient DbConnection dbConn;
 	private DefaultListModel<String> tablesArray = new DefaultListModel<String>();
 	private final JScrollPane dbTablesScrollPane = new JScrollPane();
-	private final JLabel TablesLabel = new JLabel("  Tables");
-	private JList<String> list_showup = new JList();
+	private final JLabel tablesLabel = new JLabel("  Tables");
+	private JList<String> listShow = new JList<String>();
 	private final JLabel lblNewLabel = new JLabel("  Database Information");
 	private final JLabel label = new JLabel("");
 	private final JLabel lblIntnumberoutput = new JLabel("111");
+	private final JLabel lblRoot = new JLabel("Root");
 	
 	/**Constructor for the ConnectionPanel class.
 	 * @param newConnection a successful connection to a DB
@@ -79,11 +80,13 @@ public class ConnectionPanel extends JPanel {
 		ArrayList<String> list = null;
 		try {
 			list = dbConn.sendQuery(new String("SELECT * FROM SYS.SYSTABLES"));
-			for(int i=0;i<list.size();i++){
+			for (int i = 0; i < list.size() ; i++) {
 				tablesArray.addElement(list.get(i));
 				System.out.println(tablesArray.getElementAt(i));
 				JList listYa = new JList(list.toArray()); 
-				list_showup=listYa;
+				listShow = listYa;
+				lblIntnumberoutput.setText(String.valueOf(list.size()));
+
 
 			}
 		} catch (SQLException e) {
@@ -91,29 +94,33 @@ public class ConnectionPanel extends JPanel {
 			e.printStackTrace();
 		}
 		add(dbDetails);
-		list_showup.setVisibleRowCount(10);
-		list_showup.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		dbTablesScrollPane.setViewportBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		dbTablesScrollPane.add(list_showup);
-		TablesLabel.setFont(new Font("Nirmala UI Semilight", Font.PLAIN, 16));
+		listShow.setVisibleRowCount(10);
+		listShow.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		dbTablesScrollPane.setViewportBorder(new TitledBorder(null, "", 
+				TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		dbTablesScrollPane.add(listShow);
+		tablesLabel.setFont(new Font("Nirmala UI Semilight", Font.PLAIN, 16));
 		
-		dbTablesScrollPane.setColumnHeaderView(TablesLabel);
+		dbTablesScrollPane.setColumnHeaderView(tablesLabel);
 		
-		dbTablesScrollPane.setViewportView(list_showup);
-		dbDetails.setLayout(new MigLayout("", "[32.00px][43.00px][84px]", "[189px][29px][1px][23px][][15px]"));
+		dbTablesScrollPane.setViewportView(listShow);
+		dbDetails.setLayout(new MigLayout(
+				"", "[32.00px][43.00px][84px]","[189px][29px][1px][23px][][15px]"));
 		dbDetails.add(label, "cell 0 2,alignx right,aligny top");
 		dbDetails.add(dbTablesScrollPane, "cell 0 0 3 1,growx,aligny top");
 		
-		JLabel lblNewLabel_1 = new JLabel("Number of Tables:");
-		lblNewLabel_1.setAlignmentX(Component.CENTER_ALIGNMENT);
-		lblNewLabel_1.setSize(new Dimension(87, 0));
-		dbDetails.add(lblNewLabel_1, "cell 1 3,grow");
+		JLabel label11 = new JLabel("Number of Tables:");
+		label11.setAlignmentX(Component.CENTER_ALIGNMENT);
+		label11.setSize(new Dimension(87, 0));
+		dbDetails.add(label11, "cell 1 3,grow");
 		dbDetails.add(lblIntnumberoutput, "cell 2 3,alignx left,aligny center");
 		dbDetails.add(lblNewLabel, "cell 0 1 3 1,alignx left,growy");
 		
-		JLabel Label_2 = new JLabel("Current User:");
-		Label_2.setAlignmentX(Component.CENTER_ALIGNMENT);
-		dbDetails.add(Label_2, "cell 1 4,growx,aligny top");
+		JLabel label21 = new JLabel("Current User:");
+		label21.setAlignmentX(Component.CENTER_ALIGNMENT);
+		dbDetails.add(label21, "cell 1 4,growx,aligny top");
+		
+		dbDetails.add(lblRoot, "cell 2 4");
 		add(dbViews);
 		
 		setVisible(true);
