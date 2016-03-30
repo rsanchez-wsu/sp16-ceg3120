@@ -1,5 +1,6 @@
 /*
- * Copyright(C) 2016
+ * Copyright (C) 2016 Team 4, All rights reserved
+ * 
  */
 
 package edu.wright.cs.sp16.ceg3120;
@@ -55,6 +56,9 @@ public class DerbyConn {
 		int choice = 0;
 		int order = 1;
 		int orderChoice = 0;
+		int editChoice = 0;
+		int colType = 0;
+		String colName = null;
 		try {
 			createTable();
 		} catch (SQLException e) {
@@ -64,14 +68,13 @@ public class DerbyConn {
 		createWindow();
 
 		do {
-			System.out
-					.println("\nWelcome to the database \nTo view contents enter 1 \n"
-							+ "To insert a new item enter 2 \nTo delete an item from "
-							+ "the table enter 3 \nTo edit an item in the table enter 4 "
-							+ "\nTo create a new table enter 5 \nTo edit a table enter 6 "
-							+ "\nTo sort table enter 7 \nTo search table by ID enter 8"
-							+ "\nTo search table by first name enter 9 "
-							+ "\nTo search table by last name enter 10 \nTo exit enter 11");
+			System.out.println("\nWelcome to the database \nTo view contents enter 1 \n"
+					+ "To insert a new item enter 2 \nTo delete an item from "
+					+ "the table enter 3 \nTo edit an item in the table enter 4 "
+					+ "\nTo create a new table enter 5 \nTo edit a table enter 6 "
+					+ "\nTo sort table enter 7 \nTo search table by ID enter 8"
+					+ "\nTo search table by first name enter 9 "
+					+ "\nTo search table by last name enter 10 \nTo exit enter 11");
 
 			Scanner keyboard = new Scanner(System.in);
 
@@ -127,39 +130,39 @@ public class DerbyConn {
 				System.out.println("Enter '1' to edit a column name, or enter '2' to add a "
 						+ "Column to a table?: ");
 				try {
-				editChoice = keyboard.nextInt();
+					editChoice = keyboard.nextInt();
 				} catch (InputMismatchException exception) {
 					System.out.println("Invalid Input");
 				}
-				if(editChoice == 1){
-				System.out.println("Enter the name of the table you wish to edit: ");
-				val = keyboard.next();
-				System.out.println("Enter the old name of the Column");
-				firstName = keyboard.next();
-				System.out.println("Enter new name of the Column");
-				lastName = keyboard.next();
-				editColumnName(val, firstName, lastName);
-				System.out.println("Table edited successfully");
-				printTable(orderChoice, order);
-				}else if(editChoice == 2){
-				System.out.println("Enter the name of the table you wish to edit: ");
-				val = keyboard.next();
-				System.out.println("Enter the name of the new Column");
-				colName = keyboard.next();
-				System.out.println("Select the data type for the column. For an integer, enter 1; "
-						+ "for a string, enter 2; for a boolean, enter 3: ");
-				try{
-				colType = keyboard.nextInt();
-				} catch (InputMismatchException exception) {
-					System.out.println("Invalid Input");
-				}
-				addColumn(val, colName, colType);
-				System.out.println("Column added successfully");
-				printTable(orderChoice, order);
-				}else{
+				if (editChoice == 1) {
+					System.out.println("Enter the name of the table you wish to edit: ");
+					val = keyboard.next();
+					System.out.println("Enter the old name of the Column");
+					firstName = keyboard.next();
+					System.out.println("Enter new name of the Column");
+					lastName = keyboard.next();
+					editColumnName(val, firstName, lastName);
+					System.out.println("Table edited successfully");
+					printTable(orderChoice, order);
+				} else if (editChoice == 2) {
+					System.out.println("Enter the name of the table you wish to edit: ");
+					val = keyboard.next();
+					System.out.println("Enter the name of the new Column");
+					colName = keyboard.next();
+					System.out.println("Select the data type for the column. For an integer, "
+							+ "enter 1; for a string, enter 2; for a boolean, enter 3: ");
+					try {
+						colType = keyboard.nextInt();
+					} catch (InputMismatchException exception) {
+						System.out.println("Invalid Input");
+					}
+					addColumn(val, colName, colType);
+					System.out.println("Column added successfully");
+					printTable(orderChoice, order);
+				} else {
 					System.out.println("Please enter a valid choice. ");	
 				}
-				
+
 				break;	
 			case 7:
 				System.out.println("To order by ID enter 1 \nTo order by first name enter 2"
@@ -251,6 +254,7 @@ public class DerbyConn {
 			stmt = conn.createStatement();
 			stmt.executeUpdate("CREATE TABLE Test" + "(LNAME VARCHAR(25),"
 					+ "FNAME VARCHAR(25)," + "ID INTEGER)");
+			stmt.close();
 		} catch (SQLException e) {
 			// checks for specific error code for table already existing
 			if (!e.getSQLState().equals("X0Y32")) {
@@ -270,8 +274,8 @@ public class DerbyConn {
 		try {
 			pstmt = conn.prepareStatement("select * from Test");
 			rs = pstmt.executeQuery();
+			pstmt.close();
 		} catch (SQLException e) {
-
 			e.printStackTrace();
 		}
 
@@ -394,7 +398,7 @@ public class DerbyConn {
 			sqlExcept.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * This method edits an item from the database based on id number.
 	 * 
@@ -418,12 +422,12 @@ public class DerbyConn {
 			sqlExcept.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * This method edits allows a user to rename a column in a table in the database.
 	 * @param tableName
 	 * 			This is the name of the table in which the column desired to be 
-	 * 			edited is located
+	 * 					edited is located
 	 * @param oldColumn
 	 * 			This is the name of the column before the edit
 	 * @param newColumn
@@ -447,17 +451,17 @@ public class DerbyConn {
 			sqlExcept.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * This method edits allows a user to add a column in a table in the database.
 	 * @param tableName
 	 * 			This is the name of the table in which the column desired to be 
-	 * 			edited is located
+	 * 					edited is located
 	 *  @param newName
 	 * 			This is the desired name of the column that is being created
 	 * @param columnType
 	 * 			This is an integer that matches up with a choice to decide what type of 
-	 * 			data will be contained in the column: 1 for int, 2 for string, 3 for boolean
+	 * 					data will be contained in the column: 1 for int, 2 for string, 3 for boolean
 	 */	
 	private static void addColumn(String tableName, String newName, int columnType) {
 		Connection conn = establishConn();
@@ -468,17 +472,14 @@ public class DerbyConn {
 					+ "value = ?;");
 			pstmt.setString(1, tableName);
 			pstmt.setString(2, newName);
-			if(columnType==1){
+			if (columnType == 1) {
 				colType = "INT(10)";
-				pstmt.setString(3, colType);	
-			}else if(columnType==2){
+				pstmt.setString(1, colType);	
+			} else if (columnType == 2) {
 				colType = "VARCHAR(100)";
-				pstmt.setString(3, colType);	
-			}else if(columnType==2){
+				pstmt.setString(2, colType);	
+			} else {
 				colType = "BOOL DEFAULT '0'";
-				pstmt.setString(3, colType);
-			}else{
-				colType = "VARCHAR(100)";
 				pstmt.setString(3, colType);
 			}
 			pstmt.executeUpdate();
@@ -487,11 +488,15 @@ public class DerbyConn {
 		} catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
 		}
-	
+
 	}
-	
+
+	/**
+	 * This method allows a user to search the database.
+	 * @param pstmt - prepared statement used to search database
+	 */
 	private static void searchTable(PreparedStatement pstmt) {
-		try{
+		try {
 			ResultSet entries = pstmt.executeQuery();
 			ResultSetMetaData meta = entries.getMetaData();
 			int numberCols = meta.getColumnCount();
@@ -517,7 +522,7 @@ public class DerbyConn {
 			sqlExcept.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Creates PreparedStatement for a table search of the specified ID.
 	 * @param id - ID number to search
@@ -534,7 +539,7 @@ public class DerbyConn {
 		}
 		return pstmt;
 	}
-	
+
 	/**
 	 * Creates PreparedStatement for a table search of the specified first name.
 	 * @param fname first name to search
@@ -551,7 +556,7 @@ public class DerbyConn {
 		}
 		return pstmt;
 	}
-	
+
 	/**
 	 * Creates PreparedStatement for a table search of the specified last name.
 	 * @param lname last name to search
@@ -568,7 +573,7 @@ public class DerbyConn {
 		}
 		return pstmt;
 	}
-	
+
 
 	/**
 	 * This method creates a new table in the database.
@@ -583,11 +588,8 @@ public class DerbyConn {
 			int location = 0;
 			for (int i = 0; i < items; i++) {
 				String colName;
-				System.out
-						.println("If value "
-								+ i++
-								+ "is a string enter 1, "
-								+ "if it is a number enter 2, if it is a boolean enter 3: ");
+				System.out.println("If value " + i++ + "is a string enter 1, "
+						+ "if it is a number enter 2, if it is a boolean enter 3: ");
 				int choice = orbital.nextInt();
 
 				switch (choice) {
@@ -689,7 +691,7 @@ public class DerbyConn {
 			}
 
 			System.out
-					.println("\n-------------------------------------------------");
+			.println("\n-------------------------------------------------");
 
 			while (entries.next()) {
 				int idNum = entries.getInt(3);
