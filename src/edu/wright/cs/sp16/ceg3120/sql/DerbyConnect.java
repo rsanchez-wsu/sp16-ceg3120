@@ -106,47 +106,32 @@ public class DerbyConnect  {
 	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = 
 			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
 			"We specifically want to allow the user to execute arbitrary Derby")
-	public String[][] executeQuery(String query) {
-		String [][] table = null;
-		JTable t1 = new JTable();
-		DefaultTableModel dt = new DefaultTableModel();
-		try (
-				Statement input = conn.createStatement();
-				ResultSet rs = input.executeQuery(query)) {
-			// ResulSetMetaData does not implement AutoClosable() so it
-			// cannot be handled by try-with-resources.
-			ResultSetMetaData rsmd = null;
-			// Try to read the result set and its meta data and print out to
-			// string.
-			rsmd = rs.getMetaData();
-			rs.last();
-			int row = rs.getRow();
-			rs.beforeFirst();
-			int columnsNumber = rsmd.getColumnCount();
-			//table = new String[row][columnsNumber];
-			int rowCounter = 0;
-			// Iterate through all data returned and append to string
-			// result.
-			dt.setColumnCount(columnsNumber);
-			dt.setRowCount(row);
-			while (rs.next()) {
-				for (int i = 0; i < columnsNumber; i++) {
-					if (i > 1) {
-						String columnValue = rs.getString(i + 1);
-						//table[rowCounter][i] = columnValue;
-						//possible fix
-						dt.setValueAt(columnValue,rowCounter,i);
-					}
-				}
-				System.out.println("");
-				rowCounter++;
+	public DefaultTableModel executeQuery(String query) {
+		DefaultTableModel dtm = new DefaultTableModel();
+		try{
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query); 
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int cols = rsmd.getColumnCount();
+			String[] col = new String[cols];
+			for (int i = 0; i < cols; i++) {
+				col[i] = rsmd.getColumnName(i + 1);
+				dtm.addColumn(col[i]);
 			}
+
+			Object[] row = new Object[cols];
+			while (rs.next()) {
+				for (int i = 0; i < cols; i++) {
+					row[i] = rs.getString(i + 1);
+				}
+				dtm.addRow(row);
+			}
+			return dtm;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		t1.setModel(dt);
-		return table;
+		return dtm;
 	}
 
 }
