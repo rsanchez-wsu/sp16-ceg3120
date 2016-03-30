@@ -21,6 +21,7 @@
 
 package edu.wright.cs.sp16.ceg3120.sql;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 
@@ -29,7 +30,12 @@ import javax.swing.table.DefaultTableModel;
  * @author Kenton Dover.
  *
  */
-public abstract class DatabaseConnector {
+public abstract class DatabaseConnector implements Serializable {
+	/**serial id.
+	 * 
+	 */
+	private static final long serialVersionUID = 12L;
+
 	/**
 	 * Generic class to provide interface for all the different drivers.
 	 * 
