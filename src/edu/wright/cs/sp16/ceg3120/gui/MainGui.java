@@ -84,6 +84,8 @@ public class MainGui extends JFrame implements ActionListener {
 	public MainGui() {
 		super("SQLizard");
 
+		
+		
 		setSize(960, 600);
 		setLocationRelativeTo(null);
 		initComponents();

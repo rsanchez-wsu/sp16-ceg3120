@@ -44,6 +44,10 @@ public class MainApp {
 	public static void main(String[] args) {
 		try {
 
+			if (System.getProperty("os.name").contains("Mac")) {
+				System.setProperty("apple.laf.useScreenMenuBar", "true");
+			}
+
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
 			SplashScreen screen = new SplashScreen();
