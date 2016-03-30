@@ -21,6 +21,7 @@
 
 package edu.wright.cs.sp16.ceg3120;
 
+
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -35,10 +36,21 @@ import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
 
+import edu.wright.cs.sp16.ceg3120.gui.MainGui;
+import edu.wright.cs.sp16.ceg3120.gui.other.SplashScreen;
+
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
+
 /**
- * The application's main class.
+ * The main application starting point.
+ * 
+ * @author sam
+ *
  */
 public class MainApp {
+
 	
 	static final String PREFERENCES_PATH = "Preferences.xml";
 	static JTabbedPane tabbedPane = new JTabbedPane(); 
@@ -195,22 +207,27 @@ public class MainApp {
 		globalConfig = settings;
 	}
 	
-	/**
-	 * The main method that displays the main application window.
-	 * 
-	 * @param args The command-line arguments
-	 */
-	
-	public static void main(String[] args) {
-		// Schedule a job for the event-dispatching thread:
-		// creating and showing this application's GUI.
-		SwingUtilities.invokeLater(new Runnable() {
-			
-			@Override
-			public void run() {
 
-				createWindow();
-			}
-		});
+	/**
+	 * Driver method that sets the system look and feel.
+	 * 
+	 * @param args
+	 *            Arguments from command line.
+	 */
+	public static void main(String[] args) {
+		try {
+
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
+			SplashScreen screen = new SplashScreen();
+			screen.showSplashScreen();
+
+			MainGui gui = new MainGui();
+			gui.setVisible(true);
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
+
 	}
 }

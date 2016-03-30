@@ -60,7 +60,13 @@
   <taskdef name="findbugs"
       classname="edu.umd.cs.findbugs.anttask.FindBugsTask"
       classpathref="tools.lib.path"/>
-
+  	
+  	
+<!--  <taskdef name="mysql-connector-java"
+      classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+      classpathref="tools.lib.path"/>
+-->
+  	
   </target>
 
   <target name="resolve"
@@ -82,7 +88,8 @@
 
     <mkdir dir="${classes.dir}"/>
     <javac srcdir="src"
-        destdir="${classes.dir}"
+    	classpathref="build.lib.path"
+    	destdir="${classes.dir}"
         includeantruntime="false"
         debug="on"
         deprecation="on">
