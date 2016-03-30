@@ -53,7 +53,7 @@ public class WinMain extends JFrame {
 		add(connectionTabs);
 		buildMenuBar();
 		
-		pack();
+		//pack();
 		setSize(750, 500);
 		setVisible(true);
 	}

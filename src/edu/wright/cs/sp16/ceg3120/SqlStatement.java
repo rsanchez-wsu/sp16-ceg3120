@@ -29,8 +29,6 @@ import java.sql.Connection;
  * to provide a result set gained from the query.
  */
 
-import java.sql.Statement;
-//import java.util.Scanner;
 /**
  * This class will take SQL statements and produce appropriate result sets or throw an
  * exception.
