@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE aliases SYSTEM "aliases.dtd">
 <aliases>
-  <alias name="testing1">
+  <alias name="testing">
     <dbName>test_db</dbName>
     <dbURL>rhyspowell.info</dbURL>
     <userName>kenton</userName>

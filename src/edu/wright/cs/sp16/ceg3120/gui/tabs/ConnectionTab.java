@@ -21,8 +21,6 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
-
-
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -49,11 +47,9 @@ public class ConnectionTab extends JPanel {
 	 * Default constructor, initializes components.
 	 */
 	public ConnectionTab() {
-
+		
 		super(new GridLayout(1,1));
 		setSize(960, 600);
-
-
 		initComponents();
 	}
 	
@@ -61,6 +57,7 @@ public class ConnectionTab extends JPanel {
 	 * TODO: create all components for this window and initialize them here.
 	 * initComponents initializes the components.
 
+	 * initComponents initializes the components.
 	 */
 	private void initComponents() {
 
@@ -108,6 +105,5 @@ public class ConnectionTab extends JPanel {
 		add(structureButton);
 		add(relationshipButton);
 		add(queryBuilderButton);
-
 	}
 }

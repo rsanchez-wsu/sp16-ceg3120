@@ -153,5 +153,5 @@ public class QueryBuilderTab extends JPanel {
 			throws IOException, ClassNotFoundException {
 		stream.defaultReadObject();
 	}
-
 }
+

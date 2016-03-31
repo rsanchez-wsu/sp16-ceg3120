@@ -314,7 +314,7 @@ public class NewConnectionDetailsPane extends JPanel {
 	public static void setConnected(boolean connected) {
 		NewConnectionDetailsPane.connected = connected;
 	}
-
+	
 	/**
 	 * Handles all actions.
 	 * 

@@ -21,7 +21,6 @@
 
 package edu.wright.cs.sp16.ceg3120.gui;
 
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -75,7 +74,6 @@ public class MainGui extends JFrame implements ActionListener {
 	private JMenuItem pasteItem;
 	private JMenuItem replaceItem;
 	private Replace popthis;
-
 
 	/**
 	 * The constructor method that initializes the main application window.
@@ -234,7 +232,6 @@ public class MainGui extends JFrame implements ActionListener {
 		ImageIcon replaceIcon =  new ImageIcon("img/Replace Icon.png");
 		Image replaceImage = replaceIcon.getImage();
 		Image newReplaceImage = replaceImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
-
 		replaceIcon = new ImageIcon(newReplaceImage);	
 		replaceItem = new JMenuItem("Find & Replace", replaceIcon);
 		replaceItem.setToolTipText("Find and/or Replace word");
@@ -328,7 +325,7 @@ public class MainGui extends JFrame implements ActionListener {
 		
 		welcomeMenuItem = new JMenuItem("Welcome");
 		welcomeMenuItem.addActionListener(this);
-
+		
 		help.add(welcomeMenuItem);
 
 		help.addSeparator();
@@ -463,10 +460,8 @@ public class MainGui extends JFrame implements ActionListener {
 			tabPane.addNewConnectionTab();
 		} else if (actionEvent.getSource().equals(welcomeMenuItem)) {
 			connectionTutorialSqliz();
-
 		} else if (actionEvent.getSource().equals(aboutMenuItem)) {
 			aboutSqliz();
-
 		} else if (actionEvent.getSource().equals(connect)) {
 			tabPane.addNewConnectionTab();
 		}
