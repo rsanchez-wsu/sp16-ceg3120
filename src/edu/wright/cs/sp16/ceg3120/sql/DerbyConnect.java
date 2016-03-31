@@ -102,9 +102,6 @@ public class DerbyConnect  {
 	 * @return String variable containing the results of the query executed.
 	 * @throws Exception
 	 *  */
-	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = 
-			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
-			"We specifically want to allow the user to execute arbitrary Derby")
 	public DefaultTableModel executeQuery(String query) throws Exception {
 		DefaultTableModel dtm = new DefaultTableModel();	
 		Statement stmt = conn.createStatement();
