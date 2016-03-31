@@ -21,6 +21,7 @@
 
 package edu.wright.cs.sp16.ceg3120.gui;
 
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -74,6 +75,7 @@ public class MainGui extends JFrame implements ActionListener {
 	private JMenuItem pasteItem;
 	private JMenuItem replaceItem;
 	private Replace popthis;
+
 
 	/**
 	 * The constructor method that initializes the main application window.
@@ -229,10 +231,10 @@ public class MainGui extends JFrame implements ActionListener {
 
 		Action goToLineAction = new DefaultEditorKit.PasteAction();
 		goToLineAction.putValue(Action.NAME, "Go To Line");
-		
 		ImageIcon replaceIcon =  new ImageIcon("img/Replace Icon.png");
 		Image replaceImage = replaceIcon.getImage();
 		Image newReplaceImage = replaceImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+
 		replaceIcon = new ImageIcon(newReplaceImage);	
 		replaceItem = new JMenuItem("Find & Replace", replaceIcon);
 		replaceItem.setToolTipText("Find and/or Replace word");
@@ -359,6 +361,7 @@ public class MainGui extends JFrame implements ActionListener {
 			// Close application
 			setVisible(false);
 			dispose();
+			Runtime.getRuntime().exit(0);
 		} else if (actionEvent.getSource().equals(fullScreenItem)) {
 
 			// Make application full screen
@@ -460,6 +463,12 @@ public class MainGui extends JFrame implements ActionListener {
 			tabPane.addNewConnectionTab();
 		} else if (actionEvent.getSource().equals(welcomeMenuItem)) {
 			connectionTutorialSqliz();
+
+		} else if (actionEvent.getSource().equals(aboutMenuItem)) {
+			aboutSqliz();
+
+		} else if (actionEvent.getSource().equals(connect)) {
+			tabPane.addNewConnectionTab();
 		}
 	}
 
@@ -481,7 +490,6 @@ public class MainGui extends JFrame implements ActionListener {
 	 * AboutSQLizard JMenuItem.
 	 */
 	public Component aboutSqliz() {
-
 		JPanel aboutPanel = new JPanel();
 		JOptionPane.showMessageDialog(aboutPanel, "SQLizard IDE for Databases." + "\n\n"
 				+ "Version: Lizard.0 Release (0.0.0)\n" + "Build id: 00000000-0000" + "\n\n"
@@ -584,7 +592,6 @@ public class MainGui extends JFrame implements ActionListener {
 		JOptionPane.showMessageDialog(null, connectionTutorialScrollPane, "Connection Tutorial", 
 				JOptionPane.INFORMATION_MESSAGE);
 	}
-	
 
 	private boolean isFullScreen = false;
 
