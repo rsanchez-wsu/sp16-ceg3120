@@ -144,8 +144,7 @@ public class DerbyConnect  {
 			"We specifically want to allow the user to execute arbitrary SQL")
 	public int updateQuery(String query) {
 		int result = 0;
-		try (Connection conn = dataSource.getConnection(); 
-				Statement stmt = conn.createStatement()) {
+		try (Statement stmt = conn.createStatement()) {
 			result = stmt.executeUpdate(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
