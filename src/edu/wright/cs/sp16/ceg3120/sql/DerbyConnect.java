@@ -29,7 +29,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -106,10 +105,10 @@ public class DerbyConnect  {
 	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = 
 			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
 			"We specifically want to allow the user to execute arbitrary Derby")
-	public DefaultTableModel executeQuery(String query) {
+	public DefaultTableModel executeQuery(String query) throws Exception {
 		DefaultTableModel dtm = new DefaultTableModel();
-		try{
-			Statement stmt = conn.createStatement();
+		Statement stmt = conn.createStatement();
+		try {
 			ResultSet rs = stmt.executeQuery(query); 
 			ResultSetMetaData rsmd = rs.getMetaData();
 			int cols = rsmd.getColumnCount();
@@ -128,8 +127,9 @@ public class DerbyConnect  {
 			}
 			return dtm;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			stmt.close();
+		} finally {
+			stmt.close();
 		}
 		return dtm;
 	}

@@ -30,6 +30,9 @@ import java.awt.GridBagLayout;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
@@ -138,5 +141,21 @@ public class QueryBuilderTab extends JPanel {
 			}
 
 		}
+	}
+	
+	/**
+	 * Implements a default WriteObject to avoid critical warning messages.
+	 */
+	private void writeObject(ObjectOutputStream stream)
+			throws IOException {
+		stream.defaultWriteObject();
+	}
+
+	/**
+	 * Implements a default ReadObject to avoid critical warning messages.
+	 */
+	private void readObject(ObjectInputStream stream)
+			throws IOException, ClassNotFoundException {
+		stream.defaultReadObject();
 	}
 }
