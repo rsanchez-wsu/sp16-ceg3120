@@ -1,8 +1,8 @@
 /*
  * Copyright (C) 2016
- * 
- * 
- * 
+ *
+ *
+ *
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,43 +19,21 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120.gui;
-
-import javax.swing.JTabbedPane;
-
-
+package edu.wright.cs.sp16.ceg3120.gui.other;
 
 /**
- * Connection Tab.
- * @author Bonnie
+ * This would be the class to handle errors. This has not been implemented yet.
  */
-public class ConnectionTabPane extends JTabbedPane {
-
+public class UserMessages extends Exception {
 	private static final long serialVersionUID = 8991726988535798603L;
 
 	/**
-	 * Initializes Components.
+	 * This just prints the message out into the console.
+	 *
+	 * @param message
+	 *            This is just the error message given.
 	 */
-	public ConnectionTabPane() {
-		super();
-		initComponents();
-
+	public UserMessages(String message) {
+		super(message);
 	}
-	
-	/**
-	 * Initialize components.
-	 */
-	public void initComponents() {
-		//addQueryBuilderTab();
-	}
-//
-//	/**
-//	 * Initialize query builder tab.
-//	 */
-//	public void addQueryBuilderTab() {
-//		QueryBuilderTab queryBuilderTab = new QueryBuilderTab();
-//
-//		addTab("Query builder", null, queryBuilderTab, null);
-//
-//	}
 }

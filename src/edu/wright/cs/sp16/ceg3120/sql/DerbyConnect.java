@@ -19,7 +19,8 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120;
+package edu.wright.cs.sp16.ceg3120.sql;
+
 
 
 import java.sql.Connection;
@@ -28,6 +29,8 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
+
 
 /**
  * This will create a derby database to connect to within the application.
@@ -35,7 +38,7 @@ import java.sql.Statement;
  * @author Bonnie
  *
  */
-public class DerbyConnect extends DatabaseConnector {
+public class DerbyConnect  {
 
 	private String dbName;
 	private String dbUrl = "jdbc:derby://localhost:1527/testDB;create=true;"
@@ -62,7 +65,7 @@ public class DerbyConnect extends DatabaseConnector {
 	/**
 	 * This will create the connection for the derby database.
 	 */
-	public void createConnection() {
+	public void configure() throws SQLException {
 		// Still working on creating the connection.
 		try {
 			Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
@@ -102,38 +105,33 @@ public class DerbyConnect extends DatabaseConnector {
 	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = 
 			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
 			"We specifically want to allow the user to execute arbitrary Derby")
-	public String executeQuery(String query) {
-		String returning = "";
-		StringBuilder builder = new StringBuilder();
-		
-		try (
-				Statement input = conn.createStatement();
-				ResultSet rs = input.executeQuery(query)) {
-			// ResulSetMetaData does not implement AutoClosable() so it
-			// cannot be handled by try-with-resources.
-			ResultSetMetaData rsmd = null;
-			// Try to read the result set and its meta data and print out to
-			// string.
-			rsmd = rs.getMetaData();
-			int columnsNumber = rsmd.getColumnCount();
-			// Iterate through all data returned and append to string
-			// result.
-			while (rs.next()) {
-				for (int i = 1; i <= columnsNumber; i++) {
-					if (i > 1) {
-						builder.append(",  ");
-						String columnValue = rs.getString(i);
-						builder.append(columnValue + " " + rsmd.getColumnName(i));
-					}
-				}
-				System.out.println("");
+	public DefaultTableModel executeQuery(String query) throws Exception {
+		DefaultTableModel dtm = new DefaultTableModel();
+		Statement stmt = conn.createStatement();
+		try {
+			ResultSet rs = stmt.executeQuery(query); 
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int cols = rsmd.getColumnCount();
+			String[] col = new String[cols];
+			for (int i = 0; i < cols; i++) {
+				col[i] = rsmd.getColumnName(i + 1);
+				dtm.addColumn(col[i]);
 			}
+
+			Object[] row = new Object[cols];
+			while (rs.next()) {
+				for (int i = 0; i < cols; i++) {
+					row[i] = rs.getString(i + 1);
+				}
+				dtm.addRow(row);
+			}
+			return dtm;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			stmt.close();
+		} finally {
+			stmt.close();
 		}
-		returning = builder.toString();
-		return returning;
+		return dtm;
 	}
 
 }

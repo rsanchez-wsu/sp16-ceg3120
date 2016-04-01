@@ -19,49 +19,39 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120;
+package edu.wright.cs.sp16.ceg3120.gui.listeners;
 
-import java.awt.Desktop;
+import edu.wright.cs.sp16.ceg3120.gui.MainTabPane;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
-import java.net.URI;
-
-import java.net.URISyntaxException;
-
-/**Action event to handle clicking on a url in the interface.
- * @author Blizzri
- *
+/**
+ * Class to handle button click events.
+ * 
+ * @author Alex
  */
-class OpenUrlAction implements ActionListener  {
-	
-	//action event for clicking on a url.
+public class ButtonClickAction implements ActionListener {
+	private MainTabPane parentPane;
+
+	/**
+	 * Initial constructor to bring in parent pane instance.
+	 * 
+	 * @author Alex
+	 * 
+	 */
+	public ButtonClickAction(MainTabPane pane) {
+		parentPane = pane;
+	}
+
+	// action event for clicking on a url.
 	@Override
 	public void actionPerformed(ActionEvent evt) {
-		
-		URI uri;
-		try {
-			uri = new URI("www.google.com");
-			open(uri);
-		} catch (URISyntaxException e1) {
-			e1.printStackTrace();
+		MainTabPane mainPane = parentPane;
+
+		if (!mainPane.checkLearnDiscoverStatus()) {
+			mainPane.addLearnAndDiscoverTab();
 		}
 	}
-	
-	/**Check if supported, open associated uri for user.
-	 * @author Blizzri
-	 *
-	 */
-	private static void open(URI uri) {
-		if (Desktop.isDesktopSupported()) {
-			try {
-				Desktop.getDesktop().browse(uri);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}		
-		} else {
-			//TODO: what if it isn't supported?
-		}
-	}
+
 }

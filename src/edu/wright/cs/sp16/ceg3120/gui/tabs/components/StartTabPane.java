@@ -19,7 +19,7 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120.gui;
+package edu.wright.cs.sp16.ceg3120.gui.tabs.components;
 
 import edu.wright.cs.sp16.ceg3120.gui.tabs.LearnAndDiscoverTab;
 
@@ -32,58 +32,60 @@ import javax.swing.JTabbedPane;
  */
 @SuppressWarnings("serial")
 public class StartTabPane extends JTabbedPane {
-	
+
 	/**
 	 * Initialize components.
 	 */
 	public StartTabPane() {
 		super();
-		
+
 		initComponents();
 	}
-	
+
 	/**
 	 * Initialize components.
-	 * */
+	 */
 	public void initComponents() {
 		addLearnAndDiscoverTab();
 		// Look below for info on these
-		//addMySqLizardTab();
-		//addWhatsNewTab();
+		// addMySqLizardTab();
+		// addWhatsNewTab();
 	}
-	
+
 	/**
 	 * Initialize learn and discover tab.
 	 */
 	public void addLearnAndDiscoverTab() {
 		Component learnDiscoverTab = new LearnAndDiscoverTab();
-		
+
 		addTab("Learn and Discover", null, learnDiscoverTab, null);
 	}
-	
-// NOT YET IMPLEMENTED. COMMENTED OUT DUE TO FINDBUGS ERRORS
-// NP_LOAD_OF_KNOWN_NULL_VALUE: Load of known null value
-// NP Load of known null value in edu.wright.cs.sp16.ceg3120.gui.StartTabPane.addMySqLizardTab()
-// NP Load of known null value in edu.wright.cs.sp16.ceg3120.gui.StartTabPane.addWhatsNewTab()
-//	/**
-//	 * Initialize my sql lizard tab.
-//	 */
-//	public void addMySqLizardTab() {
-//		//todo: add my sql lizard tab class
-//		Component mySqLizardTab = null;
-//		
-//		addTab("My SqLizard", null, mySqLizardTab, null);
-//	}
-//	
-//	/**
-//	 * Initialize whats new tab.
-//	 */
-//	public void addWhatsNewTab() {
-//		//todo: add whats new tab class
-//		Component whatsNewTab = null;
-//		
-//		addTab("What's new", null, whatsNewTab, null);
-//	}
-//	
+
+	// NOT YET IMPLEMENTED. COMMENTED OUT DUE TO FINDBUGS ERRORS
+	// NP_LOAD_OF_KNOWN_NULL_VALUE: Load of known null value
+	// NP Load of known null value in
+	// edu.wright.cs.sp16.ceg3120.gui.StartTabPane.addMySqLizardTab()
+	// NP Load of known null value in
+	// edu.wright.cs.sp16.ceg3120.gui.StartTabPane.addWhatsNewTab()
+	// /**
+	// * Initialize my sql lizard tab.
+	// */
+	// public void addMySqLizardTab() {
+	// //todo: add my sql lizard tab class
+	// Component mySqLizardTab = null;
+	//
+	// addTab("My SqLizard", null, mySqLizardTab, null);
+	// }
+	//
+	// /**
+	// * Initialize whats new tab.
+	// */
+	// public void addWhatsNewTab() {
+	// //todo: add whats new tab class
+	// Component whatsNewTab = null;
+	//
+	// addTab("What's new", null, whatsNewTab, null);
+	// }
+	//
 
 }

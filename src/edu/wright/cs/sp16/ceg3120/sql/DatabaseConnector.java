@@ -19,42 +19,29 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120.gui;
+package edu.wright.cs.sp16.ceg3120.sql;
+
+import java.io.Serializable;
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
 
 /**
- * Created by Sam on 2/13/2016.'
- * Enums for our Tab Names for clarity in code
+ * 
+ * @author Kenton Dover.
+ *
  */
-public enum TabNames {
+public abstract class DatabaseConnector implements Serializable {
+	/**serial id.
+	 * 
+	 */
+	private static final long serialVersionUID = 12L;
 
-	Connection {
-		@Override
-		public String toString() {
-			return "Connection";
-		}
-	},
-	Help {
-		@Override
-		public String toString() {
-			return "Help Page";
-		}
-	},
-	NewConnection {
-		@Override
-		public String toString() {
-			return "New Connection";
-		}
-	},
-	BackupExport {
-		@Override
-		public String toString() {
-			return "Backup/Export";
-		}
-	},
-	Start {
-		@Override
-		public String toString() {
-			return "Start Page";
-		}
+	/**
+	 * Generic class to provide interface for all the different drivers.
+	 * 
+	 */
+	public DefaultTableModel executeQuery(String in) throws SQLException {
+		return null;
 	}
+
 }

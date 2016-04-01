@@ -19,45 +19,23 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120.gui;
-
-import edu.wright.cs.sp16.ceg3120.CreateWindow;
+package edu.wright.cs.sp16.ceg3120.gui.other;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
-
 /**
- * 
- * @author devesh
- *     New CreateWindow to call the CreateWindow class.
- *
+ * @author Devesh Patel New ReplaceWindow to call the Replace class.
  */
-public class ConWindow implements ActionListener {
-
+public class ReplaceWindow implements ActionListener {
 
 	/**
-	 * Perform action to the CreateWindow.
+	 * Perform action to the Replace.
 	 */
 	public void actionPerformed(ActionEvent arg0) {
-		final CreateWindow popthis = new CreateWindow();
+		final Replace popthis = new Replace();
 		popthis.setVisible(true);
 		popthis.pack();
 		popthis.setLocationRelativeTo(null);
-		/*popthis.addWindowListener(new WindowAdapter() {
-				public void windowClosing(WindowEvent evt) {
-					int answer = JOptionPane.showConfirmDialog(popthis, 
-							"Do you really want to quit?", 
-							"Quit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-					if (answer == JOptionPane.YES_OPTION) {
-						popthis.dispose();
-					} else {
-						popthis.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-					}
-
-				} // end of widowClosing
-
-		}); // end of WindowListener */
-	} 
+	}
 }

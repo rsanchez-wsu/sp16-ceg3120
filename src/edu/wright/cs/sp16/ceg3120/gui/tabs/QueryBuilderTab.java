@@ -21,11 +21,24 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
-import java.awt.GridLayout;
 
+import edu.wright.cs.sp16.ceg3120.sql.DatabaseConnector;
+
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.sql.SQLException;
+import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 
 /**
@@ -36,32 +49,113 @@ import javax.swing.JScrollPane;
 public class QueryBuilderTab extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	
+	private GridBagLayout layout;
+	private transient ActionListener actionHandler = new ActionHandler();
+	private JEditorPane input;
+	private JTable output;
+	private DatabaseConnector connector;
+	private DefaultTableModel result = null;
+
 	/**
 	 * Default constructor for the Query Builder tab.
 	 */
-	public QueryBuilderTab() {
-		JPanel panel = new JPanel();
-		JPanel queryBuilderPanel = initComponents();
-		panel.add("Query Builder", queryBuilderPanel);
+	public QueryBuilderTab(DatabaseConnector connector) {
+		super(new GridBagLayout());
+		setConnector(connector);
+		initComponents();
 	}
 	
 	/**
 	 * initialize components.
 	 */
-	protected JPanel initComponents() {
-		JPanel queryPanel = new JPanel();
-		queryPanel.setLayout(new GridLayout(1, 1));
-		
-		JEditorPane editorPane = new JEditorPane();
-		editorPane.setSize(500, 500);
-		editorPane.setLocation(50, 50);
-		
-		JScrollPane scrollPane = new JScrollPane(editorPane);
-		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		
-		queryPanel.add(editorPane);
-		return queryPanel;
+	private void initComponents() {
+
+		layout = new GridBagLayout();
+		this.setLayout(layout);
+		GridBagConstraints subConstraints = new GridBagConstraints();
+		subConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
+		input = new JEditorPane();
+		subConstraints.fill = GridBagConstraints.HORIZONTAL;
+		subConstraints.ipady = 300;
+		subConstraints.ipadx = 100;
+		subConstraints.gridx = 0;
+		subConstraints.gridy = 0;
+		add(input, subConstraints);
+		JButton run = new JButton("Run");
+		subConstraints.ipady = 0;
+		subConstraints.ipadx = 0;
+		run.addActionListener(actionHandler);
+		subConstraints.fill = GridBagConstraints.HORIZONTAL;
+		subConstraints.gridx = 0;
+		subConstraints.gridy = 1;
+		add(run, subConstraints);
+//		final JButton clear = new JButton("Clear");
+//		subConstraints.fill = GridBagConstraints.HORIZONTAL;
+//		subConstraints.gridx = 1;
+//		subConstraints.gridy = 1;
+//		add(clear, subConstraints);
+		output = new JTable(result);
+		subConstraints.fill = GridBagConstraints.HORIZONTAL;
+		subConstraints.ipady = 300;
+		subConstraints.ipadx = 100;
+		subConstraints.gridx = 0;
+		subConstraints.gridy = 3;
+		add(output, subConstraints);
+	}
+
+	/**
+	 * gets the database connector.
+	 * @return the database connector
+     */
+	public DatabaseConnector getConnector() {
+		return connector;
+	}
+
+	/**
+	 * this updates sets the database connector.
+	 * @param connector
+	 * 				this is a database connector
+     */
+	public void setConnector(DatabaseConnector connector) {
+		this.connector = connector;
+	}
+
+	/**
+	 * This is the action for the run button.
+	 */
+	class ActionHandler implements ActionListener {
+		/**
+		 * This is the action preformed when the run button is pressed.
+		 * @param ae this is the exception
+         */
+		public void actionPerformed(ActionEvent ae) {
+			String in = input.getText();
+			System.out.println(in);
+			try {
+				result = getConnector().executeQuery(in);
+				//result.fireTableDataChanged();
+				output.setModel(result);
+				output.repaint();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
 	}
 	
+	/**
+	 * Implements a default WriteObject to avoid critical warning messages.
+	 */
+	private void writeObject(ObjectOutputStream stream)
+			throws IOException {
+		stream.defaultWriteObject();
+	}
+
+	/**
+	 * Implements a default ReadObject to avoid critical warning messages.
+	 */
+	private void readObject(ObjectInputStream stream)
+			throws IOException, ClassNotFoundException {
+		stream.defaultReadObject();
+	}
 }

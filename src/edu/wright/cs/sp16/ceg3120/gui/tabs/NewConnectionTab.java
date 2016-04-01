@@ -21,22 +21,37 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
-import java.awt.Component;
+import edu.wright.cs.sp16.ceg3120.gui.MainTabPane;
+import edu.wright.cs.sp16.ceg3120.gui.tabs.components.NewConnectionDetailsPane;
+
+import javax.swing.JPanel;
 
 /**
- * The tab that contains the components for backing up/exporting a database.
+ * The tab that contains all the components for creating a new connection.
  * 
- * @author sam
+ * @author cody
  *
  */
-public class BackupExportTab extends Component {
+public class NewConnectionTab extends JPanel {
 
-	private static final long serialVersionUID = -8711368784659297765L;
+	private static final long serialVersionUID = -2518312376192094011L;
 
 	/**
 	 * Default constructor, initializes components.
 	 */
-	public BackupExportTab() {
+	public NewConnectionTab(MainTabPane mainTabPane) {
 		super();
+
+		initComponents(mainTabPane);
+	}
+
+	/**
+	 * TODO: create all components for this window and initialize them here.
+	 */
+	private void initComponents(MainTabPane mainTabPane) {
+
+		NewConnectionDetailsPane pane = new NewConnectionDetailsPane(mainTabPane);
+
+		add(pane);
 	}
 }
