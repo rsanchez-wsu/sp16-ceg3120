@@ -116,6 +116,7 @@ public class MySqlConnect extends DatabaseConnector {
 			"We specifically want to allow the user to execute arbitrary SQL")
 	public DefaultTableModel executeQuery(String query) {
 		DefaultTableModel dtm = new DefaultTableModel();
+		
 		try (Connection conn = dataSource.getConnection();
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(query);) {
@@ -140,6 +141,25 @@ public class MySqlConnect extends DatabaseConnector {
 			e.printStackTrace();
 		}
 		return dtm;
+	}
+
+	/**
+	 * Run this method when inserting records.
+	 * @param query query to run.
+	 * @return integer stating success or fail.
+	 */
+	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = 
+			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
+			"We specifically want to allow the user to execute arbitrary SQL")
+	public int updateQuery(String query) {
+		int result = 0;
+		try (Connection conn = dataSource.getConnection(); 
+				Statement stmt = conn.createStatement()) {
+			result = stmt.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	/**

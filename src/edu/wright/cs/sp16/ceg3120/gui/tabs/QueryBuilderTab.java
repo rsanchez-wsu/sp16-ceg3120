@@ -125,21 +125,29 @@ public class QueryBuilderTab extends JPanel {
 	 */
 	class ActionHandler implements ActionListener {
 		/**
-		 * This is the action preformed when the run button is pressed.
+		 * This is the action performed when the run button is pressed.
 		 * @param ae this is the exception
          */
 		public void actionPerformed(ActionEvent ae) {
 			String in = input.getText();
 			System.out.println(in);
-			try {
-				result = getConnector().executeQuery(in);
-				//result.fireTableDataChanged();
-				output.setModel(result);
-				output.repaint();
-			} catch (SQLException e) {
-				e.printStackTrace();
+			//This needs to be updated to include all cases.
+			if (in.contains("INSERT")) {
+				try {
+					getConnector().updateQuery(in);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			} else {
+				try {
+					result = getConnector().executeQuery(in);
+					// result.fireTableDataChanged();
+					output.setModel(result);
+					output.repaint();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
-
 		}
 	}
 	

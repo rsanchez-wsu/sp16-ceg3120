@@ -43,5 +43,15 @@ public abstract class DatabaseConnector implements Serializable {
 	public DefaultTableModel executeQuery(String in) throws SQLException {
 		return null;
 	}
+	
+	/**
+	 *  Generic method to allow updating the tables.
+	 * @param in input variable for query to execute.
+	 * @return int to show success or fail.
+	 * @throws SQLException when an error occurs.
+	 */
+	public int updateQuery(String in) throws SQLException {
+		return 0;
+	}
 
 }
