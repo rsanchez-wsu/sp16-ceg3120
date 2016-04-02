@@ -132,7 +132,7 @@ public class QueryBuilderTab extends JPanel {
 			String in = input.getText();
 			System.out.println(in);
 			//This needs to be updated to include all cases.
-			if (in.contains("INSERT")) {
+			if (in.contains("INSERT") || in.contains("insert")) {
 				try {
 					getConnector().updateQuery(in);
 				} catch (SQLException e) {
