@@ -27,6 +27,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLayer;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -41,7 +42,9 @@ import javax.swing.SwingUtilities;
 public class MainApp {
 	
 	static final String PREFERENCES_PATH = "Preferences.xml";
-	static JTabbedPane tabbedPane = new JTabbedPane(); 
+	
+	 
+	
 	static UserSettings globalConfig = UserSettings.loadXmlEncodedBean(PREFERENCES_PATH);
 	
 	
@@ -51,6 +54,9 @@ public class MainApp {
 	 * 
 	 */
 	private static void createWindow() {
+		
+		
+		
 		//TODO control real motd.
 		if (globalConfig.isMessageOfTheDay()) {
 			System.out.println("MOTD:");
@@ -95,8 +101,10 @@ public class MainApp {
 		frmSqlizard.setVisible(true);
 		
 		final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		frmSqlizard.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		
+		//http://stackoverflow.com/questions/24634047/closeable-jtabbedpane-alignment-of-the-close-button
+		frmSqlizard.getContentPane().add(new JLayer<JTabbedPane>(tabbedPane, 
+				new CloseableTabbedPaneLayer()));
 		
 		
 		JMenuBar menuBar = new JMenuBar();
