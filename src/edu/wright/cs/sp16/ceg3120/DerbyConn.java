@@ -1,8 +1,8 @@
-/*
- * 
- * Copyright (C) 2016 Team 4, All rights reserved
- * 
- */
+
+ /* 
+  * Copyright (C) 2016 Team 4., All rights reserved 
+  */
+
 
 package edu.wright.cs.sp16.ceg3120;
 
