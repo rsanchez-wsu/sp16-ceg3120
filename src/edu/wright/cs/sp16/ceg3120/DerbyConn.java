@@ -599,50 +599,9 @@ public class DerbyConn {
 		PreparedStatement pstmt = null;
 
 		try {
-			Scanner orbital = new Scanner(System.in);
-			String[] tableInfo = new String[items * 2];
-			int location = 0;
-			for (int i = 0; i < items; i++) {
-				String colName;
-				System.out.println("If value " + i++ + "is a string enter 1, "
-						+ "if it is a number enter 2, if it is a boolean enter 3: ");
-				int choice = orbital.nextInt();
-
-				switch (choice) {
-				case 1:
-					tableInfo[location] = "VARCHAR(255), ";
-					location++;
-					colName = "Column" + i;
-					tableInfo[location] = colName;
-					location++;
-
-					break;
-				case 2:
-					tableInfo[location] = "INTEGER, ";
-					location++;
-					colName = "Column" + i;
-					tableInfo[location] = colName;
-					location++;
-
-					break;
-				case 3:
-					tableInfo[location] = "BOOLEAN, ";
-					location++;
-					colName = "Column" + i;
-					tableInfo[location] = colName;
-					location++;
-					break;
-				default:
-					break;
-				}
-			}
-			orbital.close();
+			
 			String sql = "CREATE TABLE REGISTRATION "
-					+ "(id INTEGER not NULL, ";
-			for (int j = 0; j < location; j = j + 2) {
-				sql = sql + tableInfo[j + 1] + " " + tableInfo[j];
-			}
-			sql = sql + " PRIMARY KEY ( id ))";
+					+ "(id INTEGER not NULL,  PRIMARY KEY ( id ))";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.executeUpdate();
 			pstmt.close();
