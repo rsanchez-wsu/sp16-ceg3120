@@ -129,10 +129,11 @@ public class QueryBuilderTab extends JPanel {
 		 * @param ae this is the exception
          */
 		public void actionPerformed(ActionEvent ae) {
-			String in = input.getText();
+			String in = input.getText().toLowerCase(getLocale());
 			System.out.println(in);
+			
 			//This needs to be updated to include all cases.
-			if (in.contains("INSERT") || in.contains("insert")) {
+			if (in.contains("insert")) {
 				try {
 					getConnector().updateQuery(in);
 				} catch (SQLException e) {
