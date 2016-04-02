@@ -19,7 +19,6 @@
   *
   */
 
-
 package edu.wright.cs.sp16.ceg3120;
 
 import java.awt.GridLayout;
