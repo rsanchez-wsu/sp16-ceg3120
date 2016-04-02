@@ -37,6 +37,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 
 import javax.swing.Action;
@@ -399,8 +400,7 @@ public class MainGui extends JFrame implements ActionListener {
 				try {
 					String contents = readFile(fileChooser.getSelectedFile().toString());
 					JPanel curTab = (JPanel)tabPane.getSelectedComponent();
-					String name = curTab.getName();
-					if (name != null && name.equals("Query Builder"))  {
+					if (curTab instanceof QueryBuilderTab) {
 						((QueryBuilderTab)curTab).setText(contents);
 					} else {
 						System.out.println("Query Tab Not Found");
@@ -423,12 +423,13 @@ public class MainGui extends JFrame implements ActionListener {
 			if (selectFile == JFileChooser.APPROVE_OPTION) {
 				String savedFile = fileChooser.getSelectedFile().getPath();
 				JPanel curTab = (JPanel)tabPane.getSelectedComponent();
-				String name = curTab.getName();
-				if (name != null && name.equals("Query Builder"))  {
+				if (curTab instanceof QueryBuilderTab) {
 					String contents = ((QueryBuilderTab)curTab).getText();
 					try {
 						writeFile(savedFile, contents);
 					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					} catch (UnsupportedEncodingException e) {
 						e.printStackTrace();
 					}
 				} else {
@@ -507,7 +508,7 @@ public class MainGui extends JFrame implements ActionListener {
 
 		File file = new File(pathname);
 		StringBuilder fileContents = new StringBuilder((int) file.length());
-		Scanner scanner = new Scanner(file);
+		Scanner scanner = new Scanner(file, "UTF-8");
 		String lineSeparator = System.getProperty("line.separator");
 
 		try {
@@ -525,9 +526,14 @@ public class MainGui extends JFrame implements ActionListener {
 	 * @param pathname // Name of file.
 	 * @param contents // String to write.
 	 * @throws FileNotFoundException // Throws IOExcetion.
+	 * @throws UnsupportedEncodingException // Throws unsupported encoding.
 	 */
-	public void writeFile(String pathname, String contents) throws FileNotFoundException {
-		PrintWriter out = new PrintWriter(pathname + ".sql");
+	public void writeFile(String pathname, String contents) 
+			throws FileNotFoundException, UnsupportedEncodingException {
+		if (!pathname.endsWith(".sql")) {
+			pathname = pathname + ".sql";
+		}
+		PrintWriter out = new PrintWriter(pathname, "UTF-8");
 		System.out.print(pathname);
 		out.println(contents);
 		out.close();

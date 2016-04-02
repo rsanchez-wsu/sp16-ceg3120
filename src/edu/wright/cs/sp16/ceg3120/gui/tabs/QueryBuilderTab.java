@@ -63,7 +63,6 @@ public class QueryBuilderTab extends JPanel {
 		super(new GridBagLayout());
 		setConnector(connector);
 		initComponents();
-		this.setName("Query Builder");
 	}
 	
 	/**
