@@ -106,6 +106,14 @@ public class QueryBuilderTab extends JPanel {
 	public void setText(String text) {
 		input.setText(text);
 	}
+	
+	/**
+	 * Get contents of query builder.
+	 * @return // Contents of input.
+	 */
+	public String getText() {
+		return input.getText();
+	}
 
 	/**
 	 * gets the database connector.

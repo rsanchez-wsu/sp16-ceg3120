@@ -34,7 +34,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 import javax.swing.Action;
@@ -408,7 +410,7 @@ public class MainGui extends JFrame implements ActionListener {
 				}
 			}
 		} else if (actionEvent.getSource().equals(saveItem)) {
-			// @author: Devesh Amin
+			// @author: Devesh Amin, Nick Madden
 			// Save the SQL File in the local system using JFileChooser
 
 			JFileChooser fileChooser = new JFileChooser();
@@ -419,8 +421,19 @@ public class MainGui extends JFrame implements ActionListener {
 			int selectFile = fileChooser.showSaveDialog(this);
 
 			if (selectFile == JFileChooser.APPROVE_OPTION) {
-				File savedFile = fileChooser.getSelectedFile();
-				System.out.println("Save file: " + savedFile.getAbsolutePath());
+				String savedFile = fileChooser.getSelectedFile().getPath();
+				JPanel curTab = (JPanel)tabPane.getSelectedComponent();
+				String name = curTab.getName();
+				if (name != null && name.equals("Query Builder"))  {
+					String contents = ((QueryBuilderTab)curTab).getText();
+					try {
+						writeFile(savedFile, contents);
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					}
+				} else {
+					System.out.println("Query Tab Not Found");
+				}
 			}
 		}	else if (actionEvent.getSource().equals(copyItem)) {
 			// Copy the selected text
@@ -505,6 +518,19 @@ public class MainGui extends JFrame implements ActionListener {
 		} finally {
 			scanner.close();
 		}
+	}
+	
+	/**
+	 * Writes a string to a file.
+	 * @param pathname // Name of file.
+	 * @param contents // String to write.
+	 * @throws FileNotFoundException // Throws IOExcetion.
+	 */
+	public void writeFile(String pathname, String contents) throws FileNotFoundException {
+		PrintWriter out = new PrintWriter(pathname + ".sql");
+		System.out.print(pathname);
+		out.println(contents);
+		out.close();
 	}
 
 	/**
