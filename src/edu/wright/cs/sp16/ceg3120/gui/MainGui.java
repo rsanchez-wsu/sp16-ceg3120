@@ -21,6 +21,8 @@
 
 package edu.wright.cs.sp16.ceg3120.gui;
 
+import edu.wright.cs.sp16.ceg3120.gui.tabs.QueryBuilderTab;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -32,6 +34,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
 
 import javax.swing.Action;
 import javax.swing.Box;
@@ -390,8 +394,18 @@ public class MainGui extends JFrame implements ActionListener {
 			fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
 			int result = fileChooser.showOpenDialog(this);
 			if (result == JFileChooser.APPROVE_OPTION) {
-				File openedFile = fileChooser.getSelectedFile();
-				System.out.println("Opened File: " + openedFile.getAbsolutePath());
+				try {
+					String contents = readFile(fileChooser.getSelectedFile().toString());
+					JPanel curTab = (JPanel)tabPane.getSelectedComponent();
+					String name = curTab.getName();
+					if (name != null && name.equals("Query Builder"))  {
+						((QueryBuilderTab)curTab).setText(contents);
+					} else {
+						System.out.println("Query Tab Not Found");
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		} else if (actionEvent.getSource().equals(saveItem)) {
 			// @author: Devesh Amin
@@ -464,6 +478,32 @@ public class MainGui extends JFrame implements ActionListener {
 			aboutSqliz();
 		} else if (actionEvent.getSource().equals(connect)) {
 			tabPane.addNewConnectionTab();
+		}
+	}
+
+	/**
+	 * Reads text from file.
+	 * 
+	 * @param pathname
+	 *            // File to read.
+	 * @return // Returns string of file contents.
+	 * @throws IOException
+	 *             // Throws IOException.
+	 */
+	private String readFile(String pathname) throws IOException {
+
+		File file = new File(pathname);
+		StringBuilder fileContents = new StringBuilder((int) file.length());
+		Scanner scanner = new Scanner(file);
+		String lineSeparator = System.getProperty("line.separator");
+
+		try {
+			while (scanner.hasNextLine()) {
+				fileContents.append(scanner.nextLine() + lineSeparator);
+			}
+			return fileContents.toString();
+		} finally {
+			scanner.close();
 		}
 	}
 

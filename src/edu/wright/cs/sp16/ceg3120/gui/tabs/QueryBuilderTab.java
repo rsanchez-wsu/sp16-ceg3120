@@ -63,6 +63,7 @@ public class QueryBuilderTab extends JPanel {
 		super(new GridBagLayout());
 		setConnector(connector);
 		initComponents();
+		this.setName("Query Builder");
 	}
 	
 	/**
@@ -96,6 +97,14 @@ public class QueryBuilderTab extends JPanel {
 		subConstraints.gridx = 0;
 		subConstraints.gridy = 3;
 		add(output, subConstraints);
+	}
+	
+	/**
+	 * Sets the text of the editor pane.
+	 * @param text Text to set.
+	 */
+	public void setText(String text) {
+		input.setText(text);
 	}
 
 	/**
