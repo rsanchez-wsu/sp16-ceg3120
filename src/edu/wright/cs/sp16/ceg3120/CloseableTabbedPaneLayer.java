@@ -92,13 +92,13 @@ public class CloseableTabbedPaneLayer extends LayerUI<JTabbedPane> {
 	@Override
 	public void installUI(JComponent jc) {
 		super.installUI(jc);
-		((JLayer) jc).setLayerEventMask(AWTEvent.MOUSE_EVENT_MASK 
+		((JLayer<JTabbedPane>) jc).setLayerEventMask(AWTEvent.MOUSE_EVENT_MASK 
 				| AWTEvent.MOUSE_MOTION_EVENT_MASK);
 	}
 
 	@Override
 	public void uninstallUI(JComponent comp) {
-		((JLayer) comp).setLayerEventMask(0);
+		((JLayer<JTabbedPane>) comp).setLayerEventMask(0);
 		super.uninstallUI(comp);
 	}
 

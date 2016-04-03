@@ -21,7 +21,7 @@
 
 package edu.wright.cs.sp16.ceg3120;
 
-import java.awt.BorderLayout;
+//import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -42,8 +42,6 @@ import javax.swing.SwingUtilities;
 public class MainApp {
 	
 	static final String PREFERENCES_PATH = "Preferences.xml";
-	
-	 
 	
 	static UserSettings globalConfig = UserSettings.loadXmlEncodedBean(PREFERENCES_PATH);
 	
