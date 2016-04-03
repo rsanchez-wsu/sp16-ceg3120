@@ -21,13 +21,15 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.components.NewConnectionDetailsPane;
 
-import javax.swing.JPanel;
+//import java.awt.Component;
+//import java.awt.event.ActionEvent;
+//import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
+import javax.swing.JPanel;
+
 
 /**
  * The tab that contains all the components for creating a new connection.

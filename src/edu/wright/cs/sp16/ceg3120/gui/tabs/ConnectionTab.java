@@ -28,10 +28,11 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.plaf.metal.MetalToggleButtonUI;
-import javax.swing.JButton;
+
 
 /**
  * The tab that contains all the components for the connection.

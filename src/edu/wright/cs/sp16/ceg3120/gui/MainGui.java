@@ -240,11 +240,11 @@ public class MainGui extends JFrame implements ActionListener {
 		edit.add(mntmPreferences);
 		
 		//Queries History panel
-		JMenuItem mntmQueries = new JMenuItem("Queries");
+		JMenuItem mntmQueries = new JMenuItem("Recent Queries");
 		mntmQueries.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent queries) {
 				//TODO ??
-				int index = tabPane.indexOfTab("Queries Panel");
+				int index = tabPane.indexOfTab("Recent Queries");
 				if (index == -1) {
 					JButton btnClose = new JButton("Close");
 					btnClose.addActionListener(new ActionListener() {
@@ -259,7 +259,7 @@ public class MainGui extends JFrame implements ActionListener {
 
 					Queries queries1 = new Queries(btnClose);
 					queries1.add(btnClose);
-					tabPane.addTab("Queries Panel", queries1);
+					tabPane.addTab("Recent Queries", queries1);
 
 				}
 			}

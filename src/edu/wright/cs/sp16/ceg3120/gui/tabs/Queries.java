@@ -75,24 +75,17 @@ public class Queries extends JPanel {
 		gbcLblRecentQueries.gridy = 0;
 		add(lblRecentQueries, gbcLblRecentQueries);
 		JComboBox<String> recentQueryBox = new JComboBox<String>();
+		recentQueryBox.setToolTipText("");
 		//TODO create something that adds the recent queries to the recentQueryBox
-		recentQueryBox.addItem(null);
+		recentQueryBox.addItem("Sample Item: Query 1");
+		recentQueryBox.addItem("Sample Item: Query 2");
 		recentQueryBox.setBounds(59, 89, 152, 30);
 		GridBagConstraints gbcRecentQueryBox = new GridBagConstraints();
 		gbcRecentQueryBox.anchor = GridBagConstraints.WEST;
 		gbcRecentQueryBox.insets = new Insets(0, 0, 5, 5);
 		gbcRecentQueryBox.gridx = 1;
-		gbcRecentQueryBox.gridy = 4;
+		gbcRecentQueryBox.gridy = 3;
 		add(recentQueryBox, gbcRecentQueryBox);
-		
-		JButton btnRunSelectedQuery = new JButton("Run selected query");
-		btnRunSelectedQuery.setBounds(59, 360, 152, 23);
-		GridBagConstraints gbcBtnRunSelectedQuery = new GridBagConstraints();
-		gbcBtnRunSelectedQuery.anchor = GridBagConstraints.NORTHWEST;
-		gbcBtnRunSelectedQuery.insets = new Insets(0, 0, 5, 5);
-		gbcBtnRunSelectedQuery.gridx = 2;
-		gbcBtnRunSelectedQuery.gridy = 4;
-		add(btnRunSelectedQuery, gbcBtnRunSelectedQuery);
 		
 		
 		GridBagConstraints gbcBtnNewButton = new GridBagConstraints();
@@ -102,6 +95,15 @@ public class Queries extends JPanel {
 		gbcBtnNewButton.gridy = 8;
 		JButton btnNewButton = btnCancel;
 		add(btnNewButton, gbcBtnNewButton);
+		
+		JButton btnRunSelectedQuery = new JButton("Run selected query");
+		btnRunSelectedQuery.setBounds(59, 360, 152, 23);
+		GridBagConstraints gbcBtnRunSelectedQuery = new GridBagConstraints();
+		gbcBtnRunSelectedQuery.anchor = GridBagConstraints.NORTHWEST;
+		gbcBtnRunSelectedQuery.insets = new Insets(0, 0, 5, 5);
+		gbcBtnRunSelectedQuery.gridx = 2;
+		gbcBtnRunSelectedQuery.gridy = 3;
+		add(btnRunSelectedQuery, gbcBtnRunSelectedQuery);
 		
 	}
 }
