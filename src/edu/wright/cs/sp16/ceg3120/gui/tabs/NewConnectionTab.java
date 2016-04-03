@@ -21,9 +21,13 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.components.NewConnectionDetailsPane;
 
 import javax.swing.JPanel;
+import javax.swing.JButton;
 
 /**
  * The tab that contains all the components for creating a new connection.
@@ -48,9 +52,17 @@ public class NewConnectionTab extends JPanel {
 	 * TODO: create all components for this window and initialize them here.
 	 */
 	private void initComponents() {
+		setLayout(null);
 
 		NewConnectionDetailsPane pane = new NewConnectionDetailsPane();
+		pane.setBounds(8, 5, 630, 264);
 
 		add(pane);
+		
+		JButton btnClose = new JButton("Close");
+		btnClose.setBounds(671, 427, 89, 23);
+		add(btnClose);
+		
+		
 	}
 }

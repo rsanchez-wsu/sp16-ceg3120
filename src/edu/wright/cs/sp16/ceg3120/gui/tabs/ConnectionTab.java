@@ -31,6 +31,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.plaf.metal.MetalToggleButtonUI;
+import javax.swing.JButton;
 
 /**
  * The tab that contains all the components for the connection.
@@ -57,6 +58,7 @@ public class ConnectionTab extends JPanel {
 	private void initComponents() {
 
 		JToggleButton contentButton = new JToggleButton();
+		contentButton.setBounds(5, 5, 160, 136);
 
 		contentButton.setSelected(true);
 		contentButton.setUI(new MetalToggleButtonUI());
@@ -91,15 +93,23 @@ public class ConnectionTab extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		setLayout(null);
 
 		add(contentButton);
 
 		JToggleButton structureButton = new JToggleButton("Structure");
+		structureButton.setBounds(170, 61, 77, 23);
 		JToggleButton relationshipButton = new JToggleButton("Relationship");
+		relationshipButton.setBounds(252, 61, 91, 23);
 		JToggleButton queryBuilderButton = new JToggleButton("Query Builder");
+		queryBuilderButton.setBounds(348, 61, 97, 23);
 		add(structureButton);
 		add(relationshipButton);
 		add(queryBuilderButton);
+		
+		JButton btnClose = new JButton("Close");
+		btnClose.setBounds(718, 436, 59, 23);
+		add(btnClose);
 		// >>>>>>> fc4ff12e2a0f8d6a84f7f5a572205343703e800a
 	}
 }
