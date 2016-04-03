@@ -4,7 +4,6 @@
 
 package edu.wright.cs.sp16.ceg3120;
 
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -22,10 +21,12 @@ import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -129,17 +130,70 @@ public class DerbyConn {
 		});
 
 		JButton displayTable = new JButton("Display Table");
-		displayTable.setSize(40, 60);
+		displayTable.setSize(4, 20);
 		displayTable.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				displayTable();
 			}
 		});
-		JPanel panel = new JPanel(new GridLayout(2, 2));
+
+		JButton addItem = new JButton("Add Item");
+		addItem.setSize(4, 20);
+		addItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				textbox();
+			}
+		});
+
+		JPanel panel = new JPanel();
 		panel.add(displayTable);
+		panel.add(addItem);
 		frame.getContentPane().add(panel);
+
 		frame.setSize(500, 500);
 		frame.setVisible(true);
+	}
+
+	/**
+	 * This method creates a textbox to input data to insert an item.
+	 * 
+	 */
+	public static void textbox() {
+
+
+		final JTextField textbox = new JTextField(20);
+		textbox.setSize(10, 10);
+
+		textbox.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				String input = textbox.getText() + "\n";
+				String[] splitInput = input.split("\\s+");
+				String firstName = splitInput[0];
+				String lastName = splitInput[1];
+				String id = splitInput[2];
+				int idNum = Integer.parseInt(id);
+
+				insertItem(firstName, lastName, idNum);
+
+			}
+		});
+
+		JPanel panel = new JPanel();
+		panel.add(textbox);
+		
+		JLabel label = new JLabel(
+				"Enter a new item in the form (firstname lastname id) then press enter");
+		panel.add(label);	
+		
+		JFrame frame = new JFrame("Add Item");
+		
+		frame.getContentPane().add(panel);
+
+		frame.setSize(500, 200);
+		frame.setVisible(true);
+
 	}
 
 	/**
