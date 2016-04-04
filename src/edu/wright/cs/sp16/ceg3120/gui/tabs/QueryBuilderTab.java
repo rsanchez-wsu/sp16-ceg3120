@@ -38,6 +38,7 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -56,6 +57,7 @@ public class QueryBuilderTab extends JPanel {
 	private JTable output;
 	private DatabaseConnector connector;
 	private DefaultTableModel result = null;
+	private JScrollPane pane = null;
 
 	/**
 	 * Default constructor for the Query Builder tab.
@@ -101,7 +103,10 @@ public class QueryBuilderTab extends JPanel {
 		subConstraints.ipadx = 100;
 		subConstraints.gridx = 0;
 		subConstraints.gridy = 3;
-		add(output, subConstraints);
+		pane = new JScrollPane(output);
+		pane.setVisible(true);
+		pane.setViewportView(output);
+		add(pane, subConstraints);
 	}
 
 	/**
@@ -135,8 +140,6 @@ public class QueryBuilderTab extends JPanel {
 			String in = input.getText().toUpperCase(getLocale());
 			String[] splitStringArray = in.split("\\s*;\\s*(?=([^']*'[^']*')*[^']*$)");
 			for (int stringCounter = 0; stringCounter < splitStringArray.length; stringCounter++) {
-				// Test output line.
-				System.out.println(splitStringArray[stringCounter]);
 				// This needs to be updated to include all cases.
 				if (splitStringArray[stringCounter].contains("INSERT") 
 						|| splitStringArray[stringCounter].contains("UPDATE") 
@@ -149,7 +152,6 @@ public class QueryBuilderTab extends JPanel {
 				} else {
 					try {
 						result = getConnector().executeQuery(splitStringArray[stringCounter]);
-						// result.fireTableDataChanged();
 						output.setModel(result);
 						output.repaint();
 					} catch (SQLException e) {
