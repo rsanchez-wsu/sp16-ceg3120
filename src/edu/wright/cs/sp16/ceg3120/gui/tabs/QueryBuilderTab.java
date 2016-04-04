@@ -135,7 +135,6 @@ public class QueryBuilderTab extends JPanel {
 			String in = input.getText().toUpperCase(getLocale());
 			String[] splitStringArray = in.split("\\s*;\\s*(?=([^']*'[^']*')*[^']*$)");
 			for (int stringCounter = 0; stringCounter < splitStringArray.length; stringCounter++) {
-				// This needs to be updated to include all cases.
 				if (splitStringArray[stringCounter].contains("INSERT") 
 						|| splitStringArray[stringCounter].contains("UPDATE") 
 						|| splitStringArray[stringCounter].contains("DELETE")) {
