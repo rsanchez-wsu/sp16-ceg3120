@@ -134,4 +134,22 @@ public class DerbyConnect  {
 		return dtm;
 	}
 
+	/**
+	 * Run this method when inserting records.
+	 * @param query query to run.
+	 * @return integer stating success or fail.
+	 */
+	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = 
+			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
+			"We specifically want to allow the user to execute arbitrary SQL")
+	public int updateQuery(String query) {
+		int result = 0;
+		try (Statement stmt = conn.createStatement()) {
+			result = stmt.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 }
