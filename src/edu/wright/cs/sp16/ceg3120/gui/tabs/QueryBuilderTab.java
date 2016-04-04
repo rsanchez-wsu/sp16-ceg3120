@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.sql.SQLException;
+
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JPanel;
@@ -126,27 +127,34 @@ public class QueryBuilderTab extends JPanel {
 	class ActionHandler implements ActionListener {
 		/**
 		 * This is the action performed when the run button is pressed.
-		 * @param ae this is the exception
-         */
+		 * 
+		 * @param ae
+		 *            this is the exception
+		 */
 		public void actionPerformed(ActionEvent ae) {
-			String in = input.getText().toLowerCase(getLocale());
-			System.out.println(in);
-			
-			//This needs to be updated to include all cases.
-			if (in.contains("insert") || in.contains("update") || in.contains("delete")) {
-				try {
-					getConnector().updateQuery(in);
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			} else {
-				try {
-					result = getConnector().executeQuery(in);
-					// result.fireTableDataChanged();
-					output.setModel(result);
-					output.repaint();
-				} catch (SQLException e) {
-					e.printStackTrace();
+			String in = input.getText().toUpperCase(getLocale());
+			String[] splitStringArray = in.split("\\s*;\\s*(?=([^']*'[^']*')*[^']*$)");
+			for (int stringCounter = 0; stringCounter < splitStringArray.length; stringCounter++) {
+				// Test output line.
+				System.out.println(splitStringArray[stringCounter]);
+				// This needs to be updated to include all cases.
+				if (splitStringArray[stringCounter].contains("INSERT") 
+						|| splitStringArray[stringCounter].contains("UPDATE") 
+						|| splitStringArray[stringCounter].contains("DELETE")) {
+					try {
+						getConnector().updateQuery(splitStringArray[stringCounter]);
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				} else {
+					try {
+						result = getConnector().executeQuery(splitStringArray[stringCounter]);
+						// result.fireTableDataChanged();
+						output.setModel(result);
+						output.repaint();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		}
