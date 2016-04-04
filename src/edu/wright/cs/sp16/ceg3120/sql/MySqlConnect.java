@@ -137,7 +137,6 @@ public class MySqlConnect extends DatabaseConnector {
 			}
 			return dtm;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return dtm;
