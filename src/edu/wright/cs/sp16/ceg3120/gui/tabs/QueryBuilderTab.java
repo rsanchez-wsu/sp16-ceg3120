@@ -90,11 +90,6 @@ public class QueryBuilderTab extends JPanel {
 		subConstraints.gridx = 0;
 		subConstraints.gridy = 1;
 		add(run, subConstraints);
-//		final JButton clear = new JButton("Clear");
-//		subConstraints.fill = GridBagConstraints.HORIZONTAL;
-//		subConstraints.gridx = 1;
-//		subConstraints.gridy = 1;
-//		add(clear, subConstraints);
 		output = new JTable(result);
 		subConstraints.fill = GridBagConstraints.HORIZONTAL;
 		subConstraints.ipady = 300;
@@ -149,7 +144,6 @@ public class QueryBuilderTab extends JPanel {
 				} else {
 					try {
 						result = getConnector().executeQuery(splitStringArray[stringCounter]);
-						// result.fireTableDataChanged();
 						output.setModel(result);
 						output.repaint();
 					} catch (SQLException e) {

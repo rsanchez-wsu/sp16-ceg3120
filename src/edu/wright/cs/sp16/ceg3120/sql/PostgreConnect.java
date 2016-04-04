@@ -28,7 +28,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -160,8 +159,7 @@ public class PostgreConnect {
 	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = 
 			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
 			"We specifically want to allow the user to execute arbitrary SQL")
-	public JTable getTable(String query) {
-		JTable tableOne = new JTable();
+	public DefaultTableModel getTable(String query) {
 		DefaultTableModel dtm = new DefaultTableModel();
 		try (Statement stmt = conn.createStatement(); 
 				ResultSet rs = stmt.executeQuery(query)) {
@@ -180,12 +178,11 @@ public class PostgreConnect {
 				}
 				dtm.addRow(row);
 			}
-			tableOne.setModel(dtm);
-			return tableOne;
+			return dtm;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return tableOne;
+		return dtm;
 	}
 	
 	/**
