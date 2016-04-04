@@ -133,7 +133,7 @@ public class QueryBuilderTab extends JPanel {
 			System.out.println(in);
 			
 			//This needs to be updated to include all cases.
-			if (in.contains("insert")) {
+			if (in.contains("insert") || in.contains("update") || in.contains("delete")) {
 				try {
 					getConnector().updateQuery(in);
 				} catch (SQLException e) {
