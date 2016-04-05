@@ -22,9 +22,11 @@
 package edu.wright.cs.sp16.ceg3120.gui.other;
 
 import java.awt.event.ActionEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+//import java.util.Comparator;
 
 import javax.swing.AbstractAction;
 import javax.swing.JEditorPane;
@@ -43,7 +45,7 @@ public class AutoComplete implements DocumentListener {
 	 * @author kenton
 	 *
 	 */
-	private static enum Mode {
+	private enum Mode {
 		INSERT, COMPLETION
 	}
 
@@ -62,7 +64,19 @@ public class AutoComplete implements DocumentListener {
 	public AutoComplete(JEditorPane editorPane, ArrayList<String> keywords) {
 		this.editorPane = editorPane;
 		this.keywords = keywords;
-		Collections.sort(this.keywords);
+		this.keywords.sort(new ArrayListCompare());
+	}
+
+	/**
+	 * this is the comparator used for sorting the keyword arraylist.
+	 */
+	private static class ArrayListCompare implements Comparator<String>, Serializable {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int compare(String string1, String string2) {
+			return string1.compareTo(string2);
+		}
 	}
 
 	/**
@@ -118,7 +132,7 @@ public class AutoComplete implements DocumentListener {
 			return;
 		}
 		// test for the autocomplete
-		String prefix = content.substring(word + 1).toLowerCase();
+		String prefix = content.substring(word + 1);
 		int index = Collections.binarySearch(keywords, prefix);
 		if (index < 0 && -index <= keywords.size()) {
 			// completion found
