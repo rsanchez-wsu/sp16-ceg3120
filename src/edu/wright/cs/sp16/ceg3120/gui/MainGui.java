@@ -79,8 +79,8 @@ public class MainGui extends JFrame implements ActionListener {
 	private JMenuItem pasteItem;
 	private JMenuItem replaceItem;
 	//TODO decide if this is important
-	//private JMenuItem mntmPreferences;
-	//private JMenuItem mntmQueries;
+	private JMenuItem mntmPreferences;
+	private JMenuItem mntmQueries;
 
 	/**
 	 * The constructor method that initializes the main application window.
@@ -214,7 +214,7 @@ public class MainGui extends JFrame implements ActionListener {
 		edit.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
 		//Preferences Panel
-		JMenuItem mntmPreferences = new JMenuItem("Preferences");
+		mntmPreferences = new JMenuItem("Preferences");
 		mntmPreferences.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent preferences) {
 				String paneTitle = "User Preferences";
@@ -240,7 +240,7 @@ public class MainGui extends JFrame implements ActionListener {
 		edit.add(mntmPreferences);
 		
 		//Queries History panel
-		JMenuItem mntmQueries = new JMenuItem("Recent Queries");
+		mntmQueries = new JMenuItem("Recent Queries");
 		mntmQueries.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent queries) {
 				//TODO ??
