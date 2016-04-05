@@ -26,7 +26,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-//import java.util.Comparator;
 
 import javax.swing.AbstractAction;
 import javax.swing.JEditorPane;
@@ -64,8 +63,7 @@ public class AutoComplete implements DocumentListener {
 	public AutoComplete(JEditorPane editorPane, ArrayList<String> keywords) {
 		this.editorPane = editorPane;
 		this.keywords = keywords;
-		//should not fail build here
-		this.keywords.sort(new ArrayListCompare());
+		Collections.sort(keywords, new ArrayListCompare());
 	}
 
 	/**
