@@ -22,6 +22,7 @@
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
 
+import edu.wright.cs.sp16.ceg3120.gui.other.AutoComplete;
 import edu.wright.cs.sp16.ceg3120.sql.DatabaseConnector;
 
 import java.awt.GridBagConstraints;
@@ -34,12 +35,14 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -51,6 +54,7 @@ import javax.swing.table.DefaultTableModel;
 public class QueryBuilderTab extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private static final String COMMIT_ACTION = "commit";
 	private GridBagLayout layout;
 	private transient ActionListener actionHandler = new ActionHandler();
 	private JEditorPane input;
@@ -78,6 +82,35 @@ public class QueryBuilderTab extends JPanel {
 		GridBagConstraints subConstraints = new GridBagConstraints();
 		subConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
 		input = new JEditorPane();
+		input.setFocusTraversalKeysEnabled(false);
+		/***************************** KEYWORDS. *******************************/
+		ArrayList<String> keywords = new ArrayList<>();
+		keywords.add("select");
+		keywords.add("drop");
+		keywords.add("insert");
+		keywords.add("value");
+		keywords.add("where");
+		keywords.add("from");
+		keywords.add("between");
+		keywords.add("create");
+		keywords.add("table");
+		keywords.add("database");
+		keywords.add("index");
+		keywords.add("view");
+		keywords.add("delete");
+		keywords.add("exists");
+		keywords.add("into");
+		keywords.add("inner");
+		keywords.add("right");
+		keywords.add("left");
+		keywords.add("order");
+		keywords.add("update");
+		keywords.add("kenton is great yeah yeah yeah ");
+		/***************************** KEYWORDS. *******************************/
+		AutoComplete autoComplete = new AutoComplete(input, keywords);
+		input.getDocument().addDocumentListener(autoComplete);
+		input.getInputMap().put(KeyStroke.getKeyStroke("TAB"), COMMIT_ACTION);
+		input.getActionMap().put(COMMIT_ACTION, autoComplete.new CommitAction());
 		subConstraints.fill = GridBagConstraints.HORIZONTAL;
 		subConstraints.ipady = 300;
 		subConstraints.ipadx = 100;
