@@ -62,8 +62,7 @@ public class AutoComplete implements DocumentListener {
 	public AutoComplete(JEditorPane editorPane, ArrayList<String> keywords) {
 		this.editorPane = editorPane;
 		this.keywords = keywords;
-		Collections.sort(this.keywords,
-				(string1, string2) -> string1.toLowerCase().compareTo(string2.toLowerCase()));
+		Collections.sort(this.keywords);
 	}
 
 	/**
