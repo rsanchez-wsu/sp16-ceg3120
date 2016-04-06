@@ -32,6 +32,11 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * New connection favorites jpanel.
+ * @author SamS
+ *
+ */
 public class NewConnectionFavorites extends JPanel {
 	
 
@@ -65,18 +70,17 @@ public class NewConnectionFavorites extends JPanel {
 	/**
 	 * Initialize sub components.
 	 */
-	void initComponents(){
+	void initComponents() {
 		title = new JLabel("Favorite connections");
 		
 		// Is it dirty to test if something has been initialized?
-		if(favorites != null && favorites.size() > 0) {
+		if (favorites != null && favorites.size() > 0) {
 			favoriteConnectionButtons = new ArrayList<JButton>();
 			
-			for(int i = 0; i < favorites.size(); i++) {
+			for (int i = 0; i < favorites.size(); i++) {
 				favoriteConnectionButtons.add((new JButton("Favorite connection: " + i)));
 			}
-		} 
-		else {
+		} else {
 			noFavoritesLabel = new JLabel("No favorite connections");
 		}
 	}
@@ -100,7 +104,7 @@ public class NewConnectionFavorites extends JPanel {
 		add(title, subConstraints);
 		
 		// display favorite connection buttons
-		for(int i = 0; i < favoriteConnectionButtons.size(); i++) {
+		for (int i = 0; i < favoriteConnectionButtons.size(); i++) {
 			
 			subConstraints = new GridBagConstraints();
 			subConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
