@@ -35,8 +35,9 @@ import javax.swing.JTabbedPane;
 /**
  * 
  * @author carl.heritage
- * this class handles creation of the main window gui for the program as well as creation of tabs
- * for new, successful connections. Also alerts user if a connection fails on a valid connection path
+ * 	   This class handles creation of the main window gui for the program as well as creation of 
+ *     tabs for new, successful connections. Also alerts user if a connection fails on a valid 
+ *     connection
  *
  */
 public class WinMain extends JFrame {
