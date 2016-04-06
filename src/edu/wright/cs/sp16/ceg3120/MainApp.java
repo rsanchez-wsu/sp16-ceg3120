@@ -52,8 +52,9 @@ public class MainApp {
 	 * @param initSettings
 	 *            config to change to
 	 */
+	//TODO figure out if we need this
 	public static void updateGlobalSettings(UserSettings initSettings) {
-		globalConfig = initSettings;
+		//globalConfig = initSettings;
 	}
 	
 

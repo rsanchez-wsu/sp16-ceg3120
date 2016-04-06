@@ -220,11 +220,12 @@ public class PreferencesPanel extends JPanel {
 		 * close the preference tab.
 		 **/
 		JButton btnCancel = btnClose;
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent cancel) {
+		btnCancel.addActionListener(new CloseListenr());
+			//public void actionPerformed(ActionEvent cancel) {
 
-			}
-		});
+			//}
+		//});
+		
 		
 
 		GroupLayout jpanel2Layout = new GroupLayout(this);
@@ -325,7 +326,22 @@ public class PreferencesPanel extends JPanel {
 
 	} // End of initComponents method ,,,
 	
-
+	/**
+	 * Thing to make findbugs happy.
+	 * This is taken from Josh's commit b65f2b9b87ebcfe14baba01f7565cdfc1560feaf.
+	 * @author Megan
+	 *
+	 */
+	
+	static class CloseListenr implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent cancel) {
+					// TODO System.exit(0); <-is an error to find bugs
+			//System.err.println("todo close without findbugs complaints");
+			System.out.println("This seems to be fixed?");
+		}
+	}
+	
 	/**
 	 * The method to run the profile window.
 	 * This now runs from MainApp by clicking the profile button
