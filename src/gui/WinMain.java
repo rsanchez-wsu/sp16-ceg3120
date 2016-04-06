@@ -57,8 +57,9 @@ public class WinMain extends JFrame {
 		add(connectionTabs);
 		buildMenuBar();
 		
-		//current size settings for main window
-		pack();
+
+		//pack();
+
 		setSize(750, 500);
 		setVisible(true);
 	}
