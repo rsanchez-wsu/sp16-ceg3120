@@ -27,6 +27,7 @@ import edu.wright.cs.sp16.ceg3120.gui.tabs.components.NewConnectionFavorites;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.util.Arrays;
 import java.util.List;
@@ -48,7 +49,7 @@ public class NewConnectionTab extends JPanel {
 	 * Default constructor, initializes components.
 	 */
 	public NewConnectionTab() {
-		super(new GridBagLayout());
+		super(new GridLayout(1,3));
 
 		initComponents();
 	}
@@ -79,8 +80,9 @@ public class NewConnectionTab extends JPanel {
 		
 		subConstraints = new GridBagConstraints();
 		subConstraints.anchor = GridBagConstraints.FIRST_LINE_END;
-		subConstraints.gridx = 1;
-		subConstraints.gridy = 0;
+		subConstraints.gridx = 0;
+		subConstraints.gridy = 1;
+
 		subConstraints.insets = new Insets(0, 50, 0, 50);
 		
 		add(pane);
