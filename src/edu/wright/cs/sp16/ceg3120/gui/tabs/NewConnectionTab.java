@@ -22,7 +22,16 @@
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
 import edu.wright.cs.sp16.ceg3120.gui.tabs.components.NewConnectionDetailsPane;
+import edu.wright.cs.sp16.ceg3120.gui.tabs.components.NewConnectionFavorites;
 
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridLayout;
+import java.awt.Insets;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 /**
@@ -39,7 +48,7 @@ public class NewConnectionTab extends JPanel {
 	 * Default constructor, initializes components.
 	 */
 	public NewConnectionTab() {
-		super();
+		super(new GridLayout(1,3));
 
 		initComponents();
 	}
@@ -49,8 +58,37 @@ public class NewConnectionTab extends JPanel {
 	 */
 	private void initComponents() {
 
+		// dummy list of favorite connections
+		List<String> dummyFavoriteList = Arrays.asList("1", "2", "3");
+		
+		NewConnectionFavorites favPane = new NewConnectionFavorites(dummyFavoriteList);
+		
+		favPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		
+		subConstraints = new GridBagConstraints();
+		subConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
+		subConstraints.gridx = 0;
+		subConstraints.gridy = 0;
+		subConstraints.insets = new Insets(0, 0, 0, 30);
+		
+		add(favPane);
+		
 		NewConnectionDetailsPane pane = new NewConnectionDetailsPane();
+		
+		pane.setBorder(BorderFactory.createLineBorder(Color.black));
+		
+		subConstraints = new GridBagConstraints();
+		subConstraints.anchor = GridBagConstraints.FIRST_LINE_END;
+		subConstraints.gridx = 0;
+		subConstraints.gridy = 1;
 
+		subConstraints.insets = new Insets(0, 50, 0, 50);
+		
 		add(pane);
 	}
+	
+	/**
+	 * Constraints for grid bag layout.
+	 */
+	GridBagConstraints subConstraints;
 }
