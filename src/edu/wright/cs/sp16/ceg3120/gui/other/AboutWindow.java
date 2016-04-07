@@ -58,7 +58,6 @@ public class AboutWindow extends JPanel implements ActionListener{
 	private ImageIcon pictures3 = new ImageIcon("img/LizardSample3.jpg");
 	private ImageIcon pictures4 = new ImageIcon("img/LizardSample4.jpg");
 	
-	
 	/**
 	 * The Frame that holds different panels. Mainly created for the slideShow of images
 	 * 
@@ -66,14 +65,15 @@ public class AboutWindow extends JPanel implements ActionListener{
 	public AboutWindow() {
 
 		frame.setLocationByPlatform(true);
-
 		frame.getContentPane().add(this);
 		frame.addWindowListener(new WindowAdapter() {
+			
 			public void windowClosing(WindowEvent ev) {
 				timer.stop();
 				new MainGui();
 			}
 		});
+		
 		imagesPanel.add(images);
 		imagesPanel.setPreferredSize(new Dimension(500, 400));
 		descriptionsPanel.add(description);

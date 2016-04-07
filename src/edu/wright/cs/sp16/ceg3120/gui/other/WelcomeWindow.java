@@ -42,9 +42,10 @@ import javax.swing.Timer;
  * 
  * @author kirillkultinov
  */
-public class WelcomeWindow extends JPanel implements ActionListener{
+public class WelcomeWindow extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = -24143968339746394L;
+	
 	private int count = 1;
 	private Timer timer;
 	private JPanel frameContainer = new JPanel();
@@ -66,14 +67,15 @@ public class WelcomeWindow extends JPanel implements ActionListener{
 	public WelcomeWindow() {
 
 		frame.setLocationByPlatform(true);
-
 		frame.getContentPane().add(this);
 		frame.addWindowListener(new WindowAdapter() {
+			
 			public void windowClosing(WindowEvent ev) {
 				timer.stop();
 				new MainGui();
 			}
 		});
+		
 		imagesPanel.add(images);
 		imagesPanel.setPreferredSize(new Dimension(500, 500));
 		descriptionsPanel.add(description);

@@ -36,7 +36,7 @@ import javax.swing.JTabbedPane;
  *
  */
 public class MainTabPane extends JTabbedPane {
-
+	
 	private static final long serialVersionUID = 1147338263638840061L;
 	private boolean isLearnDiscoverOpen;
 

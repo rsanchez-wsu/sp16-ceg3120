@@ -426,7 +426,6 @@ public class MainGui extends JFrame implements ActionListener {
 				File savedFile = fileChooser.getSelectedFile();
 				System.out.println("Save file: " + savedFile.getAbsolutePath());
 			}
-			// ==z=====
 		} else if (actionEvent.getSource().equals(welcomeMenuItem)) {	
 			//create a new frame About and set its properties
 			new WelcomeWindow();
