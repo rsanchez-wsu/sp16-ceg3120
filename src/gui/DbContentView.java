@@ -21,13 +21,14 @@
 
 package gui;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+
+import java.awt.Font;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 
 /**ContentView.
  * 
@@ -36,32 +37,26 @@ public class DbContentView extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTable dbContentTable;
 	private final JScrollPane dbScrollPane;
+	private final String panelLabelText = "Content for: ";
+	JLabel dbContentLabel = new JLabel(panelLabelText);
 	
 	/**
 	 * .
 	 */
 	public DbContentView() {
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] {30, 200, 30};
-		gridBagLayout.rowHeights = new int[] {30, 200, 30};
-		gridBagLayout.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 0.0};
-		setLayout(gridBagLayout);
+		dbContentLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		dbContentLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		add(dbContentLabel);
 		
 		dbScrollPane = new JScrollPane();
 		dbContentTable = new JTable();
+		dbContentTable.setFillsViewportHeight(true);
+		
 		dbContentTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		dbContentTable.setColumnSelectionAllowed(true);
 		dbContentTable.setCellSelectionEnabled(true);
 		dbScrollPane.setViewportView(dbContentTable);
-		
-		
-		GridBagConstraints gbcDbScrollPane = new GridBagConstraints();
-		gbcDbScrollPane.fill = GridBagConstraints.BOTH;
-		gbcDbScrollPane.insets = new Insets(0, 0, 5, 0);
-		gbcDbScrollPane.gridx = 1;
-		gbcDbScrollPane.gridy = 1;
-		add(dbScrollPane, gbcDbScrollPane);
+		add(dbScrollPane, "cell 0 0,grow");
 		
 	}
 	
@@ -70,8 +65,20 @@ public class DbContentView extends JPanel {
 	 * @param newContent The content to be viewed as a table.
 	 * @param colNames The names of the columns.
 	 */
-	public void setContent(String[][] newContent, String[] colNames) {
+	public void setContent(String newDbName, String[][] newContent, String[] colNames) {
+		for (int i = 0; i < colNames.length; i++) {
+			System.out.print(colNames[i] + " ");
+		}
+		System.out.println();
+		for (int i = 0; i <  5; i++) {
+			for (int j = 0; j < 3; j++) {
+				System.out.print(newContent[i][j] + " ");
+			}
+			System.out.println();
+		}
+		dbContentLabel.setText(panelLabelText + newDbName);
 		dbContentTable = new JTable(newContent, colNames);
+		dbScrollPane.setViewportView(dbContentTable);
 	}
 
 

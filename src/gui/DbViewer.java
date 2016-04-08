@@ -33,66 +33,102 @@ import javax.swing.JTabbedPane;
 
 
 public class DbViewer extends JTabbedPane{
-	/*
+	private static final long serialVersionUID = 1L;
+	private DbContentView contentTab = new DbContentView();
+	private DbStructureView structureTab = new DbStructureView();
+	private DbRelationshipsView relationshipsTab = new DbRelationshipsView();
+	private DbQueryBuilderView querybuilderTab = new DbQueryBuilderView();
+	private DbErDiagramView erdiagramTab = new DbErDiagramView();
+	private DbBackupRestoreView backuprestoreTab = new DbBackupRestoreView();
+
+	
+	
+	
+	/**The tabbed pane containing different views of the given
+	 * DB.
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-
-/**The tabbed pane containing different views of the given
- * DB.
- * 
- */
 	public DbViewer() {
 		super();
 		
-		DbContentView contentTab = new DbContentView();
 		addTab("Content",contentTab);
 		setMnemonicAt(0, KeyEvent.VK_1);
 
-		DbStructureView structureTab = new DbStructureView();
 		addTab("Structure",structureTab);
 		setMnemonicAt(1, KeyEvent.VK_2);
-		//Add the tabbed pane to this panel.
-		
-		DbRelationshipsView relationshipsTab = new DbRelationshipsView();
+
 		addTab("Relationships",relationshipsTab);
 		setMnemonicAt(2, KeyEvent.VK_3);
 
-		DbQueryBuilderView querybuilderTab = new DbQueryBuilderView();
 		addTab("Query Builder",querybuilderTab);
 		setMnemonicAt(3, KeyEvent.VK_4);
 
-		DbErDiagramView erdiagramTab = new DbErDiagramView();
 		addTab("ER Diagram",erdiagramTab);
 		setMnemonicAt(4, KeyEvent.VK_5);
 
-		DbBackupRestoreView backuprestoreTab = new DbBackupRestoreView();
 		addTab("Backup/Restore",backuprestoreTab);
 		setMnemonicAt(5, KeyEvent.VK_6);
 
 		//The following line enables to use scrolling tabs.
 		setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-
-		
 	}
-///** Test main for testing functionality of the DbViewer class.
-// */ 
-//	public static void main(String[]args) {
-//		/* main class
-//		 *  create new JFrame and set content. 
-//		 */ 
-//		//1. Create the frame.
-//		JFrame window = new JFrame("experimentFrame");
-//
-//		//2. Optional: What happens when the frame closes?
-//		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		DbViewer gui = new DbViewer();
-//		window.setContentPane(gui);
-//		window.pack();
-//		window.setVisible(true);
-//		window.setSize(600,500);
-//		
-//	}
+
+
+
+
+	/**
+	 * Retrieves the DB Content panel.
+	 * @return the contentTab
+	 */
+	public DbContentView getContentTab() {
+		return contentTab;
+	}
+
+
+
+
+	/**
+	 * Retrieves the DB Structure panel.
+	 * @return the structureTab
+	 */
+	public DbStructureView getStructureTab() {
+		return structureTab;
+	}
+	
+	
+	
+	
+	/**
+	 * Retrieves the Relationships panel.
+	 * @return the relationshipsTab
+	 */
+	public DbRelationshipsView getRelationshipsTab() {
+		return relationshipsTab;
+	}
+	
+	
+	
+	
+	/**
+	 * Retrieves the Query Builder panel.
+	 * @return the querybuilderTab
+	 */
+	public DbQueryBuilderView getQuerybuilderTab() {
+		return querybuilderTab;
+	}
+	
+	
+	
+	
+	/**
+	 * Retrieves the ER Diagram panel.
+	 * @return the erdiagramTab
+	 */
+	public DbErDiagramView getErdiagramTab() {
+		return erdiagramTab;
+	}
+	
+	
 }
 
 

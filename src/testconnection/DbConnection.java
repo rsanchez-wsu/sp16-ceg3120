@@ -147,23 +147,31 @@ public class DbConnection {
 	/**
 	 * Make sure connection and read result from database. 
 	 */
-	public ArrayList<String> sendQuery(String query) throws SQLException {
+	public ArrayList<String[]> sendQuery(String query) {
 		
 		Statement stmt = null;
 		ResultSet result = null;
+		ArrayList<String[]> resultArr = null;
+		
 		try {
 			stmt = conn.createStatement();
 			result = stmt.executeQuery(query);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			int colCount = result.getMetaData().getColumnCount();
+
+			resultArr = new ArrayList<String[]>();
+			
+			if (result != null) {
+				int row =  0;
+				while (result.next()) {
+					resultArr.add(new String[colCount]);
+					for (int column = 0; column < colCount; column++) {
+						resultArr.get(row)[column] = result.getString(column + 1);
+					}
+					row++;
+				} 
+			}
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		ArrayList<String> resultArr = new ArrayList<String>();
-		if (result != null) {
-			while (result.next()) {
-				resultArr.add(result.getString(2));
-				System.out.println(resultArr.get(resultArr.size() - 1));
-			} 
 		}
 		return resultArr;
 	}
