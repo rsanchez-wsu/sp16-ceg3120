@@ -59,16 +59,29 @@ public class MainTabPane extends JTabbedPane {
 	public boolean checkLearnDiscoverStatus() {
 		return isLearnDiscoverOpen;
 	}
+	
+	/**
+	 * LearnDiscover tab state setter.
+	 * 
+	 */
+	public void setLearnDiscStatus(boolean status) {
+		isLearnDiscoverOpen = status;
+	}
+	
 
 	/**
 	 * Initialize learn and discover tab.
 	 * 
-	 * @author Alex
+	 * @author Alex, Kirill Kultinov
 	 */
 	public void addLearnAndDiscoverTab() {
 		LearnAndDiscoverTab learnDiscoverTab = new LearnAndDiscoverTab();
+		learnDiscoverTab.setOpaque(false);
 		isLearnDiscoverOpen = true;
-		addTab("Learn and Discover", null, learnDiscoverTab, null);
+		this.addTab("Learn and Discover", learnDiscoverTab);
+		setTabComponentAt(this.indexOfComponent(learnDiscoverTab),
+				learnDiscoverTab.setTitleDesign(this, learnDiscoverTab, "Learn and Discover"));
+		this.setSelectedIndex(this.indexOfComponent(learnDiscoverTab));
 	}
 
 	/**
@@ -155,4 +168,7 @@ public class MainTabPane extends JTabbedPane {
 	public void setConnectionTab(ConnectionTab ct) {
 		connectionTab = ct;
 	}
+	
+
+
 }

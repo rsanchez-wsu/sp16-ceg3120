@@ -21,16 +21,22 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
+import edu.wright.cs.sp16.ceg3120.gui.MainTabPane;
 import edu.wright.cs.sp16.ceg3120.gui.listeners.OpenUrlAction;
 
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 /**
  * Learn and Discover tab, providing resources for helpful info lookup.
@@ -74,6 +80,7 @@ public class LearnAndDiscoverTab extends JPanel {
 		subConstraints.insets = new Insets(0, 10, 0, 0);
 		JLabel titleLabel = new JLabel("<html><h2>Learn and Discover</h2></html>");
 		add(titleLabel, subConstraints);
+
 
 		// initialization of buttons, url links, add to page
 		String githubUrl = "https://github.com/rsanchez-wsu/sp16-ceg3120";
@@ -124,6 +131,33 @@ public class LearnAndDiscoverTab extends JPanel {
 
 		// TODO: add links to preferences page as well as help within app
 	}
+	
+	/**
+	 * Customize the tab's title. Add a close button to the tab title.
+	 * 
+	 * @author Kirill Kultinov
+	 */
+	public JPanel setTitleDesign(final JTabbedPane tabbedPane, final JPanel tab, String tabTitle) {
+		JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		titlePanel.setOpaque(false);
+		JLabel titleLabel = new JLabel(tabTitle);
+		titleLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
+		titlePanel.add(titleLabel);
+		JButton closeButton = new JButton("x");
+
+		closeButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent ev) {
+				tabbedPane.remove(tab);
+				MainTabPane mainTab = new MainTabPane();
+				mainTab.setLearnDiscStatus(false);
+			}
+		});
+		titlePanel.add(closeButton);
+
+		return titlePanel;
+	}
+
 
 	/**
 	 * Dynamically create buttons for URL links.
