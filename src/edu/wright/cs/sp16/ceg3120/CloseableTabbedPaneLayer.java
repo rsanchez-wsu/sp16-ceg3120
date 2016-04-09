@@ -49,15 +49,30 @@ public class CloseableTabbedPaneLayer extends LayerUI<JTabbedPane> {
 	private static final long serialVersionUID = 1L;
 	private final JPanel p0 = new JPanel();
 	private final Point pt = new Point(-100, -100);
-	private final JButton button = new JButton("x") {
 	
+	private final JButton button = new XButton("x");
+	
+	/**
+	 * Exit button. 
+	 *
+	 */
+	static class XButton extends JButton {
 		private static final long serialVersionUID = 1L;
+
+		/**
+		 * Super cons.
+		 * 
+		 * @param string button text
+		 */
+		public XButton(String string) {
+			super(string);
+		}
 
 		@Override
 		public Dimension getPreferredSize() {
 			return new Dimension(16, 16);
 		}
-	};
+	}
 
 	/**
 	 * Constructor.
@@ -71,12 +86,13 @@ public class CloseableTabbedPaneLayer extends LayerUI<JTabbedPane> {
 		button.setRolloverEnabled(false);
 	}
 
+	
 	@Override
 	public void paint(Graphics gr, JComponent jc) {
 		super.paint(gr, jc);
-		if (jc instanceof JLayer) {
-			JLayer<JTabbedPane> jlayer = (JLayer<JTabbedPane>) jc;
-			JTabbedPane tabPane = (JTabbedPane) jlayer.getView();
+		if (jc instanceof JLayer<?>) {
+			JLayer<?> jlayer = (JLayer<?>) jc;
+			JTabbedPane tabPane =  (JTabbedPane) jlayer.getView();
 			for (int i = 0; i < tabPane.getTabCount(); i++) {
 				Rectangle rect = tabPane.getBoundsAt(i);
 				Dimension dim = button.getPreferredSize();
@@ -89,17 +105,23 @@ public class CloseableTabbedPaneLayer extends LayerUI<JTabbedPane> {
 		}
 	}
 
+	
 	@Override
 	public void installUI(JComponent jc) {
 		super.installUI(jc);
-		((JLayer<JTabbedPane>) jc).setLayerEventMask(AWTEvent.MOUSE_EVENT_MASK 
-				| AWTEvent.MOUSE_MOTION_EVENT_MASK);
+		if (jc instanceof JLayer<?>) {
+			((JLayer<?>) jc).setLayerEventMask(AWTEvent.MOUSE_EVENT_MASK 
+					| AWTEvent.MOUSE_MOTION_EVENT_MASK);
+		}
 	}
 
+	
 	@Override
 	public void uninstallUI(JComponent comp) {
-		((JLayer<JTabbedPane>) comp).setLayerEventMask(0);
-		super.uninstallUI(comp);
+		if (comp instanceof JLayer<?>) {
+			((JLayer<?>) comp).setLayerEventMask(0);
+			super.uninstallUI(comp);
+		}
 	}
 
 	@Override
