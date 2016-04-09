@@ -23,6 +23,7 @@ package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
 import edu.wright.cs.sp16.ceg3120.gui.MainTabPane;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.components.NewConnectionDetailsPane;
+
 import javax.swing.JPanel;
 
 
