@@ -23,6 +23,7 @@ package edu.wright.cs.sp16.ceg3120;
 
 //import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -34,6 +35,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 
 /**
@@ -53,7 +55,8 @@ public class MainApp {
 	 */
 	private static void createWindow() {
 		
-		
+		//pads the x button
+		UIManager.put("TabbedPane.tabInsets", new Insets(2, 2, 2, 50));
 		
 		//TODO control real motd.
 		if (globalConfig.isMessageOfTheDay()) {
