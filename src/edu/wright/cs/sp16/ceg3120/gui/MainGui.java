@@ -432,6 +432,7 @@ public class MainGui extends JFrame implements ActionListener {
 			// Close application
 			setVisible(false);
 			dispose();
+			Runtime.getRuntime().exit(0);
 		} else if (actionEvent.getSource().equals(fullScreenItem)) {
 
 			// Make application full screen

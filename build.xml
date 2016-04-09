@@ -2,20 +2,20 @@
 
 <project name="sp16-ceg3120" default="all" xmlns:ivy="antlib:org.apache.ivy.ant">
 
-    <property name="src.dir" value="src"/>
-    <property name="build.dir" value="build"/>
-    <property name="lib.dir" value="lib"/>
-    <property name="tools.dir" value="tools"/>
-    <property name="classes.dir" value="${build.dir}/classes"/>
+	<property name="src.dir" value="src" />
+	<property name="build.dir" value="build" />
+	<property name="lib.dir" value="lib" />
+	<property name="tools.dir" value="tools" />
+	<property name="classes.dir" value="${build.dir}/classes" />
 
-    <path id="build.lib.path">
-        <fileset dir="${lib.dir}" includes="*.jar"/>
-    </path>
-    <path id="tools.lib.path">
-        <fileset dir="${tools.dir}" includes="*.jar"/>
-    </path>
+	<path id="build.lib.path">
+		<fileset dir="${lib.dir}" includes="*.jar" />
+	</path>
+	<path id="tools.lib.path">
+		<fileset dir="${tools.dir}" includes="*.jar" />
+	</path>
 
-  <!--
+	<!--
   In order to use the Ivy tasks, it is necessary for Ant to be able to find
   the Ivy jar.  If you install the Ivy plugin for your IDE, then the Ivy
   instance in your IDE will handle resolving the necessary dependencies.  If
@@ -29,7 +29,7 @@
   For use with an IDE: http://ant.apache.org/ivy/ivyde/download.cgi
   -->
 
-  <!--
+	<!--
   This location is set to that Ant is able to locate the ivy.jar on systems
   (like Linux) that use a package manager but do not install every .jar into
   the system classpath by default (or that don't have a system classpath).
@@ -37,139 +37,107 @@
   and this path will be ignored.  If this path does not exist on your system
   its declaration here will not cause an error.
   -->
-  <path id="ivy.jar.path">
-    <pathelement location="/usr/share/java/ivy.jar"/>
-  </path>
+	<path id="ivy.jar.path">
+		<pathelement location="/usr/share/java/ivy.jar" />
+	</path>
 
-  <!-- ********************* -->
-  <!-- Declare the Ivy tasks -->
-  <!-- ********************* -->
+	<!-- ********************* -->
+	<!-- Declare the Ivy tasks -->
+	<!-- ********************* -->
 
-  <taskdef resource="org/apache/ivy/ant/antlib.xml"
-      uri="antlib:org.apache.ivy.ant"
-      classpathref="ivy.jar.path"/>
+	<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.jar.path" />
 
-  <target name="init"
-      depends="resolve"
-      description="Initialize the build environment">
+	<target name="init" depends="resolve" description="Initialize the build environment">
 
-  <taskdef name="checkstyle"
-      classname="com.puppycrawl.tools.checkstyle.ant.CheckstyleAntTask"
-      classpathref="tools.lib.path"/>
-  	
-  <taskdef name="findbugs"
-      classname="edu.umd.cs.findbugs.anttask.FindBugsTask"
-      classpathref="tools.lib.path"/>
-  	
-  	
-<!--  <taskdef name="mysql-connector-java"
-      classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
-      classpathref="tools.lib.path"/>
--->
-  	
-  </target>
 
-  <target name="resolve"
-      description="Retrieve dependencies with Ivy">
+		<taskdef name="checkstyle" classname="com.puppycrawl.tools.checkstyle.ant.CheckstyleAntTask" classpathref="tools.lib.path" />
+		<taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" classpathref="tools.lib.path" />
+	</target>
 
-    <ivy:configure/>
-    <ivy:resolve/>
-    <ivy:retrieve pattern="[conf]/[artifact]-[revision].[ext]" type="jar,bundle"/>
 
-  </target>
+	<target name="resolve" description="Retrieve dependencies with Ivy">
 
-  <target name="all"
-      depends="clean,init,build,test"
-      description="Execute the clean, init, build, and test targets"/>
+		<ivy:configure />
+		<ivy:resolve />
+		<ivy:retrieve pattern="[conf]/[artifact]-[revision].[ext]" type="jar,bundle" />
 
-  <target name="build"
-      depends="init"
-      description="Build the code">
+	</target>
 
-    <mkdir dir="${classes.dir}"/>
-    <javac srcdir="src"
-    	classpathref="build.lib.path"
-    	destdir="${classes.dir}"
-        includeantruntime="false"
-        debug="on"
-        deprecation="on">
-      <compilerarg value="-Xlint:all"/>
-      <compilerarg value="-Xlint:-path"/>
-      <compilerarg value="-Werror"/>
-    </javac>
-    <copy todir="build">
-      <fileset dir="src">
-        <exclude name="**/*.java"/>
-      </fileset>
-    </copy>
+	<target name="all" depends="clean,init,build,test" description="Execute the clean, init, build, and test targets" />
 
-  </target>
+	<target name="build" depends="init" description="Build the code">
 
-  <target name="clean"
-      description="Remove compiled artifacts and clean up work files">
+		<mkdir dir="${classes.dir}" />
+		<javac srcdir="src" classpathref="build.lib.path" destdir="${classes.dir}" includeantruntime="false" debug="on" deprecation="on">
+			<classpath>
+				<pathelement path="tools.lib.path" />
+			</classpath>
+			<compilerarg value="-Xlint:all" />
+			<compilerarg value="-Xlint:-path" />
+			<compilerarg value="-Werror" />
+		</javac>
+		<copy todir="build">
+			<fileset dir="src">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
 
-    <delete dir="${lib.dir}" quiet="true"/>
-    <delete dir="${tools.dir}" quiet="true"/>
-    <delete dir="${build.dir}" quiet="true"/>
+	</target>
 
-  </target>
+	<target name="clean" description="Remove compiled artifacts and clean up work files">
 
-  <target name="test"
-      depends="init, build, checkstyle, findbugs"
-      description="Run tests on the code"/>
+		<delete dir="${lib.dir}" quiet="true" />
+		<delete dir="${tools.dir}" quiet="true" />
+		<delete dir="${build.dir}" quiet="true" />
 
-  <target name="checkstyle" depends="init"
-      description="Runs CheckStyle over the code; fails if violations are found">
+	</target>
 
-    <mkdir dir="${build.dir}/checkstyle"/>
+	<target name="test" depends="init, build, checkstyle, findbugs" description="Run tests on the code" />
 
-    <checkstyle config="${basedir}/.checkstyle.xml">
-      <fileset dir="${src.dir}" includes="**/*.java"/>
-      <formatter type="plain"/>
-      <formatter type="xml" toFile="${build.dir}/checkstyle/${ant.project.name}.xml"/>
-    </checkstyle>
+	<target name="checkstyle" depends="init" description="Runs CheckStyle over the code; fails if violations are found">
 
-    <fileset id="cs-violationss" dir="${build.dir}/checkstyle">
-      <patternset>
-        <include name="*.xml"/>
-      </patternset>
-      <contains text="&lt;error"/>
-    </fileset>
+		<mkdir dir="${build.dir}/checkstyle" />
 
-    <fail message="CheckStyle violation found!">
-      <condition>
-        <resourcecount when="greater" count="0" refid="cs-violationss"/>
-      </condition>
-    </fail>
-  </target>
+		<checkstyle config="${basedir}/.checkstyle.xml">
+			<fileset dir="${src.dir}" includes="**/*.java" />
+			<formatter type="plain" />
+			<formatter type="xml" toFile="${build.dir}/checkstyle/${ant.project.name}.xml" />
+		</checkstyle>
 
-  <target name="findbugs" depends="build"
-      description="Runs FindBugs over the code; fails if bugs are found">
-    <mkdir dir="${build.dir}/findbugs"/>
+		<fileset id="cs-violationss" dir="${build.dir}/checkstyle">
+			<patternset>
+				<include name="*.xml" />
+			</patternset>
+			<contains text="&lt;error" />
+		</fileset>
 
-    <pathconvert property="tools.lib.prop" refid="tools.lib.path"/>
+		<fail message="CheckStyle violation found!">
+			<condition>
+				<resourcecount when="greater" count="0" refid="cs-violationss" />
+			</condition>
+		</fail>
+	</target>
 
-    <findbugs classpath="${tools.lib.prop}"
-        reportLevel="low"
-        effort="max"
-        failOnError="true"
-        warningsProperty="findbugs-warning"
-        output="html"
-        outputFile="${build.dir}/findbugs/${ant.project.name}.html">
-      <sourcePath>
-        <fileSet dir="${src.dir}">
-          <include name="**/*.java"/>
-        </fileSet>
-      </sourcePath>
-      <auxClasspath>
-        <fileSet dir="${lib.dir}">
-          <include name="**/*.jar"/>
-        </fileSet>
-      </auxClasspath>
-      <class location="${classes.dir}"/>
-    </findbugs>
+	<target name="findbugs" depends="build" description="Runs FindBugs over the code; fails if bugs are found">
+		<mkdir dir="${build.dir}/findbugs" />
 
-    <fail if="findbugs-warning" message="FindBugs has found bugs!"/>
-  </target>
+		<pathconvert property="tools.lib.prop" refid="tools.lib.path" />
+
+		<findbugs classpath="${tools.lib.prop}" reportLevel="low" effort="max" failOnError="true" warningsProperty="findbugs-warning" output="html" outputFile="${build.dir}/findbugs/${ant.project.name}.html">
+			<sourcePath>
+				<fileSet dir="${src.dir}">
+					<include name="**/*.java" />
+				</fileSet>
+			</sourcePath>
+			<auxClasspath>
+				<fileSet dir="${lib.dir}">
+					<include name="**/*.jar" />
+				</fileSet>
+			</auxClasspath>
+			<class location="${classes.dir}" />
+		</findbugs>
+
+		<fail if="findbugs-warning" message="FindBugs has found bugs!" />
+	</target>
 
 </project>

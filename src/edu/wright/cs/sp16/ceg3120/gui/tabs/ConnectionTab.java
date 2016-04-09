@@ -21,6 +21,8 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
+
+import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -48,13 +50,15 @@ public class ConnectionTab extends JPanel {
 	 * Default constructor, initializes components.
 	 */
 	public ConnectionTab() {
-		super();
-
+		super(new GridLayout(1,1));
+		setSize(960, 600);
 		initComponents();
 	}
 
 	/**
+	 * Initializes components.
 	 * TODO: create all components for this window and initialize them here.
+	 * initComponents initializes the components.
 	 */
 	private void initComponents() {
 
@@ -74,16 +78,6 @@ public class ConnectionTab extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		/*
-		 * <<<<<<< HEAD String text =
-		 * "This is a fake text box where we can add fake " +
-		 * "SQL queries. This is a temporary text box til we develop " +
-		 * "actual SQL query builder. This text area is added so we can add " +
-		 * "functionality for cut, copy, paste, find, and replace JMenuItems. ";
-		 * JTextArea textArea = new JTextArea(25,60); textArea.setText(text);
-		 * textArea.setLineWrap(true); JScrollPane scrollPane = new
-		 * JScrollPane(textArea); add(scrollPane); =======
-		 */
 		try {
 			URL url = new URL("https://cdn2.iconfinder.com/data/icons/flat-and-simple-part-4/128/table_alert-128.png");
 			BufferedImage img = ImageIO.read(url);
@@ -107,10 +101,12 @@ public class ConnectionTab extends JPanel {
 		add(structureButton);
 		add(relationshipButton);
 		add(queryBuilderButton);
+
 		
 		JButton btnClose = new JButton("Close");
 		btnClose.setBounds(718, 436, 59, 23);
 		add(btnClose);
 		// >>>>>>> fc4ff12e2a0f8d6a84f7f5a572205343703e800a
+
 	}
 }

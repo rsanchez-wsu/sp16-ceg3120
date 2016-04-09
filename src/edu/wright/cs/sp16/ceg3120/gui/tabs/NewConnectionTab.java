@@ -21,6 +21,7 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
+import edu.wright.cs.sp16.ceg3120.gui.MainTabPane;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.components.NewConnectionDetailsPane;
 
 //import java.awt.Component;
@@ -44,20 +45,21 @@ public class NewConnectionTab extends JPanel {
 	/**
 	 * Default constructor, initializes components.
 	 */
-	public NewConnectionTab() {
+	public NewConnectionTab(MainTabPane mainTabPane) {
 		super();
 
-		initComponents();
+		initComponents(mainTabPane);
 	}
 
 	/**
 	 * TODO: create all components for this window and initialize them here.
 	 */
-	private void initComponents() {
-		setLayout(null);
+	private void initComponents(MainTabPane mainTabPane) {
 
-		NewConnectionDetailsPane pane = new NewConnectionDetailsPane();
-		pane.setBounds(8, 5, 630, 264);
+
+
+		NewConnectionDetailsPane pane = new NewConnectionDetailsPane(mainTabPane);
+
 
 		add(pane);
 		

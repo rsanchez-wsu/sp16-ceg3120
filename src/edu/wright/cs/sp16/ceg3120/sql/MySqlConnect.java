@@ -21,18 +21,16 @@
 
 package edu.wright.cs.sp16.ceg3120.sql;
 
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
- * @author rhys
+ * @author Rhys
  * 
  *         MySqlConnect is a class to run basic connection to MySQL test
  *         database. This class is capable of receiving a database address, user
@@ -41,14 +39,19 @@ import javax.swing.JPanel;
  *         values.
  */
 
-public class MySqlConnect {
+public class MySqlConnect extends DatabaseConnector {
 
+	/** serial id.
+	 * 
+	 */
+	private static final long serialVersionUID = 13L;
+	
 	private String dbAddress;
 	private String dbUsername;
 	private String dbPassword;
 	private String dbName;
-	private JPanel successPanel = new JPanel();
-	private MysqlDataSource dataSource = new MysqlDataSource();
+	private com.mysql.jdbc.jdbc2.optional.MysqlDataSource dataSource = 
+			new com.mysql.jdbc.jdbc2.optional.MysqlDataSource();
 
 	/**
 	 * MySqlConnect is just a place holder constructor.
@@ -96,52 +99,66 @@ public class MySqlConnect {
 		dataSource.setPassword(getDbPassword());
 		dataSource.setServerName(getDbAddress());
 		dataSource.setDatabaseName(getDbName());
-		Connection conn = dataSource.getConnection();
-		try {
-			java.sql.Statement stmt = conn.createStatement();
-			try {
+	}
 
-				ResultSet rs = stmt.executeQuery("SELECT * FROM inventory");
-
-				// System.out.println("If you see this you connected!");
-
-				ResultSetMetaData rsmd = rs.getMetaData();
-				int columnsNumber = rsmd.getColumnCount();
-				while (rs.next()) {
-					for (int i = 1; i <= columnsNumber; i++) {
-						if (i > 1) {
-							System.out.print(",  ");
-							String columnValue = rs.getString(i);
-							System.out.print(columnValue + " " + rsmd.getColumnName(i));
-						}
-					}
-					System.out.println("");
-				}
-				JOptionPane.showMessageDialog(successPanel, "Connection successful", "Success",
-						JOptionPane.PLAIN_MESSAGE);
-
-				rs.close();
-				stmt.close();
-				conn.close();
-
-			} catch (SQLException SqlEx) {
-				stmt.close();
-				conn.close();
-				System.out.println("If you see this, you failed to connect!");
-				JOptionPane.showMessageDialog(
-						successPanel, "Connection failed", "Failed", JOptionPane.ERROR_MESSAGE);
-				System.out.println(SqlEx.getMessage());
-
-			} finally {
-				stmt.close();
-				conn.close();
+	/**
+	 * This method accepts a properly structured SELECT statement and processes
+	 * it against the properly configured database connection. The method then
+	 * parses the returned ResultSet and converts it into a populated JTable
+	 * element.
+	 * 
+	 * @param query
+	 *            properly structured SELECT statement to process.
+	 * @return Populated JTable object with results of the SELECT statement.
+	 */
+	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = 
+			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
+			"We specifically want to allow the user to execute arbitrary SQL")
+	public DefaultTableModel executeQuery(String query) {
+		DefaultTableModel dtm = new DefaultTableModel();
+		
+		try (Connection conn = dataSource.getConnection();
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(query);) {
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int cols = rsmd.getColumnCount();
+			String[] col = new String[cols];
+			for (int i = 0; i < cols; i++) {
+				col[i] = rsmd.getColumnName(i + 1);
+				dtm.addColumn(col[i]);
 			}
-			stmt.close();
-			conn.close();
 
-		} finally {
-			conn.close();
+			Object[] row = new Object[cols];
+			while (rs.next()) {
+				for (int i = 0; i < cols; i++) {
+					row[i] = rs.getString(i + 1);
+				}
+				dtm.addRow(row);
+			}
+			return dtm;
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
+		return dtm;
+	}
+
+	/**
+	 * Run this method when inserting records.
+	 * @param query query to run.
+	 * @return integer stating success or fail.
+	 */
+	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = 
+			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
+			"We specifically want to allow the user to execute arbitrary SQL")
+	public int updateQuery(String query) {
+		int result = 0;
+		try (Connection conn = dataSource.getConnection(); 
+				Statement stmt = conn.createStatement()) {
+			result = stmt.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	/**
@@ -200,11 +217,11 @@ public class MySqlConnect {
 	 * Sets the database password as a String value. It is case sensitive, and
 	 * is verified against the database.
 	 * 
-	 * @param dbPassword2
+	 * @param dbPassword
 	 *            database password
 	 */
-	public void setDbPassword(String dbPassword2) {
-		this.dbPassword = dbPassword2;
+	public void setDbPassword(String dbPassword) {
+		this.dbPassword = dbPassword;
 	}
 
 	/**

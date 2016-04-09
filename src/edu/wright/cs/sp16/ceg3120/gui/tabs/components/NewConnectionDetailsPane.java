@@ -21,7 +21,9 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs.components;
 
+import edu.wright.cs.sp16.ceg3120.gui.MainTabPane;
 import edu.wright.cs.sp16.ceg3120.gui.other.Inputs;
+import edu.wright.cs.sp16.ceg3120.sql.DatabaseConnector;
 import edu.wright.cs.sp16.ceg3120.sql.MySqlConnect;
 import edu.wright.cs.sp16.ceg3120.sql.PostgreConnect;
 import edu.wright.cs.sp16.ceg3120.util.PasswordEncryptionUtility;
@@ -55,12 +57,18 @@ public class NewConnectionDetailsPane extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
+	// used to test if connection to db was made
+	private static boolean connected = false;
+
+	// main tab used to add querybuilder tab
+	private static MainTabPane mainTab;
+
 	// input fields
 	static int numOfComponents = 8;
 
 	private static final JComponent[] inputFields = new JComponent[numOfComponents];
 	static String[] driverNames = { 
-			"Choose a Driver", "MySQL Driver", "PostgreSQL Driver", "Demo Driver 3" 
+			"Choose a Driver", "MySQL Driver", "PostgreSQL Driver", "Derby Driver"
 	};
 	private static JComboBox<String> aliases;
 
@@ -75,8 +83,9 @@ public class NewConnectionDetailsPane extends JPanel {
 	 * 
 	 * @author Devesh Amin, Nick Madden
 	 */
-	public NewConnectionDetailsPane() {
+	public NewConnectionDetailsPane(MainTabPane mainTabPane) {
 
+		setMainTab(mainTabPane);
 		// Title Panel and its position
 		add(createTitlePanel(), BorderLayout.NORTH);
 
@@ -211,8 +220,11 @@ public class NewConnectionDetailsPane extends JPanel {
 				MySqlConnect connect = new MySqlConnect(dbAddress, dbUsername, dbPassword, dbName);
 				try {
 					connect.configure();
+					setConnected(true);
 				} catch (SQLException e) {
 					e.printStackTrace();
+				} finally {
+					testConnection(getConnected(), connect);
 				}
 				break;
 			// PostgreSQL Driver
@@ -221,14 +233,31 @@ public class NewConnectionDetailsPane extends JPanel {
 						dbAddress, dbUsername, dbPassword, dbName);
 				try {
 					postConnect.configure();
+					setConnected(true);
 				} catch (SQLException e) {
 					e.printStackTrace();
+				} finally {
+					//testConnection(getConnected(), postConnect);
 				}
 				break;
 			// No driver
 			default:
 				System.out.println("ERROR: Driver not found!");
 			}
+		}
+	}
+
+	/**
+	 * will do something whether the connection was successful. currently will
+	 * open the querybuildertab when the database is connected.
+	 * @param connected set if the database is connected
+     */
+	private static void testConnection(boolean connected, DatabaseConnector connector) {
+		if (!connected) {
+			//generate error
+		} else {
+			getMainTab().addQuerybuilderTab(connector);
+			getMainTab().setSelectedIndex(getMainTab().getTabCount() - 1);
 		}
 	}
 
@@ -248,6 +277,39 @@ public class NewConnectionDetailsPane extends JPanel {
 		;
 		((JTextField) inputFields[0]).grabFocus();
 	}
+
+	/**
+	 * gets the maintab.
+	 * @returns maintab
+     */
+	public static MainTabPane getMainTab() {
+		return mainTab;
+	}
+
+	/**
+	 * sets the maintab.
+	 * @param mainTab for program
+     */
+	public static void setMainTab(MainTabPane mainTab) {
+		NewConnectionDetailsPane.mainTab = mainTab;
+	}
+
+	/**
+	 * gets connected.
+	 * @return connected
+     */
+	public static boolean getConnected() {
+		return connected;
+	}
+
+	/**
+	 * sets connected.
+	 * @param connected set if database is connected
+     */
+	public static void setConnected(boolean connected) {
+		NewConnectionDetailsPane.connected = connected;
+	}
+
 
 	/**
 	 * Handles all actions.
