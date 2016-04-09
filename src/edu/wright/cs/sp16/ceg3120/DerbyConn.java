@@ -93,7 +93,7 @@ public class DerbyConn {
 					+ "\nTo search table by first name enter 9 "
 					+ "\nTo search table by last name enter 10 \nTo exit enter 11");
 
-			Scanner keyboard = new Scanner(System.in);
+			Scanner keyboard = new Scanner(System.in,  "UTF-8");
 
 			try {
 				choice = keyboard.nextInt();
@@ -113,7 +113,12 @@ public class DerbyConn {
 				System.out.println("Enter ID");
 				id = keyboard.next();
 				idNum = Integer.parseInt(id);
-				insertItem(firstName, lastName, idNum);
+				try {
+					insertItem(firstName, lastName, idNum);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				System.out.println("Insertion Successful");
 				printTable(orderChoice, order);
 				break;
@@ -246,7 +251,12 @@ public class DerbyConn {
 		displayTable.setSize(4, 20);
 		displayTable.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				displayTable();
+				try {
+					displayTable();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 
@@ -288,7 +298,12 @@ public class DerbyConn {
 				String id = splitInput[2];
 				int idNum = Integer.parseInt(id);
 
-				insertItem(firstName, lastName, idNum);
+				try {
+					insertItem(firstName, lastName, idNum);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
 			}
 		});
@@ -330,15 +345,20 @@ public class DerbyConn {
 			if (!e.getSQLState().equals("X0Y32")) {
 				throw e;
 			}
+		}finally {
+		    if (stmt != null) {
+		    	stmt.close();
+		    }
 		}
 	}
 
 	/**
 	 * This method puts data from the database into a JTable.
+	 * @throws SQLException 
 	 * 
 	 * 
 	 */
-	private static void displayTable() {
+	private static void displayTable() throws SQLException {
 		Connection conn = establishConn();
 		PreparedStatement pstmt = null;
 		try {
@@ -346,7 +366,15 @@ public class DerbyConn {
 			rs = pstmt.executeQuery();
 			pstmt.close();
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+		    if (pstmt != null) {
+			try {	
+			pstmt.close();
+         } catch(SQLException warn) {
+         } 
+		}
 		}
 
 		// Table is created from the table model created in
@@ -411,9 +439,9 @@ public class DerbyConn {
 
 			// database connection
 			conn = DriverManager.getConnection(dbUrl);
-			if (conn != null) {
+
 				System.out.println("Connection to derbyDb successful");
-			}
+			
 
 		} catch (SQLException ex) {
 			ex.printStackTrace();
@@ -430,8 +458,9 @@ public class DerbyConn {
 	 *            The first name of the individual added to the database.
 	 * @param idNum
 	 *            The id number of the individual added to the database.
+	 * @throws SQLException 
 	 */
-	private static void insertItem(String firstName, String lastName, int idNum) {
+	private static void insertItem(String firstName, String lastName, int idNum) throws SQLException {
 		Connection conn = establishConn();
 		PreparedStatement pstmt = null;
 		try {
@@ -444,6 +473,13 @@ public class DerbyConn {
 
 		} catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
+		}finally {
+		    if (pstmt != null) {
+			try {	
+			pstmt.close();
+         } catch(SQLException warn) {
+         } 
+		}
 		}
 	}
 
@@ -466,6 +502,13 @@ public class DerbyConn {
 
 		} catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
+		}finally {
+		    if (pstmt != null) {
+			try {	
+			pstmt.close();
+         } catch(SQLException warn) {
+         } 
+		}
 		}
 	}
 
@@ -490,6 +533,13 @@ public class DerbyConn {
 
 		} catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
+		}finally {
+		    if (pstmt != null) {
+			try {	
+			pstmt.close();
+         } catch(SQLException warn) {
+         } 
+		}
 		}
 	}
 
@@ -519,6 +569,13 @@ public class DerbyConn {
 
 		} catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
+		}finally {
+		    if (pstmt != null) {
+			try {	
+			pstmt.close();
+         } catch(SQLException warn) {
+         } 
+		}
 		}
 	}
 
@@ -557,6 +614,13 @@ public class DerbyConn {
 
 		} catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
+		}finally {
+		    if (pstmt != null) {
+			try {	
+			pstmt.close();
+         } catch(SQLException warn) {
+         } 
+		}
 		}
 
 	}
@@ -590,6 +654,12 @@ public class DerbyConn {
 			pstmt.close();
 		} catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
+		}finally {
+			try {
+		
+			pstmt.close();
+         } catch(SQLException warn) {
+         } 
 		}
 	}
 
@@ -663,6 +733,13 @@ public class DerbyConn {
 			System.out.println("Created table in given database...");
 		} catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
+		}finally {
+		    if (pstmt != null) {
+			try {	
+			pstmt.close();
+         } catch(SQLException warn) {
+         } 
+		}
 		}
 	}
 
@@ -676,6 +753,7 @@ public class DerbyConn {
 	 * @param order
 	 * 			  The type of order to sort the table by: ascending or descending 
 	 */
+
 	private static void printTable(int orderChoice, int order) {
 		Connection conn = establishConn();
 		PreparedStatement pstmt = null;
@@ -729,11 +807,20 @@ public class DerbyConn {
 				System.out.println(firstName + "\t\t" + lastName + "\t\t"
 						+ idNum + "\t\t");
 			}
-			entries.close();
 			pstmt.close();
+			entries.close();
 		} catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
+		}finally {
+		    if (pstmt != null) {
+			try {	
+			pstmt.close();
+         } catch(SQLException warn) {
+         } 
 		}
+
+			}
+		
 	}
 
 }
