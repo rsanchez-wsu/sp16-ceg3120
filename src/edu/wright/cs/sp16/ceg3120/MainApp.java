@@ -54,7 +54,7 @@ public class MainApp {
 	 */
 	//TODO figure out if we need this
 	public static void updateGlobalSettings(UserSettings initSettings) {
-		//globalConfig = initSettings;
+		globalConfig = initSettings;
 	}
 	
 
@@ -73,6 +73,10 @@ public class MainApp {
 			screen.showSplashScreen();
 
 			MainGui gui = new MainGui();
+			
+			//TODO use global config
+			System.out.println("Defailt database is" + globalConfig.getDefaultDatabase());
+			
 			gui.setVisible(true);
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e) {
