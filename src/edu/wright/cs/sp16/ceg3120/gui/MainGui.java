@@ -21,6 +21,7 @@
 
 package edu.wright.cs.sp16.ceg3120.gui;
 
+import edu.wright.cs.sp16.ceg3120.gui.other.CloseableTabbedPaneLayer;
 import edu.wright.cs.sp16.ceg3120.gui.other.FindWindow;
 import edu.wright.cs.sp16.ceg3120.gui.other.ReplaceWindow;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.PreferencesPanel;
@@ -44,11 +45,13 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayer;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.DefaultEditorKit;
 
@@ -107,8 +110,9 @@ public class MainGui extends JFrame implements ActionListener {
 	 */
 	private void createTabPane() {
 		tabPane = new MainTabPane();
-
-		add(tabPane);
+		
+		add(new JLayer<JTabbedPane>(tabPane, new CloseableTabbedPaneLayer()));
+		//add(tabPane);
 	}
 
 	/**
@@ -407,7 +411,6 @@ public class MainGui extends JFrame implements ActionListener {
 
 		help.add(aboutMenuItem);
 
-		// >>>>>>> fc4ff12e2a0f8d6a84f7f5a572205343703e800a
 
 		JMenuBar menuBar = new JMenuBar();
 
@@ -451,7 +454,7 @@ public class MainGui extends JFrame implements ActionListener {
 				fullScreenItem.setToolTipText("Make application full screen");
 				setSize(960, 600);
 			}
-			// <<<<<<< HEAD
+			
 		} else if (actionEvent.getSource().equals(openItem)) {
 
 			// JFileChooser to browse and open the sql file
@@ -521,7 +524,7 @@ public class MainGui extends JFrame implements ActionListener {
 		setEnabled(true);
 	}
 
-	// <<<<<<< HEAD
+	
 	/**
 	 * AboutSQLizard JMenuItem.
 	 */

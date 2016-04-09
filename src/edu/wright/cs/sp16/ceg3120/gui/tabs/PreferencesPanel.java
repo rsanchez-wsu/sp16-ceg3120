@@ -214,19 +214,9 @@ public class PreferencesPanel extends JPanel {
 			}
 		});
 		
-		/*
-		 * we have to work on the cancel button currently it will close the
-		 * entire window when it is hit. We have to reconfigure so it can just
-		 * close the preference tab.
-		 **/
+		
 		JButton btnCancel = btnClose;
 		btnCancel.addActionListener(new CloseListenr());
-			//public void actionPerformed(ActionEvent cancel) {
-
-			//}
-		//});
-		
-		
 
 		GroupLayout jpanel2Layout = new GroupLayout(this);
 		jpanel2Layout.setHorizontalGroup(

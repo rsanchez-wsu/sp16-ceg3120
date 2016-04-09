@@ -22,14 +22,14 @@
 package edu.wright.cs.sp16.ceg3120;
 
 
-import edu.wright.cs.sp16.ceg3120.gui.MainGui;
-import edu.wright.cs.sp16.ceg3120.gui.other.SplashScreen;
-import edu.wright.cs.sp16.ceg3120.util.UserSettings;
-
-//import javax.swing.JTabbedPane;
+import java.awt.Insets;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
+import edu.wright.cs.sp16.ceg3120.gui.MainGui;
+import edu.wright.cs.sp16.ceg3120.gui.other.SplashScreen;
+import edu.wright.cs.sp16.ceg3120.util.UserSettings;
 
 
 /**
@@ -42,8 +42,13 @@ public class MainApp {
 
 	
 	static final String PREFERENCES_PATH = "Preferences.xml";
+//<<<<<<< HEAD
 	//static JTabbedPane tabbedPane = new JTabbedPane(); 
+//=======
+	
+//>>>>>>> Team-1-Dev
 	static UserSettings globalConfig = UserSettings.loadXmlEncodedBean(PREFERENCES_PATH);
+	
 	
 	
 	/**
@@ -68,7 +73,8 @@ public class MainApp {
 		try {
 
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-
+			UIManager.put("TabbedPane.tabInsets", new Insets(2, 2, 2, 50));
+			
 			SplashScreen screen = new SplashScreen();
 			screen.showSplashScreen();
 
