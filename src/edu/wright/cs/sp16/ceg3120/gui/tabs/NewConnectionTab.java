@@ -22,7 +22,7 @@
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
 import edu.wright.cs.sp16.ceg3120.gui.tabs.components.NewConnectionDetailsPane;
-import edu.wright.cs.sp16.ceg3120.gui.tabs.components.NewConnectionFavorites;
+//import edu.wright.cs.sp16.ceg3120.gui.tabs.components.NewConnectionFavorites;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -61,9 +61,9 @@ public class NewConnectionTab extends JPanel {
 		// dummy list of favorite connections
 		List<String> dummyFavoriteList = Arrays.asList("1", "2", "3");
 		
-		NewConnectionFavorites favPane = new NewConnectionFavorites(dummyFavoriteList);
+		//NewConnectionFavorites favPane = new NewConnectionFavorites(dummyFavoriteList);
 		
-		favPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		//favPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
 		subConstraints = new GridBagConstraints();
 		subConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
@@ -71,7 +71,7 @@ public class NewConnectionTab extends JPanel {
 		subConstraints.gridy = 0;
 		subConstraints.insets = new Insets(0, 0, 0, 30);
 		
-		add(favPane);
+		//add(favPane);
 		
 		NewConnectionDetailsPane pane = new NewConnectionDetailsPane();
 		

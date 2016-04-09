@@ -84,7 +84,7 @@ public class MainGui extends JFrame implements ActionListener {
 		super("SQLizard");
 
 		
-		
+		//this.setModalExclusionType(Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
 		setSize(960, 600);
 		setLocationRelativeTo(null);
 		initComponents();
@@ -337,21 +337,17 @@ public class MainGui extends JFrame implements ActionListener {
 		JMenu window = new JMenu("Window");
 		window.add(fullScreenItem);
 		window.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
 		JMenu help = new JMenu("Help");
-
 		welcomeMenuItem = new JMenuItem("Welcome");
 		welcomeMenuItem.addActionListener(this);
-
 		help.add(welcomeMenuItem);
 
 		help.addSeparator();
 
 		aboutMenuItem = new JMenuItem("About");
 		aboutMenuItem.addActionListener(this);
-
 		help.add(aboutMenuItem);
-
-		// >>>>>>> fc4ff12e2a0f8d6a84f7f5a572205343703e800a
 
 		JMenuBar menuBar = new JMenuBar();
 
@@ -426,10 +422,18 @@ public class MainGui extends JFrame implements ActionListener {
 				System.out.println("Save file: " + savedFile.getAbsolutePath());
 			}
 		} else if (actionEvent.getSource().equals(welcomeMenuItem)) {	
-			//create a new frame About and set its properties
-			new WelcomeWindow();
+			//create a new frame Welcome and set its properties
+			WelcomeWindow welWindow = new WelcomeWindow(MainGui.this);
+			welWindow.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+			welWindow.setSize(500, 600);
+			welWindow.setVisible(true);
+			
 		} else if (actionEvent.getSource().equals(aboutMenuItem)) {
-			new AboutWindow();
+			AboutWindow abWindow = new AboutWindow(MainGui.this);
+			abWindow.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+			abWindow.setSize(500, 400);
+			abWindow.setVisible(true);
+			
 		} else if (actionEvent.getSource().equals(connect)) {
 			tabPane.addNewConnectionTab();
 		}

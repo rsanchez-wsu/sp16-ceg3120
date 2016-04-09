@@ -21,16 +21,16 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.other;
 
-import edu.wright.cs.sp16.ceg3120.gui.MainGui;
+
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -42,18 +42,18 @@ import javax.swing.Timer;
  * 
  * @author kirillkultinov
  */
-public class WelcomeWindow extends JPanel implements ActionListener {
+public class WelcomeWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = -24143968339746394L;
 	
 	private int count = 1;
-	private Timer timer;
+	private Timer timer = new Timer(1500, this);
 	private JPanel frameContainer = new JPanel();
 	private JPanel imagesPanel = new JPanel();
 	private JPanel descriptionsPanel = new JPanel();
 	private JLabel images = new JLabel();
 	private JLabel description = new JLabel("SOME COOL FEATURE #1");
-	public JFrame frame = new JFrame("Welcome");
+	//public JFrame frame = new JFrame("Welcome");
 	private ImageIcon pictures1 = new ImageIcon("img/Logical.png");
 	private ImageIcon pictures2 = new ImageIcon("img/Relational.png");
 	private ImageIcon pictures3 = new ImageIcon("img/SQLizard.png");
@@ -64,18 +64,12 @@ public class WelcomeWindow extends JPanel implements ActionListener {
 	 * The Frame that holds different panels. Mainly created for the slideShow of images
 	 * 
 	 */
-	public WelcomeWindow() {
+	public WelcomeWindow(JFrame frame) {
 
-		frame.setLocationByPlatform(true);
-		frame.getContentPane().add(this);
-		frame.addWindowListener(new WindowAdapter() {
-			
-			public void windowClosing(WindowEvent ev) {
-				timer.stop();
-				new MainGui();
-			}
-		});
-		
+		super(frame, "Welcome", true);
+		setLayout(new FlowLayout());
+
+		//add all components to the jdialog.
 		imagesPanel.add(images);
 		imagesPanel.setPreferredSize(new Dimension(500, 500));
 		descriptionsPanel.add(description);
@@ -83,10 +77,9 @@ public class WelcomeWindow extends JPanel implements ActionListener {
 		frameContainer.add(descriptionsPanel);
 		frameContainer.add(imagesPanel);
 		add(frameContainer);
+		
 		images.setIcon(pictures1);
-		frame.setSize(500, 600);
-		frame.setVisible(true); 
-		timer = new Timer(1500, this);    
+		
 		timer.start();  
 	}
 	
