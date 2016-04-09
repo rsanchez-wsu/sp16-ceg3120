@@ -23,12 +23,6 @@ package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
 import edu.wright.cs.sp16.ceg3120.gui.MainTabPane;
 import edu.wright.cs.sp16.ceg3120.gui.tabs.components.NewConnectionDetailsPane;
-
-//import java.awt.Component;
-//import java.awt.event.ActionEvent;
-//import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 
@@ -62,10 +56,6 @@ public class NewConnectionTab extends JPanel {
 
 
 		add(pane);
-		
-		JButton btnClose = new JButton("Close");
-		btnClose.setBounds(671, 427, 89, 23);
-		add(btnClose);
 		
 		
 	}

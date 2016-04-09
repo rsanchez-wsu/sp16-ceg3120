@@ -27,10 +27,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.plaf.metal.MetalToggleButtonUI;
@@ -101,12 +99,6 @@ public class ConnectionTab extends JPanel {
 		add(structureButton);
 		add(relationshipButton);
 		add(queryBuilderButton);
-
-		
-		JButton btnClose = new JButton("Close");
-		btnClose.setBounds(718, 436, 59, 23);
-		add(btnClose);
-		// >>>>>>> fc4ff12e2a0f8d6a84f7f5a572205343703e800a
 
 	}
 }
