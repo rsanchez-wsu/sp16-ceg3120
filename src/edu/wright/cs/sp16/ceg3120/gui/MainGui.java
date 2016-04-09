@@ -30,6 +30,10 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -236,14 +240,14 @@ public class MainGui extends JFrame implements ActionListener {
 
 		Action goToLineAction = new DefaultEditorKit.PasteAction();
 		goToLineAction.putValue(Action.NAME, "Go To Line");
-		ImageIcon replaceIcon =  new ImageIcon("img/Replace Icon.png");
+		ImageIcon replaceIcon = new ImageIcon("img/Replace Icon.png");
 		Image replaceImage = replaceIcon.getImage();
 		Image newReplaceImage = replaceImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
-		replaceIcon = new ImageIcon(newReplaceImage);	
+		replaceIcon = new ImageIcon(newReplaceImage);
 		replaceItem = new JMenuItem("Find & Replace", replaceIcon);
 		replaceItem.setToolTipText("Find and/or Replace word");
-		replaceItem.addActionListener(this);	
-		
+		replaceItem.addActionListener(this);
+
 		JMenu search = new JMenu("Search");
 
 		search.add(topItem).setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -329,10 +333,10 @@ public class MainGui extends JFrame implements ActionListener {
 		window.add(fullScreenItem);
 		window.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		JMenu help = new JMenu("Help");
-		
+
 		welcomeMenuItem = new JMenuItem("Welcome");
 		welcomeMenuItem.addActionListener(this);
-		
+
 		help.add(welcomeMenuItem);
 
 		help.addSeparator();
@@ -386,11 +390,7 @@ public class MainGui extends JFrame implements ActionListener {
 			}
 			// <<<<<<< HEAD
 		} else if (actionEvent.getSource().equals(openItem)) {
-
-			// JFileChooser to browse and open the sql file
-			// Waiting on Team 3 to get the SQL code window implemented
-			// so that we can actually write/read files (this isn't fully
-			// complete yet)
+			// @author: Josh Corbin, Nick Madden
 			JFileChooser fileChooser = new JFileChooser();
 			FileNameExtensionFilter filter = new FileNameExtensionFilter("SQL FILES", "sql");
 			fileChooser.setFileFilter(filter);
@@ -399,9 +399,9 @@ public class MainGui extends JFrame implements ActionListener {
 			if (result == JFileChooser.APPROVE_OPTION) {
 				try {
 					String contents = readFile(fileChooser.getSelectedFile().toString());
-					JPanel curTab = (JPanel)tabPane.getSelectedComponent();
+					JPanel curTab = (JPanel) tabPane.getSelectedComponent();
 					if (curTab instanceof QueryBuilderTab) {
-						((QueryBuilderTab)curTab).setText(contents);
+						((QueryBuilderTab) curTab).setText(contents);
 					} else {
 						System.out.println("Query Tab Not Found");
 					}
@@ -422,9 +422,9 @@ public class MainGui extends JFrame implements ActionListener {
 
 			if (selectFile == JFileChooser.APPROVE_OPTION) {
 				String savedFile = fileChooser.getSelectedFile().getPath();
-				JPanel curTab = (JPanel)tabPane.getSelectedComponent();
+				JPanel curTab = (JPanel) tabPane.getSelectedComponent();
 				if (curTab instanceof QueryBuilderTab) {
-					String contents = ((QueryBuilderTab)curTab).getText();
+					String contents = ((QueryBuilderTab) curTab).getText();
 					try {
 						writeFile(savedFile, contents);
 					} catch (FileNotFoundException e) {
@@ -436,52 +436,41 @@ public class MainGui extends JFrame implements ActionListener {
 					System.out.println("Query Tab Not Found");
 				}
 			}
-		}	else if (actionEvent.getSource().equals(copyItem)) {
-			// Copy the selected text
-			JOptionPane.showMessageDialog(copyItem, 
-					"Wait for Team-3's SQL builder and added this to avoid findbug error.");
-			// textArea = name of SQL Builder window from Team 3
-			// Uncomment once we have SQL Builder (code window) from Team 3
-			/*
-		      Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-		      String text = textArea.getSelectedText();
-		      if (text == null) text = textArea.getText();
-		      StringSelection selection = new StringSelection(text);
-		      clipboard.setContents(selection, null);
+		} else if (actionEvent.getSource().equals(copyItem)) {
+			// @author: Josh Corbin
+			Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+			String text = QueryBuilderTab.input.getSelectedText();
+			if (text == null) {
+				text = QueryBuilderTab.input.getText();
 			}
-			*/
+			StringSelection selection = new StringSelection(text);
+			clipboard.setContents(selection, null);
 		} else if (actionEvent.getSource().equals(pasteItem)) {
-			JOptionPane.showMessageDialog(pasteItem, 
-					"Wait for Team-3's SQL builder and added this to avoid findbug error.");
-			// Paste the selected text
-			// textArea = name of SQL Builder window from Team 3
-			// Uncomment once we have SQL Builder (code window) from Team 3
-			/*
-		      Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-		      DataFlavor flavor = DataFlavor.stringFlavor;
-		      if (clipboard.isDataFlavorAvailable(flavor))
-		      {
-		         try
-		         {
-		            String copiedText = (String) clipboard.getData(flavor);
-		            textArea.replaceSelection(text);
-		         }
-		         catch (UnsupportedFlavorException e)
-		         {
-		            JOptionPane.showMessageDialog(this, e);
-		         }
-		         catch (IOException e)
-		         {
-		            JOptionPane.showMessageDialog(this, e);
-		         }
-		     }
-		     */
+			// @author: Josh Corbin
+			Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+			DataFlavor flavor = DataFlavor.stringFlavor;
+			if (clipboard.isDataFlavorAvailable(flavor)) {
+				try {
+					String copiedText = (String) clipboard.getData(flavor);
+					QueryBuilderTab.input.replaceSelection(copiedText);
+				} catch (UnsupportedFlavorException e) {
+					JOptionPane.showMessageDialog(this, e);
+				} catch (IOException e) {
+					JOptionPane.showMessageDialog(this, e);
+				}
+			}
 		} else if (actionEvent.getSource().equals(replaceItem)) {
 			popthis = new Replace();
 			popthis.setVisible(true);
 			popthis.pack();
 			popthis.setLocationRelativeTo(null);
-			
+		} else if (actionEvent.getSource().equals(topItem)) {
+			// ez pz
+			QueryBuilderTab.input.setCaretPosition(1);
+		} else if (actionEvent.getSource().equals(bottomItem)) {
+			// ez pz x2
+			QueryBuilderTab.input.setCaretPosition(
+					QueryBuilderTab.input.getDocument().getLength());	
 		} else if (actionEvent.getSource().equals(aboutMenuItem)) {
 			aboutSqliz();
 		} else if (actionEvent.getSource().equals(connect)) {
@@ -520,13 +509,18 @@ public class MainGui extends JFrame implements ActionListener {
 			scanner.close();
 		}
 	}
-	
+
 	/**
 	 * Writes a string to a file.
-	 * @param pathname // Name of file.
-	 * @param contents // String to write.
-	 * @throws FileNotFoundException // Throws IOExcetion.
-	 * @throws UnsupportedEncodingException // Throws unsupported encoding.
+	 * 
+	 * @param pathname
+	 *            // Name of file.
+	 * @param contents
+	 *            // String to write.
+	 * @throws FileNotFoundException
+	 *             // Throws IOExcetion.
+	 * @throws UnsupportedEncodingException
+	 *             // Throws unsupported encoding.
 	 */
 	public void writeFile(String pathname, String contents) 
 			throws FileNotFoundException, UnsupportedEncodingException {
@@ -564,7 +558,7 @@ public class MainGui extends JFrame implements ActionListener {
 				+ "\nSQLizard and the SQLizard logo are " 
 				+ "trademarks of the SQLizard Foundation, Inc.,"
 				+ "\nThe SQLizard logo cannot be altered without SQLizard's permission. "
-				+ "SQLizard logos are provided for use under the SQLizard "
+				+ "SQLizard logos are provided for use under the SQLizard " 
 				+ "logo and trademark guidelines. "
 				+ "\nOracle and Java are trademarks or registered " 
 				+ "trademarks of Oracle and/or its affiliates. "
@@ -580,83 +574,55 @@ public class MainGui extends JFrame implements ActionListener {
 	 * connectionTutorialSqliz JMenuItem.
 	 */
 	public void connectionTutorialSqliz() {
-		JTextArea textArea = new JTextArea("How to Set up a connection to a database?"
-				+ "\n"
-				+ "_______________________________________"
-				+ "\n\n"
-				+ "Step One: \n"
-				+ "->Click [Session] on the top menu bar"
-				+ "\n"
-				+ "_______________________________________"
-				+ "\n\n"
-				+ "Step Two: \n"
-				+ "->Click [Connect To Database] in the Session drop down menu"
-				+ "\n"
-				+ "_______________________________________"
-				+ "\n\n"
-				+ "Step Three: \n"
+		JTextArea textArea = new JTextArea("How to Set up a connection to a database?" + "\n"
+				+ "_______________________________________" 
+				+ "\n\n" + "Step One: \n"
+				+ "->Click [Session] on the top menu bar" + "\n" 
+				+ "_______________________________________" + "\n\n"
+				+ "Step Two: \n" 
+				+ "->Click [Connect To Database] in the Session drop down menu" + "\n"
+				+ "_______________________________________" + "\n\n" + "Step Three: \n"
 				+ "[Alias Name] is the name your database info will be saved under. \n"
-				+ "->Type a name into the [Alias Name] text field. \n"
-				+ "\n"
+				+ "->Type a name into the [Alias Name] text field. \n" + "\n"
 				+ "[Database Name] is the name of your actual database. \n"
-				+ "->Type a name into the [Database Name] text field. \n"
-				+ "\n"
+				+ "->Type a name into the [Database Name] text field. \n" + "\n"
 				+ "[Database URL] is the URL of the data base you want to connect to. \n"
-				+ "->Type a URL into the [Database URL] text field. \n"
-				+ "\n"
+				+ "->Type a URL into the [Database URL] text field. \n" + "\n"
 				+ "[Username] is the name that is used to login to the database. \n"
-				+ "->Type your database username into the [Username] text field. \n"
-				+ "\n"
+				+ "->Type your database username into the [Username] text field. \n" + "\n"
 				+ "[Password] is the password that you use to connect to the database. \n"
-				+ "->Type your database password into the [Password] text field. \n"
-				+ "\n"
-				+ "_______________________________________"
-				+ "\n\n"
-				+ "Step Four: \n"
+				+ "->Type your database password into the [Password] text field. \n" + "\n"
+				+ "_______________________________________" + "\n\n" + "Step Four: \n"
 				+ "->Click on the [Save Password] check box if you would like" 
-				+ " to store your password \n"
-				+ "\n"
-				+ "If checked your password will be auto entered when you select this aliase. \n"
-				+ "\n"
-				+ "_______________________________________"
-				+ "\n\n"
-				+ "Step Five: \n"
-				+ "->Click the [Choose a Driver] drop down menu and select" 
-				+ " the driver used by the database you want to connect to. \n"
-				+ "\n"
-				+ "_______________________________________"
-				+ "\n\n"
-				+ "Step Six: \n"
+				+ " to store your password \n" + "\n"
+				+ "If checked your password will be auto "
+				+ "entered when you select this aliase. \n" + "\n"
+				+ "_______________________________________" + "\n\n" + "Step Five: \n"
+				+ "->Click the [Choose a Driver] drop down menu and select"
+				+ " the driver used by the database you want to connect to. \n" + "\n"
+				+ "_______________________________________" + "\n\n" + "Step Six: \n"
 				+ "->Click on the [Auto Connect] check box if you would like to connect"
-				+ " to the database automatically from now on. \n"
-				+ "\n"
-				+ "->Click the [Connect] button to connect to the database. \n"
-				+ "\n"
+				+ " to the database automatically from now on. \n" + "\n"
+				+ "->Click the [Connect] button to connect to the database. \n" + "\n"
 				+ "The [Delete] button is used to delete a created alias. \n"
-				+ "The [Clear] button is used to clear all the text fields on the window. \n"
-				+ "\n"
-				+ "_______________________________________"
-				+ "\n\n"
-				+ "Step Seven: \n"
+				+ "The [Clear] button is used to clear all the text fields on the window. \n" + "\n"
+				+ "_______________________________________" + "\n\n" + "Step Seven: \n"
 				+ "After clicking [Connect] you will have three options. \n"
-				+ "The [Save and Connect] button will save your alias"
-				+ " and connect to the database \n"
-				+ "\n"
-				+ "The [Connect] button will connect to the database but will not save your alias\n"
-				+ "\n"
+				+ "The [Save and Connect] button will save your alias" 
+				+ " and connect to the database \n" + "\n"
+				+ "The [Connect] button will connect to the database "
+				+ "but will not save your alias\n" + "\n"
 				+ "The [Cancel] button will send you to the previous window. \n"
-				+ "->Select the [Save and Connect] or the [Connect] button.\n"
-				+ "\n"
-				+ "Congratulations you have successfully connected to the database!!"
-				);
-		final JScrollPane connectionTutorialScrollPane = new JScrollPane(textArea);  
-		textArea.setLineWrap(true);  
-		textArea.setWrapStyleWord(true); 
+				+ "->Select the [Save and Connect] or the [Connect] button.\n" + "\n"
+				+ "Congratulations you have successfully connected to the database!!");
+		final JScrollPane connectionTutorialScrollPane = new JScrollPane(textArea);
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
 		Font font = new Font("Times New Roman", Font.BOLD, 14);
 		textArea.setFont(font);
 		textArea.setForeground(Color.BLUE);
-		connectionTutorialScrollPane.setPreferredSize( new Dimension( 500, 250 ) );
-		JOptionPane.showMessageDialog(null, connectionTutorialScrollPane, "Connection Tutorial", 
+		connectionTutorialScrollPane.setPreferredSize(new Dimension(500, 250));
+		JOptionPane.showMessageDialog(null, connectionTutorialScrollPane, "Connection Tutorial",
 				JOptionPane.INFORMATION_MESSAGE);
 	}
 

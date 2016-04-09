@@ -54,7 +54,7 @@ public class QueryBuilderWindow {
 		
 		JEditorPane input = new JEditorPane();
 		panel.add(input, BorderLayout.NORTH);
-		
+
 		JButton run = new JButton("Run");
 		panel.add(run, BorderLayout.WEST);
 		
@@ -63,7 +63,7 @@ public class QueryBuilderWindow {
 		
 		JTable output = new JTable();
 		panel.add(output, BorderLayout.SOUTH);
-			
+		
 		input.setPreferredSize(new Dimension(500, 200));
 		run.setPreferredSize(new Dimension(100, 100));
 		clear.setPreferredSize(new Dimension(100, 100));
