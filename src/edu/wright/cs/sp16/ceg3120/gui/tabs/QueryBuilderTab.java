@@ -51,7 +51,7 @@ public class QueryBuilderTab extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private GridBagLayout layout;
 	private transient ActionListener actionHandler = new ActionHandler();
-	public static JEditorPane input;
+	public static final JEditorPane input = new JEditorPane();
 	private JTable output;
 	private DatabaseConnector connector;
 	private DefaultTableModel result = null;
@@ -74,7 +74,6 @@ public class QueryBuilderTab extends JPanel {
 		this.setLayout(layout);
 		GridBagConstraints subConstraints = new GridBagConstraints();
 		subConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
-		input = new JEditorPane();
 		subConstraints.fill = GridBagConstraints.HORIZONTAL;
 		subConstraints.ipady = 300;
 		subConstraints.ipadx = 100;
