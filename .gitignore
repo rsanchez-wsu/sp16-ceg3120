@@ -8,6 +8,7 @@ build/
 lib/
 tools/
 db/
+UserData/
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
@@ -35,3 +36,4 @@ local.properties
 .settings/
 .loadpath
 
+/UserData/

@@ -19,7 +19,7 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120;
+package edu.wright.cs.sp16.ceg3120.util;
 
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;

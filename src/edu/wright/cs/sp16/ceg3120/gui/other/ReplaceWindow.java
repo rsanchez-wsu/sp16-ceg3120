@@ -19,16 +19,23 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120;
+package edu.wright.cs.sp16.ceg3120.gui.other;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
- * Enum used for the JComboBox in Profile.java to hold the number of saved queries
- * @author Megan
- *
+ * @author Devesh Patel New ReplaceWindow to call the Replace class.
  */
+public class ReplaceWindow implements ActionListener {
 
-public enum NumberOfQueries {
-		Zero, The_Golden_Ratio, E, Then_Shalt_Thou_Count_To_Three, 
-		Pi, Five,Ten, Twenty, Fourty_Two, Avogadros_Number, 
-		Googol, Googolplex, 
+	/**
+	 * Perform action to the Replace.
+	 */
+	public void actionPerformed(ActionEvent arg0) {
+		final Replace popthis = new Replace();
+		popthis.setVisible(true);
+		popthis.pack();
+		popthis.setLocationRelativeTo(null);
+	}
 }

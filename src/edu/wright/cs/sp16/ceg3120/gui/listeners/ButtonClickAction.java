@@ -19,29 +19,39 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120;
+package edu.wright.cs.sp16.ceg3120.gui.listeners;
+
+import edu.wright.cs.sp16.ceg3120.gui.MainTabPane;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
- * The types of encoding that can be used.
- *
+ * Class to handle button click events.
+ * 
+ * @author Alex
  */
-public enum Encoding {
-	UTF8("UTF-8"), ASCII("ASCII");
-	
-	String asString;
+public class ButtonClickAction implements ActionListener {
+	private MainTabPane parentPane;
 
 	/**
-	 * Makes encoding with display string.
+	 * Initial constructor to bring in parent pane instance.
 	 * 
-	 * @param str
-	 *            string display
+	 * @author Alex
+	 * 
 	 */
-	Encoding(String str) {
-		asString = str;
+	public ButtonClickAction(MainTabPane pane) {
+		parentPane = pane;
 	}
 
+	// action event for clicking on a url.
 	@Override
-	public String toString() {
-		return asString;
+	public void actionPerformed(ActionEvent evt) {
+		MainTabPane mainPane = parentPane;
+
+		if (!mainPane.checkLearnDiscoverStatus()) {
+			mainPane.addLearnAndDiscoverTab();
+		}
 	}
+
 }
