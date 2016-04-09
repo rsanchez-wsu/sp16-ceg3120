@@ -21,32 +21,28 @@
 
 package edu.wright.cs.sp16.ceg3120;
 
+import edu.wright.cs.sp16.ceg3120.gui.MainGui;
+import edu.wright.cs.sp16.ceg3120.gui.other.SplashScreen;
+import edu.wright.cs.sp16.ceg3120.util.UserSettings;
 
 import java.awt.Insets;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import edu.wright.cs.sp16.ceg3120.gui.MainGui;
-import edu.wright.cs.sp16.ceg3120.gui.other.SplashScreen;
-import edu.wright.cs.sp16.ceg3120.util.UserSettings;
+
 
 
 /**
  * The main application starting point.
  * 
- * @author sam
  *
  */
 public class MainApp {
 
 	
 	static final String PREFERENCES_PATH = "Preferences.xml";
-//<<<<<<< HEAD
-	//static JTabbedPane tabbedPane = new JTabbedPane(); 
-//=======
-	
-//>>>>>>> Team-1-Dev
+
 	static UserSettings globalConfig = UserSettings.loadXmlEncodedBean(PREFERENCES_PATH);
 	
 	
