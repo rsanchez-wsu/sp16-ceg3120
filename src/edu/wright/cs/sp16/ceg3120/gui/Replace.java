@@ -23,6 +23,7 @@
 package edu.wright.cs.sp16.ceg3120.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,6 +36,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter;
+import javax.swing.text.Highlighter.HighlightPainter;
 
 
 
@@ -63,6 +67,7 @@ public class Replace extends JFrame {
 	
 	static int initial;
 	static int index;
+	static String lastSearch = "";
 	
 	/**
 	 * Constructor for Replace.
@@ -125,10 +130,14 @@ public class Replace extends JFrame {
 	private static void find() {
 		try {
 			String string = wordToFind.getText();
-			
+			Highlighter highlighter = textArea.getHighlighter();
+			highlighter.removeAllHighlights();
 			if (string != null) {
 				String search = textArea.getText();
-				
+				if (!lastSearch.equals(string)) {
+					initial = 0;
+				}
+				lastSearch = string;
 				boolean endSearch = false;
 				
 				while (!endSearch) {
@@ -141,13 +150,18 @@ public class Replace extends JFrame {
 					}
 					
 					if (index != -1) {
-						endSearch = true;
+						
+						HighlightPainter painter = 
+								new DefaultHighlighter.DefaultHighlightPainter(Color.yellow);
+						highlighter.addHighlight(index, index + string.length(), painter);
 						textArea.select(index, index + string.length());
-						initial = textArea.getCaretPosition();
+						endSearch = true;
+						initial = index + 1;
 					} else {
 						endSearch = true;
 						JOptionPane.showMessageDialog(null, 
 								"\"" + string + "\"" + " not found ");
+						initial = 0;
 					}
 				}
 			}
@@ -166,25 +180,13 @@ public class Replace extends JFrame {
 		String string = wordToFind.getText();
 		if (string != null) {
 			String search = textArea.getText();
+			if (!caseSensi) {
+				search = search.toLowerCase(Locale.US);
+			}
 			String replacing = wordToReplace.getText();
 			if (replacing.length() > 0) {
-				if (caseSensi) {
-					index = search.indexOf(string, initial);
-				} else { 
-					index = search.toLowerCase(Locale.US)
-							.indexOf(string.toLowerCase(Locale.US), initial);
-				}
-				if (index == -1) {
-					JOptionPane.showMessageDialog(null, "\"" + string + "\"" + " not found ");
-				} else {
-					while (index != -1) {
-						int end = index + string.length();
-						textArea.replaceRange(replacing, index, end);
-						initial = initial + replacing.length() + 1;
-						search = textArea.getText();
-						index = search.indexOf(string, initial);
-					} //end while
-				}
+				search = search.replaceAll(string, replacing);
+				textArea.setText(search);
 			} // end first inner if
 		} // end most outer if
 	} //end replaceAll
@@ -193,16 +195,7 @@ public class Replace extends JFrame {
 	 * Replace algorithm.
 	 */
 	private static void replace() {
-		
-		String string = wordToFind.getText();
-		if (string != null) {
-			String replacer = wordToReplace.getText();
-			if (index >= 0 && replacer.length() > 0) {
-				int end = index + string.length();
-				textArea.replaceRange(replacer, index, end);
-				initial = textArea.getCaretPosition();
-			}
-		}
+		textArea.replaceSelection(wordToReplace.getText());
 	} // end replace
 	
 	/**
