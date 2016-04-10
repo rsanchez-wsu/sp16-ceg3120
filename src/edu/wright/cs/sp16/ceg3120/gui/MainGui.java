@@ -445,16 +445,22 @@ public class MainGui extends JFrame implements ActionListener {
 				isFullScreen = true;
 				fullScreenItem.setText("Undo Full Screen");
 				fullScreenItem.setToolTipText("Reset application to original size");
-				Toolkit tk = Toolkit.getDefaultToolkit();
-				int width = ((int) tk.getScreenSize().getWidth());
-				int height = ((int) tk.getScreenSize().getHeight());
-				setSize(width, height);
 				setLocation(0, 0);
+				dispose();
+				setUndecorated(true);
+				setBounds(0,0,getToolkit().getScreenSize().width,
+						getToolkit().getScreenSize().height);
+				setVisible(true);
 			} else {
 				isFullScreen = false;
 				fullScreenItem.setText("Full Screen");
 				fullScreenItem.setToolTipText("Make application full screen");
+				setVisible(true);
+				
 				setSize(960, 600);
+				dispose();
+				setUndecorated(false);
+				setVisible(true);
 			}
 		} else if (actionEvent.getSource().equals(openItem)) {
 			
