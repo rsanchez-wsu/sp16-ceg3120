@@ -21,6 +21,11 @@
 
 package edu.wright.cs.sp16.ceg3120.gui;
 
+import edu.wright.cs.sp16.ceg3120.gui.other.CloseableTabbedPaneLayer;
+import edu.wright.cs.sp16.ceg3120.gui.other.Replace;
+import edu.wright.cs.sp16.ceg3120.gui.tabs.PreferencesPanel;
+import edu.wright.cs.sp16.ceg3120.gui.tabs.Queries;
+
 import edu.wright.cs.sp16.ceg3120.gui.tabs.QueryBuilderTab;
 
 import java.awt.Color;
@@ -47,15 +52,19 @@ import java.util.Scanner;
 import javax.swing.Action;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLayer;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
+
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.DefaultEditorKit;
 
@@ -84,7 +93,11 @@ public class MainGui extends JFrame implements ActionListener {
 	private JMenuItem copyItem;
 	private JMenuItem pasteItem;
 	private JMenuItem replaceItem;
-	private Replace popthis;
+	private Replace popthisgui;
+	//TODO decide if this is important
+	private JMenuItem mntmPreferences;
+	private JMenuItem mntmQueries;
+	private JMenuItem developersItem;
 
 	/**
 	 * The constructor method that initializes the main application window.
@@ -111,8 +124,7 @@ public class MainGui extends JFrame implements ActionListener {
 	 */
 	private void createTabPane() {
 		tabPane = new MainTabPane();
-
-		add(tabPane);
+		add(new JLayer<JTabbedPane>(tabPane, new CloseableTabbedPaneLayer()));
 	}
 
 	/**
@@ -216,6 +228,59 @@ public class MainGui extends JFrame implements ActionListener {
 		edit.add(copyItem);
 		edit.add(pasteItem);
 		edit.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
+		//Preferences Panel
+		mntmPreferences = new JMenuItem("Preferences");
+		mntmPreferences.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent preferences) {
+				String paneTitle = "User Preferences";
+				int index = tabPane.indexOfTab(paneTitle);
+				if (index == -1) {
+					JButton btnClose = new JButton("Close");
+					btnClose.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							Component selected = tabPane.getSelectedComponent();
+								if (selected != null) {
+									tabPane.remove(selected);
+								}
+							}
+					});
+					btnClose.setVisible(true);
+					PreferencesPanel preferences1 = new PreferencesPanel(btnClose);
+					preferences1.add(btnClose);
+					
+					tabPane.addTab(paneTitle, preferences1);
+				}
+			}
+		});
+		edit.add(mntmPreferences);
+		
+		//Queries History panel
+		mntmQueries = new JMenuItem("Recent Queries");
+		mntmQueries.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent queries) {
+				//TODO ??
+				int index = tabPane.indexOfTab("Recent Queries");
+				if (index == -1) {
+					JButton btnClose = new JButton("Close");
+					btnClose.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							Component selected = tabPane.getSelectedComponent();
+								if (selected != null) {
+									tabPane.remove(selected);
+								}
+							}
+					});
+					btnClose.setVisible(true);
+
+					Queries queries1 = new Queries(btnClose);
+					queries1.add(btnClose);
+					tabPane.addTab("Recent Queries", queries1);
+
+				}
+			}
+		});
+		edit.add(mntmQueries);
 
 		// Search menu
 
@@ -240,6 +305,7 @@ public class MainGui extends JFrame implements ActionListener {
 
 		Action goToLineAction = new DefaultEditorKit.PasteAction();
 		goToLineAction.putValue(Action.NAME, "Go To Line");
+
 		ImageIcon replaceIcon = new ImageIcon("img/Replace Icon.png");
 		Image replaceImage = replaceIcon.getImage();
 		Image newReplaceImage = replaceImage.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
@@ -332,20 +398,22 @@ public class MainGui extends JFrame implements ActionListener {
 		JMenu window = new JMenu("Window");
 		window.add(fullScreenItem);
 		window.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
 		JMenu help = new JMenu("Help");
-
 		welcomeMenuItem = new JMenuItem("Welcome");
 		welcomeMenuItem.addActionListener(this);
-
 		help.add(welcomeMenuItem);
 
 		help.addSeparator();
-
+		
 		aboutMenuItem = new JMenuItem("About");
 		aboutMenuItem.addActionListener(this);
-
 		help.add(aboutMenuItem);
-
+		
+		developersItem = new JMenuItem("Developers");
+		developersItem.addActionListener(this);
+		help.add(developersItem);
+		
 		JMenuBar menuBar = new JMenuBar();
 
 		menuBar.add(file);
@@ -388,9 +456,12 @@ public class MainGui extends JFrame implements ActionListener {
 				fullScreenItem.setToolTipText("Make application full screen");
 				setSize(960, 600);
 			}
-			// <<<<<<< HEAD
 		} else if (actionEvent.getSource().equals(openItem)) {
-			// @author: Josh Corbin, Nick Madden
+			
+			/**
+			 * Open the SQL File from the local system using JFileChooser.
+			 * @author: Josh Corbin, Nick Madden 
+			 */
 			JFileChooser fileChooser = new JFileChooser();
 			FileNameExtensionFilter filter = new FileNameExtensionFilter("SQL FILES", "sql");
 			fileChooser.setFileFilter(filter);
@@ -410,9 +481,10 @@ public class MainGui extends JFrame implements ActionListener {
 				}
 			}
 		} else if (actionEvent.getSource().equals(saveItem)) {
-			// @author: Devesh Amin, Nick Madden
-			// Save the SQL File in the local system using JFileChooser
-
+			/**
+			 * @author: Devesh Patel, Nick Madden.
+			 *     Save the SQL File in the local system using JFileChooser.
+			 */
 			JFileChooser fileChooser = new JFileChooser();
 			FileNameExtensionFilter filter = new FileNameExtensionFilter("SQL FILES", "sql");
 			fileChooser.setFileFilter(filter);
@@ -459,11 +531,6 @@ public class MainGui extends JFrame implements ActionListener {
 					JOptionPane.showMessageDialog(this, e);
 				}
 			}
-		} else if (actionEvent.getSource().equals(replaceItem)) {
-			popthis = new Replace();
-			popthis.setVisible(true);
-			popthis.pack();
-			popthis.setLocationRelativeTo(null);
 		} else if (actionEvent.getSource().equals(topItem)) {
 			// ez pz
 			QueryBuilderTab.input.setCaretPosition(1);
@@ -471,16 +538,19 @@ public class MainGui extends JFrame implements ActionListener {
 			// ez pz x2
 			QueryBuilderTab.input.setCaretPosition(
 					QueryBuilderTab.input.getDocument().getLength());	
-		} else if (actionEvent.getSource().equals(aboutMenuItem)) {
-			aboutSqliz();
 		} else if (actionEvent.getSource().equals(connect)) {
 			tabPane.addNewConnectionTab();
 		} else if (actionEvent.getSource().equals(welcomeMenuItem)) {
 			connectionTutorialSqliz();
 		} else if (actionEvent.getSource().equals(aboutMenuItem)) {
 			aboutSqliz();
-		} else if (actionEvent.getSource().equals(connect)) {
-			tabPane.addNewConnectionTab();
+		} else if (actionEvent.getSource().equals(replaceItem)) {
+			popthisgui = new Replace();
+			popthisgui.setVisible(true);
+			popthisgui.pack();
+			popthisgui.setLocationRelativeTo(null);
+		} else if (actionEvent.getSource().equals(developersItem)) {
+			sqlizardDevelopers();
 		}
 	}
 
@@ -553,12 +623,12 @@ public class MainGui extends JFrame implements ActionListener {
 	public Component aboutSqliz() {
 		JPanel aboutPanel = new JPanel();
 		JOptionPane.showMessageDialog(aboutPanel, "SQLizard IDE for Databases." + "\n\n"
-				+ "Version: Lizard.0 Release (0.0.0)\n" + "Build id: 00000000-0000" + "\n\n"
+				+ "Version: Lizard.0 Release (0.0.1)\n" + "Build id: 00000000-0001" + "\n\n"
 				+ "(c) Copyright SQLizard contributors and others 2016. " + "All rights reserved."
 				+ "\nSQLizard and the SQLizard logo are " 
 				+ "trademarks of the SQLizard Foundation, Inc.,"
 				+ "\nThe SQLizard logo cannot be altered without SQLizard's permission. "
-				+ "SQLizard logos are provided for use under the SQLizard " 
+				+ "SQLizard logos are provided for use under the SQLizard "
 				+ "logo and trademark guidelines. "
 				+ "\nOracle and Java are trademarks or registered " 
 				+ "trademarks of Oracle and/or its affiliates. "
@@ -568,6 +638,25 @@ public class MainGui extends JFrame implements ActionListener {
 				+ "the Apache Software Foundation, https://www.apache.org/.", "About SQLizard",
 				JOptionPane.INFORMATION_MESSAGE);
 		return aboutPanel;
+	}
+	
+	/**
+	 * Names of developers of CEG 3120 Spring 2016, SQLizard.
+	 * @return Names of developers.
+	 */
+	public Component sqlizardDevelopers() {
+		JPanel developerNames = new JPanel();
+		JOptionPane.showMessageDialog(developerNames, 
+				"CEG 3120 Spring 2016\nDevelopers of SQLizard, "
+				+ "Version: Lizard.0 Release (0.0.1)\n"
+				+ "Team-1:\n"
+				+ "Team-2:\n"
+				+ "Team-3:\n"
+				+ "Team-4:\n"
+				+ "Team-5: Devesh Patel, Nicholas Madden, Christopher Campbell, "
+					+ "Joshua Corbin, and Logan Lindon\n"
+				+ "Team-6:\n");
+		return developerNames;
 	}
 
 	/**
@@ -627,7 +716,6 @@ public class MainGui extends JFrame implements ActionListener {
 	}
 
 	private boolean isFullScreen = false;
-
 	private JMenuItem aboutMenuItem;
 	private JMenuItem welcomeMenuItem;
 

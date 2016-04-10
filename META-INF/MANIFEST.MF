@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: sp16-ceg3120
+Bundle-SymbolicName: sp16-ceg3120
+Bundle-Version: 1.0.0.qualifier
+Export-Package: edu.wright.cs.sp16.ceg3120
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

@@ -49,9 +49,8 @@ public class NewConnectionTab extends JPanel {
 	 * TODO: create all components for this window and initialize them here.
 	 */
 	private void initComponents(MainTabPane mainTabPane) {
-
+		
 		NewConnectionDetailsPane pane = new NewConnectionDetailsPane(mainTabPane);
-
 		add(pane);
 	}
 }

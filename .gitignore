@@ -1,3 +1,7 @@
+#sqllizard generated files
+Profile.xml
+
+#
 *.class
 *.db
 build/

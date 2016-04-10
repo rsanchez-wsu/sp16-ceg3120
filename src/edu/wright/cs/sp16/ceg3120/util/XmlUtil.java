@@ -31,7 +31,10 @@ import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.IOException;
-
+import java.util.AbstractList;
+import java.util.Collections;
+import java.util.List;
+import java.util.RandomAccess;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -48,6 +51,8 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+
+
 
 /**
  * Handles all XML for aliases.
@@ -359,5 +364,44 @@ public class XmlUtil {
 		
 		JCheckBox savePassword = ((JCheckBox) inputFields[Inputs.save.getId()]);
 		savePassword.setSelected(Boolean.valueOf(curElement.getAttribute("saved")));
+	}
+	
+	/**
+	 * Wraps a NodeList as a List collection. Useful for foreach loops.
+	 * 
+	 * 
+	 * @param nl
+	 *            NodeList
+	 * @return NodeList as List
+	 */
+	public static List<Node> asList(NodeList nl) {
+		return nl.getLength() == 0 ? Collections.<Node>emptyList() : new NodeListWrapper(nl);
+	}
+
+	/**
+	 * List wrapper for NodeList.
+	 */
+	static final class NodeListWrapper extends AbstractList<Node> implements RandomAccess {
+		private final NodeList list;
+
+		/**
+		 * Wraps a NodeList as a List
+		 * 
+		 * @param nl
+		 *            NodeList.
+		 */
+		NodeListWrapper(NodeList nl) {
+			list = nl;
+		}
+
+		@Override
+		public Node get(int index) {
+			return list.item(index);
+		}
+
+		@Override
+		public int size() {
+			return list.getLength();
+		}
 	}
 }

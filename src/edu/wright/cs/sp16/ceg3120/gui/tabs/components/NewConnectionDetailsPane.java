@@ -220,11 +220,6 @@ public class NewConnectionDetailsPane extends JPanel {
 				MySqlConnect connect = new MySqlConnect(dbAddress, dbUsername, dbPassword, dbName);
 				try {
 					connect.configure();
-					//simple test code to be removed later.
-					//JTable newTable = connect.getTable("SELECT * FROM INVENTORY;");
-					//This test succeeded, I was able to return the populated JTable 
-					//object verified through the debugger. We just have to get it to 
-					//display in the GUI now.
 					setConnected(true);
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -314,7 +309,7 @@ public class NewConnectionDetailsPane extends JPanel {
 	public static void setConnected(boolean connected) {
 		NewConnectionDetailsPane.connected = connected;
 	}
-	
+
 	/**
 	 * Handles all actions.
 	 * 

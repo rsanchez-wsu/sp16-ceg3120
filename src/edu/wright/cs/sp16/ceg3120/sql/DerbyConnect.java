@@ -104,9 +104,9 @@ public class DerbyConnect  {
 	 *  */
 	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = 
 			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
-			"We specifically want to allow the user to execute arbitrary SQL")
+			"We specifically want to allow the user to execute arbitrary Derby")
 	public DefaultTableModel executeQuery(String query) throws Exception {
-		DefaultTableModel dtm = new DefaultTableModel();	
+		DefaultTableModel dtm = new DefaultTableModel();
 		Statement stmt = conn.createStatement();
 		try {
 			ResultSet rs = stmt.executeQuery(query); 
@@ -120,20 +120,35 @@ public class DerbyConnect  {
 
 			Object[] row = new Object[cols];
 			while (rs.next()) {
-				for (int jr = 0; jr < cols; jr++) {
-					row[jr] = rs.getString(jr + 1);
+				for (int i = 0; i < cols; i++) {
+					row[i] = rs.getString(i + 1);
 				}
 				dtm.addRow(row);
 			}
 			return dtm;
-			
 		} catch (SQLException e) {
 			stmt.close();
-			System.out.println(e.getMessage());
-
 		} finally {
 			stmt.close();
 		}
 		return dtm;
+	}
+
+	/**
+	 * Run this method when inserting records.
+	 * @param query query to run.
+	 * @return integer stating success or fail.
+	 */
+	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = 
+			"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", justification = 
+			"We specifically want to allow the user to execute arbitrary SQL")
+	public int updateQuery(String query) {
+		int result = 0;
+		try (Statement stmt = conn.createStatement()) {
+			result = stmt.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 }

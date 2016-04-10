@@ -21,22 +21,21 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
-
 import edu.wright.cs.sp16.ceg3120.sql.DatabaseConnector;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.sql.SQLException;
+
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -47,7 +46,7 @@ import javax.swing.table.DefaultTableModel;
  *
  */
 public class QueryBuilderTab extends JPanel {
-	
+
 	private static final long serialVersionUID = 1L;
 	private GridBagLayout layout;
 	private transient ActionListener actionHandler = new ActionHandler();
@@ -55,6 +54,7 @@ public class QueryBuilderTab extends JPanel {
 	private JTable output;
 	private DatabaseConnector connector;
 	private DefaultTableModel result = null;
+	private JScrollPane pane = null;
 
 	/**
 	 * Default constructor for the Query Builder tab.
@@ -94,9 +94,12 @@ public class QueryBuilderTab extends JPanel {
 		subConstraints.ipadx = 100;
 		subConstraints.gridx = 0;
 		subConstraints.gridy = 3;
-		add(output, subConstraints);
+		pane = new JScrollPane(output);
+		pane.setVisible(true);
+		pane.setViewportView(output);
+		add(pane, subConstraints);
 	}
-	
+
 	/**
 	 * Sets the text of the editor pane.
 	 * @param text Text to set.
@@ -106,13 +109,13 @@ public class QueryBuilderTab extends JPanel {
 	}
 	
 	/**
-	 * Get contents of query builder.
+	 * Get content of query builder.
 	 * @return // Contents of input.
 	 */
 	public String getText() {
 		return input.getText();
 	}
-
+	
 	/**
 	 * gets the database connector.
 	 * @return the database connector
@@ -136,25 +139,38 @@ public class QueryBuilderTab extends JPanel {
 	class ActionHandler implements ActionListener {
 		/**
 		 * This is the action performed when the run button is pressed.
-		 * @param ae this is the exception
-         */
+		 * 
+		 * @param ae
+		 *            this is the exception
+		 */
 		public void actionPerformed(ActionEvent ae) {
-			String in = input.getText();
-			System.out.println(in);
-			try {
-				result = getConnector().executeQuery(in);
-				//result.fireTableDataChanged();
-				output.setModel(result);
-				output.repaint();
-			} catch (SQLException e) {
-				e.printStackTrace();
+			String in = input.getText().toUpperCase(getLocale());
+			String[] splitStringArray = in.split("\\s*;\\s*(?=([^']*'[^']*')*[^']*$)");
+			for (int stringCounter = 0; stringCounter < splitStringArray.length; stringCounter++) {
+				if (splitStringArray[stringCounter].contains("INSERT") 
+						|| splitStringArray[stringCounter].contains("UPDATE") 
+						|| splitStringArray[stringCounter].contains("DELETE")) {
+					try {
+						getConnector().updateQuery(splitStringArray[stringCounter]);
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				} else {
+					try {
+						result = getConnector().executeQuery(splitStringArray[stringCounter]);
+						output.setModel(result);
+						output.repaint();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
 			}
-
 		}
 	}
 	
 	/**
-	 * writeObject to avoid critical warning messages.
+	 * Implements a default WriteObject to avoid critical warning messages.
+	 * @author Devesh Patel
 	 */
 	private void writeObject(ObjectOutputStream stream)
 			throws IOException {
@@ -162,11 +178,12 @@ public class QueryBuilderTab extends JPanel {
 	}
 
 	/**
-	 * readOjbect to avoid critical warning messages.
+	 * Implements a default ReadObject to avoid critical warning messages.
+	 * @author Devesh Patel
 	 */
 	private void readObject(ObjectInputStream stream)
 			throws IOException, ClassNotFoundException {
 		stream.defaultReadObject();
 	}
-}
 
+}

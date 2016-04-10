@@ -47,21 +47,20 @@ public class ConnectionTab extends JPanel {
 	 * Default constructor, initializes components.
 	 */
 	public ConnectionTab() {
-		
 		super(new GridLayout(1,1));
 		setSize(960, 600);
 		initComponents();
 	}
-	
-	/**
-	 * TODO: create all components for this window and initialize them here.
-	 * initComponents initializes the components.
 
+	/**
+	 * Initializes components.
+	 * TODO: create all components for this window and initialize them here.
 	 * initComponents initializes the components.
 	 */
 	private void initComponents() {
 
 		JToggleButton contentButton = new JToggleButton();
+		contentButton.setBounds(5, 5, 160, 136);
 
 		contentButton.setSelected(true);
 		contentButton.setUI(new MetalToggleButtonUI());
@@ -76,16 +75,6 @@ public class ConnectionTab extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		/*
-		 * <<<<<<< HEAD String text =
-		 * "This is a fake text box where we can add fake " +
-		 * "SQL queries. This is a temporary text box til we develop " +
-		 * "actual SQL query builder. This text area is added so we can add " +
-		 * "functionality for cut, copy, paste, find, and replace JMenuItems. ";
-		 * JTextArea textArea = new JTextArea(25,60); textArea.setText(text);
-		 * textArea.setLineWrap(true); JScrollPane scrollPane = new
-		 * JScrollPane(textArea); add(scrollPane); =======
-		 */
 		try {
 			URL url = new URL("https://cdn2.iconfinder.com/data/icons/flat-and-simple-part-4/128/table_alert-128.png");
 			BufferedImage img = ImageIO.read(url);
@@ -96,12 +85,16 @@ public class ConnectionTab extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		setLayout(null);
 
 		add(contentButton);
 
 		JToggleButton structureButton = new JToggleButton("Structure");
+		structureButton.setBounds(170, 61, 77, 23);
 		JToggleButton relationshipButton = new JToggleButton("Relationship");
+		relationshipButton.setBounds(252, 61, 91, 23);
 		JToggleButton queryBuilderButton = new JToggleButton("Query Builder");
+		queryBuilderButton.setBounds(348, 61, 97, 23);
 		add(structureButton);
 		add(relationshipButton);
 		add(queryBuilderButton);

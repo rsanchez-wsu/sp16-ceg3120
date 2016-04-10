@@ -23,7 +23,9 @@ package edu.wright.cs.sp16.ceg3120;
 
 import edu.wright.cs.sp16.ceg3120.gui.MainGui;
 import edu.wright.cs.sp16.ceg3120.gui.other.SplashScreen;
+import edu.wright.cs.sp16.ceg3120.util.UserSettings;
 
+import java.awt.Insets;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -32,13 +34,28 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+
 /**
  * The main application starting point.
- * 
  * @author sam
- *
  */
 public class MainApp {
+	static final String PREFERENCES_PATH = "Preferences.xml";
+
+	static UserSettings globalConfig = UserSettings.loadXmlEncodedBean(PREFERENCES_PATH);
+	
+	
+	
+	/**
+	 * Updates global config to new settings.
+	 * 
+	 * @param initSettings
+	 *            config to change to
+	 */
+	//TODO figure out if we need this
+	public static void updateGlobalSettings(UserSettings initSettings) {
+		globalConfig = initSettings;
+	}
 
 	/**
 	 * Driver method that sets the system look and feel.
@@ -48,12 +65,17 @@ public class MainApp {
 	 */
 	public static void main(String[] args) {
 		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
+
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			UIManager.put("TabbedPane.tabInsets", new Insets(2, 2, 2, 50));
+			
 			SplashScreen screen = new SplashScreen();
 			screen.showSplashScreen();
 
 			MainGui gui = new MainGui();
+			//TODO use global config
+			System.out.println("Defailt database is" + globalConfig.getDefaultDatabase());
 			gui.setVisible(true);
 			gui.setLocationRelativeTo(null); // centered
 			gui.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -69,6 +91,6 @@ public class MainApp {
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
-		}
+		}				
 	}
 }

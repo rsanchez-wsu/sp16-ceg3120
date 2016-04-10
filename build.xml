@@ -64,7 +64,7 @@
 	<target name="all" depends="clean,init,build,test" description="Execute the clean, init, build, and test targets" />
 
 	<target name="build" depends="init" description="Build the code">
-
+		
 		<mkdir dir="${classes.dir}" />
 		<javac srcdir="src" classpathref="build.lib.path" destdir="${classes.dir}" includeantruntime="false" debug="on" deprecation="on">
 			<classpath>
@@ -83,7 +83,7 @@
 	</target>
 
 	<target name="clean" description="Remove compiled artifacts and clean up work files">
-
+		
 		<delete dir="${lib.dir}" quiet="true" />
 		<delete dir="${tools.dir}" quiet="true" />
 		<delete dir="${build.dir}" quiet="true" />
