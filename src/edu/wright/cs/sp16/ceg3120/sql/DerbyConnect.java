@@ -151,5 +151,4 @@ public class DerbyConnect  {
 		}
 		return result;
 	}
-	
 }

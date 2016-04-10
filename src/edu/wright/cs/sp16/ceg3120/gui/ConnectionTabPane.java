@@ -23,8 +23,6 @@ package edu.wright.cs.sp16.ceg3120.gui;
 
 import javax.swing.JTabbedPane;
 
-
-
 /**
  * Connection Tab.
  * @author Bonnie
@@ -39,23 +37,11 @@ public class ConnectionTabPane extends JTabbedPane {
 	public ConnectionTabPane() {
 		super();
 		initComponents();
-
 	}
 	
 	/**
 	 * Initialize components.
 	 */
 	public void initComponents() {
-		//addQueryBuilderTab();
 	}
-//
-//	/**
-//	 * Initialize query builder tab.
-//	 */
-//	public void addQueryBuilderTab() {
-//		QueryBuilderTab queryBuilderTab = new QueryBuilderTab();
-//
-//		addTab("Query builder", null, queryBuilderTab, null);
-//
-//	}
 }

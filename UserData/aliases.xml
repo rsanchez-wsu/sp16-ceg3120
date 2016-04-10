@@ -1,31 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE aliases SYSTEM "aliases.dtd">
 <aliases>
-  <alias name="">
-    <dbName/>
-    <dbURL/>
-    <userName/>
-    <password saved="false">
-      <salt/>
-    </password>
-  </alias>
-  
-  <alias name="test">
+  <alias name="testing">
     <dbName>test_db</dbName>
     <dbURL>rhyspowell.info</dbURL>
-    <userName>rhys</userName>
+    <userName>kenton</userName>
     <driver>1</driver>
     <password saved="true">
-      <pass>jyvzIZjKUWhzWJS/AMVEXQ==</pass>
-    </password>
-  </alias>
-<alias name="blepblep">
-    <dbName>aslkdjf</dbName>
-    <dbURL>alkjdsf</dbURL>
-    <userName>fart</userName>
-    <driver>1</driver>
-    <password saved="true">
-      <pass>jyvzIZjKUWhzWJS/AMVEXQ==</pass>
+      <pass>WAYHD99rexcjx7RREDzrgA==</pass>
     </password>
   </alias>
 </aliases>

@@ -31,6 +31,7 @@ import javax.swing.table.DefaultTableModel;
  *
  */
 public abstract class DatabaseConnector implements Serializable {
+	
 	/**serial id.
 	 * 
 	 */
@@ -53,5 +54,4 @@ public abstract class DatabaseConnector implements Serializable {
 	public int updateQuery(String in) throws SQLException {
 		return 0;
 	}
-
 }

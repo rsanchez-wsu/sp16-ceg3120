@@ -26,28 +26,22 @@ import edu.wright.cs.sp16.ceg3120.gui.other.SplashScreen;
 import edu.wright.cs.sp16.ceg3120.util.UserSettings;
 
 import java.awt.Insets;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.WindowConstants;
-
-
-
 
 /**
  * The main application starting point.
- * 
- *
+ * @author sam
  */
 public class MainApp {
-
-	
 	static final String PREFERENCES_PATH = "Preferences.xml";
-
+	
 	static UserSettings globalConfig = UserSettings.loadXmlEncodedBean(PREFERENCES_PATH);
-	
-	
-	
 	/**
 	 * Updates global config to new settings.
 	 * 
@@ -55,10 +49,10 @@ public class MainApp {
 	 *            config to change to
 	 */
 	//TODO figure out if we need this
+	
 	public static void updateGlobalSettings(UserSettings initSettings) {
 		globalConfig = initSettings;
 	}
-	
 
 	/**
 	 * Driver method that sets the system look and feel.
@@ -68,7 +62,6 @@ public class MainApp {
 	 */
 	public static void main(String[] args) {
 		try {
-
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			UIManager.put("TabbedPane.tabInsets", new Insets(2, 2, 2, 50));
 			
@@ -76,16 +69,23 @@ public class MainApp {
 			screen.showSplashScreen();
 
 			MainGui gui = new MainGui();
-			
 			//TODO use global config
 			System.out.println("Defailt database is" + globalConfig.getDefaultDatabase());
-			
 			gui.setVisible(true);
-			gui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+			gui.setLocationRelativeTo(null); // centered
+			gui.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+			gui.addWindowListener(new WindowAdapter() {
+				public void windowClosing(WindowEvent evt) {
+					int answer = JOptionPane.showConfirmDialog(gui, "Quit SQLizard?", 
+							"Quit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+					if (answer == JOptionPane.YES_OPTION) {
+						System.exit(0);
+					}
+				} // end of widowClosing
+			}); // end of WindowListener
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
-		}
-
+		}				
 	}
 }

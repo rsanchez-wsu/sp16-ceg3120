@@ -49,24 +49,18 @@
 
 	<target name="init" depends="resolve" description="Initialize the build environment">
 
-
 		<taskdef name="checkstyle" classname="com.puppycrawl.tools.checkstyle.ant.CheckstyleAntTask" classpathref="tools.lib.path" />
 		<taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" classpathref="tools.lib.path" />
 	</target>
 
-
 	<target name="resolve" description="Retrieve dependencies with Ivy">
-
-		<ivy:configure />
-		<ivy:resolve />
-		<ivy:retrieve pattern="[conf]/[artifact]-[revision].[ext]" type="jar,bundle" />
 
 	</target>
 
 	<target name="all" depends="clean,init,build,test" description="Execute the clean, init, build, and test targets" />
 
 	<target name="build" depends="init" description="Build the code">
-
+		
 		<mkdir dir="${classes.dir}" />
 		<javac srcdir="src" classpathref="build.lib.path" destdir="${classes.dir}" includeantruntime="false" debug="on" deprecation="on">
 			<classpath>
@@ -85,7 +79,7 @@
 	</target>
 
 	<target name="clean" description="Remove compiled artifacts and clean up work files">
-
+		
 		<delete dir="${lib.dir}" quiet="true" />
 		<delete dir="${tools.dir}" quiet="true" />
 		<delete dir="${build.dir}" quiet="true" />
