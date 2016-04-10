@@ -50,8 +50,8 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
 /**
- * The CreateWindow class.
- * @author Devesh Patel 
+ * @author Devesh Amin The CreateWindow class.
+ * 
  */
 public class NewConnectionDetailsPane extends JPanel {
 
@@ -81,7 +81,7 @@ public class NewConnectionDetailsPane extends JPanel {
 	/**
 	 * Constructor for CreatWindow.
 	 * 
-	 * @author Devesh Patel, Nick Madden
+	 * @author Devesh Amin, Nick Madden
 	 */
 	public NewConnectionDetailsPane(MainTabPane mainTabPane) {
 
@@ -132,7 +132,7 @@ public class NewConnectionDetailsPane extends JPanel {
 	/**
 	 * Adding title to panel.
 	 * 
-	 * @author Devesh Patel, Nick Madden
+	 * @author Devesh Amin, Nick Madden
 	 */
 	private JPanel createTitlePanel() {
 		// Get list of saved aliases for combobox
@@ -154,7 +154,7 @@ public class NewConnectionDetailsPane extends JPanel {
 	/**
 	 * Adds buttons to window.
 	 * 
-	 * @author Devesh Patel, Nick Madden
+	 * @author Devesh Amin, Nick Madden
 	 */
 	private JPanel createControlPanel() {
 		JPanel jpanel = new JPanel();
@@ -192,6 +192,9 @@ public class NewConnectionDetailsPane extends JPanel {
 		@SuppressWarnings("unchecked")
 		int dbDriver = ((JComboBox<String>) inputFields[Inputs.driver.getId()]).getSelectedIndex();
 		boolean svPass = ((JCheckBox) inputFields[Inputs.save.getId()]).isSelected();
+		// Autoconnect not yet a feature.
+		// boolean autoCon = ((JCheckBox)
+		// inputFields[Inputs.autoCon.getId()]).isSelected();
 		UIManager.put("OptionPane.yesButtonText", "Save and Connect");
 		UIManager.put("OptionPane.noButtonText", "Connect");
 		int sv = JOptionPane.showConfirmDialog(svAlias, "Do you want to save the \"" 
@@ -306,7 +309,8 @@ public class NewConnectionDetailsPane extends JPanel {
 	public static void setConnected(boolean connected) {
 		NewConnectionDetailsPane.connected = connected;
 	}
-	
+
+
 	/**
 	 * Handles all actions.
 	 * 

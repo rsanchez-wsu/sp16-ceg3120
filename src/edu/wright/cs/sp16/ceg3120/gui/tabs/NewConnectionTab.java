@@ -26,6 +26,7 @@ import edu.wright.cs.sp16.ceg3120.gui.tabs.components.NewConnectionDetailsPane;
 
 import javax.swing.JPanel;
 
+
 /**
  * The tab that contains all the components for creating a new connection.
  * 
@@ -49,8 +50,14 @@ public class NewConnectionTab extends JPanel {
 	 * TODO: create all components for this window and initialize them here.
 	 */
 	private void initComponents(MainTabPane mainTabPane) {
-		
+
+
+
 		NewConnectionDetailsPane pane = new NewConnectionDetailsPane(mainTabPane);
+
+
 		add(pane);
+		
+		
 	}
 }

@@ -19,43 +19,23 @@
  *
  */
 
-package edu.wright.cs.sp16.ceg3120.gui;
+package edu.wright.cs.sp16.ceg3120.gui.other;
 
-import javax.swing.JTabbedPane;
-
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
- * Connection Tab.
- * @author Bonnie
+ * @author Devesh Patel New ReplaceWindow to call the Replace class.
  */
-public class ConnectionTabPane extends JTabbedPane {
-
-	private static final long serialVersionUID = 8991726988535798603L;
+public class ReplaceWindow implements ActionListener {
 
 	/**
-	 * Initializes Components.
+	 * Perform action to the Replace.
 	 */
-	public ConnectionTabPane() {
-		super();
-		initComponents();
-
+	public void actionPerformed(ActionEvent arg0) {
+		final Replace popthis = new Replace();
+		popthis.setVisible(true);
+		popthis.pack();
+		popthis.setLocationRelativeTo(null);
 	}
-	
-	/**
-	 * Initialize components.
-	 */
-	public void initComponents() {
-		//addQueryBuilderTab();
-	}
-//
-//	/**
-//	 * Initialize query builder tab.
-//	 */
-//	public void addQueryBuilderTab() {
-//		QueryBuilderTab queryBuilderTab = new QueryBuilderTab();
-//
-//		addTab("Query builder", null, queryBuilderTab, null);
-//
-//	}
 }

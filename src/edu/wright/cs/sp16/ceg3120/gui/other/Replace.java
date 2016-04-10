@@ -38,10 +38,12 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
- * Replace & Find JDialog implementation.
- * @author Devesh Patel
+ * Replace JDialog implementation.
+ * 
+ * @author Devesh Amin
+ *
  */
-public class ReplaceAndFind extends JDialog {
+public class Replace extends JDialog {
 
 	private static final long serialVersionUID = 355739661658564404L;
 	private static boolean caseSensi;
@@ -65,9 +67,8 @@ public class ReplaceAndFind extends JDialog {
 
 	/**
 	 * Constructor for Replace.
-	 * @author Devesh Patel
 	 */
-	public ReplaceAndFind() {
+	public Replace() {
 		super(frame, "Replace");
 
 		// panel to add all the labels and textfields and their position
@@ -120,7 +121,6 @@ public class ReplaceAndFind extends JDialog {
 
 	/**
 	 * Find algorithm.
-	 * @author Devesh Patel
 	 */
 	private static void find() {
 		try {
@@ -157,7 +157,6 @@ public class ReplaceAndFind extends JDialog {
 
 	/**
 	 * ReplaceAll algorithm.
-	 * @author Devesh Patel
 	 */
 	private static void replaceAll() {
 
@@ -189,7 +188,6 @@ public class ReplaceAndFind extends JDialog {
 
 	/**
 	 * Replace algorithm.
-	 * @author Devesh Patel
 	 */
 	private static void replace() {
 
@@ -206,7 +204,6 @@ public class ReplaceAndFind extends JDialog {
 
 	/**
 	 * Make all the button listen and work.
-	 * @author Devesh Patel
 	 */
 	private static void buttonListener() {
 		// find button listener

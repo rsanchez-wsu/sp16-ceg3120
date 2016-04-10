@@ -21,17 +21,18 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
+
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.plaf.metal.MetalToggleButtonUI;
+
 
 /**
  * The tab that contains all the components for the connection.
@@ -98,5 +99,6 @@ public class ConnectionTab extends JPanel {
 		add(structureButton);
 		add(relationshipButton);
 		add(queryBuilderButton);
+
 	}
 }

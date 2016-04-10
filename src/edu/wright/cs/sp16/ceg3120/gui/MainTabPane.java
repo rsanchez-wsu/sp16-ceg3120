@@ -33,7 +33,9 @@ import javax.swing.JTabbedPane;
 
 /**
  * Controls the tabs that encompass most of the application.
+ * 
  * @author codybutz
+ *
  */
 public class MainTabPane extends JTabbedPane {
 
@@ -45,6 +47,7 @@ public class MainTabPane extends JTabbedPane {
 	 */
 	public MainTabPane() {
 		super();
+
 		addStartPageTab();
 		addConnectionTab();
 		addNewConnectionTab();
@@ -103,8 +106,9 @@ public class MainTabPane extends JTabbedPane {
 	 * TODO: Add "Help" Tab.
 	 */
 	public void addHelpTab() {
+
 	}
-	
+
 	/**
 	 * Creates a start page tab and adds it to the tab pane.
 	 */

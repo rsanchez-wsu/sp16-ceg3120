@@ -21,10 +21,13 @@
 
 package edu.wright.cs.sp16.ceg3120.gui.tabs;
 
+
 import edu.wright.cs.sp16.ceg3120.sql.DatabaseConnector;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -50,7 +53,7 @@ public class QueryBuilderTab extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private GridBagLayout layout;
 	private transient ActionListener actionHandler = new ActionHandler();
-	public static final JEditorPane input = new JEditorPane();
+	private JEditorPane input;
 	private JTable output;
 	private DatabaseConnector connector;
 	private DefaultTableModel result = null;
@@ -74,6 +77,7 @@ public class QueryBuilderTab extends JPanel {
 		this.setLayout(layout);
 		GridBagConstraints subConstraints = new GridBagConstraints();
 		subConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
+		input = new JEditorPane();
 		subConstraints.fill = GridBagConstraints.HORIZONTAL;
 		subConstraints.ipady = 300;
 		subConstraints.ipadx = 100;
@@ -100,22 +104,6 @@ public class QueryBuilderTab extends JPanel {
 		add(pane, subConstraints);
 	}
 
-	/**
-	 * Sets the text of the editor pane.
-	 * @param text Text to set.
-	 */
-	public void setText(String text) {
-		input.setText(text);
-	}
-	
-	/**
-	 * Get content of query builder.
-	 * @return // Contents of input.
-	 */
-	public String getText() {
-		return input.getText();
-	}
-	
 	/**
 	 * gets the database connector.
 	 * @return the database connector
@@ -170,7 +158,6 @@ public class QueryBuilderTab extends JPanel {
 	
 	/**
 	 * Implements a default WriteObject to avoid critical warning messages.
-	 * @author Devesh Patel
 	 */
 	private void writeObject(ObjectOutputStream stream)
 			throws IOException {
@@ -179,11 +166,9 @@ public class QueryBuilderTab extends JPanel {
 
 	/**
 	 * Implements a default ReadObject to avoid critical warning messages.
-	 * @author Devesh Patel
 	 */
 	private void readObject(ObjectInputStream stream)
 			throws IOException, ClassNotFoundException {
 		stream.defaultReadObject();
 	}
-
 }

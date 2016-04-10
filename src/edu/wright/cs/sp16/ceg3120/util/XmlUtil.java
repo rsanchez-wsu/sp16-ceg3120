@@ -21,6 +21,7 @@
 
 package edu.wright.cs.sp16.ceg3120.util;
 
+
 import edu.wright.cs.sp16.ceg3120.gui.other.Inputs;
 
 import org.w3c.dom.Document;
@@ -404,4 +405,5 @@ public class XmlUtil {
 			return list.getLength();
 		}
 	}
+	
 }
