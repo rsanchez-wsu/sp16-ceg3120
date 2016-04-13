@@ -176,7 +176,8 @@ public class QueryBuilderTab extends JPanel {
 				// This needs to be updated to include all cases.
 				if (splitStringArray[stringCounter].contains("INSERT") 
 						|| splitStringArray[stringCounter].contains("UPDATE") 
-						|| splitStringArray[stringCounter].contains("DELETE")) {
+						|| splitStringArray[stringCounter].contains("DELETE")
+						|| splitStringArray[stringCounter].contains("DROP")) {
 					try {
 						getConnector().updateQuery(splitStringArray[stringCounter]);
 					} catch (SQLException e) {
