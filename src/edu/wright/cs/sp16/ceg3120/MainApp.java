@@ -29,6 +29,7 @@ import java.awt.Insets;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.WindowConstants;
 
 
 
@@ -80,6 +81,7 @@ public class MainApp {
 			System.out.println("Defailt database is" + globalConfig.getDefaultDatabase());
 			
 			gui.setVisible(true);
+			gui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
