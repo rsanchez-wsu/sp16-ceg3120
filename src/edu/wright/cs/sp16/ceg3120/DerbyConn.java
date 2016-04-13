@@ -772,6 +772,7 @@ public class DerbyConn {
 	private static void printTable(int orderChoice, int order) {
 		Connection conn = establishConn();
 		PreparedStatement pstmt = null;
+		ResultSet entries = null;
 		String sql = null;
 		sql = "SELECT * FROM Test ";
 
@@ -803,7 +804,7 @@ public class DerbyConn {
 				break;
 			}
 			pstmt = conn.prepareStatement(sql);
-			ResultSet entries = pstmt.executeQuery();
+			entries = pstmt.executeQuery();
 			ResultSetMetaData meta = entries.getMetaData();
 			int numberCols = meta.getColumnCount();
 			System.out.println("");
@@ -821,13 +822,19 @@ public class DerbyConn {
 				System.out.println(firstName + "\t\t" + lastName + "\t\t" + idNum + "\t\t");
 			}
 			pstmt.close();
-			entries.close();
 		} catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
 		} finally {
 			if (pstmt != null) {
 				try {
 					pstmt.close();
+				} catch (SQLException warn) {
+					warn.printStackTrace();
+				}
+			}
+			if (entries != null) {
+				try {
+					entries.close();
 				} catch (SQLException warn) {
 					warn.printStackTrace();
 				}
