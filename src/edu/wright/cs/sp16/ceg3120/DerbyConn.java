@@ -93,7 +93,7 @@ public class DerbyConn {
 					+ "\nTo search table by first name enter 9 "
 					+ "\nTo search table by last name enter 10 \nTo exit enter 11");
 
-			Scanner keyboard = new Scanner(System.in,  "UTF-8");
+			Scanner keyboard = new Scanner(System.in, "UTF-8");
 
 			try {
 				choice = keyboard.nextInt();
@@ -149,8 +149,7 @@ public class DerbyConn {
 				System.out.println("Table created successfully");
 				break;
 			case 6:
-				System.out.println("Enter '1' to edit a column name, or enter '2' to add a "
-						+ "Column to a table?: ");
+				System.out.println("Enter '1' to edit a column name, or enter '2' to add a " + "Column to a table?: ");
 				try {
 					editChoice = keyboard.nextInt();
 				} catch (InputMismatchException exception) {
@@ -182,13 +181,13 @@ public class DerbyConn {
 					System.out.println("Column added successfully");
 					printTable(orderChoice, order);
 				} else {
-					System.out.println("Please enter a valid choice. ");	
+					System.out.println("Please enter a valid choice. ");
 				}
 
-				break;	
+				break;
 			case 7:
-				System.out.println("To order by ID enter 1 \nTo order by first name enter 2"
-						+ "\nTo order by last name enter 3");
+				System.out.println(
+						"To order by ID enter 1 \nTo order by first name enter 2" + "\nTo order by last name enter 3");
 				try {
 					orderChoice = keyboard.nextInt();
 				} catch (InputMismatchException exception) {
@@ -283,7 +282,6 @@ public class DerbyConn {
 	 */
 	public static void textbox() {
 
-
 		final JTextField textbox = new JTextField(20);
 		textbox.setSize(10, 10);
 
@@ -310,13 +308,12 @@ public class DerbyConn {
 
 		JPanel panel = new JPanel();
 		panel.add(textbox);
-		
-		JLabel label = new JLabel(
-				"Enter a new item in the form (firstname lastname id) then press enter");
-		panel.add(label);	
-		
+
+		JLabel label = new JLabel("Enter a new item in the form (firstname lastname id) then press enter");
+		panel.add(label);
+
 		JFrame frame = new JFrame("Add Item");
-		
+
 		frame.getContentPane().add(panel);
 
 		frame.setSize(500, 200);
@@ -337,24 +334,24 @@ public class DerbyConn {
 		// attempts to create table
 		try {
 			stmt = conn.createStatement();
-			stmt.executeUpdate("CREATE TABLE Test" + "(LNAME VARCHAR(25),"
-					+ "FNAME VARCHAR(25)," + "ID INTEGER)");
+			stmt.executeUpdate("CREATE TABLE Test" + "(LNAME VARCHAR(25)," + "FNAME VARCHAR(25)," + "ID INTEGER)");
 			stmt.close();
 		} catch (SQLException e) {
 			// checks for specific error code for table already existing
 			if (!e.getSQLState().equals("X0Y32")) {
 				throw e;
 			}
-		}finally {
-		    if (stmt != null) {
-		    	stmt.close();
-		    }
+		} finally {
+			if (stmt != null) {
+				stmt.close();
+			}
 		}
 	}
 
 	/**
 	 * This method puts data from the database into a JTable.
-	 * @throws SQLException 
+	 * 
+	 * @throws SQLException
 	 * 
 	 * 
 	 */
@@ -369,12 +366,13 @@ public class DerbyConn {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-		    if (pstmt != null) {
-			try {	
-			pstmt.close();
-         } catch(SQLException warn) {
-         } 
-		}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException warn) {
+					warn.printStackTrace();
+				}
+			}
 		}
 
 		// Table is created from the table model created in
@@ -399,8 +397,7 @@ public class DerbyConn {
 	 * @throws SQLException
 	 *             Throws exception
 	 */
-	public static DefaultTableModel buildTableModel(ResultSet rs)
-			throws SQLException {
+	public static DefaultTableModel buildTableModel(ResultSet rs) throws SQLException {
 
 		ResultSetMetaData metaData = rs.getMetaData();
 
@@ -440,8 +437,7 @@ public class DerbyConn {
 			// database connection
 			conn = DriverManager.getConnection(dbUrl);
 
-				System.out.println("Connection to derbyDb successful");
-			
+			System.out.println("Connection to derbyDb successful");
 
 		} catch (SQLException ex) {
 			ex.printStackTrace();
@@ -458,28 +454,28 @@ public class DerbyConn {
 	 *            The first name of the individual added to the database.
 	 * @param idNum
 	 *            The id number of the individual added to the database.
-	 * @throws SQLException 
 	 */
-	private static void insertItem(String firstName, String lastName, int idNum) throws SQLException {
+	private static void insertItem(String fName, String lName, int idNum) throws SQLException {
 		Connection conn = establishConn();
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement("INSERT INTO Test values (?,?,?)");
-			pstmt.setString(1, lastName);
-			pstmt.setString(2, firstName);
+			pstmt.setString(1, lName);
+			pstmt.setString(2, fName);
 			pstmt.setInt(3, idNum);
 			pstmt.executeUpdate();
 			pstmt.close();
 
 		} catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
-		}finally {
-		    if (pstmt != null) {
-			try {	
-			pstmt.close();
-         } catch(SQLException warn) {
-         } 
-		}
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException warn) {
+					warn.printStackTrace();
+				}
+			}
 		}
 	}
 
@@ -502,13 +498,13 @@ public class DerbyConn {
 
 		} catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
-		}finally {
-		    if (pstmt != null) {
-			try {	
-			pstmt.close();
-         } catch(SQLException warn) {
-         } 
-		}
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException warn) {
+				}
+			}
 		}
 	}
 
@@ -533,34 +529,35 @@ public class DerbyConn {
 
 		} catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
-		}finally {
-		    if (pstmt != null) {
-			try {	
-			pstmt.close();
-         } catch(SQLException warn) {
-         } 
-		}
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException warn) {
+				}
+			}
 		}
 	}
 
 	/**
-	 * This method edits allows a user to rename a column in a table in the database.
+	 * This method edits allows a user to rename a column in a table in the
+	 * database.
+	 * 
 	 * @param tableName
-	 * 			This is the name of the table in which the column desired to be 
-	 * 					edited is located
+	 *            This is the name of the table in which the column desired to
+	 *            be edited is located
 	 * @param oldColumn
-	 * 			This is the name of the column before the edit
+	 *            This is the name of the column before the edit
 	 * @param newColumn
-	 * 			This is the desired name of the column after the edit
+	 *            This is the desired name of the column after the edit
 	 * 
 	 * 
 	 */
 	private static void editColumnName(String tableName, String oldColumn, String newColumn) {
 		Connection conn = establishConn();
 		PreparedStatement pstmt = null;
-		try {			
-			pstmt = conn.prepareStatement("ALTER TABLE table_name = ? CHANGE COLUMN old_name= ? "
-					+ "TO new_name = ?;");
+		try {
+			pstmt = conn.prepareStatement("ALTER TABLE table_name = ? CHANGE COLUMN old_name= ? " + "TO new_name = ?;");
 			pstmt.setString(1, tableName);
 			pstmt.setString(2, oldColumn);
 			pstmt.setString(3, newColumn);
@@ -569,42 +566,44 @@ public class DerbyConn {
 
 		} catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
-		}finally {
-		    if (pstmt != null) {
-			try {	
-			pstmt.close();
-         } catch(SQLException warn) {
-         } 
-		}
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException warn) {
+				}
+			}
 		}
 	}
 
 	/**
-	 * This method edits allows a user to add a column in a table in the database.
+	 * This method edits allows a user to add a column in a table in the
+	 * database.
+	 * 
 	 * @param tableName
-	 * 			This is the name of the table in which the column desired to be 
-	 * 					edited is located
-	 *  @param newName
-	 * 			This is the desired name of the column that is being created
+	 *            This is the name of the table in which the column desired to
+	 *            be edited is located
+	 * @param newName
+	 *            This is the desired name of the column that is being created
 	 * @param columnType
-	 * 			This is an integer that matches up with a choice to decide what type of 
-	 * 					data will be contained in the column: 1 for int, 2 for string, 3 for boolean
-	 */	
+	 *            This is an integer that matches up with a choice to decide
+	 *            what type of data will be contained in the column: 1 for int,
+	 *            2 for string, 3 for boolean
+	 */
 	private static void addColumn(String tableName, String newName, int columnType) {
 		Connection conn = establishConn();
 		PreparedStatement pstmt = null;
 		try {
 			String colType = "";
-			pstmt = conn.prepareStatement("ALTER TABLE table_name = ? ADD name= ? "
-					+ "value = ?;");
+			pstmt = conn.prepareStatement("ALTER TABLE table_name = ? ADD name= ? " + "value = ?;");
 			pstmt.setString(1, tableName);
 			pstmt.setString(2, newName);
 			if (columnType == 1) {
 				colType = "INT(10)";
-				pstmt.setString(1, colType);	
+				pstmt.setString(1, colType);
 			} else if (columnType == 2) {
 				colType = "VARCHAR(100)";
-				pstmt.setString(2, colType);	
+				pstmt.setString(2, colType);
 			} else {
 				colType = "BOOL DEFAULT '0'";
 				pstmt.setString(3, colType);
@@ -614,20 +613,22 @@ public class DerbyConn {
 
 		} catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
-		}finally {
-		    if (pstmt != null) {
-			try {	
-			pstmt.close();
-         } catch(SQLException warn) {
-         } 
-		}
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException warn) {
+				}
+			}
 		}
 
 	}
 
 	/**
 	 * This method allows a user to search the database.
-	 * @param pstmt - prepared statement used to search database
+	 * 
+	 * @param pstmt
+	 *            - prepared statement used to search database
 	 */
 	private static void searchTable(PreparedStatement pstmt) {
 		try {
@@ -640,32 +641,32 @@ public class DerbyConn {
 				System.out.print(meta.getColumnLabel(i) + "\t\t");
 			}
 
-			System.out
-			.println("\n-------------------------------------------------");
+			System.out.println("\n-------------------------------------------------");
 
 			while (entries.next()) {
 				int idNum = entries.getInt(3);
 				String lastName = entries.getString(2);
 				String firstName = entries.getString(1);
-				System.out.println(firstName + "\t\t" + lastName + "\t\t"
-						+ idNum + "\t\t");
+				System.out.println(firstName + "\t\t" + lastName + "\t\t" + idNum + "\t\t");
 			}
 			entries.close();
 			pstmt.close();
 		} catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
-		}finally {
+		} finally {
 			try {
-		
-			pstmt.close();
-         } catch(SQLException warn) {
-         } 
+
+				pstmt.close();
+			} catch (SQLException warn) {
+			}
 		}
 	}
 
 	/**
 	 * Creates PreparedStatement for a table search of the specified ID.
-	 * @param id - ID number to search
+	 * 
+	 * @param id
+	 *            - ID number to search
 	 * @return sql query
 	 */
 	private static PreparedStatement createIdSearch(int id) {
@@ -682,7 +683,9 @@ public class DerbyConn {
 
 	/**
 	 * Creates PreparedStatement for a table search of the specified first name.
-	 * @param fname first name to search
+	 * 
+	 * @param fname
+	 *            first name to search
 	 * @return sql query
 	 */
 	private static PreparedStatement createFirstNameSearch(String fname) {
@@ -699,7 +702,9 @@ public class DerbyConn {
 
 	/**
 	 * Creates PreparedStatement for a table search of the specified last name.
-	 * @param lname last name to search
+	 * 
+	 * @param lname
+	 *            last name to search
 	 * @return sql query
 	 */
 	private static PreparedStatement createLastNameSearch(String lname) {
@@ -714,7 +719,6 @@ public class DerbyConn {
 		return pstmt;
 	}
 
-
 	/**
 	 * This method creates a new table in the database.
 	 */
@@ -723,9 +727,8 @@ public class DerbyConn {
 		PreparedStatement pstmt = null;
 
 		try {
-			
-			String sql = "CREATE TABLE REGISTRATION "
-					+ "(id INTEGER not NULL,  PRIMARY KEY ( id ))";
+
+			String sql = "CREATE TABLE REGISTRATION " + "(id INTEGER not NULL,  PRIMARY KEY ( id ))";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.executeUpdate();
 			pstmt.close();
@@ -733,25 +736,25 @@ public class DerbyConn {
 			System.out.println("Created table in given database...");
 		} catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
-		}finally {
-		    if (pstmt != null) {
-			try {	
-			pstmt.close();
-         } catch(SQLException warn) {
-         } 
-		}
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException warn) {
+				}
+			}
 		}
 	}
 
 	/**
-	 * This method prints the current contents of the table and sorts 
-	 * based on id number, first name, or last name, in ascending or 
-	 * descending order.
+	 * This method prints the current contents of the table and sorts based on
+	 * id number, first name, or last name, in ascending or descending order.
 	 * 
 	 * @param orderChoice
 	 *            The column to sort the table by
 	 * @param order
-	 * 			  The type of order to sort the table by: ascending or descending 
+	 *            The type of order to sort the table by: ascending or
+	 *            descending
 	 */
 
 	private static void printTable(int orderChoice, int order) {
@@ -797,30 +800,28 @@ public class DerbyConn {
 				System.out.print(meta.getColumnLabel(i) + "\t\t");
 			}
 
-			System.out
-			.println("\n-------------------------------------------------");
+			System.out.println("\n-------------------------------------------------");
 
 			while (entries.next()) {
 				int idNum = entries.getInt(3);
 				String lastName = entries.getString(2);
 				String firstName = entries.getString(1);
-				System.out.println(firstName + "\t\t" + lastName + "\t\t"
-						+ idNum + "\t\t");
+				System.out.println(firstName + "\t\t" + lastName + "\t\t" + idNum + "\t\t");
 			}
 			pstmt.close();
 			entries.close();
 		} catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
-		}finally {
-		    if (pstmt != null) {
-			try {	
-			pstmt.close();
-         } catch(SQLException warn) {
-         } 
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException warn) {
+				}
+			}
+
 		}
 
-			}
-		
 	}
 
 }
