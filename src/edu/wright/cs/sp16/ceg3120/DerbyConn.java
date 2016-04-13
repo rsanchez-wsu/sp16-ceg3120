@@ -464,8 +464,8 @@ public class DerbyConn {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement("INSERT INTO Test values (?,?,?)");
-			pstmt.setString(1, lName);
-			pstmt.setString(2, fName);
+			pstmt.setString(1, laName);
+			pstmt.setString(2, fiName);
 			pstmt.setInt(3, idNum);
 			pstmt.executeUpdate();
 			pstmt.close();
