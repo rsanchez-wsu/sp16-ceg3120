@@ -452,14 +452,14 @@ public class DerbyConn {
 	/**
 	 * This method inserts an item given by the user into the table.
 	 * 
-	 * @param lName
+	 * @param laName
 	 *            The last name of the individual added to the database.
-	 * @param fName
+	 * @param fiName
 	 *            The first name of the individual added to the database.
 	 * @param idNum
 	 *            The id number of the individual added to the database.
 	 */
-	private static void insertItem(String fName, String lName, int idNum) throws SQLException {
+	private static void insertItem(String fiName, String laName, int idNum) throws SQLException {
 		Connection conn = establishConn();
 		PreparedStatement pstmt = null;
 		try {
