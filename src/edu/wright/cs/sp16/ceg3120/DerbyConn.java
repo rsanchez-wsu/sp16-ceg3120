@@ -149,7 +149,8 @@ public class DerbyConn {
 				System.out.println("Table created successfully");
 				break;
 			case 6:
-				System.out.println("Enter '1' to edit a column name, or enter '2' to add a " + "Column to a table?: ");
+				System.out.println("Enter '1' to edit a column name, or enter '2' to add a "
+						+ "Column to a table?: ");
 				try {
 					editChoice = keyboard.nextInt();
 				} catch (InputMismatchException exception) {
@@ -187,7 +188,8 @@ public class DerbyConn {
 				break;
 			case 7:
 				System.out.println(
-						"To order by ID enter 1 \nTo order by first name enter 2" + "\nTo order by last name enter 3");
+						"To order by ID enter 1 \nTo order by first name enter 2"
+								+ "\nTo order by last name enter 3");
 				try {
 					orderChoice = keyboard.nextInt();
 				} catch (InputMismatchException exception) {
@@ -309,7 +311,8 @@ public class DerbyConn {
 		JPanel panel = new JPanel();
 		panel.add(textbox);
 
-		JLabel label = new JLabel("Enter a new item in the form (firstname lastname id) then press enter");
+		JLabel label = new JLabel("Enter a new item in the form "
+				+ "(firstname lastname id) then press enter");
 		panel.add(label);
 
 		JFrame frame = new JFrame("Add Item");
@@ -334,7 +337,8 @@ public class DerbyConn {
 		// attempts to create table
 		try {
 			stmt = conn.createStatement();
-			stmt.executeUpdate("CREATE TABLE Test" + "(LNAME VARCHAR(25)," + "FNAME VARCHAR(25)," + "ID INTEGER)");
+			stmt.executeUpdate("CREATE TABLE Test" + "(LNAME VARCHAR(25)," 
+					+ "FNAME VARCHAR(25)," + "ID INTEGER)");
 			stmt.close();
 		} catch (SQLException e) {
 			// checks for specific error code for table already existing
@@ -448,9 +452,9 @@ public class DerbyConn {
 	/**
 	 * This method inserts an item given by the user into the table.
 	 * 
-	 * @param lastName
+	 * @param lName
 	 *            The last name of the individual added to the database.
-	 * @param firstName
+	 * @param fName
 	 *            The first name of the individual added to the database.
 	 * @param idNum
 	 *            The id number of the individual added to the database.
@@ -503,6 +507,7 @@ public class DerbyConn {
 				try {
 					pstmt.close();
 				} catch (SQLException warn) {
+					warn.printStackTrace();
 				}
 			}
 		}
@@ -534,6 +539,7 @@ public class DerbyConn {
 				try {
 					pstmt.close();
 				} catch (SQLException warn) {
+					warn.printStackTrace();
 				}
 			}
 		}
@@ -557,7 +563,8 @@ public class DerbyConn {
 		Connection conn = establishConn();
 		PreparedStatement pstmt = null;
 		try {
-			pstmt = conn.prepareStatement("ALTER TABLE table_name = ? CHANGE COLUMN old_name= ? " + "TO new_name = ?;");
+			pstmt = conn.prepareStatement("ALTER TABLE table_name = ? CHANGE COLUMN old_name= ? "
+					+ "TO new_name = ?;");
 			pstmt.setString(1, tableName);
 			pstmt.setString(2, oldColumn);
 			pstmt.setString(3, newColumn);
@@ -571,6 +578,7 @@ public class DerbyConn {
 				try {
 					pstmt.close();
 				} catch (SQLException warn) {
+					warn.printStackTrace();
 				}
 			}
 		}
@@ -618,6 +626,7 @@ public class DerbyConn {
 				try {
 					pstmt.close();
 				} catch (SQLException warn) {
+					warn.printStackTrace();
 				}
 			}
 		}
@@ -658,6 +667,7 @@ public class DerbyConn {
 
 				pstmt.close();
 			} catch (SQLException warn) {
+				warn.printStackTrace();
 			}
 		}
 	}
@@ -728,7 +738,8 @@ public class DerbyConn {
 
 		try {
 
-			String sql = "CREATE TABLE REGISTRATION " + "(id INTEGER not NULL,  PRIMARY KEY ( id ))";
+			String sql = "CREATE TABLE REGISTRATION " 
+					+ "(id INTEGER not NULL,  PRIMARY KEY ( id ))";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.executeUpdate();
 			pstmt.close();
@@ -741,6 +752,7 @@ public class DerbyConn {
 				try {
 					pstmt.close();
 				} catch (SQLException warn) {
+					warn.printStackTrace();
 				}
 			}
 		}
@@ -817,6 +829,7 @@ public class DerbyConn {
 				try {
 					pstmt.close();
 				} catch (SQLException warn) {
+					warn.printStackTrace();
 				}
 			}
 
